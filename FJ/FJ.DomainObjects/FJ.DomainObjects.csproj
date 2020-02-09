@@ -1,6 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <ProjectGuid>{C1990E3C-580F-454B-A9EA-9A5711D140FD}</ProjectGuid>
+    <RootNamespace>FJ.DomainObjects</RootNamespace>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 

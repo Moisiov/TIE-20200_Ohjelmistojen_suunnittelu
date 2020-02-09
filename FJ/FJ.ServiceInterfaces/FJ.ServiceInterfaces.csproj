@@ -1,6 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <ProjectGuid>{F9FE8C14-1449-470B-B1BA-6A22FC6ACC11}</ProjectGuid>
+    <RootNamespace>FJ.ServiceInterfaces</RootNamespace>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 

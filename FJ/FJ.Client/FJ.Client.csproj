@@ -1,5 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <ProjectGuid>{222DE7F4-1BC8-46B4-8443-0D7F3BC0600D}</ProjectGuid>
+    <RootNamespace>FJ.Client</RootNamespace>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>

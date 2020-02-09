@@ -1,6 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <ProjectGuid>{E3A31C58-0896-4669-BC4D-7B5FA45F1522}</ProjectGuid>
+    <RootNamespace>FJ.FinlandiaHiihtoAPI</RootNamespace>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
