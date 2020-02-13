@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <ProjectGuid>{08CB613C-8869-460C-8F70-D4FEECD13515}</ProjectGuid>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="nunit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FJ.Services\FJ.Services.csproj" />
+    <ProjectReference Include="..\FJ.ServiceInterfaces\FJ.ServiceInterfaces.csproj" />
+    <ProjectReference Include="..\FJ.FinlandiaHiihtoAPI\FJ.FinlandiaHiihtoAPI.csproj" />
+    <ProjectReference Include="..\FJ.DomainObjects\FJ.DomainObjects.csproj" />
+    <ProjectReference Include="..\FJ.Desktop.Debug\FJ.Desktop.Debug.csproj" />
+    <ProjectReference Include="..\FJ.Client\FJ.Client.csproj" />
+  </ItemGroup>
+</Project>

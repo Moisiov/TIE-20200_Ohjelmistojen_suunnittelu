@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <ProjectGuid>{89AF1D3A-5ED5-4BA0-9A4B-28C5FCC2C7A9}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FJ.Services\FJ.Services.csproj" />
+    <ProjectReference Include="..\FJ.ServiceInterfaces\FJ.ServiceInterfaces.csproj" />
+    <ProjectReference Include="..\FJ.FinlandiaHiihtoAPI\FJ.FinlandiaHiihtoAPI.csproj" />
+    <ProjectReference Include="..\FJ.DomainObjects\FJ.DomainObjects.csproj" />
+    <ProjectReference Include="..\FJ.Client\FJ.Client.csproj" />
+  </ItemGroup>
+</Project>
