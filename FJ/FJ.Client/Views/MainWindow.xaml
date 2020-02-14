@@ -3,6 +3,8 @@
         xmlns:vm="clr-namespace:FJ.Client.ViewModels;assembly=FJ.Client"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="FJ.Client.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
@@ -12,6 +14,23 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
+    <Grid x:Name="LayoutRoot">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="4*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="11*" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="ControlPanelGrid" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" >
+            <ContentControl prism:RegionManager.RegionName="ControlPanelRegion" Background="Black" />
+        </Grid>
+        <Grid x:Name="TopBarGrid" Grid.Column="1" Grid.Row="0" >
+            <ContentControl prism:RegionManager.RegionName="TopBarRegion" Background="Aquamarine" />
+        </Grid>
+        <Grid x:Name="ContentGrid" Grid.Column="1" Grid.Row="1" >
+            <ContentControl prism:RegionManager.RegionName="ContentRegion" Background="Green" />
+        </Grid>
+    </Grid>
 </Window>
