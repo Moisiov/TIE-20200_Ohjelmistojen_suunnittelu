@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace FJ.DomainObjects.FinlandiaHiihto
+namespace FJ.DomainObjects.FinlandiaHiihto.Enums
 {
     public enum FinlandiaSkiingDistance
     {
-        None = 0,  // TODO
+        Unknown = 0,
         Twenty = 20,
         TwentyFive = 25,
         Thirty = 30,

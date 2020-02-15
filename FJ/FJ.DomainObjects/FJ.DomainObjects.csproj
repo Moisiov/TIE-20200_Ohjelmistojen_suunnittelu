@@ -9,5 +9,6 @@
   <ItemGroup>
     <Folder Include="FinlandiaHiihto\" />
     <Folder Include="JukolanViesti\" />
+    <Folder Include="FinlandiaHiihto\Enums\" />
   </ItemGroup>
 </Project>

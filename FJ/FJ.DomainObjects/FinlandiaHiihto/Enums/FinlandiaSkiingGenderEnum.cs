@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FJ.DomainObjects.FinlandiaHiihto
+namespace FJ.DomainObjects.FinlandiaHiihto.Enums
 {
     public enum FinlandiaSkiingGender
     {
