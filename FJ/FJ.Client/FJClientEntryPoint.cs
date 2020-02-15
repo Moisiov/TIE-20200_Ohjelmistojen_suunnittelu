@@ -16,7 +16,15 @@ namespace FJ.Client
             StartupContainerHelper.SetStartupContainer(container);
 
             var avaloniaAppBuilder = BuildAvaloniaApp();
-            avaloniaAppBuilder.StartWithClassicDesktopLifetime(args);
+
+            try
+            {
+                avaloniaAppBuilder.StartWithClassicDesktopLifetime(args);
+            }
+            catch (Exception e)
+            {
+                Console.Write(e);
+            }
         }
 
         // Avalonia configuration, don't remove; also used by visual designer.

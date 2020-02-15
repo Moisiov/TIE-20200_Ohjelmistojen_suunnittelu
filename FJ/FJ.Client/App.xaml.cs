@@ -22,11 +22,7 @@ namespace FJ.Client
         {
             base.OnFrameworkInitializationCompleted();
 
-            // Initial navigations
-            var regionManager = Container.Resolve<Prism.Regions.IRegionManager>();
-            regionManager.NavigateControlPanelTo(nameof(ControlPanelView));
-            regionManager.NavigateTopBarTo(nameof(TopBarView));
-            regionManager.NavigateContentTo(nameof(FrontPageView));
+            SetupStartupViews();
         }
 
         protected override IContainerExtension CreateContainerExtension()
@@ -52,6 +48,15 @@ namespace FJ.Client
         {
             base.ConfigureViewModelLocator();
             ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver(CustomResolvers.ViewToViewModelResolver);
+        }
+
+        private void SetupStartupViews()
+        {
+            var regionManager = Container.Resolve<Prism.Regions.IRegionManager>();
+
+            regionManager.NavigateControlPanelTo(nameof(ControlPanelView));
+            regionManager.NavigateTopBarTo(nameof(TopBarView));
+            regionManager.NavigateContentTo(nameof(FrontPageView));
         }
     }
 }
