@@ -8,26 +8,49 @@
              x:Class="FJ.Client.Views.ControlPanelView">
     <StackPanel Margin="2"
                 Orientation="Vertical" >
-        <TextBlock Foreground="White" >
-            Tämä rivi pitäisi sisällään kaikenlaista
+        <TextBlock Foreground="White"
+                   Margin="4" >
+            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
         </TextBlock>
-        <TextBlock Foreground="White" >
-            Tämä rivi pitäisi sisällään kaikenlaista
+        <TextBlock Foreground="White"
+                   Margin="4" >
+            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
         </TextBlock>
-        <TextBlock Foreground="White" >
-            Tämä rivi pitäisi sisällään kaikenlaista
+        <TextBlock Foreground="White"
+                   Margin="4" >
+            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
         </TextBlock>
-        <TextBlock Foreground="White" >
-            Tämä rivi pitäisi sisällään kaikenlaista
+        <TextBlock Foreground="White"
+                   Margin="4" >
+            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
         </TextBlock>
-        <TextBlock Foreground="White" >
-            Tämä rivi pitäisi sisällään kaikenlaista
+        <TextBlock Foreground="White"
+                   Margin="4" >
+            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
         </TextBlock>
-        <TextBlock Foreground="White" >
-            Tämä rivi pitäisi sisällään kaikenlaista
+        <TextBlock Foreground="White"
+                   Margin="4" >
+            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
         </TextBlock>
-        <TextBlock Foreground="White" >
-            Tämä rivi pitäisi sisällään kaikenlaista
+        <TextBlock Foreground="White"
+                   Margin="4" >
+            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
+        </TextBlock>
+        <TextBlock Foreground="White"
+                   Margin="4" >
+            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
+        </TextBlock>
+        <TextBlock Foreground="White"
+                   Margin="4" >
+            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
+        </TextBlock>
+        <TextBlock Foreground="White"
+                   Margin="4" >
+            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
+        </TextBlock>
+        <TextBlock Foreground="White"
+                   Margin="4" >
+            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
         </TextBlock>
     </StackPanel>
 </UserControl>
