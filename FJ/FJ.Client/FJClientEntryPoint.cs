@@ -3,6 +3,7 @@ using Avalonia;
 using Avalonia.Dialogs;
 using Avalonia.Logging.Serilog;
 using Avalonia.ReactiveUI;
+using FJ.Client.UIUtils;
 using Unity;
 
 namespace FJ.Client
@@ -12,8 +13,9 @@ namespace FJ.Client
         [STAThread]
         public static void RunApplication(IUnityContainer container, string[] args)
         {
+            StartupContainerHelper.SetStartupContainer(container);
+
             var avaloniaAppBuilder = BuildAvaloniaApp();
-            // TODO inject container
             avaloniaAppBuilder.StartWithClassicDesktopLifetime(args);
         }
 
