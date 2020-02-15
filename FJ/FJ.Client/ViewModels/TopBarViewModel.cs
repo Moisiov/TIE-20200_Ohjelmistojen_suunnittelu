@@ -2,6 +2,7 @@
 using Prism.Events;
 using FJ.Client.Events;
 using FJ.Client.Services;
+using FJ.Client.Models;
 
 namespace FJ.Client.ViewModels
 {
@@ -9,12 +10,16 @@ namespace FJ.Client.ViewModels
     {
         private readonly IContentRegionNavigator m_contentRegionJournalNavigator;
 
+        private TopBarModel m_model;
+
         public bool CanNavigateContentBack { get; set; }
         public bool CanNavigateContentForward { get; set; }
 
         public TopBarViewModel(IEventAggregator ea, IContentRegionNavigator contentRegionJournalNavigator)
         {
             m_contentRegionJournalNavigator = contentRegionJournalNavigator;
+
+            m_model = new TopBarModel();
 
             ea.GetEvent<ContentRegionNavigationEvent>().Subscribe((e) => UpdateNavigationButtons());
             UpdateNavigationButtons();
