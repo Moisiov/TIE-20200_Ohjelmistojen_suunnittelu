@@ -12,4 +12,9 @@
     <ProjectReference Include="..\FJ.ServiceInterfaces\FJ.ServiceInterfaces.csproj" />
     <ProjectReference Include="..\FJ.Core\FJ.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FinlandiaHiihto\" />
+    <Folder Include="JukolanViesti\" />
+    <Folder Include="FinlandiaHiihto\FinlandiaDataFetchingServices\" />
+  </ItemGroup>
 </Project>
