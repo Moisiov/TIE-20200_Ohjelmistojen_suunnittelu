@@ -16,25 +16,62 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="0" Grid.Row="0"
+
+        <StackPanel Grid.Row="0"
+                    Grid.Column="0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center" >
-            1
-        </TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="0"
+            <TextBlock>
+                1
+            </TextBlock>
+            <Button Height="80"
+                    Width="160"
+                    Foreground="Blue"
+                    Command="{Binding NavigateToResultRegister}">
+                Tulokset
+            </Button>
+        </StackPanel>
+        <StackPanel Grid.Row="0"
+                    Grid.Column="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center" >
-            2
-        </TextBlock>
-        <TextBlock Grid.Column="0" Grid.Row="1"
+            <TextBlock>
+                2
+            </TextBlock>
+            <Button Height="80"
+                    Width="160"
+                    Foreground="Blue"
+                    Command="{Binding NavigateToCompetitionGeneral}">
+                Kilpailu
+            </Button>
+        </StackPanel>
+        <StackPanel Grid.Row="1"
+                    Grid.Column="0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center" >
-            3
-        </TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="1"
+            <TextBlock>
+                3
+            </TextBlock>
+            <Button Height="80"
+                    Width="160"
+                    Foreground="Blue"
+                    Command="{Binding NavigateToAthleteCard}">
+                Urheilija
+            </Button>
+        </StackPanel>
+        <StackPanel Grid.Row="1"
+                    Grid.Column="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center" >
-            4
-        </TextBlock>
+            <TextBlock>
+                4
+            </TextBlock>
+            <Button Height="80"
+                    Width="160"
+                    Foreground="Blue"
+                    Command="{Binding NavigateToTeamCard}">
+                Joukkue
+            </Button>
+        </StackPanel>
     </Grid>
 </UserControl>
