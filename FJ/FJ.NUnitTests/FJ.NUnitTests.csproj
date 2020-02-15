@@ -19,5 +19,6 @@
     <ProjectReference Include="..\FJ.DomainObjects\FJ.DomainObjects.csproj" />
     <ProjectReference Include="..\FJ.Desktop.Debug\FJ.Desktop.Debug.csproj" />
     <ProjectReference Include="..\FJ.Client\FJ.Client.csproj" />
+    <ProjectReference Include="..\FJ.Core\FJ.Core.csproj" />
   </ItemGroup>
 </Project>

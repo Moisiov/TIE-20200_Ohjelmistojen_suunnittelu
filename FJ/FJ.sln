@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FJ.NUnitTests", "FJ.NUnitTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FJ.Desktop.Debug", "FJ.Desktop.Debug\FJ.Desktop.Debug.csproj", "{89AF1D3A-5ED5-4BA0-9A4B-28C5FCC2C7A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FJ.Core", "FJ.Core\FJ.Core.csproj", "{58CB284B-285B-4E5B-A427-914B377B4FB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -114,5 +116,17 @@ Global
 		{89AF1D3A-5ED5-4BA0-9A4B-28C5FCC2C7A9}.Release|x64.Build.0 = Release|Any CPU
 		{89AF1D3A-5ED5-4BA0-9A4B-28C5FCC2C7A9}.Release|x86.ActiveCfg = Release|Any CPU
 		{89AF1D3A-5ED5-4BA0-9A4B-28C5FCC2C7A9}.Release|x86.Build.0 = Release|Any CPU
+		{58CB284B-285B-4E5B-A427-914B377B4FB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58CB284B-285B-4E5B-A427-914B377B4FB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58CB284B-285B-4E5B-A427-914B377B4FB3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{58CB284B-285B-4E5B-A427-914B377B4FB3}.Debug|x64.Build.0 = Debug|Any CPU
+		{58CB284B-285B-4E5B-A427-914B377B4FB3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{58CB284B-285B-4E5B-A427-914B377B4FB3}.Debug|x86.Build.0 = Debug|Any CPU
+		{58CB284B-285B-4E5B-A427-914B377B4FB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58CB284B-285B-4E5B-A427-914B377B4FB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58CB284B-285B-4E5B-A427-914B377B4FB3}.Release|x64.ActiveCfg = Release|Any CPU
+		{58CB284B-285B-4E5B-A427-914B377B4FB3}.Release|x64.Build.0 = Release|Any CPU
+		{58CB284B-285B-4E5B-A427-914B377B4FB3}.Release|x86.ActiveCfg = Release|Any CPU
+		{58CB284B-285B-4E5B-A427-914B377B4FB3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
