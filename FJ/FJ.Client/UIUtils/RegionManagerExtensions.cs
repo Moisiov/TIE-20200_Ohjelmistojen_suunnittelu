@@ -1,7 +1,7 @@
 ﻿using System;
 using Prism.Regions;
 
-namespace FJ.Client.Utils
+namespace FJ.Client.UIUtils
 {
     public static class RegionManagerExtensions
     {

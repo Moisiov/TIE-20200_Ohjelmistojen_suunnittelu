@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FJ.Client.Utils
+namespace FJ.Client.UIUtils
 {
     public static class Regions
     {
