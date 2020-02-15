@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace FJ.Core
@@ -15,6 +16,17 @@ namespace FJ.Core
         public static bool IsIn<T>(this T key, params T[] allowedValues)
         {
             return allowedValues != null && allowedValues.Contains(key);
+        }
+
+        /// <summary>
+        /// Wraps this object instance into IEnumerable
+        /// </summary>
+        /// <typeparam name="T">Type of the object</typeparam>
+        /// <param name="item">The instance to be wrapped</param>
+        /// <returns>IEnumerable consisting only this item</returns>
+        public static IEnumerable<T> ToMany<T>(this T item)
+        {
+            return new T[] { item };
         }
     }
 }
