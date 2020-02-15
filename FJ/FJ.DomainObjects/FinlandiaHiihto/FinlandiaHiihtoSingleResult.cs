@@ -3,7 +3,7 @@ using FJ.DomainObjects.FinlandiaHiihto.Enums;
 
 namespace FJ.DomainObjects.FinlandiaHiihto
 {
-    public class FinlandiaSingleResult
+    public class FinlandiaHiihtoSingleResult
     {
         public int Year { get; set; }
         public FinlandiaSkiingStyle Style { get; set; }

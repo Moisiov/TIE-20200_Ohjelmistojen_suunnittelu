@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FJ.DomainObjects.FinlandiaHiihto
 {
     public class FinlandiaHiihtoResultsCollection
     {
-        public FinlandiaHiihtoResultArgs AppliedArgs { get; set; }
-        public IEnumerable<FinlandiaSingleResult> Results { get; set; }
+        public FinlandiaHiihtoSearchArgs AppliedArgs { get; set; }
+        public IEnumerable<FinlandiaHiihtoSingleResult> Results { get; set; }
 
-        public FinlandiaHiihtoResultsCollection(FinlandiaHiihtoResultArgs args, IEnumerable<FinlandiaSingleResult> results)
+        public bool HasAnyResults => Results?.Any() == true;
+
+        public FinlandiaHiihtoResultsCollection(FinlandiaHiihtoSearchArgs args, IEnumerable<FinlandiaHiihtoSingleResult> results)
         {
             AppliedArgs = args;
-            Results = results;
+            Results = results ?? new FinlandiaHiihtoSingleResult[] { };
         }
     }
 }
