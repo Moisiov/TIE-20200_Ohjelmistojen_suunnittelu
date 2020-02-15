@@ -1,12 +1,18 @@
 ﻿using System;
+using FJ.Client;
+using Unity;
 
 namespace FJ.Desktop.Debug
 {
-    class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        internal static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            IUnityContainer container = new UnityContainer();
+            Registrations.DoRegistrations(container);
+
+            // Entry point for client
+            FJClientEntryPoint.RunApplication(container, args);
         }
     }
 }
