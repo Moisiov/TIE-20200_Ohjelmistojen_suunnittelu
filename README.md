@@ -59,7 +59,7 @@ public enum ageGroup
 }
 ```
 
-#### Virheet
+#### Virheet ####
 Näihin voi vielä tulla muutoksia ja lisäyksiä, esim. jos tallennetaan dataa lokaalisti, niin datan haku suoraan sivustolta ei vielä täysin välttämätöntä-
 - **`CantAccessSiteException`** : Sivustoon ei saatu yhteyttä (esim. ei Internet-yhteyttä tai Finlandia-hiihto sivusto on alhaalla.)
 - **`InvalidArgumentsException`** : Sivusto palautti virheen viallisten argumenttien takia
@@ -69,7 +69,7 @@ Näihin voi vielä tulla muutoksia ja lisäyksiä, esim. jos tallennetaan dataa 
 ```csharp
 public async Task<IEnumerable<Dictionary<string, string>>> GetData(...)
 ```
-- **Parameterit**
+### Parameterit ###
 Parametreilla määritetään filttereita datan haulle.
 Luomme myöhemmin args-luokan, jolla filttereiden asetus siistimpää.
 - **`year`**:  **Type**: int, **Default**: null
@@ -82,7 +82,7 @@ Luomme myöhemmin args-luokan, jolla filttereiden asetus siistimpää.
 - **`gender`**: **Type**: enum, **Default**: null
 - **`nationality`**: **Type**: string, **Default**: null
 
-- **Palauttaa**
+### Palauttaa ###
 ```csharp
 <IEnumerable<Dictionary<string, string>>>
 ```
