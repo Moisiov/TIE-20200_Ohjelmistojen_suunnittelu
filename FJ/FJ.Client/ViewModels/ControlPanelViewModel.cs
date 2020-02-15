@@ -4,7 +4,7 @@ using FJ.Client.Services;
 
 namespace FJ.Client.ViewModels
 {
-    public class ControlPanelViewModel
+    public class ControlPanelViewModel : ViewModelBase
     {
         private readonly IContentRegionNavigator m_contentRegionNavigator;
 

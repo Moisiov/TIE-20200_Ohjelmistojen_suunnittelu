@@ -3,7 +3,7 @@ using FJ.Client.Models;
 
 namespace FJ.Client.ViewModels
 {
-    public class FrontPageViewModel
+    public class FrontPageViewModel : ViewModelBase
     {
         private FrontPageModel m_model;
 
