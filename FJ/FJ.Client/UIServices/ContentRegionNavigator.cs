@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Prism.Events;
 using Prism.Regions;
 using FJ.Client.Events;
-using FJ.Client.Utils;
+using FJ.Client.UIUtils;
 
 namespace FJ.Client.Services
 {

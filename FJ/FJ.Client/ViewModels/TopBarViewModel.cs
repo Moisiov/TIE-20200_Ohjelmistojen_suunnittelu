@@ -8,16 +8,16 @@ namespace FJ.Client.ViewModels
 {
     public class TopBarViewModel : ViewModelBase
     {
-        private readonly IContentRegionNavigator m_contentRegionJournalNavigator;
+        private readonly IContentRegionNavigator m_contentRegionNavigator;
 
         private TopBarModel m_model;
 
         public bool CanNavigateContentBack { get; set; }
         public bool CanNavigateContentForward { get; set; }
 
-        public TopBarViewModel(IEventAggregator ea, IContentRegionNavigator contentRegionJournalNavigator)
+        public TopBarViewModel(IEventAggregator ea, IContentRegionNavigator contentRegionNavigator)
         {
-            m_contentRegionJournalNavigator = contentRegionJournalNavigator;
+            m_contentRegionNavigator = contentRegionNavigator;
 
             m_model = new TopBarModel();
 
@@ -27,23 +27,23 @@ namespace FJ.Client.ViewModels
 
         public void DoNavigateContentBack()
         {
-            m_contentRegionJournalNavigator.DoNavigateBack();
+            m_contentRegionNavigator.DoNavigateBack();
         }
 
         public void DoNavigateContentForward()
         {
-            m_contentRegionJournalNavigator.DoNavigateForward();
+            m_contentRegionNavigator.DoNavigateForward();
         }
 
         public void DoRequestContentRefresh()
         {
-            m_contentRegionJournalNavigator.RequestRefresh();
+            m_contentRegionNavigator.RequestRefresh();
         }
 
         private void UpdateNavigationButtons()
         {
-            CanNavigateContentBack = m_contentRegionJournalNavigator.CanNavigateBack;
-            CanNavigateContentForward = m_contentRegionJournalNavigator.CanNavigateForward;
+            CanNavigateContentBack = m_contentRegionNavigator.CanNavigateBack;
+            CanNavigateContentForward = m_contentRegionNavigator.CanNavigateForward;
             RaisePropertiesChanged();
         }
     }
