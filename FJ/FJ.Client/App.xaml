@@ -9,7 +9,27 @@
     </Application.Styles>
 
     <Application.Resources>
-        <!--..-->
+        <SolidColorBrush
+            x:Key="Warning1"
+            Color="#FFB000" />
+        <SolidColorBrush
+            x:Key="Error1"
+            Color="#FF300D" />
+        <SolidColorBrush
+            x:Key="Main1"
+            Color="#98BBFF" />
+        <SolidColorBrush
+            x:Key="Darkest1"
+            Color="#371F99" />
+        <SolidColorBrush
+            x:Key="Dark1"
+            Color="#7A66CC" />
+        <SolidColorBrush
+            x:Key="Lightest1"
+            Color="#FFEFD9" />
+        <SolidColorBrush
+            x:Key="Light1"
+            Color="#CC9466" />
     </Application.Resources>
 
 </Application>

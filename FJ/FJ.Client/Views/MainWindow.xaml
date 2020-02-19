@@ -24,13 +24,13 @@
             <RowDefinition Height="11*" />
         </Grid.RowDefinitions>
         <Grid x:Name="ControlPanelGrid" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" >
-            <ContentControl prism:RegionManager.RegionName="ControlPanelRegion" Background="Black" />
+            <ContentControl prism:RegionManager.RegionName="ControlPanelRegion" Background="{DynamicResource Darkest1}" />
         </Grid>
         <Grid x:Name="TopBarGrid" Grid.Column="1" Grid.Row="0" >
-            <ContentControl prism:RegionManager.RegionName="TopBarRegion" Background="Aquamarine" />
+            <ContentControl prism:RegionManager.RegionName="TopBarRegion" Background="{DynamicResource Light1}" />
         </Grid>
         <Grid x:Name="ContentGrid" Grid.Column="1" Grid.Row="1" >
-            <ContentControl prism:RegionManager.RegionName="ContentRegion" Background="Green" />
+            <ContentControl prism:RegionManager.RegionName="ContentRegion" Background="{DynamicResource Main1}" />
         </Grid>
     </Grid>
 </Window>

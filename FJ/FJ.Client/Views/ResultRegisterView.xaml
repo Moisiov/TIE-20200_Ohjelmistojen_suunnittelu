@@ -36,7 +36,7 @@
                     <DataTemplate>
                         <TextBlock Margin="1"
                                    FontSize="12"
-                                   Foreground="Yellow"
+                                   Foreground="{DynamicResource Lightest1}"
                                    Text="{Binding}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
