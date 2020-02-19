@@ -12,7 +12,7 @@ namespace FJ.Client.UIUtils
         /// <returns>Type of the ViewModel that should be wired to the view type</returns>
         public static Type ViewToViewModelResolver(Type viewType)
         {
-            var viewName = viewType.FullName.Replace(".Views.", ".ViewModels.");
+            var viewName = viewType.FullName?.Replace(".Views.", ".ViewModels.") ?? throw new NullReferenceException(nameof(viewType));
             var suffix = viewName.EndsWith("View") ? "Model" : "ViewModel";
             var viewModelName = $"{viewName}{suffix}";
 

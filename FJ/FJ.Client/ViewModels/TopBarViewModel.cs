@@ -1,7 +1,7 @@
 ﻿using System;
 using Prism.Events;
-using FJ.Client.Events;
-using FJ.Client.Services;
+using FJ.Client.UIEvents;
+using FJ.Client.UIServices;
 using FJ.Client.Models;
 
 namespace FJ.Client.ViewModels

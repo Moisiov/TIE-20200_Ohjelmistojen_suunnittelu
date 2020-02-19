@@ -8,11 +8,10 @@
              x:Class="FJ.Client.Views.AthleteCardView">
     <Grid>
         <TextBlock Foreground="White"
-                   FontSize="40"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center" >
-            Urheilijan kortti
-        </TextBlock>
+                    FontSize="40"
+                    FontWeight="Bold"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Text="Urheilijan kortti" />
     </Grid>
 </UserControl>

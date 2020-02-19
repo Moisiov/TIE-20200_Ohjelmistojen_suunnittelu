@@ -6,6 +6,6 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
 {
     public interface IDataFetchingService
     {
-        public Task<FinlandiaHiihtoResultsCollection> GetFinlandiaHiihtoResults(FinlandiaHiihtoSearchArgs args);
+        Task<FinlandiaHiihtoResultsCollection> GetFinlandiaHiihtoResultsAsync(FinlandiaHiihtoSearchArgs args);
     }
 }

@@ -11,8 +11,7 @@
                    FontSize="40"
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Center" >
-            Joukkueen kortti
-        </TextBlock>
+                   VerticalAlignment="Center"
+                   Text="Joukkueen kortti" />
     </Grid>
 </UserControl>

@@ -2,7 +2,7 @@
 using Prism.Events;
 using Prism.Regions;
 
-namespace FJ.Client.Events
+namespace FJ.Client.UIEvents
 {
     public class ContentRegionNavigationEvent : PubSubEvent<RegionNavigationEventArgs>
     {

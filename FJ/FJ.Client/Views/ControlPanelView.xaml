@@ -9,48 +9,34 @@
     <StackPanel Margin="2"
                 Orientation="Vertical" >
         <TextBlock Foreground="White"
-                   Margin="4" >
-            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
-        </TextBlock>
+                   Margin="4"
+                   Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
         <TextBlock Foreground="White"
-                   Margin="4" >
-            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
-        </TextBlock>
+                   Margin="4"
+                   Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
         <TextBlock Foreground="White"
-                   Margin="4" >
-            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
-        </TextBlock>
+                     Margin="4"
+                     Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
         <TextBlock Foreground="White"
-                   Margin="4" >
-            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
-        </TextBlock>
+                     Margin="4"
+                     Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
         <TextBlock Foreground="White"
-                   Margin="4" >
-            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
-        </TextBlock>
+                     Margin="4"
+                     Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
         <TextBlock Foreground="White"
-                   Margin="4" >
-            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
-        </TextBlock>
+                     Margin="4"
+                     Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
         <TextBlock Foreground="White"
-                   Margin="4" >
-            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
-        </TextBlock>
+                     Margin="4"
+                     Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
         <TextBlock Foreground="White"
-                   Margin="4" >
-            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
-        </TextBlock>
+                     Margin="4"
+                     Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
         <TextBlock Foreground="White"
-                   Margin="4" >
-            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
-        </TextBlock>
+                     Margin="4"
+                     Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
         <TextBlock Foreground="White"
-                   Margin="4" >
-            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
-        </TextBlock>
-        <TextBlock Foreground="White"
-                   Margin="4" >
-            Tähän tulee ohjauspaneelin nappula tai muuta kivaa
-        </TextBlock>
+                     Margin="4"
+                     Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
     </StackPanel>
 </UserControl>

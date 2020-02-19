@@ -1,5 +1,5 @@
 ﻿using System;
-using FJ.Client.Services;
+using FJ.Client.UIServices;
 using FJ.FinlandiaHiihtoAPI;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
 using FJ.Services.FinlandiaHiihto;

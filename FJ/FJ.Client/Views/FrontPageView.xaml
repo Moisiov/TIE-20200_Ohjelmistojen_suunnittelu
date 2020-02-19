@@ -27,9 +27,8 @@
             <Button Height="80"
                     Width="160"
                     Foreground="Blue"
-                    Command="{Binding NavigateToResultRegister}">
-                Tulokset
-            </Button>
+                    Command="{Binding NavigateToResultRegister}"
+                    Content="Tulokset" />
         </StackPanel>
         <StackPanel Grid.Row="0"
                     Grid.Column="1"
@@ -41,9 +40,8 @@
             <Button Height="80"
                     Width="160"
                     Foreground="Blue"
-                    Command="{Binding NavigateToCompetitionGeneral}">
-                Kilpailu
-            </Button>
+                    Command="{Binding NavigateToCompetitionGeneral}"
+                    Content="Kilpailu" />
         </StackPanel>
         <StackPanel Grid.Row="1"
                     Grid.Column="0"
@@ -55,9 +53,8 @@
             <Button Height="80"
                     Width="160"
                     Foreground="Blue"
-                    Command="{Binding NavigateToAthleteCard}">
-                Urheilija
-            </Button>
+                    Command="{Binding NavigateToAthleteCard}"
+                    Content="Urheilija" />
         </StackPanel>
         <StackPanel Grid.Row="1"
                     Grid.Column="1"
@@ -69,9 +66,8 @@
             <Button Height="80"
                     Width="160"
                     Foreground="Blue"
-                    Command="{Binding NavigateToTeamCard}">
-                Joukkue
-            </Button>
+                    Command="{Binding NavigateToTeamCard}"
+                    Content="Joukkue" />
         </StackPanel>
     </Grid>
 </UserControl>

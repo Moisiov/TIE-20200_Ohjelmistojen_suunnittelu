@@ -2,10 +2,10 @@
 using Avalonia.Controls;
 using Prism.Events;
 using Prism.Regions;
-using FJ.Client.Events;
+using FJ.Client.UIEvents;
 using FJ.Client.UIUtils;
 
-namespace FJ.Client.Services
+namespace FJ.Client.UIServices
 {
     public class ContentRegionNavigator : IContentRegionNavigator
     {

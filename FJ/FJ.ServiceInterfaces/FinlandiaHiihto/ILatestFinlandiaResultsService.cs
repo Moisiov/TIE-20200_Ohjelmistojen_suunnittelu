@@ -6,6 +6,6 @@ namespace FJ.ServiceInterfaces.FinlandiaHiihto
 {
     public interface ILatestFinlandiaResultsService
     {
-        public Task<FinlandiaHiihtoResultsCollection> GetLatestFinlandiaResults();
+        Task<FinlandiaHiihtoResultsCollection> GetLatestFinlandiaResultsAsync();
     }
 }

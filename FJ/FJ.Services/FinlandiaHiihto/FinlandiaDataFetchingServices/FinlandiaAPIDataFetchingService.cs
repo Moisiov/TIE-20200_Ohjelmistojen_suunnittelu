@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +18,7 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
             m_api = api;
         }
 
-        public async Task<FinlandiaHiihtoResultsCollection> GetFinlandiaHiihtoResults(FinlandiaHiihtoSearchArgs args)
+        public async Task<FinlandiaHiihtoResultsCollection> GetFinlandiaHiihtoResultsAsync(FinlandiaHiihtoSearchArgs args)
         {
             // TODO proof of concept, ei huomioi argseja vielä kuin ensimmäisen vuoden osalta
             var raw = await m_api.GetData(year: args.Years.First());

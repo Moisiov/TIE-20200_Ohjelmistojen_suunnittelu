@@ -9,8 +9,7 @@
                    FontSize="40"
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Center">
-            Kilpailutietojen näkymä
-        </TextBlock>
+                   VerticalAlignment="Center"
+                   Text="Kilpailutietojen näkymä" />
     </Grid>
 </UserControl>

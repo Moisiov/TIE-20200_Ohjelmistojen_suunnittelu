@@ -20,9 +20,8 @@
                 Height="80"
                 Width="160"
                 Foreground="Blue"
-                Command="{Binding TestCommand}">
-            TESTIKUTSU
-        </Button>
+                Command="{Binding TestCommand}"
+                Content="TESTIKUTSU" />
 
         <ScrollViewer Grid.Column="1" Grid.ColumnSpan="2"
                       Grid.Row="1" >

@@ -26,7 +26,7 @@ namespace FJ.Core
         /// <returns>IEnumerable consisting only this item</returns>
         public static IEnumerable<T> ToMany<T>(this T item)
         {
-            return new T[] { item };
+            return new[] { item };
         }
     }
 }

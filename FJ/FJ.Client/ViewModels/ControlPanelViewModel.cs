@@ -1,6 +1,6 @@
 ﻿using System;
 using FJ.Client.Models;
-using FJ.Client.Services;
+using FJ.Client.UIServices;
 
 namespace FJ.Client.ViewModels
 {

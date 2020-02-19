@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace FJ.FinlandiaHiihtoAPI
 {
@@ -7,8 +6,7 @@ namespace FJ.FinlandiaHiihtoAPI
     {
         internal const string C_Url = "https://www.finlandiahiihto.fi/Tulokset/Tulosarkisto";
 
-        internal static string[] S_RequestFieldNames = new string[]
-        {
+        internal static string[] S_RequestFieldNames = {
             "dnn$ctr1025$Etusivu$ddlVuosi2x",
             "dnn$ctr1025$Etusivu$txtHakuEtunimi2",
             "dnn$ctr1025$Etusivu$txtHakuSukunimi2",
@@ -21,8 +19,7 @@ namespace FJ.FinlandiaHiihtoAPI
 
         };
 
-        internal static string[] S_DataHeaders = new string[]
-        {
+        internal static string[] S_DataHeaders = {
             "Vuosi",
             "Matka",
             "Tulos",

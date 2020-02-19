@@ -1,19 +1,19 @@
 ﻿using System;
 using Avalonia.Controls;
 
-namespace FJ.Client.Services
+namespace FJ.Client.UIServices
 {
     public interface IContentRegionNavigator
     {
-        public bool CanNavigateBack { get; }
-        public bool CanNavigateForward { get; }
+        bool CanNavigateBack { get; }
+        bool CanNavigateForward { get; }
 
-        public void DoNavigateBack();
-        public void DoNavigateForward();
-        public void RequestRefresh();
+        void DoNavigateBack();
+        void DoNavigateForward();
+        void RequestRefresh();
 
-        public void DoNavigateTo(string targetViewName);
-        public void DoNavigateTo<TView>()
+        void DoNavigateTo(string targetViewName);
+        void DoNavigateTo<TView>()
             where TView : UserControl;
     }
 }

@@ -17,10 +17,10 @@ namespace FJ.Client.Models
             m_latestFinlandiaResultsService = latestFinlandiaResultsService;
         }
 
-        public async Task<IEnumerable<string>> GetLatestFinlandiaResultsAsSortedStrings()
+        public async Task<IEnumerable<string>> GetLatestFinlandiaResultsAsSortedStringsAsync()
         {
             // TODO this is just a proof of concept
-            var collection = await m_latestFinlandiaResultsService.GetLatestFinlandiaResults();
+            var collection = await m_latestFinlandiaResultsService.GetLatestFinlandiaResultsAsync();
             var res = collection.Results
                 .Where(x => x.Distance == FinlandiaSkiingDistance.Fifty && x.Style == FinlandiaSkiingStyle.Classic)
                 .OrderBy(x => x.PositionGeneral)

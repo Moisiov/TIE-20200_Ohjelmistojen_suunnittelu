@@ -16,7 +16,7 @@ namespace FJ.Services.FinlandiaHiihto
             m_dataFetchingService = dataFetchingService;
         }
 
-        public async Task<FinlandiaHiihtoResultsCollection> GetLatestFinlandiaResults()
+        public async Task<FinlandiaHiihtoResultsCollection> GetLatestFinlandiaResultsAsync()
         {
             var currenYear = DateTime.Today.Year;
             var args = new FinlandiaHiihtoSearchArgs
@@ -24,7 +24,7 @@ namespace FJ.Services.FinlandiaHiihto
                 Years = currenYear.ToMany()
             };
 
-            var result = await m_dataFetchingService.GetFinlandiaHiihtoResults(args);
+            var result = await m_dataFetchingService.GetFinlandiaHiihtoResultsAsync(args);
 
             if (result.HasAnyResults)
             {
@@ -36,7 +36,7 @@ namespace FJ.Services.FinlandiaHiihto
                 Years = (currenYear - 1).ToMany()
             };
 
-            return await m_dataFetchingService.GetFinlandiaHiihtoResults(args);
+            return await m_dataFetchingService.GetFinlandiaHiihtoResultsAsync(args);
         }
     }
 }
