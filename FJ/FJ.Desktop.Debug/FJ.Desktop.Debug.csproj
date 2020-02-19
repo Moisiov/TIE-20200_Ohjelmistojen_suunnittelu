@@ -12,7 +12,7 @@
     <ProjectReference Include="..\FJ.FinlandiaHiihtoAPI\FJ.FinlandiaHiihtoAPI.csproj" />
     <ProjectReference Include="..\FJ.DomainObjects\FJ.DomainObjects.csproj" />
     <ProjectReference Include="..\FJ.Client\FJ.Client.csproj" />
-    <ProjectReference Include="..\FJ.Core\FJ.Core.csproj" />
+    <ProjectReference Include="..\FJ.Utils\FJ.Utils.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Unity" Version="5.11.1" />

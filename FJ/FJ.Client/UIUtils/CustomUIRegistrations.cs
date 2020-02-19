@@ -1,6 +1,6 @@
 ﻿using System;
 using Avalonia.Controls;
-using FJ.Core;
+using FJ.Utils;
 using Prism.Ioc;
 
 namespace FJ.Client.UIUtils

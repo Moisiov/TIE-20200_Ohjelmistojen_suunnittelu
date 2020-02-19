@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FJ.Core
+namespace FJ.Utils
 {
     public class NullableMinMax<T>
         where T : struct, IComparable

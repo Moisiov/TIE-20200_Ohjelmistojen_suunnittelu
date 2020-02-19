@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FJ.NUnitTests", "FJ.NUnitTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FJ.Desktop.Debug", "FJ.Desktop.Debug\FJ.Desktop.Debug.csproj", "{89AF1D3A-5ED5-4BA0-9A4B-28C5FCC2C7A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FJ.Core", "FJ.Core\FJ.Core.csproj", "{58CB284B-285B-4E5B-A427-914B377B4FB3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FJ.Utils", "FJ.Utils\FJ.Utils.csproj", "{58CB284B-285B-4E5B-A427-914B377B4FB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

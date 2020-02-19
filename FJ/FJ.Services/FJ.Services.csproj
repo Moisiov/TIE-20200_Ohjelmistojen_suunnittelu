@@ -10,7 +10,7 @@
     <ProjectReference Include="..\FJ.DomainObjects\FJ.DomainObjects.csproj" />
     <ProjectReference Include="..\FJ.FinlandiaHiihtoAPI\FJ.FinlandiaHiihtoAPI.csproj" />
     <ProjectReference Include="..\FJ.ServiceInterfaces\FJ.ServiceInterfaces.csproj" />
-    <ProjectReference Include="..\FJ.Core\FJ.Core.csproj" />
+    <ProjectReference Include="..\FJ.Utils\FJ.Utils.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FinlandiaHiihto\" />
