@@ -12,8 +12,19 @@ namespace FJ.Client.ViewModels
 
         private TopBarModel m_model;
 
-        public bool CanNavigateContentBack { get; set; }
-        public bool CanNavigateContentForward { get; set; }
+        private bool m_canNavigateContentBack;
+        public bool CanNavigateContentBack
+        {
+            get => m_canNavigateContentBack;
+            set => SetAndRaise(ref m_canNavigateContentBack, value);
+        }
+
+        private bool m_canNavigateContentForward;
+        public bool CanNavigateContentForward
+        {
+            get => m_canNavigateContentForward;
+            set => SetAndRaise(ref m_canNavigateContentForward, value);
+        }
 
         public TopBarViewModel(IEventAggregator ea, IContentRegionNavigator contentRegionNavigator)
         {
@@ -44,7 +55,6 @@ namespace FJ.Client.ViewModels
         {
             CanNavigateContentBack = m_contentRegionNavigator.CanNavigateBack;
             CanNavigateContentForward = m_contentRegionNavigator.CanNavigateForward;
-            RaisePropertiesChanged();
         }
     }
 }
