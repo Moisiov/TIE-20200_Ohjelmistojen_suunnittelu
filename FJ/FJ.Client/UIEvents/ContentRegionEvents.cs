@@ -8,7 +8,13 @@ namespace FJ.Client.UIEvents
     {
     }
 
-    public class ContentRegionRefreshRequestedEvent : PubSubEvent
+    public class ContentRegionRefreshRequestedEventArgs
+    {
+        public string TargetViewName { get; set; }
+        public string TargetViewModelName { get; set; }
+    }
+
+    public class ContentRegionRefreshRequestedEvent : PubSubEvent<ContentRegionRefreshRequestedEventArgs>
     {
     }
 }

@@ -8,6 +8,9 @@ namespace FJ.Client.UIServices
         bool CanNavigateBack { get; }
         bool CanNavigateForward { get; }
 
+        string GetCurrentViewName();
+        string GetCurrentViewModelName();
+
         void DoNavigateBack();
         void DoNavigateForward();
         void RequestRefresh();

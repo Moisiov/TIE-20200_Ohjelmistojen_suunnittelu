@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
+using FJ.Client.UIEvents;
 using Prism.Regions;
 using ReactiveUI;
 
@@ -35,7 +36,7 @@ namespace FJ.Client.ViewModels
         }
         #endregion
 
-        public virtual void DoRefresh()
+        public virtual void DoRefresh(ContentRegionRefreshRequestedEventArgs eventArgs)
         {
         }
 

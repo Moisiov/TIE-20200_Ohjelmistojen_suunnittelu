@@ -21,7 +21,7 @@ namespace FJ.Client.ViewModels
         {
             m_model = new ResultRegisterModel(latestFinlandiaResultsService);
 
-            ea.GetEvent<ContentRegionRefreshRequestedEvent>().Subscribe(DoRefresh);
+            ea.GetEvent<ContentRegionRefreshRequestedEvent>().Subscribe(DoRefresh);  // TODO Should this be done in base? Pros and cons..
 
             TestCommand = ReactiveCommand.CreateFromTask(TestCall);
             Results = new ObservableCollection<string>();
@@ -34,8 +34,14 @@ namespace FJ.Client.ViewModels
             RaisePropertyChanged(nameof(Results));
         }
 
-        public override void DoRefresh()
+        public override void DoRefresh(ContentRegionRefreshRequestedEventArgs eventArgs)
         {
+            // TODO Base?
+            if (eventArgs.TargetViewModelName != nameof(ResultRegisterViewModel))
+            {
+                return;
+            }
+
             Results = new ObservableCollection<string>();
             RaisePropertyChanged(nameof(Results));
         }

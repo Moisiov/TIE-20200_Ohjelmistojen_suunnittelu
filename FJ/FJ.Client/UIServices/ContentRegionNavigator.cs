@@ -4,6 +4,8 @@ using Prism.Events;
 using Prism.Regions;
 using FJ.Client.UIEvents;
 using FJ.Client.UIUtils;
+using System.Linq;
+using FJ.Utils;
 
 namespace FJ.Client.UIServices
 {
@@ -22,6 +24,16 @@ namespace FJ.Client.UIServices
             m_regionManager.Regions[Regions.ContentRegion].NavigationService.Navigated += OnContentRegionNavigation;
         }
 
+        public string GetCurrentViewName()
+        {
+            return m_regionManager.Regions[Regions.ContentRegion].ActiveViews.FirstOrDefault().GetType().Name;
+        }
+
+        public string GetCurrentViewModelName()
+        {
+            return GetCurrentViewName().ReplaceLastOccurrence("View", "ViewModel");
+        }
+
         public void DoNavigateBack()
         {
             GetContentRegionNavigationJournal().GoBack();
@@ -34,7 +46,13 @@ namespace FJ.Client.UIServices
 
         public void RequestRefresh()
         {
-            m_eventAggregator.GetEvent<ContentRegionRefreshRequestedEvent>().Publish();
+            var eventArgs = new ContentRegionRefreshRequestedEventArgs
+            {
+                TargetViewName = GetCurrentViewName(),
+                TargetViewModelName = GetCurrentViewModelName()
+            };
+
+            m_eventAggregator.GetEvent<ContentRegionRefreshRequestedEvent>().Publish(eventArgs);
         }
 
         public void DoNavigateTo(string targetViewName)
@@ -57,6 +75,5 @@ namespace FJ.Client.UIServices
         {
             return m_regionManager.Regions[Regions.ContentRegion].NavigationService.Journal;
         }
-
     }
 }
