@@ -21,6 +21,7 @@ namespace FJ.Desktop.Debug
         private static void ClientInternalRegistrations(IUnityContainer container)
         {
             container.RegisterSingleton<IContentRegionNavigator, ContentRegionNavigator>();
+            container.RegisterSingleton<IControlPanelRegionController, ControlPanelRegionController>();
         }
 
         private static void ServicesInternalRegistrations(IUnityContainer container)

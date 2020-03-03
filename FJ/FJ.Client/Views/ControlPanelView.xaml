@@ -6,37 +6,44 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="FJ.Client.Views.ControlPanelView">
-    <StackPanel Margin="2"
-                Orientation="Vertical" >
-        <TextBlock Foreground="White"
-                   Margin="4"
-                   Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
-        <TextBlock Foreground="White"
-                   Margin="4"
-                   Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
-        <TextBlock Foreground="White"
-                     Margin="4"
-                     Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
-        <TextBlock Foreground="White"
-                     Margin="4"
-                     Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
-        <TextBlock Foreground="White"
-                     Margin="4"
-                     Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
-        <TextBlock Foreground="White"
-                     Margin="4"
-                     Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
-        <TextBlock Foreground="White"
-                     Margin="4"
-                     Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
-        <TextBlock Foreground="White"
-                     Margin="4"
-                     Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
-        <TextBlock Foreground="White"
-                     Margin="4"
-                     Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
-        <TextBlock Foreground="White"
-                     Margin="4"
-                     Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
-    </StackPanel>
+    <DockPanel LastChildFill="True" ClipToBounds="True" >
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Vertical" >
+            <Button Command="{Binding DoExpand}"
+                    IsVisible="{Binding !IsExpanded}"
+                    Width="70"
+                    Margin="1"
+                    HorizontalAlignment="Right"
+                    Background="{DynamicResource Darkest1}"
+                    Foreground="{DynamicResource Darkest1}" >
+                <DrawingPresenter>
+                   <DrawingPresenter.Drawing>
+                       <GeometryDrawing Brush="{DynamicResource Dark1}"
+                                        Geometry="F1M768,-704L853.3330078125,-704 853.3330078125,-192 768,-192 768,-704z M414.165985107422,-734.164001464844L700.330993652344,-447.998992919922 414.165985107422,-161.833999633789 353.834991455078,-222.164993286133 537.002990722656,-405.3330078125 170.667007446289,-405.3330078125 170.667007446289,-490.665008544922 537.002990722656,-490.665008544922 353.834991455078,-673.8330078125 414.165985107422,-734.164001464844z" />
+                   </DrawingPresenter.Drawing>
+                </DrawingPresenter>
+            </Button>
+            <Button Command="{Binding DoMinimize}"
+                    IsVisible="{Binding IsExpanded}"
+                    Width="70"
+                    Margin="1"
+                    HorizontalAlignment="Right"
+                    Background="{DynamicResource Darkest1}"
+                    Foreground="{DynamicResource Darkest1}" >
+                <DrawingPresenter>
+                   <DrawingPresenter.Drawing>
+                       <GeometryDrawing Brush="{DynamicResource Dark1}"
+                                        Geometry="F1M170.667007446289,-704L256,-704 256,-192 170.667007446289,-192 170.667007446289,-704z M609.835021972656,-734.164978027344L670.166015625,-673.835021972656 486.997985839844,-490.6669921875 853.333984375,-490.6669921875 853.333984375,-405.334014892578 486.997985839844,-405.334014892578 670.166015625,-222.166000366211 609.835021972656,-161.835006713867 323.670013427734,-448 609.835021972656,-734.164978027344z" />
+                   </DrawingPresenter.Drawing>
+                </DrawingPresenter>
+            </Button>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Vertical" >
+            <TextBlock Foreground="White"
+                       Margin="4"
+                       Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
+            <TextBlock Foreground="White"
+                       Margin="4"
+                       Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
+        </StackPanel>
+    </DockPanel>
 </UserControl>

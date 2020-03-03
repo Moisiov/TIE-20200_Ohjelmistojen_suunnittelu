@@ -17,6 +17,7 @@
     <Folder Include="UIEvents\" />
     <Folder Include="UIServices\" />
     <Folder Include="UIUtils\" />
+    <Folder Include="UIConverters\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.9.3" />
