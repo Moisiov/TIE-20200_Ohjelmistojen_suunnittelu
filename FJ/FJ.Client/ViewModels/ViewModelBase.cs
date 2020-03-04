@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using FJ.Client.UIEvents;
+using Prism.Events;
 using Prism.Regions;
 using ReactiveUI;
 
@@ -10,6 +11,15 @@ namespace FJ.Client.ViewModels
 {
     public class ViewModelBase : ReactiveObject, IRegionMemberLifetime, IJournalAware, INavigationAware
     {
+        protected IEventAggregator EventAggregator { get; private set; }
+
+        [Unity.InjectionMethod]
+        public void Initialize(IEventAggregator ea)
+        {
+            EventAggregator = ea;
+            EventAggregator.GetEvent<ContentRegionRefreshRequestedEvent>().Subscribe(DoRefresh);
+        }
+
         #region IRegionMemberLifetime
         public virtual bool KeepAlive => true;
         #endregion
@@ -36,7 +46,17 @@ namespace FJ.Client.ViewModels
         }
         #endregion
 
-        public virtual void DoRefresh(ContentRegionRefreshRequestedEventArgs eventArgs)
+        public void DoRefresh(ContentRegionRefreshRequestedEventArgs eventArgs)
+        {
+            if (eventArgs.TargetViewModelName != GetType().Name)
+            {
+                return;
+            }
+
+            DoRefreshInternal();
+        }
+
+        protected virtual void DoRefreshInternal()
         {
         }
 
