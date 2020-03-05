@@ -7,33 +7,31 @@ namespace FJ.Client.ViewModels
 {
     public class FrontPageViewModel : ViewModelBase
     {
-        private readonly IContentRegionNavigator m_navigator;
         private FrontPageModel m_model;
 
-        public FrontPageViewModel(IContentRegionNavigator navigator)
+        public FrontPageViewModel()
         {
-            m_navigator = navigator;
             m_model = new FrontPageModel();
         }
 
         public void NavigateToResultRegister()
         {
-            m_navigator.DoNavigateTo<ResultRegisterView>();
+            Navigator.DoNavigateTo<ResultRegisterView>();
         }
 
         public void NavigateToCompetitionGeneral()
         {
-            m_navigator.DoNavigateTo<CompetitionGeneralView>();
+            Navigator.DoNavigateTo<CompetitionGeneralView>();
         }
 
         public void NavigateToAthleteCard()
         {
-            m_navigator.DoNavigateTo<AthleteCardView>();
+            Navigator.DoNavigateTo<AthleteCardView>();
         }
 
         public void NavigateToTeamCard()
         {
-            m_navigator.DoNavigateTo<TeamCardView>();
+            Navigator.DoNavigateTo<TeamCardView>();
         }
     }
 }

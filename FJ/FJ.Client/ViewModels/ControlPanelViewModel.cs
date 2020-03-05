@@ -8,16 +8,14 @@ namespace FJ.Client.ViewModels
     public class ControlPanelViewModel : ViewModelBase
     {
         private readonly IControlPanelRegionController m_controlPanelRegionController;
-        private readonly IContentRegionNavigator m_contentRegionNavigator;
 
         public bool IsExpanded => m_controlPanelRegionController.CurrentControlPanelSizeOption == ControlPanelSizeOption.Expanded;
 
         private ControlPanelModel m_model;
 
-        public ControlPanelViewModel(IControlPanelRegionController controPanelRegionController, IContentRegionNavigator contentRegionNavigator)
+        public ControlPanelViewModel(IControlPanelRegionController controPanelRegionController)
         {
             m_controlPanelRegionController = controPanelRegionController;
-            m_contentRegionNavigator = contentRegionNavigator;
 
             m_model = new ControlPanelModel();
         }

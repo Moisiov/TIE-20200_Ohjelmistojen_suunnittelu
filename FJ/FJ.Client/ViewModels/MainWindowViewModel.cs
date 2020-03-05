@@ -2,16 +2,23 @@
 using FJ.Client.UIEvents;
 using FJ.Client.UIUtils;
 using Prism.Events;
+using ReactiveUI;
 
 namespace FJ.Client.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    // TODO not deriving from ViewModelBase as a temp workaround for region instantiating
+    public class MainWindowViewModel : ReactiveObject
     {
         public ControlPanelSizeOption m_controlPanelSize;
         public ControlPanelSizeOption ControlPanelSize
         {
             get => m_controlPanelSize;
-            set => SetAndRaise(ref m_controlPanelSize, value);
+            set
+            {
+                m_controlPanelSize = value;
+                ((IReactiveObject)this).RaisePropertyChanged(nameof(ControlPanelSize));
+            }
+        }
         }
 
         public MainWindowViewModel(IEventAggregator ea)

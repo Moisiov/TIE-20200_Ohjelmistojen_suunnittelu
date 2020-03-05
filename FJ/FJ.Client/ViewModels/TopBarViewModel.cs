@@ -8,8 +8,6 @@ namespace FJ.Client.ViewModels
 {
     public class TopBarViewModel : ViewModelBase
     {
-        private readonly IContentRegionNavigator m_contentRegionNavigator;
-
         private TopBarModel m_model;
 
         private bool m_canNavigateContentBack;
@@ -26,35 +24,32 @@ namespace FJ.Client.ViewModels
             set => SetAndRaise(ref m_canNavigateContentForward, value);
         }
 
-        public TopBarViewModel(IEventAggregator ea, IContentRegionNavigator contentRegionNavigator)
+        public TopBarViewModel(IEventAggregator ea)
         {
-            m_contentRegionNavigator = contentRegionNavigator;
-
             m_model = new TopBarModel();
 
             ea.GetEvent<ContentRegionNavigationEvent>().Subscribe((e) => UpdateNavigationButtons());
-            UpdateNavigationButtons();
         }
 
         public void DoNavigateContentBack()
         {
-            m_contentRegionNavigator.DoNavigateBack();
+            Navigator.DoNavigateBack();
         }
 
         public void DoNavigateContentForward()
         {
-            m_contentRegionNavigator.DoNavigateForward();
+            Navigator.DoNavigateForward();
         }
 
         public void DoRequestContentRefresh()
         {
-            m_contentRegionNavigator.RequestRefresh();
+            Navigator.RequestRefresh();
         }
 
         private void UpdateNavigationButtons()
         {
-            CanNavigateContentBack = m_contentRegionNavigator.CanNavigateBack;
-            CanNavigateContentForward = m_contentRegionNavigator.CanNavigateForward;
+            CanNavigateContentBack = Navigator.CanNavigateBack;
+            CanNavigateContentForward = Navigator.CanNavigateForward;
         }
     }
 }
