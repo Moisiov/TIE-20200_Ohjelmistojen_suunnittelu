@@ -27,7 +27,7 @@ namespace FJ.Client.ViewModels
         {
             using (Navigator.ShowLoadingScreen())
             {
-                var res = await OnShowLoadingScreen(m_model.GetLatestFinlandiaResultsAsSortedStringsAsync);
+                var res = await m_model.GetLatestFinlandiaResultsAsSortedStringsAsync();
                 Results = new ObservableCollection<string>(res);
             }
 
