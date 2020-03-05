@@ -8,9 +8,44 @@ using System.Linq;
 using FJ.Utils;
 using System.Threading.Tasks;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.InteropServices;
 
 namespace FJ.Client.UIServices
 {
+    public class DisposableLoadingScreen : IDisposableLoadingScreen
+    {
+        private bool m_disposed;
+
+        private readonly Action<bool> m_setLoadingScreenAction;
+
+        public DisposableLoadingScreen(Action<bool> setLoadingScreenAction)
+        {
+            m_setLoadingScreenAction = setLoadingScreenAction;
+            m_setLoadingScreenAction.Invoke(true);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (m_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                m_setLoadingScreenAction(false);
+            }
+
+            m_disposed = true;
+        }
+    }
+
     public class ContentRegionNavigator : IContentRegionNavigator
     {
         private readonly IEventAggregator m_eventAggregator;
@@ -99,6 +134,11 @@ namespace FJ.Client.UIServices
             SetLoadingScreen(false);
 
             return res;
+        }
+
+        public IDisposableLoadingScreen ShowLoadingScreen()
+        {
+            return new DisposableLoadingScreen(SetLoadingScreen);
         }
     }
 }

@@ -25,8 +25,12 @@ namespace FJ.Client.ViewModels
 
         public async Task TestCall()
         {
-            var res = await OnShowLoadingScreen(m_model.GetLatestFinlandiaResultsAsSortedStringsAsync);
-            Results = new ObservableCollection<string>(res);
+            using (Navigator.ShowLoadingScreen())
+            {
+                var res = await OnShowLoadingScreen(m_model.GetLatestFinlandiaResultsAsSortedStringsAsync);
+                Results = new ObservableCollection<string>(res);
+            }
+
             RaisePropertyChanged(nameof(Results));
         }
 

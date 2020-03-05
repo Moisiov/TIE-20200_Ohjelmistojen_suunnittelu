@@ -5,6 +5,10 @@ using Avalonia.Controls;
 
 namespace FJ.Client.UIServices
 {
+    public interface IDisposableLoadingScreen : IDisposable
+    {
+    }
+
     public interface IContentRegionNavigator
     {
         bool CanNavigateBack { get; }
@@ -25,5 +29,7 @@ namespace FJ.Client.UIServices
 
         Task<TResult> WithLoadingScreenDisplayedAsync<TResult>([NotNull]Func<Task<TResult>> funcToRun);
         Task<TResult> WithLoadingScreenDisplayedAsync<T, TResult>(T argument, [NotNull]Func<T, Task<TResult>> funcToRun);
+
+        IDisposableLoadingScreen ShowLoadingScreen();
     }
 }
