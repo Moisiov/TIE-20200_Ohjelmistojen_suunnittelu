@@ -2,10 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Threading.Tasks;
-using FJ.Client.UIEvents;
 using FJ.Client.Models;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
-using Prism.Events;
 using ReactiveUI;
 
 namespace FJ.Client.ViewModels
@@ -27,7 +25,7 @@ namespace FJ.Client.ViewModels
 
         public async Task TestCall()
         {
-            var res = await m_model.GetLatestFinlandiaResultsAsSortedStringsAsync();
+            var res = await OnShowLoadingScreen(m_model.GetLatestFinlandiaResultsAsSortedStringsAsync);
             Results = new ObservableCollection<string>(res);
             RaisePropertyChanged(nameof(Results));
         }

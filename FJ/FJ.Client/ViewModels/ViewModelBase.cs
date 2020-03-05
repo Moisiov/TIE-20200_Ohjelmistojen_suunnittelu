@@ -65,6 +65,16 @@ namespace FJ.Client.ViewModels
         {
         }
 
+        protected async virtual Task<TResult> OnShowLoadingScreen<TResult>(Func<Task<TResult>> func)
+        {
+            return await Navigator.WithLoadingScreenDisplayedAsync(func);
+        }
+
+        protected async virtual Task<TResult> OnShowLoadingScreen<T, TResult>(T argument, Func<T, Task<TResult>> func)
+        {
+            return await Navigator.WithLoadingScreenDisplayedAsync(argument, func);
+        }
+
         protected bool SetAndRaise<T>(ref T field, T value, [CallerMemberName] string caller = "")
         {
             if (EqualityComparer<T>.Default.Equals(field, value))

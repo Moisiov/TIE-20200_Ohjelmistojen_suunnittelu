@@ -6,6 +6,8 @@ using FJ.Client.UIEvents;
 using FJ.Client.UIUtils;
 using System.Linq;
 using FJ.Utils;
+using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace FJ.Client.UIServices
 {
@@ -74,6 +76,29 @@ namespace FJ.Client.UIServices
         private IRegionNavigationJournal GetContentRegionNavigationJournal()
         {
             return m_regionManager.Regions[Regions.ContentRegion].NavigationService.Journal;
+        }
+
+        public void SetLoadingScreen(bool doShowLoadingScreen)
+        {
+            m_eventAggregator.GetEvent<ContentRegionLoadingScreenEvent>().Publish(doShowLoadingScreen);
+        }
+
+        public async Task<TResult> WithLoadingScreenDisplayedAsync<TResult>([NotNull]Func<Task<TResult>> funcToRun)
+        {
+            SetLoadingScreen(true);
+            var res = await funcToRun?.Invoke() ?? throw new ArgumentNullException(nameof(funcToRun));
+            SetLoadingScreen(false);
+
+            return res;
+        }
+
+        public async Task<TResult> WithLoadingScreenDisplayedAsync<T, TResult>(T argument, [NotNull]Func<T, Task<TResult>> funcToRun)
+        {
+            SetLoadingScreen(true);
+            var res = await funcToRun?.Invoke(argument) ?? throw new ArgumentNullException(nameof(funcToRun));
+            SetLoadingScreen(false);
+
+            return res;
         }
     }
 }

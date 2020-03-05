@@ -17,4 +17,8 @@ namespace FJ.Client.UIEvents
     public class ContentRegionRefreshRequestedEvent : PubSubEvent<ContentRegionRefreshRequestedEventArgs>
     {
     }
+
+    public class ContentRegionLoadingScreenEvent : PubSubEvent<bool>
+    {
+    }
 }

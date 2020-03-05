@@ -39,6 +39,7 @@
         </Grid>
         <Grid x:Name="ContentContent" Grid.Column="1" Grid.Row="1" >
             <ContentControl prism:RegionManager.RegionName="ContentRegion" Background="{DynamicResource Main1}" />
+            <Border Child="{DynamicResource LoadingSpinner}" Background="LightGray" Opacity="90" IsVisible="{Binding ShowContentRegionLoadingScreen}" />
         </Grid>
     </Grid>
 </Window>

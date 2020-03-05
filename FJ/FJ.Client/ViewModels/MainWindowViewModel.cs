@@ -19,13 +19,29 @@ namespace FJ.Client.ViewModels
                 ((IReactiveObject)this).RaisePropertyChanged(nameof(ControlPanelSize));
             }
         }
+
+        private bool m_showContentRegionLoadingScreen;
+        public bool ShowContentRegionLoadingScreen
+        {
+            get => m_showContentRegionLoadingScreen;
+            set
+            {
+                m_showContentRegionLoadingScreen = value;
+                ((IReactiveObject)this).RaisePropertyChanged(nameof(ShowContentRegionLoadingScreen));
+            }
         }
 
         public MainWindowViewModel(IEventAggregator ea)
         {
+            ea.GetEvent<ContentRegionLoadingScreenEvent>().Subscribe(SetContentRegionLoadingScreen);
             ea.GetEvent<ControlPanelRegionResizeEvent>().Subscribe(SetControlPanelSize);
 
             SetControlPanelSize(UIStartupConstants.C_InitialControlPanelSizeOption);
+        }
+
+        private void SetContentRegionLoadingScreen(bool doShowLoadingScreen)
+        {
+            ShowContentRegionLoadingScreen = doShowLoadingScreen;
         }
 
         private void SetControlPanelSize(ControlPanelSizeOption option)

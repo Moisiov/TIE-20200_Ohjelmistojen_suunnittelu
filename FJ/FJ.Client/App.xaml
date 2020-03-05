@@ -6,7 +6,25 @@
     <Application.Styles>
         <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
         <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>
-    </Application.Styles>
+
+        <Styles>
+            <Style Selector="Image.Rotating[IsVisible=true]">
+                <Setter Property="Height" Value="50" />
+                <Setter Property="Width" Value="50" />
+                <Style.Animations>
+                    <Animation Duration="0:0:3"
+                               IterationCount="INFINITE">
+                        <KeyFrame Cue="0%">
+                            <Setter Property="RotateTransform.Angle" Value="0" />
+                        </KeyFrame>
+                        <KeyFrame Cue="100%">
+                            <Setter Property="RotateTransform.Angle" Value="360" />
+                        </KeyFrame>
+                    </Animation>
+                </Style.Animations>
+            </Style>
+        </Styles>
+     </Application.Styles>
 
     <Application.Resources>
         <SolidColorBrush
@@ -30,6 +48,11 @@
         <SolidColorBrush
             x:Key="Light1"
             Color="#CC9466" />
+        <Image
+            x:Key="LoadingSpinner"
+            Source="/Assets/spinner-solid.ico"
+            Classes="Rotating" />
+        <!-- Source="/Assets/circle-notch-solid.ico" -->
     </Application.Resources>
 
 </Application>
