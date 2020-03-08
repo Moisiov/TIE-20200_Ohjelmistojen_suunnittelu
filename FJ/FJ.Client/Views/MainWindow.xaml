@@ -15,9 +15,7 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <!-- Regions -->
-
-    <!-- Content -->
+    <!-- Region-based contents -->
     <Grid x:Name="LayoutRoot">
         <Grid.Resources>
             <common:ControlPanelSizeOptionConverter x:Key="ControlPanelSizeConverter" />

@@ -13,30 +13,29 @@ namespace FJ.Client.ViewModels
         private ResultRegisterModel m_model;
 
         public ReactiveCommand<Unit, Unit> TestCommand { get; }
-        public ObservableCollection<string> Results { get; set; }
+        public ObservableCollection<ResultRegisterItemModel> Results { get; set; }  // TODO: Bind from model with attribute?
 
         public ResultRegisterViewModel(ILatestFinlandiaResultsService latestFinlandiaResultsService)
         {
             m_model = new ResultRegisterModel(latestFinlandiaResultsService);
 
             TestCommand = ReactiveCommand.CreateFromTask(TestCall);
-            Results = new ObservableCollection<string>();
+            Results = new ObservableCollection<ResultRegisterItemModel>();
         }
 
         public async Task TestCall()
         {
             using (Navigator.ShowLoadingScreen())
             {
-                var res = await m_model.GetLatestFinlandiaResultsAsSortedStringsAsync();
-                Results = new ObservableCollection<string>(res);
+                var res = await m_model.GetLatestFinlandiaResultsAsync();
+                Results = new ObservableCollection<ResultRegisterItemModel>(res);
+                RaisePropertyChanged(nameof(Results));
             }
-
-            RaisePropertyChanged(nameof(Results));
         }
 
         protected override void DoRefreshInternal()
         {
-            Results = new ObservableCollection<string>();
+            Results = new ObservableCollection<ResultRegisterItemModel>();
             RaisePropertyChanged(nameof(Results));
         }
     }

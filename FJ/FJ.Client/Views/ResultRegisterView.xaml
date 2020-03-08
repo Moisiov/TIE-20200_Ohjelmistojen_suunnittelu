@@ -15,6 +15,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
+        <!-- TODO: Filtering comes here -->
         <Button Grid.Column="0" Grid.ColumnSpan="2"
                 Grid.Row="0"
                 Height="80"
@@ -28,19 +30,77 @@
             <ItemsControl Items="{Binding Results}" >
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Margin="2"
-                                    Orientation="Vertical" />
+                        <StackPanel Orientation="Vertical"
+                                    Margin="4"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Margin="1"
-                                   FontSize="12"
-                                   Foreground="{DynamicResource Lightest1}"
-                                   Text="{Binding}" />
+                        <StackPanel Orientation="Vertical">
+                            <Grid Background="{DynamicResource Lightest1}" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="5*" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                            <CheckBox Grid.Column="0"
+                                      Grid.Row="0"
+                                      Margin="4"
+                                      Background="White"
+                                      IsChecked="{Binding IsSelected}" />
+                            <TextBlock Grid.Column="1"
+                                       Grid.Row="0"
+                                       Margin="4"
+                                       FontSize="24"
+                                       FontWeight="ExtraBold"
+                                       Foreground="{DynamicResource Dark1}"
+                                       Text="{Binding StyleAndDistance}" />
+                            <TextBlock Grid.Column="2"
+                                       Grid.Row="0"
+                                       Margin="4"
+                                       FontSize="24"
+                                       FontWeight="ExtraBold"
+                                       Foreground="{DynamicResource Dark1}"
+                                       Text="{Binding Position}" />
+                            <TextBlock Grid.Column="3"
+                                       Grid.Row="0"
+                                       Margin="4"
+                                       FontSize="24"
+                                       FontWeight="ExtraBold"
+                                       Foreground="{DynamicResource Dark1}"
+                                       Text="{Binding Name}" />
+                            <TextBlock Grid.Column="4"
+                                       Grid.Row="0"
+                                       Margin="4"
+                                       FontSize="24"
+                                       FontWeight="ExtraBold"
+                                       Foreground="{DynamicResource Dark1}"
+                                       Text="{Binding ResultTime}" />
+                            <TextBlock Grid.Column="5"
+                                       Grid.Row="0"
+                                       Margin="4"
+                                       FontSize="24"
+                                       FontWeight="ExtraBold"
+                                       Foreground="{DynamicResource Dark1}"
+                                       Text="{Binding Year}" />
+                            </Grid>
+                            <Separator Grid.Column="0" Grid.ColumnSpan="5"
+                                       Grid.Row="1"
+                                       BorderThickness="2"
+                                       BorderBrush="{DynamicResource Light1}" />
+                        </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
+
+        <!-- TODO: Search and other command come here -->
     </Grid>
 </UserControl>

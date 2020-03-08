@@ -17,7 +17,7 @@ namespace FJ.Client.Models
             m_latestFinlandiaResultsService = latestFinlandiaResultsService;
         }
 
-        public async Task<IEnumerable<string>> GetLatestFinlandiaResultsAsSortedStringsAsync()
+        public async Task<IEnumerable<ResultRegisterItemModel>> GetLatestFinlandiaResultsAsync()
         {
             // TODO this is just a proof of concept
             var collection = await m_latestFinlandiaResultsService.GetLatestFinlandiaResultsAsync();
@@ -25,7 +25,14 @@ namespace FJ.Client.Models
                 .Where(x => x.Distance == FinlandiaSkiingDistance.Fifty && x.Style == FinlandiaSkiingStyle.Classic)
                 .OrderBy(x => x.PositionGeneral)
                 .Take(100)
-                .Select(x => $"{x.PositionGeneral}\t{x.FullName}");
+                .Select(x => new ResultRegisterItemModel
+                {
+                    Name = x.FullName,
+                    Position = x.PositionGeneral,
+                    StyleAndDistance = x.StyleAndDistanceString,
+                    ResultTime = x.Result.ToString(@"hh\:mm\:ss\.ff"),
+                    Year = x.Year
+                });
 
             return res;
         }
