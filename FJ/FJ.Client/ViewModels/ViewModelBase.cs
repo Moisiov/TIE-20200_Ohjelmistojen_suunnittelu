@@ -61,18 +61,9 @@ namespace FJ.Client.ViewModels
             DoRefreshInternal();
         }
 
+        // TODO: Prism event aggregator does not support for async subscriptions. This might be a problem.
         protected virtual void DoRefreshInternal()
         {
-        }
-
-        protected async virtual Task<TResult> OnShowLoadingScreen<TResult>(Func<Task<TResult>> func)
-        {
-            return await Navigator.WithLoadingScreenDisplayedAsync(func);
-        }
-
-        protected async virtual Task<TResult> OnShowLoadingScreen<T, TResult>(T argument, Func<T, Task<TResult>> func)
-        {
-            return await Navigator.WithLoadingScreenDisplayedAsync(argument, func);
         }
 
         protected bool SetAndRaise<T>(ref T field, T value, [CallerMemberName] string caller = "")
