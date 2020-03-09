@@ -20,7 +20,7 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
         public async Task<FinlandiaHiihtoResultsCollection> GetFinlandiaHiihtoResultsAsync(FinlandiaHiihtoSearchArgs args)
         {
             // TODO proof of concept, ei huomioi argseja vielä kuin ensimmäisen vuoden osalta
-            var raw = await m_api.GetData(year: args.Years.First());
+            var raw = await m_api.GetData(year: args.CompetitionYears.First());
             return new FinlandiaHiihtoResultsCollection(args, ParseRawResult(raw));
         }
 

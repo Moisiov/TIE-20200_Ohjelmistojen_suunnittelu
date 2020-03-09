@@ -7,7 +7,7 @@ namespace FJ.DomainObjects.FinlandiaHiihto
     public class FinlandiaHiihtoSearchArgs
     {
         // TODO Age on competition year?
-        public IEnumerable<int> Years { get; set; }
+        public IEnumerable<int> CompetitionYears { get; set; }
         public IEnumerable<FinlandiaSkiingStyle> Styles { get; set; }
         public IEnumerable<FinlandiaSkiingDistance> Distances { get; set; }
 
@@ -24,6 +24,7 @@ namespace FJ.DomainObjects.FinlandiaHiihto
         public int? MaxPositionWomen { get; set; }
 
         public IEnumerable<FinlandiaSkiingGender> Genders { get; set; }
+        public IEnumerable<FinlandiaSkiingAgeGroup> AgeGroups { get; set; }
 
         public IEnumerable<string> LastNames { get; set; }
         public IEnumerable<string> FirstNames { get; set; }

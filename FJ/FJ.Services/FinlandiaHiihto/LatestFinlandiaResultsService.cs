@@ -21,7 +21,7 @@ namespace FJ.Services.FinlandiaHiihto
             var currenYear = DateTime.Today.Year;
             var args = new FinlandiaHiihtoSearchArgs
             {
-                Years = currenYear.ToMany()
+                CompetitionYears = currenYear.ToMany()
             };
 
             var result = await m_dataFetchingService.GetFinlandiaHiihtoResultsAsync(args);
@@ -33,7 +33,7 @@ namespace FJ.Services.FinlandiaHiihto
 
             args = new FinlandiaHiihtoSearchArgs
             {
-                Years = (currenYear - 1).ToMany()
+                CompetitionYears = (currenYear - 1).ToMany()
             };
 
             return await m_dataFetchingService.GetFinlandiaHiihtoResultsAsync(args);
