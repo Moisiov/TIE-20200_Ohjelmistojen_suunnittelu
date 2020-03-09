@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.DomainObjects.FinlandiaHiihto.Enums;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
+using FJ.Utils.FinlandiaUtils;
 
 namespace FJ.Client.Models
 {
@@ -29,7 +30,7 @@ namespace FJ.Client.Models
                 {
                     Name = x.FullName,
                     Position = x.PositionGeneral,
-                    StyleAndDistance = x.StyleAndDistanceString,
+                    StyleAndDistance = FinlandiaHelpers.GetDistanceAndStyleShortString(x.Distance, x.Style),
                     ResultTime = x.Result.ToString(@"hh\:mm\:ss\.ff"),
                     Year = x.Year
                 });

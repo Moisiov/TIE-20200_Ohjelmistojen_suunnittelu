@@ -21,7 +21,5 @@ namespace FJ.DomainObjects.FinlandiaHiihto
         public string Team { get; set; }
 
         public string FullName => $"{FirstName} {LastName}";
-        public string StyleAndDistanceString => $"{(Style == FinlandiaSkiingStyle.Classic ? "P" : "V")}{(int)Distance}";  // MUAHAHAHAA TODO
-        // public int? AgeOnCompetitionYear => ... TODO
     }
 }
