@@ -1,5 +1,6 @@
 ﻿using System;
 using FJ.Client.Models;
+using FJ.Client.UICore;
 
 namespace FJ.Client.ViewModels
 {

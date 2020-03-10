@@ -3,6 +3,7 @@ using Prism.Events;
 using FJ.Client.UIEvents;
 using FJ.Client.UIServices;
 using FJ.Client.Models;
+using FJ.Client.UICore;
 
 namespace FJ.Client.ViewModels
 {

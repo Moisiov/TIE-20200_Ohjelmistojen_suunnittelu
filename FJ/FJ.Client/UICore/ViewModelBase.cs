@@ -9,7 +9,7 @@ using Prism.Events;
 using Prism.Regions;
 using ReactiveUI;
 
-namespace FJ.Client.ViewModels
+namespace FJ.Client.UICore
 {
     public class ViewModelBase : ReactiveObject, IRegionMemberLifetime, IJournalAware, INavigationAware
     {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
 using FJ.Client.Models;
+using FJ.Client.UICore;
 using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.DomainObjects.FinlandiaHiihto.Enums;
 using FJ.ServiceInterfaces.FinlandiaHiihto;

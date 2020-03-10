@@ -1,5 +1,6 @@
 ﻿using System;
 using FJ.Client.Models;
+using FJ.Client.UICore;
 using FJ.Client.UIServices;
 using FJ.Client.Views;
 
