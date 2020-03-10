@@ -17,57 +17,24 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0"
-                    Grid.Column="0"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center" >
-            <TextBlock>
-                1
-            </TextBlock>
-            <Button Height="80"
-                    Width="160"
-                    Foreground="Blue"
-                    Command="{Binding NavigateToResultRegister}"
-                    Content="Tulokset" />
+        <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <TextBlock Text="1" />
+            <Button Height="80" Width="160" Foreground="Blue" Command="{Binding NavigateToResultRegister}" Content="Tulokset" />
         </StackPanel>
-        <StackPanel Grid.Row="0"
-                    Grid.Column="1"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center" >
-            <TextBlock>
-                2
-            </TextBlock>
-            <Button Height="80"
-                    Width="160"
-                    Foreground="Blue"
-                    Command="{Binding NavigateToCompetitionGeneral}"
-                    Content="Kilpailu" />
+
+        <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <TextBlock Text="2" />
+            <Button Height="80" Width="160" Foreground="Blue" Command="{Binding NavigateToCompetitionGeneral}" Content="Kilpailu" />
         </StackPanel>
-        <StackPanel Grid.Row="1"
-                    Grid.Column="0"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center" >
-            <TextBlock>
-                3
-            </TextBlock>
-            <Button Height="80"
-                    Width="160"
-                    Foreground="Blue"
-                    Command="{Binding NavigateToAthleteCard}"
-                    Content="Urheilija" />
+
+        <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <TextBlock Text="2" />
+            <Button Height="80" Width="160" Foreground="Blue" Command="{Binding NavigateToAthleteCard}" Content="Urheilija" />
         </StackPanel>
-        <StackPanel Grid.Row="1"
-                    Grid.Column="1"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center" >
-            <TextBlock>
-                4
-            </TextBlock>
-            <Button Height="80"
-                    Width="160"
-                    Foreground="Blue"
-                    Command="{Binding NavigateToTeamCard}"
-                    Content="Joukkue" />
+
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <TextBlock Text="2" />
+            <Button Height="80" Width="160" Foreground="Blue" Command="{Binding NavigateToTeamCard}" Content="Joukkue" />
         </StackPanel>
     </Grid>
 </UserControl>

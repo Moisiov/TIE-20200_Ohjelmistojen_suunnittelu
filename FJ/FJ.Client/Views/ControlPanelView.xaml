@@ -37,6 +37,7 @@
                 </DrawingPresenter>
             </Button>
         </StackPanel>
+
         <StackPanel DockPanel.Dock="Bottom" Orientation="Vertical" >
             <TextBlock Foreground="White"
                        Margin="4"
@@ -45,5 +46,6 @@
                        Margin="4"
                        Text="Tähän tulee ohjauspaneelin nappula tai muuta kivaa" />
         </StackPanel>
+
     </DockPanel>
 </UserControl>

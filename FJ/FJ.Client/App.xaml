@@ -1,5 +1,6 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
              xmlns:local="clr-namespace:FJ.Client"
              x:Class="FJ.Client.App">
 
@@ -8,6 +9,7 @@
         <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>
 
         <Styles>
+            <!-- Image rotating animation -->
             <Style Selector="Image.Rotating[IsVisible=true]">
                 <Setter Property="Height" Value="50" />
                 <Setter Property="Width" Value="50" />
@@ -27,6 +29,8 @@
      </Application.Styles>
 
     <Application.Resources>
+
+        <!-- Colors -->
         <SolidColorBrush
             x:Key="Warning1"
             Color="#FFB000" />
@@ -48,11 +52,17 @@
         <SolidColorBrush
             x:Key="Light1"
             Color="#CC9466" />
+
+        <!-- Images and icons -->
         <Image
-            x:Key="LoadingSpinner"
-            Source="/Assets/spinner-solid.ico"
-            Classes="Rotating" />
+            x:Key="LoadingSpinner" Source="/Assets/spinner-solid.ico" Classes="Rotating" />
         <!-- Source="/Assets/circle-notch-solid.ico" -->
+
+        <!-- Fonts -->
+        <sys:Double x:Key="FontSizeSmall">10</sys:Double>
+        <sys:Double x:Key="FontSizeNormal">12</sys:Double>
+        <sys:Double x:Key="FontSizeLarge">16</sys:Double>
+        <sys:Double x:Key="FontSizeExtraLarge">24</sys:Double>
     </Application.Resources>
 
 </Application>
