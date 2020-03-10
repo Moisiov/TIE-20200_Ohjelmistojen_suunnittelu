@@ -21,7 +21,6 @@
                     </DrawingPresenter.Drawing>
                 </DrawingPresenter>
             </Button>
-            <Separator />
             <Button Command="{Binding DoNavigateContentForward}"
                     IsEnabled="{Binding CanNavigateContentForward}"
                     Width="70"
@@ -35,7 +34,6 @@
                     </DrawingPresenter.Drawing>
                 </DrawingPresenter>
             </Button>
-            <Separator />
             <Button Command="{Binding DoRequestContentRefresh}"
                     Width="70"
                     HorizontalAlignment="Center"
@@ -49,7 +47,13 @@
                     </DrawingPresenter.Drawing>
                 </DrawingPresenter>
             </Button>
-            <Separator />
         </StackPanel>
+        <TextBlock Margin="4"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="32"
+                       FontWeight="ExtraBold"
+                       Foreground="{DynamicResource Lightest1}"
+                       Text="{Binding TopBarHeaderText}" />
     </DockPanel>
 </UserControl>

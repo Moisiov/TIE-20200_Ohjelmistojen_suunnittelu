@@ -24,11 +24,20 @@ namespace FJ.Client.ViewModels
             set => SetAndRaise(ref m_canNavigateContentForward, value);
         }
 
+        private string m_topBarHeaderText;
+        public string TopBarHeaderText
+        {
+            get => m_topBarHeaderText;
+            set => SetAndRaise(ref m_topBarHeaderText, value);
+        }
+
         public TopBarViewModel(IEventAggregator ea)
         {
             m_model = new TopBarModel();
 
             ea.GetEvent<ContentRegionNavigationEvent>().Subscribe((e) => UpdateNavigationButtons());
+
+            TopBarHeaderText = "TESTITEKSTI, JOKA ON KOVIN PITKÄ LUONTEELTAAN";
         }
 
         public void DoNavigateContentBack()
