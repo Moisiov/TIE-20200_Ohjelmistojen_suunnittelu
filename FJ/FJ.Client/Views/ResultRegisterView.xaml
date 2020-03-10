@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:common="clr-namespace:FJ.Client.UIConverters"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="FJ.Client.Views.ResultRegisterView">
@@ -14,24 +15,267 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- TODO: Filtering comes here -->
-        <Button Grid.Column="0" Grid.ColumnSpan="2"
-                Grid.Row="0"
-                Height="80"
-                Width="160"
-                Foreground="Blue"
-                Command="{Binding TestCommand}"
-                Content="TESTIKUTSU" />
+        <!-- Filters -->
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="2"
+                    Grid.Row="0"
+                    Margin="0,10,0,0" >
+            <StackPanel.Resources>
+                <common:FinlandiaHiihtoCompetitionClassToStringConverter x:Key="FinlandiaCCToStringConverter" />
+                <common:EnumToDescriptionConverter x:Key="EnumToDescriptionConverter" />
+            </StackPanel.Resources>
+            <WrapPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock FontSize="12"
+                               FontWeight="DemiBold"
+                               HorizontalAlignment="Center"
+                               Text="Kilpailun vuosi"
+                               Foreground="{DynamicResource Lightest1}" />
+                    <ComboBox Margin="2"
+                              Items="{Binding CompetitionYears}"
+                              MinWidth="108"
+                              MinHeight="24"
+                              Background="{DynamicResource Lightest1}"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock FontSize="12"
+                               FontWeight="DemiBold"
+                               HorizontalAlignment="Center"
+                               Text="Matka"
+                               Foreground="{DynamicResource Lightest1}" />
+                    <ComboBox Margin="16,2,2,2"
+                              MinWidth="108"
+                              MinHeight="24"
+                              Items="{Binding CompetitionClasses}"
+                              Background="{DynamicResource Lightest1}" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding, Converter={StaticResource FinlandiaCCToStringConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock FontSize="12"
+                               FontWeight="DemiBold"
+                               HorizontalAlignment="Center"
+                               Text="Sukupuoli"
+                               Foreground="{DynamicResource Lightest1}" />
+                    <ComboBox Margin="16,2,2,2"
+                              MinWidth="108"
+                              MinHeight="24"
+                              Items="{Binding Genders}"
+                              Background="{DynamicResource Lightest1}" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding, Converter={StaticResource EnumToDescriptionConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock FontSize="12"
+                               FontWeight="DemiBold"
+                               HorizontalAlignment="Center"
+                               Text="Ikäsarja"
+                               Foreground="{DynamicResource Lightest1}" />
+                    <ComboBox Margin="16,2,2,2"
+                              MinWidth="108"
+                              MinHeight="24"
+                              Items="{Binding AgeGroups}"
+                              Background="{DynamicResource Lightest1}" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding, Converter={StaticResource EnumToDescriptionConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock FontSize="12"
+                               FontWeight="DemiBold"
+                               HorizontalAlignment="Center"
+                               Text="Joukkue"
+                               Foreground="{DynamicResource Lightest1}" />
+                    <TextBox Margin="16,2,2,2"
+                             MinWidth="108"
+                             MinHeight="24"
+                             Background="{DynamicResource Lightest1}"
+                             Text="{Binding CurrentTeamString}"
+                             Watermark="Joukkue" >
+                    </TextBox>
+                </StackPanel>
+                <Grid Margin="16,0,2,2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="7"
+                               Grid.Row="0"
+                               FontSize="12"
+                               FontWeight="DemiBold"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Text="Aika"
+                               Foreground="{DynamicResource Lightest1}" />
+                    <ComboBox Grid.Column="0"
+                              Grid.Row="1"
+                              MinWidth="24"
+                              MinHeight="24"
+                              Items="{Binding FromHourOptions}"
+                              SelectedItem="{Binding FromHourSelection}"
+                              Background="{DynamicResource Lightest1}" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock Grid.Column="1"
+                               Grid.Row="1"
+                               Margin="1"
+                               FontSize="12"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               Text=":" />
+                    <ComboBox Grid.Column="2"
+                              Grid.Row="1"
+                              MinWidth="24"
+                              MinHeight="24"
+                              Items="{Binding FromMinuteOptions}"
+                              SelectedItem="{Binding FromMinuteSelection}"
+                              Background="{DynamicResource Lightest1}" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock Grid.Column="3"
+                               Grid.Row="1"
+                               Margin="4,1,4,1"
+                               VerticalAlignment="Center"
+                               FontSize="12"
+                               FontWeight="ExtraBold"
+                               Text="–" />
+                    <ComboBox Grid.Column="4"
+                              Grid.Row="1"
+                              MinWidth="24"
+                              MinHeight="24"
+                              Items="{Binding ToHourOptions}"
+                              SelectedItem="{Binding ToHourSelection}"
+                              Background="{DynamicResource Lightest1}" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock Grid.Column="5"
+                               Grid.Row="1"
+                               Margin="1"
+                               VerticalAlignment="Center"
+                               FontSize="12"
+                               FontWeight="Bold"
+                               Text=":" />
+                    <ComboBox Grid.Column="6"
+                              Grid.Row="1"
+                              MinWidth="24"
+                              MinHeight="24"
+                              Items="{Binding ToMinuteOptions}"
+                              SelectedItem="{Binding ToMinuteSelection}"
+                              Background="{DynamicResource Lightest1}" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
+                <!-- TODO Force line ending here -->
+                <StackPanel Orientation="Vertical">
+                    <TextBlock FontSize="12"
+                               FontWeight="DemiBold"
+                               HorizontalAlignment="Center"
+                               Text="Etunimi"
+                               Foreground="{DynamicResource Lightest1}" />
+                    <TextBox Margin="16,2,2,2"
+                             MinWidth="108"
+                             MinHeight="24"
+                             Background="{DynamicResource Lightest1}"
+                             Text="{Binding CurrentFirstNameString}"
+                             Watermark="Etunimi" >
+                    </TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock FontSize="12"
+                               FontWeight="DemiBold"
+                               HorizontalAlignment="Center"
+                               Text="Sukunimi"
+                               Foreground="{DynamicResource Lightest1}" />
+                    <TextBox Margin="16,2,2,2"
+                             MinWidth="108"
+                             MinHeight="24"
+                             Background="{DynamicResource Lightest1}"
+                             Text="{Binding CurrentLastNameString}"
+                             Watermark="Sukunimi" >
+                    </TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock FontSize="12"
+                               FontWeight="DemiBold"
+                               HorizontalAlignment="Center"
+                               Text="Kaupunki"
+                               Foreground="{DynamicResource Lightest1}" />
+                    <TextBox Margin="16,2,2,2"
+                             MinWidth="108"
+                             MinHeight="24"
+                             Background="{DynamicResource Lightest1}"
+                             Text="{Binding CurrentMunicipalityString}"
+                             Watermark="Kaupunki" >
+                    </TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock FontSize="12"
+                               FontWeight="DemiBold"
+                               HorizontalAlignment="Center"
+                               Text="Syntymävuosi"
+                               Foreground="{DynamicResource Lightest1}" />
+                    <TextBox Margin="16,2,2,2"
+                             MinWidth="108"
+                             MinHeight="24"
+                             Background="{DynamicResource Lightest1}"
+                             Text="{Binding CurrentYearOfBirthString}"
+                             Watermark="Syntymävuosi" >
+                    </TextBox>
+                </StackPanel>
+            </WrapPanel>
+            <Separator Margin="0,2,0,0"
+                       Height="2"
+                       BorderThickness="2"
+                       Background="{DynamicResource Darkest1}" />
+        </StackPanel>
 
-        <ScrollViewer Grid.Column="1" Grid.ColumnSpan="2"
-                      Grid.Row="1" >
+        <!-- Result items -->
+        <ScrollViewer Grid.Column="0" Grid.ColumnSpan="2"
+                      Grid.Row="1"
+                      Margin="0,0,1,0" >
             <ItemsControl Items="{Binding Results}" >
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical"
-                                    Margin="4"/>
+                                    Margin="2,0,0,0"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
@@ -101,6 +345,25 @@
             </ItemsControl>
         </ScrollViewer>
 
-        <!-- TODO: Search and other command come here -->
+        <!-- Bottom items -->
+        <DockPanel Grid.Column="0" Grid.ColumnSpan="2"
+                   Grid.Row="2"
+                   Margin="0,0,0,10"
+                   LastChildFill="False"
+                   ClipToBounds="True" >
+            <Separator DockPanel.Dock="Top"
+                       Margin="0,0,0,2"
+                       Height="2"
+                       BorderThickness="2"
+                       Background="{DynamicResource Darkest1}" />
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" >
+                <Button Height="40"
+                        Width="120"
+                        Foreground="Blue"
+                        Command="{Binding TestCommand}"
+                        Content="TESTIKUTSU" />
+            </StackPanel>
+        </DockPanel>
+
     </Grid>
 </UserControl>

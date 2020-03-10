@@ -20,7 +20,7 @@ namespace FJ.Client.UIConverters
                 };
             }
 
-            throw new ArgumentException("parameter");
+            throw new ArgumentException(nameof(parameter));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
