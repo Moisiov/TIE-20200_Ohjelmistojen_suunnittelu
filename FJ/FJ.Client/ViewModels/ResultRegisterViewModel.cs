@@ -4,8 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
+using FJ.Client.ArgumentClasses;
 using FJ.Client.Models;
 using FJ.Client.UICore;
+using FJ.Client.Views;
 using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.DomainObjects.FinlandiaHiihto.Enums;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
@@ -96,6 +98,16 @@ namespace FJ.Client.ViewModels
                 Results = new ObservableCollection<ResultRegisterItemModel>(res);
                 RaisePropertyChanged(nameof(Results));
             }
+        }
+
+        public void NavigationCommand()
+        {
+            var args = new AthleteCardArgs
+            {
+                AthleteName = Results.FirstOrDefault()?.Name ?? "Rocky Balboa"
+            };
+
+            Navigator.DoNavigateTo<AthleteCardView>(args);
         }
 
         protected override void DoRefreshInternal()

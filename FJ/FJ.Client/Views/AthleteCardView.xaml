@@ -6,12 +6,19 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="FJ.Client.Views.AthleteCardView">
-    <Grid>
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <TextBlock Foreground="White"
-                    FontSize="40"
-                    FontWeight="Bold"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Text="Urheilijan kortti" />
-    </Grid>
+                   FontSize="40"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Text="Urheilijan kortti" />
+        <TextBlock Margin="1"
+                   Foreground="White"
+                   FontSize="{DynamicResource FontSizeLarge}"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Text="{Binding AthleteName}" />
+    </StackPanel>
 </UserControl>

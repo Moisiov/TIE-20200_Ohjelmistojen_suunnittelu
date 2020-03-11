@@ -238,10 +238,14 @@
         <DockPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Margin="0,0,0,10" LastChildFill="False" ClipToBounds="True" >
             <Separator DockPanel.Dock="Top" Margin="0,0,0,2" Height="2" BorderThickness="2" Background="{DynamicResource Darkest1}" />
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" >
-                <Button Height="40" Width="120"
+                <Button Height="40" Width="120" Margin="2"
                         Foreground="Blue"
                         Command="{Binding TestCommand}"
                         Content="TESTIKUTSU" />
+                <Button Height="40" Width="120" Margin="2"
+                        Foreground="Blue"
+                        Command="{Binding NavigationCommand}"
+                        Content="NAVIGOI KORTILLE" />
             </StackPanel>
         </DockPanel>
 
