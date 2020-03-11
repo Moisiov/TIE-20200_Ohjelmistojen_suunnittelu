@@ -91,15 +91,15 @@ namespace FJ.Client.UIServices
             m_eventAggregator.GetEvent<ContentRegionRefreshRequestedEvent>().Publish(eventArgs);
         }
 
-        public void DoNavigateTo(string targetViewName)
+        public void DoNavigateTo(string targetViewName, object navArgs)
         {
-            m_regionManager.NavigateContentTo(targetViewName);
+            m_regionManager.NavigateContentTo(targetViewName, navArgs);
         }
 
-        public void DoNavigateTo<TView>()
+        public void DoNavigateTo<TView>(object navArgs)
             where TView : UserControl
         {
-            DoNavigateTo(typeof(TView).Name);
+            DoNavigateTo(typeof(TView).Name, navArgs);
         }
 
         protected virtual void OnContentRegionNavigation(object s, RegionNavigationEventArgs e)

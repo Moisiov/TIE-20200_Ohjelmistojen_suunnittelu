@@ -10,9 +10,9 @@ namespace FJ.Client.UIUtils
         /// </summary>
         /// <param name="regionManager">Region manager which controls the content region</param>
         /// <param name="targetView">Name of navigation target view</param>
-        public static void NavigateControlPanelTo(this IRegionManager regionManager, string targetView)
+        public static void NavigateControlPanelTo(this IRegionManager regionManager, string targetView, object navArgs = null)
         {
-            regionManager.RequestNavigate(Regions.ControlPanelRegion, targetView);
+            regionManager.RequestNavigate(Regions.ControlPanelRegion, targetView, CreateNavigationParameters(navArgs));
         }
 
         /// <summary>
@@ -20,9 +20,9 @@ namespace FJ.Client.UIUtils
         /// </summary>
         /// <param name="regionManager">Region manager which controls the top bar region</param>
         /// <param name="targetView">Name of navigation target view</param>
-        public static void NavigateTopBarTo(this IRegionManager regionManager, string targetView)
+        public static void NavigateTopBarTo(this IRegionManager regionManager, string targetView, object navArgs = null)
         {
-            regionManager.RequestNavigate(Regions.TopBarRegion, targetView);
+            regionManager.RequestNavigate(Regions.TopBarRegion, targetView, CreateNavigationParameters(navArgs));
         }
 
         /// <summary>
@@ -30,9 +30,22 @@ namespace FJ.Client.UIUtils
         /// </summary>
         /// <param name="regionManager">Region manager which controls the control panel region</param>
         /// <param name="targetView">Name of navigation target view</param>
-        public static void NavigateContentTo(this IRegionManager regionManager, string targetView)
+        public static void NavigateContentTo(this IRegionManager regionManager, string targetView, object navArgs = null)
         {
-            regionManager.RequestNavigate(Regions.ContentRegion, targetView);
+            regionManager.RequestNavigate(Regions.ContentRegion, targetView, CreateNavigationParameters(navArgs));
+        }
+
+        private static NavigationParameters CreateNavigationParameters(object navArgs)
+        {
+            if (navArgs == null)
+            {
+                return null;
+            }
+
+            var navParams = new NavigationParameters();
+            navParams.Add(navArgs.GetType().Name, navArgs);
+
+            return navParams;
         }
     }
 }

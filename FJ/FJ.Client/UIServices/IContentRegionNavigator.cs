@@ -21,8 +21,8 @@ namespace FJ.Client.UIServices
         void DoNavigateForward();
         void RequestRefresh();
 
-        void DoNavigateTo(string targetViewName);
-        void DoNavigateTo<TView>()
+        void DoNavigateTo(string targetViewName, object navArgs = null);
+        void DoNavigateTo<TView>(object navArgs = null)
             where TView : UserControl;
 
         void SetLoadingScreen(bool doShowLoadingScreen);

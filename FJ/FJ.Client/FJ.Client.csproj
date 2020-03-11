@@ -19,6 +19,7 @@
     <Folder Include="UIUtils\" />
     <Folder Include="UIConverters\" />
     <Folder Include="UICore\" />
+    <Folder Include="ArgumentClasses\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.9.3" />
