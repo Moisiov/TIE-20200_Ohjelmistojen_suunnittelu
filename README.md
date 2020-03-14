@@ -1,12 +1,16 @@
-# Suunnitteludokumentti #
+## Uutiset ##
+* **Wiki on julkaistu! (14.3.2020)**
 
+---
+
+# Suunnitteludokumentti #
 
 ## Ohjelman rakenne & komponentit ##
 Toteutus koostuu pääasiassa kolmen pääkomponentin kokonaisuutena: Client, Services ja API(t). Jokainen edellä mainituista komponenteista toteutetaan omaan projektiinsa. Näiden lisäksi omissa projekteissaan toteutetaan ydintason toteutuksia, jotka sisältävät projekteille yhteistä toiminnallisuutta. Ohjelman kokonaistoteutus pyrkii hallitsemaan riippuvuuksia sipuliarkkitehtuurin mukaisesti.
 
 
 ![picture alt](https://i.imgur.com/bnjs88p.png)
-_Havainnekuva ohjelman kokonaisarkkitehtuurista_
+*Havainnekuva ohjelman kokonaisarkkitehtuurista*
 
 
 Kokonaisuutena riippuvuuksia hallitaan IoC-containerilla (Unity), johon tarvittavat riippuvuudet rekisteröidään juuriprojektissa. Avalonia-frameworkin rajoitteiden vuoksi osa vain UI:n tarvitsemista rekisteröinneistä suoritetaan kuitenkin Client-projektissa.
@@ -25,16 +29,18 @@ Pyrkimyksenä on mahdollistaa uusien ominaisuuksien kehittäminen "viipaleina". 
 
 
 ![picture alt](https://jimmybogardsblog.blob.core.windows.net/jimmybogardsblog/3/2018/Picture0030.png)
-_Periaatekuva viipaleesta_
+
+*Periaatekuva viipaleesta ([Jimmy Bogard: Vertical Slice Architecture](https://jimmybogard.com/vertical-slice-architecture/), viitattu 14.3.2020)*
 
 
 Ohjelman kehittämisessä viipaleina on lukuisia etuja:
+
 * Koko tiimin työskenteleminen omien, erillisten ominaisuuksien kehittämisen kanssa on helpompaa.
 * Kaikki tiimin jäsenet oppivat kehittämään jokaista kokonaisuuden osa-aluetta.
 * Versionhallinnan konflikteja tulee vähemmän ja ne ovat usein helpompia selvittää.
 * Päällekkäisen työn riski pienenee.
 
-***Ohjelman arkkitehtuuri ei kuitenkaan pyri "viipalearkkitehtuuriin" sen täydessä laajuudessa.***
+***Ohjelman arkkitehtuuri ei kuitenkaan pyri ”viipalearkkitehtuuriin” sen täydessä laajuudessa.***
 
 ## Rajapintadokumentaatio ##
 
@@ -60,10 +66,11 @@ public enum ageGroup
 ```
 
 #### Virheet ####
-Näihin voi vielä tulla muutoksia ja lisäyksiä, esim. jos tallennetaan dataa lokaalisti, niin datan haku suoraan sivustolta ei vielä täysin välttämätöntä-
-- **`CantAccessSiteException`** : Sivustoon ei saatu yhteyttä (esim. ei Internet-yhteyttä tai Finlandia-hiihto sivusto on alhaalla.)
-- **`InvalidArgumentsException`** : Sivusto palautti virheen viallisten argumenttien takia
-- **`TooMuchDataException`** : Yli 10000 tulosta haulla, jolloin sivusto ei palauta dataa.
+Näihin voi vielä tulla muutoksia ja lisäyksiä, esim. jos tallennetaan dataa lokaalisti, niin datan haku suoraan sivustolta ei vielä täysin välttämätöntä.
+
+* **`CantAccessSiteException`** : Sivustoon ei saatu yhteyttä (esim. ei Internet-yhteyttä tai Finlandia-hiihto sivusto on alhaalla.)
+* **`InvalidArgumentsException`** : Sivusto palautti virheen viallisten argumenttien takia
+* **`TooMuchDataException`** : Yli 10000 tulosta haulla, jolloin sivusto ei palauta dataa.
 
 #### Funktiot
 ```csharp
@@ -72,15 +79,16 @@ public async Task<IEnumerable<Dictionary<string, string>>> GetData(...)
 ### Parameterit ###
 Parametreilla määritetään filttereita datan haulle.
 Luomme myöhemmin args-luokan, jolla filttereiden asetus siistimpää.
-- **`year`**:  **Type**: int, **Default**: null
--  **`firstName`**:  **Type**: string,  **Default**: null
-- **`lastName`**: **Type**: string, **Default**: null
-- **`competitionType`**: **Type**: enum, **Default**: null
-- **`ageGroup`**: **Type**: enum, **Default**: null
--  **`competitorHomeTown`**: **Type**: string, **Default**: null
--  **`team`** : **Type**: string, **Default**: null
-- **`gender`**: **Type**: enum, **Default**: null
-- **`nationality`**: **Type**: string, **Default**: null
+
+* **`year`**:  **Type**: int, **Default**: null
+*  **`firstName`**:  **Type**: string,  **Default**: null
+* **`lastName`**: **Type**: string, **Default**: null
+* **`competitionType`**: **Type**: enum, **Default**: null
+* **`ageGroup`**: **Type**: enum, **Default**: null
+*  **`competitorHomeTown`**: **Type**: string, **Default**: null
+*  **`team`** : **Type**: string, **Default**: null
+* **`gender`**: **Type**: enum, **Default**: null
+* **`nationality`**: **Type**: string, **Default**: null
 
 ### Palauttaa ###
 ```csharp
@@ -89,6 +97,17 @@ Luomme myöhemmin args-luokan, jolla filttereiden asetus siistimpää.
 
 Palauttaa asynkronisesti iteroitavan joukon Dictionary-tietueita, joissa yksi tietue edustaa yhtä tulosriviä. Dictionaryn avaimet ovat tulosrivin sarakkeen nimiä ja arvot vastaavat solun arvoa kyseisessä sarakkeessa.
 
-Dictionaryn avaimet:
-["Vuosi", "Matka", "Tulos", "Sija", "Sija/Miehet", "Sija/Naiset", "Sukupuoli", "Sukunimi Etunimi", "Paikkakunta", "Kansallisuus","Syntymävuosi", "Joukkue"]
+**Dictionaryn avaimet:**
 
+* ”Vuosi"
+* ”Matka"
+* "Tulos"
+* "Sija"
+* "Sija/Miehet"
+* "Sija/Naiset"
+* "Sukupuoli"
+* "Sukunimi Etunimi"
+* "Paikkakunta"
+* "Kansallisuus"
+* "Syntymävuosi"
+* "Joukkue"
