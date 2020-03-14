@@ -6,7 +6,6 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Compile Update="**\*.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
@@ -20,6 +19,14 @@
     <Folder Include="UIConverters\" />
     <Folder Include="UICore\" />
     <Folder Include="ArgumentClasses\" />
+    <Folder Include="Athlete\" />
+    <Folder Include="Competition\" />
+    <Folder Include="ControlPanel\" />
+    <Folder Include="FrontPage\" />
+    <Folder Include="ResultRegister\" />
+    <Folder Include="Team\" />
+    <Folder Include="TopBar\" />
+    <Folder Include="MainWindow\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.9.3" />

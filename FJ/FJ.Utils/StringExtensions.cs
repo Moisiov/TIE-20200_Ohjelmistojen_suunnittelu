@@ -16,7 +16,7 @@ namespace FJ.Utils
 
         public static string ReplaceLastOccurrence(this string source, string find, string replace)
         {
-            var place = source.LastIndexOf(find);
+            var place = source.LastIndexOf(find, StringComparison.Ordinal);
             return place < 0 ? source : source.Remove(place, find.Length).Insert(place, replace);
         }
     }

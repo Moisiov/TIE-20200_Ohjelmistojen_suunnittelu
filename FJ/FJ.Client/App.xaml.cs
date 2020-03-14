@@ -1,7 +1,9 @@
 using Avalonia;
 using Avalonia.Markup.Xaml;
+using FJ.Client.ControlPanel;
+using FJ.Client.FrontPage;
+using FJ.Client.TopBar;
 using FJ.Client.UIUtils;
-using FJ.Client.Views;
 using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Unity;
@@ -36,7 +38,7 @@ namespace FJ.Client
 
         protected override IAvaloniaObject CreateShell()
         {
-            return Container.Resolve<MainWindow>();
+            return Container.Resolve<MainWindow.MainWindow>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
