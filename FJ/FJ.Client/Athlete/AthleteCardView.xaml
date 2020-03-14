@@ -5,6 +5,7 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+<<<<<<< HEAD:FJ/FJ.Client/Athlete/AthleteCardView.xaml
              x:Class="FJ.Client.Athlete.AthleteCardView">
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <TextBlock Foreground="White"
@@ -20,5 +21,183 @@
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Text="{Binding AthleteName}" />
+=======
+             x:Class="FJ.Client.Views.AthleteCardView">
+
+    <UserControl.Styles>
+            <Style Selector="TextBlock.ResultRowElement">
+                <Setter Property="Margin" Value="4" />
+                <Setter Property="FontSize" Value="{DynamicResource FontSizeExtraLarge}" />
+                <Setter Property="FontWeight" Value="ExtraBold" />
+                <Setter Property="Foreground" Value="{DynamicResource Dark1}" />
+            </Style>
+    </UserControl.Styles>
+    <StackPanel Orientation="Vertical">
+
+        <Border CornerRadius="6"
+                Background="{DynamicResource Lightest1}"
+                BorderBrush="{DynamicResource Light1}"
+                BorderThickness="2"
+                Margin="24,15,24,0">
+            <StackPanel Orientation="Vertical">
+                <Grid> 
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions >
+                        <RowDefinition Height="*" />
+                     </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Grid.Column="0">
+                        <TextBlock FontSize="{DynamicResource FontSizeLarge}"
+                                   Margin="20"
+                                   Foreground="{DynamicResource Dark1}"
+                                   HorizontalAlignment="Center"
+                                   Text="Etunimi"/>
+                        <TextBox Margin="20,0,20,0"
+                                 MinHeight="40"
+                                 Watermark="{Binding AthleteName}"
+                                 FontSize="{DynamicResource FontSizeLarge}"
+                                 VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="1">
+                        <TextBlock FontSize="{DynamicResource FontSizeLarge}"
+                                   Margin="20"
+                                   Foreground="{DynamicResource Dark1}"
+                                   HorizontalAlignment="Center"
+                                   Text="Sukunimi"/>
+                        <TextBox Margin="20,0,20,0"
+                                 MinHeight="40"
+                                 Watermark="{Binding AthleteName}"
+                                 FontSize="{DynamicResource FontSizeLarge}"
+                                 VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+                <Button Height="65" Width="280" Margin="15"
+                            Foreground="{DynamicResource Lightest1}"
+                            Background="{DynamicResource Darkest1}"
+                            Content="Hae Urheilijaa"
+                            FontSize="{DynamicResource FontSizeLarge}"/>
+            </StackPanel>
+        </Border>
+
+        <Grid Margin="25"> 
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions >
+                <RowDefinition Height="*" />
+             </Grid.RowDefinitions>
+
+            <Border Grid.Row="0"
+                    Grid.Column="0"
+                    CornerRadius="6"
+                    Background="{DynamicResource Lightest1}"
+                    BorderBrush="{DynamicResource Light1}"
+                    BorderThickness="2"
+                    Margin="0, 0, 15, 0">
+             <StackPanel VerticalAlignment="Top" TextBlock.Foreground="{DynamicResource Dark1}">
+
+                <TextBlock 
+                        FontSize="40"
+                        FontWeight="Bold"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="0, 5"
+                        Text="Urheilijan tiedot" />
+
+                 <StackPanel Orientation="Vertical"
+                             HorizontalAlignment="Left"
+                             TextBlock.FontSize="{DynamicResource FontSizeExtraLarge}"
+                             TextBlock.FontFamily="Helvetica"
+                             Margin="15">
+
+                     <StackPanel Orientation="Horizontal" Margin="0, 5">
+                        <TextBlock FontWeight="Bold" Text="Etunimi:" />
+                        <TextBlock Text="{Binding AthleteName}" />
+                      </StackPanel>
+                     <StackPanel Orientation="Horizontal" Margin="0, 5">
+                        <TextBlock FontWeight="Bold" Text="Sukunimi:" />
+                        <TextBlock Text="{Binding AthleteName}" />
+                      </StackPanel>
+                     <StackPanel Orientation="Horizontal" Margin="0, 5">
+                        <TextBlock FontWeight="Bold" Text="Syntymävuosi:" />
+                        <TextBlock Text="{Binding AthleteName}" />
+                      </StackPanel>
+
+                 </StackPanel>
+            
+            </StackPanel>
+            </Border>
+
+            <Border Grid.Row="0"
+                    Grid.Column="1"
+                    CornerRadius="6"
+                    Background="{DynamicResource Lightest1}"
+                    BorderBrush="{DynamicResource Light1}"
+                    BorderThickness="2"
+                    Margin="15, 0, 0, 0">
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        TextBlock.Foreground="{DynamicResource Dark1}">
+
+                <TextBlock 
+                        FontSize="40"
+                        FontWeight="Bold"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="0, 5"
+                        Text="Urheilijan kilpailut" />
+
+                <ScrollViewer Margin="0,0,1,0" >
+                <ItemsControl Items="{Binding Participations}" >
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" Margin="2,0,0,0"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="{DynamicResource Darkest1}" BorderThickness="1">
+                            <StackPanel Orientation="Vertical">
+                                <Grid Background="{DynamicResource Lightest1}" Margin="0,0,0,0" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Border Grid.Column="0" Grid.Row="0" BorderBrush="Gray" BorderThickness="0">
+                                        <CheckBox Margin="4" Background="White" IsChecked="{Binding IsSelected}" />
+                                    </Border>
+                                    <Border Grid.Column="1" Grid.Row="0" BorderBrush="Gray" BorderThickness="1,0,0,0">
+                                        <TextBlock Classes="ResultRowElement" Text="{Binding Year}"    />
+                                    </Border>
+                                    <Border Grid.Column="2" Grid.Row="0" BorderBrush="Gray" BorderThickness="1,0,0,0">
+                                        <TextBlock Classes="ResultRowElement" Text="{Binding StyleAndDistance}" />
+                                    </Border>
+                                </Grid>
+                            
+                            </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+                </ItemsControl>
+                </ScrollViewer>
+                <Button Height="65" Width="280" Margin="15"
+                            Foreground="{DynamicResource Lightest1}"
+                            Background="{DynamicResource Darkest1}"
+                            Content="Tarkastele valittuja kilpailuja"
+                            FontSize="{DynamicResource FontSizeLarge}"/>
+            </StackPanel>
+            </Border>
+        </Grid>
+>>>>>>> AthleteCard: Create intial layout and display some dummy data in the view.:FJ/FJ.Client/Views/AthleteCardView.xaml
     </StackPanel>
 </UserControl>
