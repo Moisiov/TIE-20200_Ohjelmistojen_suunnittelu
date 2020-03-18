@@ -1,13 +1,7 @@
 ﻿using System;
-<<<<<<< HEAD:FJ/FJ.Client/Athlete/AthleteCardViewModel.cs
-﻿using FJ.Client.UICore;
-=======
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using FJ.Client.ArgumentClasses;
-using FJ.Client.Models;
 using FJ.Client.UICore;
->>>>>>> AthleteCard: Create intial layout and display some dummy data in the view.:FJ/FJ.Client/ViewModels/AthleteCardViewModel.cs
 
 namespace FJ.Client.Athlete
 {

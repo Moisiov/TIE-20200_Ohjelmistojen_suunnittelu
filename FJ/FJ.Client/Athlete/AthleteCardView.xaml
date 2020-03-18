@@ -5,24 +5,7 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-<<<<<<< HEAD:FJ/FJ.Client/Athlete/AthleteCardView.xaml
              x:Class="FJ.Client.Athlete.AthleteCardView">
-    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <TextBlock Foreground="White"
-                   FontSize="40"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Text="Urheilijan kortti" />
-        <TextBlock Margin="1"
-                   Foreground="White"
-                   FontSize="{DynamicResource FontSizeLarge}"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Text="{Binding AthleteName}" />
-=======
-             x:Class="FJ.Client.Views.AthleteCardView">
 
     <UserControl.Styles>
             <Style Selector="TextBlock.ResultRowElement">
@@ -198,6 +181,5 @@
             </StackPanel>
             </Border>
         </Grid>
->>>>>>> AthleteCard: Create intial layout and display some dummy data in the view.:FJ/FJ.Client/Views/AthleteCardView.xaml
     </StackPanel>
 </UserControl>
