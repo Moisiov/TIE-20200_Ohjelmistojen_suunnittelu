@@ -2,27 +2,15 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using FJ.Client.UICore;
+using FJ.Utils;
 
 namespace FJ.Client.Athlete
 {
     public class AthleteCardViewModel : ViewModelBase<AthleteCardArgs>
     {
-        public class ParticipationsModel
-        {
-            public bool IsSelected { get; set; }
-            public int Year { get; set; }
-            public string StyleAndDistance { get; set; }
-
-            public ParticipationsModel(int y, string sd)
-            {
-                Year = y;
-                StyleAndDistance = sd;
-            }
-        }
-
         private AthleteCardModel m_model;
 
-        public ObservableCollection<ParticipationsModel> Participations { get; set; }
+        public ObservableCollection<AthleteParticipationItemModel> Participations { get; set; }
 
         private string m_athleteName;
         public string AthleteName
@@ -36,35 +24,26 @@ namespace FJ.Client.Athlete
             m_model = new AthleteCardModel();
         }
 
-        private static IEnumerable<ParticipationsModel> CreateTestParticipationsData()
-        {
-            return new[] {
-                new ParticipationsModel(2005, "50km perinteinen"),
-                new ParticipationsModel(2006, "30km vapaa"),
-                new ParticipationsModel(2006, "50km perinteinen"),
-                new ParticipationsModel(2008, "30km vapaa"),
-                new ParticipationsModel(2009, "100km perinteinen"),
-            };
-        }
-
         public override void DoPopulate()
         {
             base.DoPopulate();
             AthleteName = Argument.AthleteName ?? string.Empty;
 
-            if(!String.IsNullOrEmpty(AthleteName))
+            if (AthleteName.IsNullOrEmpty())
             {
-                var res = CreateTestParticipationsData();
-                Participations = new ObservableCollection<ParticipationsModel>(res);
-                RaisePropertyChanged(nameof(Participations));
+                return;
             }
+
+            var res = m_model.GetAthleteParticipationData(AthleteName);
+            Participations = new ObservableCollection<AthleteParticipationItemModel>(res);
+            RaisePropertyChanged(nameof(Participations));
         }
 
         protected override void DoRefreshInternal()
         {
-            Participations = new ObservableCollection<ParticipationsModel>();
-            RaisePropertyChanged(nameof(Participations));
             AthleteName = null;
+            Participations = new ObservableCollection<AthleteParticipationItemModel>();
+            RaisePropertyChanged(nameof(Participations));
         }
     }
 }
