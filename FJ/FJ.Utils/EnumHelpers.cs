@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FJ.Utils.FinlandiaUtils
+namespace FJ.Utils
 {
     public static class EnumHelpers
     {
