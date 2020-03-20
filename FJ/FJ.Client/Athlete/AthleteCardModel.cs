@@ -5,7 +5,7 @@ namespace FJ.Client.Athlete
 {
     public class AthleteCardModel
     {
-        public IEnumerable<AthleteParticipationItemModel> GetAthleteParticipationData(string AthleteName)
+        public IEnumerable<AthleteParticipationItemModel> GetAthleteParticipationData(string AthleteFirstName, string AthleteLastName)
         {
             return new[] {
                 new AthleteParticipationItemModel(2005, "50km perinteinen"),

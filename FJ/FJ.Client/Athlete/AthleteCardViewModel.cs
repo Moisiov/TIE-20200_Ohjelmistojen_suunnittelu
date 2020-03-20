@@ -12,11 +12,18 @@ namespace FJ.Client.Athlete
 
         public ObservableCollection<AthleteParticipationItemModel> Participations { get; set; }
 
-        private string m_athleteName;
-        public string AthleteName
+        private string m_athleteFirstName;
+        public string AthleteFirstName
         {
-            get => m_athleteName;
-            set => SetAndRaise(ref m_athleteName, value);
+            get => m_athleteFirstName;
+            set => SetAndRaise(ref m_athleteFirstName, value);
+        }
+
+        private string m_athleteLastName;
+        public string AthleteLastName
+        {
+            get => m_athleteLastName;
+            set => SetAndRaise(ref m_athleteLastName, value);
         }
 
         public AthleteCardViewModel()
@@ -27,21 +34,23 @@ namespace FJ.Client.Athlete
         public override void DoPopulate()
         {
             base.DoPopulate();
-            AthleteName = Argument.AthleteName ?? string.Empty;
+            AthleteFirstName = Argument.AthleteFirstName ?? string.Empty;
+            AthleteLastName = Argument.AthleteLastName ?? string.Empty;
 
-            if (AthleteName.IsNullOrEmpty())
+            if (AthleteFirstName.IsNullOrEmpty())
             {
                 return;
             }
 
-            var res = m_model.GetAthleteParticipationData(AthleteName);
+            var res = m_model.GetAthleteParticipationData(AthleteFirstName, AthleteLastName);
             Participations = new ObservableCollection<AthleteParticipationItemModel>(res);
             RaisePropertyChanged(nameof(Participations));
         }
 
         protected override void DoRefreshInternal()
         {
-            AthleteName = null;
+            AthleteFirstName = null;
+            AthleteLastName = null;
             Participations = new ObservableCollection<AthleteParticipationItemModel>();
             RaisePropertyChanged(nameof(Participations));
         }

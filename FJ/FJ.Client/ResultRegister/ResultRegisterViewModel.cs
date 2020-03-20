@@ -101,7 +101,8 @@ namespace FJ.Client.ResultRegister
         {
             var args = new AthleteCardArgs
             {
-                AthleteName = Results.FirstOrDefault()?.Name ?? "Rocky Balboa"
+                AthleteFirstName = Results.FirstOrDefault()?.FirstName ?? "Rocky",
+                AthleteLastName = Results.FirstOrDefault()?.LastName ?? "Balboa"
             };
 
             Navigator.DoNavigateTo<AthleteCardView>(args);

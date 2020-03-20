@@ -5,6 +5,7 @@ namespace FJ.Client.Athlete
 {
     public class AthleteCardArgs : NavigationArgsBase<AthleteCardArgs>
     {
-        public string AthleteName { get; set; }
+        public string AthleteFirstName { get; set; }
+        public string AthleteLastName { get; set; }
     }
 }

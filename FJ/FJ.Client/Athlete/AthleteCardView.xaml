@@ -39,7 +39,8 @@
                                    Text="Etunimi"/>
                         <TextBox Margin="20,0,20,0"
                                  MinHeight="40"
-                                 Watermark="{Binding AthleteName}"
+                                 Watermark="Etunimi"
+                                 Text="{Binding AthleteFirstName, Mode=OneWay}"
                                  FontSize="{DynamicResource FontSizeLarge}"
                                  VerticalAlignment="Center"/>
                     </StackPanel>
@@ -51,7 +52,8 @@
                                    Text="Sukunimi"/>
                         <TextBox Margin="20,0,20,0"
                                  MinHeight="40"
-                                 Watermark="{Binding AthleteName}"
+                                 Watermark="Sukunimi"
+                                 Text="{Binding AthleteFirstName, Mode=OneWay}"
                                  FontSize="{DynamicResource FontSizeLarge}"
                                  VerticalAlignment="Center"/>
                     </StackPanel>
@@ -98,15 +100,15 @@
 
                      <StackPanel Orientation="Horizontal" Margin="0, 5">
                         <TextBlock FontWeight="Bold" Text="Etunimi:" />
-                        <TextBlock Text="{Binding AthleteName}" />
+                        <TextBlock Text="{Binding AthleteFirstName}" />
                       </StackPanel>
                      <StackPanel Orientation="Horizontal" Margin="0, 5">
                         <TextBlock FontWeight="Bold" Text="Sukunimi:" />
-                        <TextBlock Text="{Binding AthleteName}" />
+                        <TextBlock Text="{Binding AthleteLastName}" />
                       </StackPanel>
                      <StackPanel Orientation="Horizontal" Margin="0, 5">
                         <TextBlock FontWeight="Bold" Text="Syntymävuosi:" />
-                        <TextBlock Text="{Binding AthleteName}" />
+                        <TextBlock Text="{Binding AthleteFirstName}" />
                       </StackPanel>
 
                  </StackPanel>

@@ -20,5 +20,9 @@
         public string Team { get; set; }
         public string PositionMenString { get; set; }
         public string PositionWomenString { get; set; }
+
+        // For passing accurate name info from ResultRegister to AthleteCard
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

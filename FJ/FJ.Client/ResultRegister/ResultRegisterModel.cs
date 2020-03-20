@@ -31,7 +31,9 @@ namespace FJ.Client.ResultRegister
                     Position = x.PositionGeneral,
                     StyleAndDistance = FinlandiaHelpers.GetDistanceAndStyleShortString(x.Distance, x.Style),
                     ResultTime = x.Result.ToString(@"hh\:mm\:ss\.ff"),
-                    Year = x.Year
+                    Year = x.Year,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName
                 });
 
             return res;
