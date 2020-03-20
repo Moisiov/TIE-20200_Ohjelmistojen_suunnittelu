@@ -21,6 +21,7 @@ namespace FJ.Client.Core.Services
         /// </summary>
         /// <param name="regionManager">Region manager which controls the top bar region</param>
         /// <param name="targetView">Name of navigation target view</param>
+        /// <param name="navArgs">Optional navigation argument</param>
         public static void NavigateTopBarTo(this IRegionManager regionManager, string targetView, object navArgs = null)
         {
             regionManager.RequestNavigate(Regions.TopBarRegion, targetView, CreateNavigationParameters(navArgs));
@@ -31,6 +32,7 @@ namespace FJ.Client.Core.Services
         /// </summary>
         /// <param name="regionManager">Region manager which controls the control panel region</param>
         /// <param name="targetView">Name of navigation target view</param>
+        /// /// <param name="navArgs">Optional navigation argument</param>
         public static void NavigateContentTo(this IRegionManager regionManager, string targetView, object navArgs = null)
         {
             regionManager.RequestNavigate(Regions.ContentRegion, targetView, CreateNavigationParameters(navArgs));
@@ -43,8 +45,10 @@ namespace FJ.Client.Core.Services
                 return null;
             }
 
-            var navParams = new NavigationParameters();
-            navParams.Add(navArgs.GetType().Name, navArgs);
+            var navParams = new NavigationParameters
+            {
+                { navArgs.GetType().Name, navArgs }
+            };
 
             return navParams;
         }
