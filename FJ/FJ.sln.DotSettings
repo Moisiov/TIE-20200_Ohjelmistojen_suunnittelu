@@ -1,0 +1,146 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/PredefinedNamingRules/=PrivateConstants/@EntryIndexedValue">&lt;Policy Inspect="True" Prefix="c_" Suffix="" Style="aaBb" /&gt;</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/PredefinedNamingRules/=PrivateStaticReadonly/@EntryIndexedValue">&lt;Policy Inspect="True" Prefix="s_" Suffix="" Style="aaBb" /&gt;</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2CAB0A567F30704CA99AA3EC249E3153/Field/=CLASS/Order/@EntryValue">0</s:Int64>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2CAB0A567F30704CA99AA3EC249E3153/Field/=HEADER/Expression/@EntryValue"></s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2CAB0A567F30704CA99AA3EC249E3153/Field/=HEADER/Order/@EntryValue">2</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2CAB0A567F30704CA99AA3EC249E3153/Field/=NAMESPACE/Order/@EntryValue">1</s:Int64>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2CAB0A567F30704CA99AA3EC249E3153/Text/@EntryValue">$HEADER$using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace $NAMESPACE$
+{
+  public class $CLASS$ {$END$}
+}
+</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2CBD6971A7955044AD2624B84FB49E38/Text/@EntryValue">$HEADER$using System;
+using System.ComponentModel;
+
+namespace $NAMESPACE$
+{
+    public partial class $CLASS$ : Component
+    {
+        public $CLASS$()
+        {
+            InitializeComponent();
+        }
+
+        public $CLASS$(IContainer container)
+        {
+            container.Add(this);
+
+            InitializeComponent();
+        }
+    }
+}
+</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=40C163D436D8ED48A6D01A0AFEFC5556/Text/@EntryValue">$HEADER$using NUnit.Framework;
+
+namespace $NAMESPACE$
+{
+  [TestFixture]
+  public class $CLASS$ {$END$}
+}
+</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=4B3A7303AC9A474AB914AC15C7DA9D0F/Field/=CLASS/Order/@EntryValue">0</s:Int64>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=4B3A7303AC9A474AB914AC15C7DA9D0F/Field/=HEADER/Expression/@EntryValue"></s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=4B3A7303AC9A474AB914AC15C7DA9D0F/Field/=HEADER/Order/@EntryValue">2</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=4B3A7303AC9A474AB914AC15C7DA9D0F/Field/=NAMESPACE/Order/@EntryValue">1</s:Int64>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=4B3A7303AC9A474AB914AC15C7DA9D0F/Text/@EntryValue">$HEADER$using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reactive;
+using System.Threading.Tasks;
+using FJ.Client.Core;
+using FJ.DomainObjects;
+using FJ.ServiceInterfaces;
+using FJ.Utils;
+
+namespace $NAMESPACE$
+{
+  public class $CLASS$ {$END$}
+}
+</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/Applicability/=File/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/CustomProperties/=Extension/@EntryIndexedValue">cs</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/CustomProperties/=FileName/@EntryIndexedValue">Model</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/CustomProperties/=ValidateFileName/@EntryIndexedValue">True</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/Description/@EntryValue">FJModel (MVVM)</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/Text/@EntryValue">$HEADER$using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using FJ.DomainObjects;
+using FJ.ServiceInterfaces;
+using FJ.Utils;
+
+namespace $NAMESPACE$
+{
+  public class $CLASS$ {$END$}
+}
+</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/Field/=CLASS/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/Field/=CLASS/Expression/@EntryValue">getAlphaNumericFileNameWithoutExtension()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/Field/=CLASS/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/Field/=CLASS/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/Field/=HEADER/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/Field/=HEADER/Expression/@EntryValue"></s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/Field/=HEADER/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/Field/=NAMESPACE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/Field/=NAMESPACE/Expression/@EntryValue">fileDefaultNamespace()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/Field/=NAMESPACE/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/Field/=NAMESPACE/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/Scope/=E8F0594528C33E45BBFEC6CFE851095D/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=57B33DAE49C5EA438DDA1E1F973B9A1F/Scope/=E8F0594528C33E45BBFEC6CFE851095D/Type/@EntryValue">InCSharpProjectFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=6FAA6736247D464489DF536819A6D103/Text/@EntryValue">$HEADER$using System;
+
+namespace $NAMESPACE$
+{
+  public interface $INTERFACE$ {$END$}
+}
+</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=7B10AC30B0320A4F95A3763001E1DBF6/Text/@EntryValue">$HEADER$using System;
+
+namespace $NAMESPACE$
+{
+  public enum $ENUM$ {$END$}
+}
+</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=7F2A1BE8D0078241A9AE7802038BAD3C/Text/@EntryValue">$HEADER$using System.Windows.Forms;
+
+namespace $NAMESPACE$
+{
+    public partial class $CLASS$ : Form
+    {
+        public $CLASS$()
+        {
+            InitializeComponent();
+        }
+    }
+}
+</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=9BB83ED0FF792E47BAAB217C25589C77/Text/@EntryValue">$HEADER$using System:
+
+namespace $NAMESPACE$
+{
+  public struct $STRUCT$ {$END$}
+}
+</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C4795E57DDEC1C4F97BBC8C7173EBBCA/Text/@EntryValue">$HEADER$using System.Windows.Forms;
+
+namespace $NAMESPACE$
+{
+    public partial class $CLASS$ : UserControl
+    {
+        public $CLASS$()
+        {
+            InitializeComponent();
+        }
+    }
+}
+</s:String></wpf:ResourceDictionary>
