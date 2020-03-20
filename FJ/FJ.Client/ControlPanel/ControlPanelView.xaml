@@ -4,12 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:valueConverters="clr-namespace:FJ.Client.Core.ValueConverters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="FJ.Client.ControlPanel.ControlPanelView">
     <DockPanel LastChildFill="True" ClipToBounds="True" >
+        <DockPanel.Resources>
+            <valueConverters:BoolInversionConverter x:Key="BoolInversionConverter" />
+        </DockPanel.Resources>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Vertical" >
             <Button Command="{Binding DoExpand}"
-                    IsVisible="{Binding !IsExpanded}"
+                    IsVisible="{Binding IsExpanded, Converter={StaticResource BoolInversionConverter}}"
                     Width="70"
                     Margin="1"
                     HorizontalAlignment="Right"
