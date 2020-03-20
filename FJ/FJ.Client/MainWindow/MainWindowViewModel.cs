@@ -1,6 +1,6 @@
 ﻿using System;
-using FJ.Client.UIEvents;
-using FJ.Client.UIUtils;
+using FJ.Client.Core.Common;
+using FJ.Client.Core.Events;
 using Prism.Events;
 using ReactiveUI;
 

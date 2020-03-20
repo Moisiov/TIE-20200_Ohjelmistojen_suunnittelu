@@ -1,5 +1,5 @@
 ﻿using System;
-﻿using FJ.Client.UICore;
+using FJ.Client.Core;
 
 namespace FJ.Client.Athlete
 {

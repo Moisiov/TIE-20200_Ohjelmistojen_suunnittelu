@@ -1,8 +1,8 @@
 ﻿using System;
-using FJ.Client.UIUtils;
+using FJ.Client.Core.Common;
 using Prism.Events;
 
-namespace FJ.Client.UIEvents
+namespace FJ.Client.Core.Events
 {
     public class ControlPanelRegionResizeEvent : PubSubEvent<ControlPanelSizeOption>
     {

@@ -1,15 +1,13 @@
 ﻿using System;
+using System.Linq;
 using Avalonia.Controls;
+using FJ.Client.Core.Common;
+using FJ.Client.Core.Events;
+using FJ.Utils;
 using Prism.Events;
 using Prism.Regions;
-using FJ.Client.UIEvents;
-using FJ.Client.UIUtils;
-using System.Linq;
-using FJ.Utils;
-using System.Threading.Tasks;
-using System.Diagnostics.CodeAnalysis;
 
-namespace FJ.Client.UIServices
+namespace FJ.Client.Core.Services
 {
     public class DisposableLoadingScreen : IDisposableLoadingScreen
     {

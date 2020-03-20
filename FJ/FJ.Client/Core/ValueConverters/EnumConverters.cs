@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Globalization;
 using Avalonia.Data.Converters;
-using FJ.DomainObjects.FinlandiaHiihto;
-using FJ.Utils.FinlandiaUtils;
+using FJ.Utils;
 
-namespace FJ.Client.UIConverters
+namespace FJ.Client.Core.ValueConverters
 {
-    public class FinlandiaHiihtoCompetitionClassToStringConverter : IValueConverter
+    public class EnumToDescriptionConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is FinlandiaHiihtoCompetitionClass cc)
+            if (value is Enum enumValue)
             {
-                return cc.AsString();
+                if (parameter is string p && p == "s")
+                {
+                    return enumValue.GetShortDescription();
+                }
+
+                return enumValue.GetDescription();
             }
 
             throw new ArgumentException(nameof(value));

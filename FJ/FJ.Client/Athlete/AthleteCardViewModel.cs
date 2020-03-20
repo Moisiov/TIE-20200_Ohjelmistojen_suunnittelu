@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using FJ.Client.UICore;
+using FJ.Client.Core;
 using FJ.Utils;
 
 namespace FJ.Client.Athlete

@@ -1,9 +1,10 @@
 using Avalonia;
 using Avalonia.Markup.Xaml;
 using FJ.Client.ControlPanel;
+using FJ.Client.Core.IoC;
+using FJ.Client.Core.Services;
 using FJ.Client.FrontPage;
 using FJ.Client.TopBar;
-using FJ.Client.UIUtils;
 using Prism.Ioc;
 using Prism.Mvvm;
 using Prism.Unity;

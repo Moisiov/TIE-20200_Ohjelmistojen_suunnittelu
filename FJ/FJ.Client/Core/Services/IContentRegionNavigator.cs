@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 using Avalonia.Controls;
 
-namespace FJ.Client.UIServices
+namespace FJ.Client.Core.Services
 {
     /// <summary>
     /// Shows loading screen between creation and destruction of this

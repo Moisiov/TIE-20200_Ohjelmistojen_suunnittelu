@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FJ.Client.UIUtils
+namespace FJ.Client.Core.Common
 {
     public static class UIStartupConstants
     {

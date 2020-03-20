@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace FJ.Client.UIUtils
+namespace FJ.Client.Core.IoC
 {
     public static class CustomResolvers
     {

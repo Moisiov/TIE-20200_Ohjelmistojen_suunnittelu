@@ -1,7 +1,7 @@
 ﻿using System;
-using FJ.Client.UIUtils;
+using FJ.Client.Core.Common;
 
-namespace FJ.Client.UIServices
+namespace FJ.Client.Core.Services
 {
     public interface IControlPanelRegionController
     {

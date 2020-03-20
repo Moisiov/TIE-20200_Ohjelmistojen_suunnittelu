@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using FJ.Utils;
 using Prism.Ioc;
 
-namespace FJ.Client.UIUtils
+namespace FJ.Client.Core.IoC
 {
     public static class CustomUIRegistrations
     {

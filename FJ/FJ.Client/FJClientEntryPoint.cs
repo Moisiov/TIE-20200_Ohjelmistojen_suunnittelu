@@ -3,7 +3,7 @@ using Avalonia;
 using Avalonia.Dialogs;
 using Avalonia.Logging.Serilog;
 using Avalonia.ReactiveUI;
-using FJ.Client.UIUtils;
+using FJ.Client.Core.IoC;
 using Unity;
 
 namespace FJ.Client

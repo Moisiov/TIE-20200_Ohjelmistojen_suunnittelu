@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
 using FJ.Client.Athlete;
-using FJ.Client.UICore;
+using FJ.Client.Core;
 using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.DomainObjects.FinlandiaHiihto.Enums;
 using FJ.ServiceInterfaces.FinlandiaHiihto;

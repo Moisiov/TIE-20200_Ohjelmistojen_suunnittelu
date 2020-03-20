@@ -1,6 +1,6 @@
 ﻿using System;
-﻿using FJ.Client.UICore;
-using FJ.Client.UIEvents;
+using FJ.Client.Core;
+using FJ.Client.Core.Events;
 using Prism.Events;
 
 namespace FJ.Client.TopBar

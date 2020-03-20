@@ -1,9 +1,9 @@
 ﻿using System;
 ﻿using FJ.Client.Athlete;
 using FJ.Client.Competition;
+using FJ.Client.Core;
 using FJ.Client.ResultRegister;
 using FJ.Client.Team;
-using FJ.Client.UICore;
 
 namespace FJ.Client.FrontPage
 {

@@ -1,10 +1,9 @@
 ﻿using System;
-using FJ.Client.UIEvents;
-using FJ.Client.UIUtils;
+using FJ.Client.Core.Common;
+using FJ.Client.Core.Events;
 using Prism.Events;
-using Prism.Regions;
 
-namespace FJ.Client.UIServices
+namespace FJ.Client.Core.Services
 {
     public class ControlPanelRegionController : IControlPanelRegionController
     {

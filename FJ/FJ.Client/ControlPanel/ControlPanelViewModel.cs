@@ -1,7 +1,7 @@
 ﻿using System;
-﻿using FJ.Client.UICore;
-using FJ.Client.UIServices;
-using FJ.Client.UIUtils;
+using FJ.Client.Core;
+using FJ.Client.Core.Common;
+using FJ.Client.Core.Services;
 
 namespace FJ.Client.ControlPanel
 {

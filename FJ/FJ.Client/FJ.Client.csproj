@@ -13,11 +13,7 @@
       <SubType>Designer</SubType>
     </AvaloniaResource>
     <AvaloniaResource Include="Assets\**" />
-    <Folder Include="UIEvents\" />
-    <Folder Include="UIServices\" />
-    <Folder Include="UIUtils\" />
-    <Folder Include="UIConverters\" />
-    <Folder Include="UICore\" />
+    <Folder Include="Core\UIElements\UIElementStyles" />
     <Folder Include="ArgumentClasses\" />
     <Folder Include="Athlete\" />
     <Folder Include="Competition\" />

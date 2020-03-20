@@ -1,7 +1,7 @@
 ﻿using System;
 using Unity;
 
-namespace FJ.Client.UIUtils
+namespace FJ.Client.Core.IoC
 {
     internal static class StartupContainerHelper
     {

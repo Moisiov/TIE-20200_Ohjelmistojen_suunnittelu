@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FJ.Client.UICore
+namespace FJ.Client.Core
 {
     public abstract class NavigationArgsBase<T>
         where T : new()

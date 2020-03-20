@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using FJ.Client.ArgumentClasses;
-using FJ.Client.UIEvents;
-using FJ.Client.UIServices;
+using FJ.Client.Core.Events;
+using FJ.Client.Core.Services;
 using Prism.Events;
 using Prism.Regions;
 using ReactiveUI;
 
-namespace FJ.Client.UICore
+namespace FJ.Client.Core
 {
     public class ViewModelBase : ViewModelBase<EmptyNavigationArgs>
     {

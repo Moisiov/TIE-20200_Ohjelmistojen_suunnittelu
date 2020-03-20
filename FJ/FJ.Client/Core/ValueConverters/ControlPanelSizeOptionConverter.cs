@@ -2,9 +2,9 @@
 using System.Globalization;
 using Avalonia.Controls;
 using Avalonia.Data.Converters;
-using FJ.Client.UIUtils;
+using FJ.Client.Core.Common;
 
-namespace FJ.Client.UIConverters
+namespace FJ.Client.Core.ValueConverters
 {
     public class ControlPanelSizeOptionConverter : IValueConverter
     {
