@@ -45,69 +45,7 @@ Ohjelman kehittämisessä viipaleina on lukuisia etuja:
 ## Rajapintadokumentaatio ##
 
 ### FinlandiaHiihtoAPI ###
+Dokumentaatio siirretty projektin [wikiin](../../wikis/Rajapinnat/FinlandiaHiihtoAPI).
 
-#### Enumit ####
-
-```csharp
-public enum Gender
-{
-	Male, Female
-}
-
-public enum competitionType 
-{
-	P20, V20, V20jun, P25, P30, V30, P32, V32, P35, P42, V42, P44,
-	P45, V45, P50, V50, P52, P53, V53, P60, P62, P75, V75, P100
-}
-public enum ageGroup
-{
-	U35, A35, A40, A45, A50, A55, A60, A65, A70, A75, O80
-}
-```
-
-#### Virheet ####
-Näihin voi vielä tulla muutoksia ja lisäyksiä, esim. jos tallennetaan dataa lokaalisti, niin datan haku suoraan sivustolta ei vielä täysin välttämätöntä.
-
-* **`CantAccessSiteException`** : Sivustoon ei saatu yhteyttä (esim. ei Internet-yhteyttä tai Finlandia-hiihto sivusto on alhaalla.)
-* **`InvalidArgumentsException`** : Sivusto palautti virheen viallisten argumenttien takia
-* **`TooMuchDataException`** : Yli 10000 tulosta haulla, jolloin sivusto ei palauta dataa.
-
-#### Funktiot
-```csharp
-public async Task<IEnumerable<Dictionary<string, string>>> GetData(...)
-```
-### Parameterit ###
-Parametreilla määritetään filttereita datan haulle.
-Luomme myöhemmin args-luokan, jolla filttereiden asetus siistimpää.
-
-* **`year`**:  **Type**: int, **Default**: null
-*  **`firstName`**:  **Type**: string,  **Default**: null
-* **`lastName`**: **Type**: string, **Default**: null
-* **`competitionType`**: **Type**: enum, **Default**: null
-* **`ageGroup`**: **Type**: enum, **Default**: null
-*  **`competitorHomeTown`**: **Type**: string, **Default**: null
-*  **`team`** : **Type**: string, **Default**: null
-* **`gender`**: **Type**: enum, **Default**: null
-* **`nationality`**: **Type**: string, **Default**: null
-
-### Palauttaa ###
-```csharp
-<IEnumerable<Dictionary<string, string>>>
-```
-
-Palauttaa asynkronisesti iteroitavan joukon Dictionary-tietueita, joissa yksi tietue edustaa yhtä tulosriviä. Dictionaryn avaimet ovat tulosrivin sarakkeen nimiä ja arvot vastaavat solun arvoa kyseisessä sarakkeessa.
-
-**Dictionaryn avaimet:**
-
-* ”Vuosi"
-* ”Matka"
-* "Tulos"
-* "Sija"
-* "Sija/Miehet"
-* "Sija/Naiset"
-* "Sukupuoli"
-* "Sukunimi Etunimi"
-* "Paikkakunta"
-* "Kansallisuus"
-* "Syntymävuosi"
-* "Joukkue"
+### JukolaAPI ###
+Dokumentaatio projektin [wikissä](../../wikis/Rajapinnat/JukolaAPI).
