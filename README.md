@@ -1,12 +1,12 @@
 ## Uutiset ##
-* **Välipalautus:** Palautukseen liittyvä dokumentaatio koostuu alla sijaitsevasta suunnitteludokumentista ja [wikistä](../../wikis/Home). (21.3.2020)
-* **[Wiki](../../wikis/Home) on julkaistu! (14.3.2020)**
+* **Välipalautus:** Palautukseen liittyvä dokumentaatio koostuu alla sijaitsevasta suunnitteludokumentista ja [wikistä](../wikis/Home). (21.3.2020)
+* **[Wiki](../wikis/Home) on julkaistu! (14.3.2020)**
 
 ---
 
 # Suunnitteludokumentti #
 
-**HUOM! Suurin osa dokumentaatiosta löytyy projektin [wikistä](../../wikis/Home).**
+**HUOM! Suurin osa dokumentaatiosta löytyy projektin [wikistä](../wikis/Home).**
 
 ## Ohjelman rakenne & komponentit ##
 Toteutus koostuu pääasiassa kolmen pääkomponentin kokonaisuutena: Client, Services ja API(t). Jokainen edellä mainituista komponenteista toteutetaan omaan projektiinsa. Näiden lisäksi omissa projekteissaan toteutetaan ydintason toteutuksia, jotka sisältävät projekteille yhteistä toiminnallisuutta. Ohjelman kokonaistoteutus pyrkii hallitsemaan riippuvuuksia sipuliarkkitehtuurin mukaisesti.
@@ -48,7 +48,7 @@ Ohjelman kehittämisessä viipaleina on lukuisia etuja:
 ## Rajapintadokumentaatio ##
 
 ### FinlandiaHiihtoAPI ###
-Dokumentaatio siirretty projektin [wikiin](../../wikis/Rajapinnat/FinlandiaHiihtoAPI).
+Dokumentaatio siirretty projektin [wikiin](../wikis/Rajapinnat/FinlandiaHiihtoAPI).
 
 ### JukolaAPI ###
-Dokumentaatio projektin [wikissä](../../wikis/Rajapinnat/JukolaAPI).
+Dokumentaatio projektin [wikissä](../wikis/Rajapinnat/JukolaAPI).
