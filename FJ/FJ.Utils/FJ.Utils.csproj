@@ -3,6 +3,7 @@
   <PropertyGroup>
     <ProjectGuid>{58CB284B-285B-4E5B-A427-914B377B4FB3}</ProjectGuid>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <CodeAnalysisRuleSet>../FJStyleCop.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,5 +11,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FinlandiaUtils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="All" />
   </ItemGroup>
 </Project>

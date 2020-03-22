@@ -4,6 +4,7 @@
     <ProjectGuid>{A656D53C-B3BD-4829-94FA-A90C94AEC738}</ProjectGuid>
     <RootNamespace>FJ.Services</RootNamespace>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <CodeAnalysisRuleSet>../FJStyleCop.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,5 +17,8 @@
     <Folder Include="FinlandiaHiihto\" />
     <Folder Include="JukolanViesti\" />
     <Folder Include="FinlandiaHiihto\FinlandiaDataFetchingServices\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="All" />
   </ItemGroup>
 </Project>

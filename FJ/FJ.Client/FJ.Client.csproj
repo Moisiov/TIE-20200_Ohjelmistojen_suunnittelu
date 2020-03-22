@@ -4,6 +4,7 @@
     <RootNamespace>FJ.Client</RootNamespace>
     <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <CodeAnalysisRuleSet>../FJStyleCop.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="**\*.xaml.cs">
@@ -29,6 +30,7 @@
     <PackageReference Include="Avalonia.Desktop" Version="0.9.3" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.3" />
     <PackageReference Include="Prism.Unity.Avalonia" Version="7.2.0.1427" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FJ.DomainObjects\FJ.DomainObjects.csproj" />

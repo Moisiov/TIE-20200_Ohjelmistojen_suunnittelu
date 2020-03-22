@@ -4,11 +4,16 @@
     <ProjectGuid>{C1990E3C-580F-454B-A9EA-9A5711D140FD}</ProjectGuid>
     <RootNamespace>FJ.DomainObjects</RootNamespace>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <CodeAnalysisRuleSet>../FJStyleCop.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="FinlandiaHiihto\" />
     <Folder Include="JukolanViesti\" />
     <Folder Include="FinlandiaHiihto\Enums\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="All" />
   </ItemGroup>
 </Project>

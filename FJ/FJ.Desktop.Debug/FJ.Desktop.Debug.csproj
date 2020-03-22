@@ -4,6 +4,7 @@
     <ProjectGuid>{89AF1D3A-5ED5-4BA0-9A4B-28C5FCC2C7A9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <CodeAnalysisRuleSet>../FJStyleCop.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +16,7 @@
     <ProjectReference Include="..\FJ.Utils\FJ.Utils.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="All" />
     <PackageReference Include="Unity" Version="5.11.1" />
   </ItemGroup>
 </Project>
