@@ -6,7 +6,8 @@ namespace FJ.FinlandiaHiihtoAPI
     {
         internal const string C_Url = "https://www.finlandiahiihto.fi/Tulokset/Tulosarkisto";
 
-        internal static string[] S_RequestFieldNames = {
+        internal static readonly string[] S_RequestFieldNames =
+        {
             "dnn$ctr1025$Etusivu$ddlVuosi2x",
             "dnn$ctr1025$Etusivu$txtHakuEtunimi2",
             "dnn$ctr1025$Etusivu$txtHakuSukunimi2",
@@ -16,10 +17,10 @@ namespace FJ.FinlandiaHiihtoAPI
             "dnn$ctr1025$Etusivu$txtHakuJoukkue2",
             "dnn$ctr1025$Etusivu$chkLstSukupuoli2",
             "dnn$ctr1025$Etusivu$ddlKansalaisuus2x"
-
         };
 
-        internal static string[] S_DataHeaders = {
+        internal static readonly string[] S_DataHeaders =
+        {
             "Vuosi",
             "Matka",
             "Tulos",

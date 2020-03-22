@@ -9,7 +9,7 @@ namespace FJ.Client.MainWindow
     // TODO not deriving from ViewModelBase as a temp workaround for region instantiating
     public class MainWindowViewModel : ReactiveObject
     {
-        public ControlPanelSizeOption m_controlPanelSize;
+        private ControlPanelSizeOption m_controlPanelSize;
         public ControlPanelSizeOption ControlPanelSize
         {
             get => m_controlPanelSize;

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using FJ.Utils;
 using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
 using FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices;
+using FJ.Utils;
 
 namespace FJ.Services.FinlandiaHiihto
 {
