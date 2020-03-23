@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
-using FJ.Client.ArgumentClasses;
 using FJ.Client.Core.Events;
 using FJ.Client.Core.Services;
 using Prism.Events;

@@ -15,7 +15,6 @@
     </AvaloniaResource>
     <AvaloniaResource Include="Assets\**" />
     <Folder Include="Core\UIElements\UIElementStyles" />
-    <Folder Include="ArgumentClasses\" />
     <Folder Include="Athlete\" />
     <Folder Include="Competition\" />
     <Folder Include="ControlPanel\" />
