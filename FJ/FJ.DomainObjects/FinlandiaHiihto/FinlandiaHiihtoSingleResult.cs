@@ -1,5 +1,4 @@
 ﻿using System;
-using FJ.DomainObjects.FinlandiaHiihto.Enums;
 
 namespace FJ.DomainObjects.FinlandiaHiihto
 {
@@ -13,6 +12,5 @@ namespace FJ.DomainObjects.FinlandiaHiihto
         public Competition CompetitionInfo { get; set; }
         public Person Athlete { get; set; }
         public string Team { get; set; }
-
     }
 }

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using FJ.DomainObjects.FinlandiaHiihto.Enums;
 using FJ.DomainObjects.Enums;
-
+using FJ.DomainObjects.FinlandiaHiihto.Enums;
 
 namespace FJ.DomainObjects.FinlandiaHiihto
 {

@@ -53,7 +53,7 @@
                         <TextBox Margin="20,0,20,0"
                                  MinHeight="40"
                                  Watermark="Sukunimi"
-                                 Text="{Binding AthleteFirstName, Mode=OneWay}"
+                                 Text="{Binding AthleteLastName, Mode=OneWay}"
                                  FontSize="{DynamicResource FontSizeLarge}"
                                  VerticalAlignment="Center"/>
                     </StackPanel>
