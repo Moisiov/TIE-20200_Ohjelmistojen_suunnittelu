@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using FJ.DomainObjects.FinlandiaHiihto.Enums;
+using FJ.DomainObjects.Enums;
+
 
 namespace FJ.DomainObjects.FinlandiaHiihto
 {
@@ -22,7 +24,7 @@ namespace FJ.DomainObjects.FinlandiaHiihto
         public int? MinPositionWomen { get; set; }
         public int? MaxPositionWomen { get; set; }
 
-        public IEnumerable<FinlandiaSkiingGender> Genders { get; set; }
+        public IEnumerable<Gender> Genders { get; set; }
         public IEnumerable<FinlandiaSkiingAgeGroup> AgeGroups { get; set; }
 
         public IEnumerable<string> LastNames { get; set; }

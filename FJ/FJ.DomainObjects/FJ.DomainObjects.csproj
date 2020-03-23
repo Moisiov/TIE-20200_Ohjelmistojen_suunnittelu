@@ -11,9 +11,12 @@
     <Folder Include="FinlandiaHiihto\" />
     <Folder Include="JukolanViesti\" />
     <Folder Include="FinlandiaHiihto\Enums\" />
+    <Folder Include="Enums\" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="FinlandiaHiihto\FinlandiaHiihtoCompetition.cs" />
   </ItemGroup>
 </Project>

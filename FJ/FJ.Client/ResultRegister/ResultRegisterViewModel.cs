@@ -5,6 +5,7 @@ using System.Reactive;
 using System.Threading.Tasks;
 using FJ.Client.Athlete;
 using FJ.Client.Core;
+using FJ.DomainObjects.Enums;
 using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.DomainObjects.FinlandiaHiihto.Enums;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
@@ -24,7 +25,7 @@ namespace FJ.Client.ResultRegister
 
         public ObservableCollection<int> CompetitionYears { get; set; }
         public ObservableCollection<FinlandiaHiihtoCompetitionClass> CompetitionClasses { get; set; }
-        public ObservableCollection<FinlandiaSkiingGender> Genders { get; set; }
+        public ObservableCollection<Gender> Genders { get; set; }
         public ObservableCollection<FinlandiaSkiingAgeGroup> AgeGroups { get; set; }
 
         public string CurrentTeamString { get; set; }
@@ -62,8 +63,8 @@ namespace FJ.Client.ResultRegister
                 DateTime.Today.Year - FinlandiaConstants.C_FirstFinlandiaSkiingYear));
             CompetitionClasses = new ObservableCollection<FinlandiaHiihtoCompetitionClass>(
                 FinlandiaHiihtoCompetitionClasses.FinlandiaCompetitionClasses);
-            Genders = new ObservableCollection<FinlandiaSkiingGender>(
-                EnumHelpers.GetEnumValues<FinlandiaSkiingGender>());
+            Genders = new ObservableCollection<Gender>(
+                EnumHelpers.GetEnumValues<Gender>());
             AgeGroups = new ObservableCollection<FinlandiaSkiingAgeGroup>(
                 EnumHelpers.GetEnumValues<FinlandiaSkiingAgeGroup>());
 

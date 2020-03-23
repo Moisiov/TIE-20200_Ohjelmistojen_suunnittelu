@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace FJ.DomainObjects.FinlandiaHiihto.Enums
+namespace FJ.DomainObjects.Enums
 {
-    public enum FinlandiaSkiingGender
+    public enum Gender
     {
         // TODO Loc
         [Description("Ei tiedossa")]

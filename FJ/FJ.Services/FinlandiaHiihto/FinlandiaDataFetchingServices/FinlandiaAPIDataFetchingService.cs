@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FJ.DomainObjects;
+using FJ.DomainObjects.Enums;
 using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.DomainObjects.FinlandiaHiihto.Enums;
 using FJ.FinlandiaHiihtoAPI;
@@ -34,26 +36,32 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
                 var style = styleDistString[0] == 'P' ? FinlandiaSkiingStyle.Classic : FinlandiaSkiingStyle.Skate;
                 var dist = (FinlandiaSkiingDistance)int.Parse(styleDistString.Substring(1));
                 var gender = d["Sukupuoli"] == "M"
-                    ? FinlandiaSkiingGender.Man
+                    ? Gender.Man
                     : d["Sukupuoli"] == "N"
-                        ? FinlandiaSkiingGender.Woman
-                        : FinlandiaSkiingGender.Unknown;
+                        ? Gender.Woman
+                        : Gender.Unknown;
 
                 res.Add(new FinlandiaHiihtoSingleResult
                 {
-                    Year = int.Parse(d["Vuosi"]),
-                    Style = style,
-                    Distance = dist,
+                    CompetitionInfo = new Competition
+                    {
+                        Year = int.Parse(d["Vuosi"])
+                    },
+                    CompetitionClass = FinlandiaHiihtoCompetitionClass.Create(dist, style),
                     Result = TimeSpan.Parse(d["Tulos"]),
                     PositionGeneral = int.Parse(d["Sija"]),
                     PositionMen = !string.IsNullOrWhiteSpace(d["Sija/Miehet"]) ? (int?)int.Parse(d["Sija/Miehet"]) : null,
                     PositionWomen = !string.IsNullOrWhiteSpace(d["Sija/Naiset"]) ? (int?)int.Parse(d["Sija/Naiset"]) : null,
-                    Gender = gender,
-                    LastName = d["Sukunimi Etunimi"].Split()[0],
-                    FirstName = string.Join(" ", d["Sukunimi Etunimi"].Split().Skip(1).ToArray()),
-                    City = d["Paikkakunta"],
-                    Nationality = d["Kansallisuus"],
-                    YearOfBirth = !string.IsNullOrWhiteSpace(d["Syntymävuosi"]) ? (int?)int.Parse(d["Syntymävuosi"]) : null,
+                    Athlete = new Person
+                    {
+                        FirstName = string.Join(" ", d["Sukunimi Etunimi"].Split().Skip(1).ToArray()),
+                        LastName = d["Sukunimi Etunimi"].Split()[0],
+                        PersonGender = gender,
+                        City = d["Paikkakunta"],
+                        Nationality = d["Kansallisuus"],
+                        YearOfBirth = !string.IsNullOrWhiteSpace(d["Syntymävuosi"]) ? (int?)int.Parse(d["Syntymävuosi"]) : null,
+                    },
+
                     Team = d["Joukkue"]
                 });
             }

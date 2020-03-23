@@ -22,18 +22,20 @@ namespace FJ.Client.ResultRegister
             // TODO this is just a proof of concept
             var collection = await m_latestFinlandiaResultsService.GetLatestFinlandiaResultsAsync();
             var res = collection.Results
-                .Where(x => x.Distance == FinlandiaSkiingDistance.Fifty && x.Style == FinlandiaSkiingStyle.Classic)
+                .Where(x => x.CompetitionClass.Distance == FinlandiaSkiingDistance.Fifty
+                    && x.CompetitionClass.Style == FinlandiaSkiingStyle.Classic)
                 .OrderBy(x => x.PositionGeneral)
                 .Take(100)
                 .Select(x => new ResultRegisterItemModel
                 {
-                    Name = x.FullName,
+                    Name = x.Athlete.FullName,
                     Position = x.PositionGeneral,
-                    StyleAndDistance = FinlandiaHelpers.GetDistanceAndStyleShortString(x.Distance, x.Style),
+                    StyleAndDistance = FinlandiaHelpers.GetDistanceAndStyleShortString(
+                        x.CompetitionClass.Distance, x.CompetitionClass.Style),
                     ResultTime = x.Result.ToString(@"hh\:mm\:ss\.ff"),
-                    Year = x.Year,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName
+                    FirstName = x.Athlete.FirstName,
+                    LastName = x.Athlete.LastName,
+                    Year = x.CompetitionInfo.Year
                 });
 
             return res;
