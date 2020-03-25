@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FJ.Desktop.Debug", "FJ.Desk
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FJ.Utils", "FJ.Utils\FJ.Utils.csproj", "{58CB284B-285B-4E5B-A427-914B377B4FB3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FJ.FinlandiaHiihtoAPI.NUnitTests", "FJ.FinlandiaHiihtoAPI.NUnitTests\FJ.FinlandiaHiihtoAPI.NUnitTests.csproj", "{9E950AD5-8D3F-4765-9CAD-5FE72086D2D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -128,5 +130,17 @@ Global
 		{58CB284B-285B-4E5B-A427-914B377B4FB3}.Release|x64.Build.0 = Release|Any CPU
 		{58CB284B-285B-4E5B-A427-914B377B4FB3}.Release|x86.ActiveCfg = Release|Any CPU
 		{58CB284B-285B-4E5B-A427-914B377B4FB3}.Release|x86.Build.0 = Release|Any CPU
+		{9E950AD5-8D3F-4765-9CAD-5FE72086D2D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E950AD5-8D3F-4765-9CAD-5FE72086D2D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E950AD5-8D3F-4765-9CAD-5FE72086D2D0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9E950AD5-8D3F-4765-9CAD-5FE72086D2D0}.Debug|x64.Build.0 = Debug|Any CPU
+		{9E950AD5-8D3F-4765-9CAD-5FE72086D2D0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9E950AD5-8D3F-4765-9CAD-5FE72086D2D0}.Debug|x86.Build.0 = Debug|Any CPU
+		{9E950AD5-8D3F-4765-9CAD-5FE72086D2D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E950AD5-8D3F-4765-9CAD-5FE72086D2D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E950AD5-8D3F-4765-9CAD-5FE72086D2D0}.Release|x64.ActiveCfg = Release|Any CPU
+		{9E950AD5-8D3F-4765-9CAD-5FE72086D2D0}.Release|x64.Build.0 = Release|Any CPU
+		{9E950AD5-8D3F-4765-9CAD-5FE72086D2D0}.Release|x86.ActiveCfg = Release|Any CPU
+		{9E950AD5-8D3F-4765-9CAD-5FE72086D2D0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

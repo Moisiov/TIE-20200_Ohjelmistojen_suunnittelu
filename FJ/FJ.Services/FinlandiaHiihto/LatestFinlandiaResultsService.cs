@@ -18,25 +18,26 @@ namespace FJ.Services.FinlandiaHiihto
 
         public async Task<FinlandiaHiihtoResultsCollection> GetLatestFinlandiaResultsAsync()
         {
-            var currenYear = DateTime.Today.Year;
+            var currentYear = DateTime.Today.Year;
             var args = new FinlandiaHiihtoSearchArgs
             {
-                CompetitionYears = currenYear.ToMany()
+                CompetitionYears = currentYear.ToMany()
             };
 
-            var result = await m_dataFetchingService.GetFinlandiaHiihtoResultsAsync(args);
-
-            if (result.HasAnyResults)
+            try
             {
-                return result;
+                return await m_dataFetchingService.GetFinlandiaHiihtoResultsAsync(args);
             }
-
-            args = new FinlandiaHiihtoSearchArgs
+            catch (ArgumentException)
             {
-                CompetitionYears = (currenYear - 1).ToMany()
-            };
+                args = new FinlandiaHiihtoSearchArgs
+                {
+                    CompetitionYears = (currentYear - 1).ToMany()
+                };
 
-            return await m_dataFetchingService.GetFinlandiaHiihtoResultsAsync(args);
+                return await m_dataFetchingService.GetFinlandiaHiihtoResultsAsync(args);
+            }
+            
         }
     }
 }

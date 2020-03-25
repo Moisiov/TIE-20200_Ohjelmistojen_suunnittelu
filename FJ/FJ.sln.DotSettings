@@ -104,6 +104,9 @@ namespace $NAMESPACE$
   public interface $INTERFACE$ {$END$}
 }
 </s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=7951779A47EFFF4C833558F00FE3ECCB/Text/@EntryValue">{
+  $END$
+}</s:String>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=7B10AC30B0320A4F95A3763001E1DBF6/Text/@EntryValue">$HEADER$using System;
 
 namespace $NAMESPACE$

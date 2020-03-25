@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using FJ.FinlandiaHiihtoAPI.Exceptions;
 using HtmlAgilityPack;
 // TODO: Logging
 
@@ -10,28 +11,17 @@ namespace FJ.FinlandiaHiihtoAPI
 {
     internal class FinlandiaHiihtoScraper : IFinlandiaHiihtoScraper
     {
+        private enum HttpMethod
+        {
+            Get = 0,
+            Post = 1,
+        }
+        
         private static readonly HttpClient s_client = new HttpClient();
 
         public async Task<Dictionary<string, string>> GetRequestBaseData()
         {
-            // Load the result archive page with get request.
-            HttpResponseMessage response;
-            try
-            {
-                response = await s_client.GetAsync(Resources.C_Url);
-            }
-            catch (HttpRequestException e)
-            {
-                Console.WriteLine("\nException Caught!");
-                Console.WriteLine("Message :{0} ", e.Message);
-                // TODO: Throw custom exception about not having access to the site? Or do custom logging here?
-                throw;
-            }
-
-            // Pass the response to a html parser.
-            string html = await response.Content.ReadAsStringAsync();
-            HtmlDocument htmlDocument = new HtmlDocument();
-            htmlDocument.LoadHtml(html);
+            var htmlDocument = await LoadHtmlDocument(HttpMethod.Get);
 
             // Search input and select elements from the html which can be used
             // in POST-request.
@@ -41,6 +31,7 @@ namespace FJ.FinlandiaHiihtoAPI
                     elem.Attributes["name"].Value.StartsWith("__", StringComparison.Ordinal)
                     || elem.Attributes["name"].Value.StartsWith("dnn", StringComparison.Ordinal))
                 .ToList();
+            
             var selects = htmlDocument.DocumentNode
                 .Descendants("select")
                 .Where(elem => elem.Attributes["name"].Value.StartsWith("dnn", StringComparison.Ordinal))
@@ -56,7 +47,7 @@ namespace FJ.FinlandiaHiihtoAPI
                     continue;
                 }
 
-                string val = input.Attributes.Contains("value") ? input.Attributes["value"].Value : "";
+                var val = input.Attributes.Contains("value") ? input.Attributes["value"].Value : "";
                 formValues.Add(input.Attributes["name"].Value, val);
             }
 
@@ -67,7 +58,7 @@ namespace FJ.FinlandiaHiihtoAPI
                     continue;
                 }
 
-                string val = select.Attributes.Contains("value") ? select.Attributes["value"].Value : "kaikki";
+                var val = select.Attributes.Contains("value") ? select.Attributes["value"].Value : "kaikki";
                 formValues.Add(select.Attributes["name"].Value, val);
             }
 
@@ -83,39 +74,54 @@ namespace FJ.FinlandiaHiihtoAPI
             // These values needs to be set manually for the POST-request.
             formValues.Add("__EVENTTARGET", "dnn$ctr1025$Etusivu$cmdHaeTulokset");
             formValues["dnn$ctr1025$Etusivu$ddlKansalaisuus2x"] = "0";
+            formValues["dnn$ctr1025$Etusivu$ddlVuosi2x"] = "kaikki";
+            formValues["dnn$ctr1025$Etusivu$ddlMatka2x"] = "kaikki";
+            formValues["dnn$ctr1025$Etusivu$chkLstSukupuoli2"] = "kaikki";
+            formValues["dnn$ctr1025$Etusivu$ddlIkaluokka2"] = "kaikki";
 
             return formValues;
         }
 
-        public async Task<IEnumerable<Dictionary<string, string>>> FetchData(
+        public async Task<IEnumerable<FinlandiaHiihtoAPISearchResultRow>> FetchData(
             Dictionary<string, string> form,
             IEnumerable<string> constraints)
         {
             // Edit the form data with wanted constraints.
-            AddConstraints(form, constraints.ToList());
-
-            // Send POST-request to the archive page with the form data.
-            HttpResponseMessage response;
-            try
+            var constraintsList = constraints.ToList();
+            AddConstraints(form, constraintsList);
+            var htmlDocument = await LoadHtmlDocument(HttpMethod.Post, form);
+            
+            // Check for error message indicating that there were problems with the form.
+            var errorElement = htmlDocument.DocumentNode
+                .SelectNodes("//div[@class='dnnFormMessage dnnFormValidationSummary']");
+            
+            if (errorElement != null)
             {
-                var data = new FormUrlEncodedContent(form);
-                response = await s_client.PostAsync(Resources.C_Url, data);
-                response.EnsureSuccessStatusCode();
+                // Try getting the data again by refreshing the base form in case
+                // __VIEWSTATE or __EVENTVALIDATION has expired.
+                form = await GetRequestBaseData();
+                AddConstraints(form, constraintsList.ToList());
+                htmlDocument = await LoadHtmlDocument(HttpMethod.Post, form);
+                
+                errorElement = htmlDocument.DocumentNode
+                    .SelectNodes("//div[@class='dnnFormMessage dnnFormValidationSummary']");
+                
+                // If still no success user's filter arguments are invalid. 
+                if (errorElement != null)
+                {
+                    throw new ArgumentException("Invalid filter arguments.");
+                }
             }
-            catch (HttpRequestException e)
+            
+            // Check for over 10 000 results error message.
+            var tooManyResultsErrorElement = htmlDocument
+                .GetElementbyId("dnn_ctr1025_Etusivu_lblTulosError")
+                .SelectNodes("*");
+
+            if (tooManyResultsErrorElement != null)
             {
-                Console.WriteLine("\nException Caught!");
-                Console.WriteLine("Message :{0} ", e.Message);
-                // TODO: Throw custom exception about not having access to the site? Or do custom logging here?
-                throw;
+                throw new TooMuchResultsExceptions("Too many results to show.");
             }
-
-            // Pass the response to a html parser.
-            string html = await response.Content.ReadAsStringAsync();
-            HtmlDocument htmlDocument = new HtmlDocument();
-            htmlDocument.LoadHtml(html);
-
-            // TODO: Check if too much data or something went wrong with request.
 
             // From the html file try to find the result table rows.
             List<HtmlNode> tableRows;
@@ -133,33 +139,27 @@ namespace FJ.FinlandiaHiihtoAPI
             {
                 tableRows = new List<HtmlNode>();
             }
-
+            
             // Get data from each html row element.
-            var parsedData = new List<Dictionary<string, string>>();
+            var parsedData = new List<FinlandiaHiihtoAPISearchResultRow>();
             foreach (var row in tableRows)
             {
                 var cellValues = row.Descendants("td").Select(x => x.InnerText).ToList();
-                var rowData = new Dictionary<string, string>();
-
-                for (var i = 0; i < cellValues.Count; i++)
-                {
-                    var value = cellValues[i] != "&nbsp;" ? cellValues[i] : "";
-                    rowData.Add(Resources.S_DataHeaders[i], value);
-                }
-
+                // No results in table
+                if (cellValues.Count == 1) { continue; }
+                
+                var rowData = new FinlandiaHiihtoAPISearchResultRow(cellValues);
                 parsedData.Add(rowData);
             }
 
             return parsedData;
         }
 
-        private void AddConstraints(
-            Dictionary<string, string> form,
-            List<string> constraints)
+        private static void AddConstraints(IDictionary<string, string> form, IReadOnlyList<string> constraints)
         {
             for (var i = 0; i < constraints.Count; i++)
             {
-                string constraintValue = constraints[i];
+                var constraintValue = constraints[i];
                 if (constraintValue == null)
                 {
                     continue;
@@ -167,6 +167,45 @@ namespace FJ.FinlandiaHiihtoAPI
 
                 form[Resources.S_RequestFieldNames[i]] = constraintValue;
             }
+        }
+
+        private static async Task<HtmlDocument> LoadHtmlDocument(HttpMethod method, Dictionary<string, string> form = null)
+        {
+            HttpResponseMessage response;
+            // Send POST-request to the archive page with the form data.
+            try
+            {
+                switch (method)
+                {
+                    case HttpMethod.Get:
+                        response = await s_client.GetAsync(Resources.C_Url);
+                        break;
+                    case HttpMethod.Post:
+                        var data = new FormUrlEncodedContent(form);
+                        response = await s_client.PostAsync(Resources.C_Url, data);
+                        break;
+                    default:
+                        response = await s_client.GetAsync(Resources.C_Url);
+                        break;
+                }
+                response.EnsureSuccessStatusCode();
+            }
+            catch (HttpRequestException e)
+            {
+#if DEBUG
+                Console.WriteLine("\nException Caught!");
+                Console.WriteLine("Message :{0} ", e.Message);
+#endif
+                // TODO: Throw custom exception about not having access to the site? Or do custom logging here?
+                throw;
+            }
+
+            // Pass the response to a html parser.
+            var html = await response.Content.ReadAsStringAsync();
+            var htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(html);
+            
+            return htmlDocument;
         }
     }
 }

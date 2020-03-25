@@ -1,39 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using FJ.FinlandiaHiihtoAPI.Utils;
 
 namespace FJ.FinlandiaHiihtoAPI
 {
     public class FinlandiaHiihtoAPI : IFinlandiaHiihtoAPI
     {
-        public async Task<IEnumerable<Dictionary<string, string>>> GetData(
-            int? year = null,
-            string firstName = null,
-            string lastName = null,
-            string competitionType = null,
-            string ageGroup = null,
-            string competitorHomeTown = null,
-            string team = null,
-            string gender = null,
-            string nationality = null)
+        private readonly IFinlandiaHiihtoScraper m_scraper = new FinlandiaHiihtoScraper();
+        
+        private Dictionary<string, string> m_requestBaseForm;
+        private async Task<Dictionary<string, string>> RequestBaseForm()
         {
-            IFinlandiaHiihtoScraper scraper = new FinlandiaHiihtoScraper();
-            Dictionary<string, string> requestForm = await scraper.GetRequestBaseData();
-
-            List<string> searchConstraints = new List<string>()
+            if (m_requestBaseForm != null)
             {
-                year.ToString(),
-                firstName,
-                lastName,
-                competitionType,
-                ageGroup,
-                competitorHomeTown,
-                team,
-                gender,
-                nationality
-            };
+                return m_requestBaseForm;
+            }
 
-            return await scraper.FetchData(requestForm, searchConstraints);
+            m_requestBaseForm = await m_scraper.GetRequestBaseData();
+            return m_requestBaseForm;
+        }
+        
+        public async Task<IEnumerable<FinlandiaHiihtoAPISearchResultRow>> GetData(FinlandiaHiihtoAPISearchArgs args)
+        {
+            var searchConstraints = new List<string>
+            {
+                args.Year.ToString().EmptyToNull(),
+                args.FirstName,
+                args.LastName,
+                args.CompetitionType,
+                args.AgeGroup,
+                args.CompetitorHomeTown,
+                args.Team,
+                args.Gender,
+                args.Nationality
+            };
+            
+            return await m_scraper.FetchData(await RequestBaseForm(), searchConstraints);
         }
     }
 }

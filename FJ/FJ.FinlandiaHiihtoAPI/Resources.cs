@@ -18,21 +18,5 @@ namespace FJ.FinlandiaHiihtoAPI
             "dnn$ctr1025$Etusivu$chkLstSukupuoli2",
             "dnn$ctr1025$Etusivu$ddlKansalaisuus2x"
         };
-
-        internal static readonly string[] S_DataHeaders =
-        {
-            "Vuosi",
-            "Matka",
-            "Tulos",
-            "Sija",
-            "Sija/Miehet",
-            "Sija/Naiset",
-            "Sukupuoli",
-            "Sukunimi Etunimi",
-            "Paikkakunta",
-            "Kansallisuus",
-            "Syntymävuosi",
-            "Joukkue"
-        };
     }
 }

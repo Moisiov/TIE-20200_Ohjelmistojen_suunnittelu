@@ -8,8 +8,6 @@ namespace FJ.FinlandiaHiihtoAPI
     {
         Task<Dictionary<string, string>> GetRequestBaseData();
 
-        Task<IEnumerable<Dictionary<string, string>>> FetchData(
-            Dictionary<string, string> form,
-            IEnumerable<string> constraints);
+        Task<IEnumerable<FinlandiaHiihtoAPISearchResultRow>> FetchData(Dictionary<string, string> form, IEnumerable<string> constraints);
     }
 }

@@ -22,47 +22,59 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
         public async Task<FinlandiaHiihtoResultsCollection> GetFinlandiaHiihtoResultsAsync(FinlandiaHiihtoSearchArgs args)
         {
             // TODO proof of concept, ei huomioi argseja vielä kuin ensimmäisen vuoden osalta
-            var raw = await m_api.GetData(year: args.CompetitionYears.First());
+            var raw = await m_api.GetData(new FinlandiaHiihtoAPISearchArgs
+            {
+                Year = args.CompetitionYears.First()
+            });
+            
             return new FinlandiaHiihtoResultsCollection(args, ParseRawResult(raw));
         }
 
-        protected IEnumerable<FinlandiaHiihtoSingleResult> ParseRawResult(IEnumerable<Dictionary<string, string>> rawData)
+        /*
+        private static IEnumerable<FinlandiaHiihtoAPISearchArgs> ParseArguments(FinlandiaHiihtoSearchArgs args)
+        {
+            TODO
+        }
+        */
+
+        private static IEnumerable<FinlandiaHiihtoSingleResult> ParseRawResult(IEnumerable<FinlandiaHiihtoAPISearchResultRow> rawData)
         {
             // TODO apilta jotain järkevämpää ulos
             var res = new List<FinlandiaHiihtoSingleResult>();
-            foreach (var d in rawData)
+            foreach (var result in rawData)
             {
-                var styleDistString = d["Matka"];
+                var styleDistString = result.StyleAndDistance;
                 var style = styleDistString[0] == 'P' ? FinlandiaSkiingStyle.Classic : FinlandiaSkiingStyle.Skate;
                 var dist = (FinlandiaSkiingDistance)int.Parse(styleDistString.Substring(1));
-                var gender = d["Sukupuoli"] == "M"
-                    ? Gender.Man
-                    : d["Sukupuoli"] == "N"
-                        ? Gender.Woman
-                        : Gender.Unknown;
+                var gender = result.Gender switch
+                {
+                    "M" => Gender.Man,
+                    "N" => Gender.Woman,
+                    _ => Gender.Unknown
+                };
 
                 res.Add(new FinlandiaHiihtoSingleResult
                 {
                     CompetitionInfo = new Competition
                     {
-                        Year = int.Parse(d["Vuosi"])
+                        Year = result.Year
                     },
                     CompetitionClass = FinlandiaHiihtoCompetitionClass.Create(dist, style),
-                    Result = TimeSpan.Parse(d["Tulos"]),
-                    PositionGeneral = int.Parse(d["Sija"]),
-                    PositionMen = !string.IsNullOrWhiteSpace(d["Sija/Miehet"]) ? (int?)int.Parse(d["Sija/Miehet"]) : null,
-                    PositionWomen = !string.IsNullOrWhiteSpace(d["Sija/Naiset"]) ? (int?)int.Parse(d["Sija/Naiset"]) : null,
+                    Result = result.Result,
+                    PositionGeneral = result.Position,
+                    PositionMen = result.PositionMen,
+                    PositionWomen = result.PositionWomen,
                     Athlete = new Person
                     {
-                        FirstName = string.Join(" ", d["Sukunimi Etunimi"].Split().Skip(1).ToArray()),
-                        LastName = d["Sukunimi Etunimi"].Split()[0],
+                        FirstName = string.Join(" ", result.FullName.Split().Skip(1).ToArray()),
+                        LastName = result.FullName.Split()[0],
                         PersonGender = gender,
-                        City = d["Paikkakunta"],
-                        Nationality = d["Kansallisuus"],
-                        YearOfBirth = !string.IsNullOrWhiteSpace(d["Syntymävuosi"]) ? (int?)int.Parse(d["Syntymävuosi"]) : null,
+                        City = result.HomeTown,
+                        Nationality = result.Nationality,
+                        YearOfBirth = result.BornYear,
                     },
 
-                    Team = d["Joukkue"]
+                    Team = result.Team
                 });
             }
 
