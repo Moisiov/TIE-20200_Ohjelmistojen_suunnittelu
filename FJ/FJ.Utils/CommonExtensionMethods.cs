@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Serialization;
 
 namespace FJ.Utils
 {
@@ -27,6 +30,40 @@ namespace FJ.Utils
         public static IEnumerable<T> ToMany<T>(this T item)
         {
             return new[] { item };
+        }
+
+        /// <summary>
+        /// Converts any object into comparable byte array
+        /// </summary>
+        /// <param name="obj">Object to be converted</param>
+        /// <returns>Serialized byte array from object</returns>
+        public static byte[] ToByteArray(this object obj)
+        {
+            if (obj == null)
+            {
+                return null;
+            }
+            
+            var formatter = new BinaryFormatter();
+            using var memStream = new MemoryStream();
+            
+            formatter.Serialize(memStream, obj);
+            return memStream.ToArray();
+        }
+
+        /// <summary>
+        /// Serializes object into string based on class contents
+        /// </summary>
+        /// <param name="obj">Object to serialize</param>
+        /// <returns>Serialized object as string</returns>
+        [Obsolete("Do this with Newtonsoft's JsonSerializer instead", false)]
+        public static string SerializeToString(this object obj)
+        {
+            var serializer = new XmlSerializer(obj.GetType());
+            using TextWriter writer = new StringWriter();
+            
+            serializer.Serialize(writer, obj);
+            return writer.ToString();
         }
     }
 }

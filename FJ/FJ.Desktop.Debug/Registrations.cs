@@ -2,6 +2,7 @@
 using FJ.Client.Core.Services;
 using FJ.FinlandiaHiihtoAPI;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
+using FJ.Services.CoreServices;
 using FJ.Services.FinlandiaHiihto;
 using FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices;
 using Unity;
@@ -26,6 +27,9 @@ namespace FJ.Desktop.Debug
 
         private static void ServicesInternalRegistrations(IUnityContainer container)
         {
+            // TODO not sure if this should be registered as instance, even though it efficient
+            container.RegisterInstance<ICacheProvider>(new MemoryCacheProvider());
+            
             container.RegisterSingleton<IDataFetchingService, FinlandiaAPIDataFetchingService>();
         }
 
