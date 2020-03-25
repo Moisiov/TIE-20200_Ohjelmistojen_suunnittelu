@@ -14,7 +14,7 @@ namespace FJ.Desktop.Debug
         {
             ClientInternalRegistrations(container);
             ServicesInternalRegistrations(container);
-            ServicesExternalRegistratios(container);
+            ServicesExternalRegistrations(container);
             ServiceInterfacesRegistrations(container);
         }
 
@@ -29,7 +29,7 @@ namespace FJ.Desktop.Debug
             container.RegisterSingleton<IDataFetchingService, FinlandiaAPIDataFetchingService>();
         }
 
-        private static void ServicesExternalRegistratios(IUnityContainer container)
+        private static void ServicesExternalRegistrations(IUnityContainer container)
         {
             // APIs are treated as externals
             container.RegisterInstance<IFinlandiaHiihtoAPI>(new FinlandiaHiihtoAPI.FinlandiaHiihtoAPI());
