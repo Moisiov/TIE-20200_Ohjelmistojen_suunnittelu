@@ -14,5 +14,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="All" />
+    <PackageReference Include="Unity" Version="5.11.1" />
   </ItemGroup>
 </Project>
