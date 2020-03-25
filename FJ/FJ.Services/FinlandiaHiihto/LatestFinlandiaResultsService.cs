@@ -37,7 +37,6 @@ namespace FJ.Services.FinlandiaHiihto
 
                 return await m_dataFetchingService.GetFinlandiaHiihtoResultsAsync(args);
             }
-            
         }
     }
 }
