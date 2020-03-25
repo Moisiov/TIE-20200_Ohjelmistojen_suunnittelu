@@ -5,7 +5,9 @@ using FJ.ServiceInterfaces.FinlandiaHiihto;
 using FJ.Services.CoreServices;
 using FJ.Services.FinlandiaHiihto;
 using FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices;
+using FJ.Utils;
 using Unity;
+using Unity.Lifetime;
 
 namespace FJ.Desktop.Debug
 {
@@ -31,6 +33,19 @@ namespace FJ.Desktop.Debug
             container.RegisterInstance<ICacheProvider>(new MemoryCacheProvider());
             
             container.RegisterSingleton<IDataFetchingService, FinlandiaAPIDataFetchingService>();
+            container.DecorateSingleton<IDataFetchingService, SimpleDataFetcherCacheDecorator>();
+            
+            /*
+            Leaving this here for now as this alternative might be a safer choice. -Olli
+            https://stackoverflow.com/a/36101994
+            
+            container.RegisterSingleton<IDataFetchingService, FinlandiaAPISimpleCacheDecorator>(
+                new InjectionConstructor(
+                    new ResolvedParameter<FinlandiaAPIDataFetchingService>(),
+                    new ResolvedParameter<ICacheProvider>()));
+                    
+            TODO Remove if extension is proved to be worthy.
+            */
         }
 
         private static void ServicesExternalRegistrations(IUnityContainer container)
