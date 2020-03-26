@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FJ.FinlandiaHiihtoAPI
+namespace FinlandiaHiihtoAPI
 {
     internal static class Resources
     {

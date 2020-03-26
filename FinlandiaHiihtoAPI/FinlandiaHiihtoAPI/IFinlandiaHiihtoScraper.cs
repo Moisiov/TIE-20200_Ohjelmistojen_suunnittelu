@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace FJ.FinlandiaHiihtoAPI
+namespace FinlandiaHiihtoAPI
 {
     internal interface IFinlandiaHiihtoScraper
     {

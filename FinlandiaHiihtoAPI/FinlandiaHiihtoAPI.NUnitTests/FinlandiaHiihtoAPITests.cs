@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FJ.FinlandiaHiihtoAPI.Exceptions;
-using FJ.FinlandiaHiihtoAPI.Utils;
+using FinlandiaHiihtoAPI.Exceptions;
+using FinlandiaHiihtoAPI.Utils;
 using NUnit.Framework;
 
-namespace FJ.FinlandiaHiihtoAPI.NUnitTests
+namespace FinlandiaHiihtoAPI.NUnitTests
 {
     [TestFixture]
     public class FinlandiaHiihtoAPITests

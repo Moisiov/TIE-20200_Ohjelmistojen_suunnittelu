@@ -1,6 +1,6 @@
 ﻿using System;
+using FinlandiaHiihtoAPI;
 using FJ.Client.Core.Services;
-using FJ.FinlandiaHiihtoAPI;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
 using FJ.Services.CoreServices;
 using FJ.Services.FinlandiaHiihto;

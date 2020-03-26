@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FJ.FinlandiaHiihtoAPI.Utils;
+using FinlandiaHiihtoAPI.Utils;
 
-namespace FJ.FinlandiaHiihtoAPI
+namespace FinlandiaHiihtoAPI
 {
     public class FinlandiaHiihtoAPI : IFinlandiaHiihtoAPI
     {

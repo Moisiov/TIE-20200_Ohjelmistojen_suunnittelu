@@ -18,10 +18,14 @@
   <ItemGroup>
     <ProjectReference Include="..\FJ.Services\FJ.Services.csproj" />
     <ProjectReference Include="..\FJ.ServiceInterfaces\FJ.ServiceInterfaces.csproj" />
-    <ProjectReference Include="..\FJ.FinlandiaHiihtoAPI\FJ.FinlandiaHiihtoAPI.csproj" />
     <ProjectReference Include="..\FJ.DomainObjects\FJ.DomainObjects.csproj" />
     <ProjectReference Include="..\FJ.Desktop.Debug\FJ.Desktop.Debug.csproj" />
     <ProjectReference Include="..\FJ.Client\FJ.Client.csproj" />
     <ProjectReference Include="..\FJ.Utils\FJ.Utils.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="FinlandiaHiihtoAPI">
+      <HintPath>..\APIs\FinlandiaHiihtoAPI\FinlandiaHiihtoAPI.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

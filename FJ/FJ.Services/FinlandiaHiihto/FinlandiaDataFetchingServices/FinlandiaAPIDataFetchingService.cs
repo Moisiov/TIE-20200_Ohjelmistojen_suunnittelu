@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FinlandiaHiihtoAPI;
 using FJ.DomainObjects;
 using FJ.DomainObjects.Enums;
 using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.DomainObjects.FinlandiaHiihto.Enums;
-using FJ.FinlandiaHiihtoAPI;
 
 namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
 {

@@ -10,7 +10,6 @@
   <ItemGroup>
     <ProjectReference Include="..\FJ.Services\FJ.Services.csproj" />
     <ProjectReference Include="..\FJ.ServiceInterfaces\FJ.ServiceInterfaces.csproj" />
-    <ProjectReference Include="..\FJ.FinlandiaHiihtoAPI\FJ.FinlandiaHiihtoAPI.csproj" />
     <ProjectReference Include="..\FJ.DomainObjects\FJ.DomainObjects.csproj" />
     <ProjectReference Include="..\FJ.Client\FJ.Client.csproj" />
     <ProjectReference Include="..\FJ.Utils\FJ.Utils.csproj" />
@@ -18,5 +17,10 @@
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="All" />
     <PackageReference Include="Unity" Version="5.11.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="FinlandiaHiihtoAPI">
+      <HintPath>..\APIs\FinlandiaHiihtoAPI\FinlandiaHiihtoAPI.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FJ.FinlandiaHiihtoAPI.Utils
+namespace FinlandiaHiihtoAPI.Utils
 {
     public static class StringExtensions
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using FJ.FinlandiaHiihtoAPI.Utils;
+using FinlandiaHiihtoAPI.Utils;
 
-namespace FJ.FinlandiaHiihtoAPI
+namespace FinlandiaHiihtoAPI
 {
     public class FinlandiaHiihtoAPISearchArgs
     {

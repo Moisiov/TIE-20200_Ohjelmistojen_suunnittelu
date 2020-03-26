@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using FJ.FinlandiaHiihtoAPI.Exceptions;
+using FinlandiaHiihtoAPI.Exceptions;
 using HtmlAgilityPack;
 // TODO: Logging
 
-namespace FJ.FinlandiaHiihtoAPI
+namespace FinlandiaHiihtoAPI
 {
     internal class FinlandiaHiihtoScraper : IFinlandiaHiihtoScraper
     {

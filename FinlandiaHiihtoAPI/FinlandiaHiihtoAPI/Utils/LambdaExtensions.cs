@@ -2,7 +2,7 @@ using System;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace FJ.FinlandiaHiihtoAPI.Utils
+namespace FinlandiaHiihtoAPI.Utils
 {
     public static class LambdaExtensions
     {

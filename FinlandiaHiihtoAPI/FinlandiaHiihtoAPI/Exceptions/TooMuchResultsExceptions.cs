@@ -1,6 +1,6 @@
 using System;
 
-namespace FJ.FinlandiaHiihtoAPI.Exceptions
+namespace FinlandiaHiihtoAPI.Exceptions
 {
     public class TooMuchResultsExceptions : ArgumentException
     {

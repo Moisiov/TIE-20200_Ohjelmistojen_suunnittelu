@@ -4,8 +4,8 @@
         <ProjectGuid>{9E950AD5-8D3F-4765-9CAD-5FE72086D2D0}</ProjectGuid>
         <TargetFramework>netcoreapp3.0</TargetFramework>
         <IsPackable>false</IsPackable>
-        <RootNamespace>FJ.FinlandiaHiihtoAPI.NUnitTests</RootNamespace>
-        <CodeAnalysisRuleSet>../FJStyleCop.ruleset</CodeAnalysisRuleSet>
+        <RootNamespace>FinlandiaHiihtoAPI.NUnitTests</RootNamespace>
+        <CodeAnalysisRuleSet>../FinlandiaHiihtoAPI.ruleset</CodeAnalysisRuleSet>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,7 +15,7 @@
         <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="All" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\FJ.FinlandiaHiihtoAPI\FJ.FinlandiaHiihtoAPI.csproj" />
+      <ProjectReference Include="..\FinlandiaHiihtoAPI\FinlandiaHiihtoAPI.csproj" />
     </ItemGroup>
 
 </Project>

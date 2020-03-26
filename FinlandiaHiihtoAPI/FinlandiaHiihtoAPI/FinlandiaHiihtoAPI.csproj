@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <ProjectGuid>{E3A31C58-0896-4669-BC4D-7B5FA45F1522}</ProjectGuid>
-    <RootNamespace>FJ.FinlandiaHiihtoAPI</RootNamespace>
+    <ProjectGuid>{6D18A297-3173-455A-8014-77FB68666238}</ProjectGuid>
+    <RootNamespace>FinlandiaHiihtoAPI</RootNamespace>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <CodeAnalysisRuleSet>../FJStyleCop.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>../FinlandiaHiihtoAPI.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.18" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.23" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>

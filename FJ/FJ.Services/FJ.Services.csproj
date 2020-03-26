@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FJ.DomainObjects\FJ.DomainObjects.csproj" />
-    <ProjectReference Include="..\FJ.FinlandiaHiihtoAPI\FJ.FinlandiaHiihtoAPI.csproj" />
     <ProjectReference Include="..\FJ.ServiceInterfaces\FJ.ServiceInterfaces.csproj" />
     <ProjectReference Include="..\FJ.Utils\FJ.Utils.csproj" />
   </ItemGroup>
@@ -22,5 +21,10 @@
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.2" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="FinlandiaHiihtoAPI">
+      <HintPath>..\APIs\FinlandiaHiihtoAPI\FinlandiaHiihtoAPI.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
