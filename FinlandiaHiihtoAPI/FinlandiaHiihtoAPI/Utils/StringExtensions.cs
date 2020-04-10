@@ -21,7 +21,7 @@ namespace FinlandiaHiihtoAPI.Utils
 
         public static string EmptyToNull(this string source)
         {
-            return source.IsNullOrEmpty() || source.IsNullOrWhitespace() || source == "&nbsp;"
+            return source.IsNullOrWhitespace() || source == "&nbsp;"
                 ? null
                 : source;
         }

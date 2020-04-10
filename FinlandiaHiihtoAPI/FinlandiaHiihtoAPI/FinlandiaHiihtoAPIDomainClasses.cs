@@ -52,5 +52,20 @@ namespace FinlandiaHiihtoAPI
         {
             return $"{Year} - {StyleAndDistance} - {FullName} - {Result}";
         }
+
+        public bool Equals(FinlandiaHiihtoAPISearchResultRow other)
+        {
+            return Year == other.Year
+                   && StyleAndDistance == other.StyleAndDistance
+                   && Result.Equals(other.Result)
+                   && Position == other.Position
+                   && FullName == other.FullName
+                   && BornYear == other.BornYear;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Year, StyleAndDistance, Result, Position, FullName, BornYear);
+        }
     }
 }
