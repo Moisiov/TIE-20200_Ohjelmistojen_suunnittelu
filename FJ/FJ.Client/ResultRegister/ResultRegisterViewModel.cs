@@ -30,15 +30,8 @@ namespace FJ.Client.ResultRegister
 
         public string CurrentTeamString { get; set; }
         public ObservableCollection<string> TeamStrings { get; set; }  // TODO Not binded atm
-
-        public int FromHourSelection { get; set; }
-        public int FromMinuteSelection { get; set; }
-        public int ToHourSelection { get; set; }
-        public int ToMinuteSelection { get; set; }
-        public int[] FromHourOptions { get; set; }
-        public int[] FromMinuteOptions { get; set; }
-        public int[] ToHourOptions { get; set; }
-        public int[] ToMinuteOptions { get; set; }
+        
+        public TimeSpan? TimeSelection { get; set; }
 
         public string CurrentFirstNameString { get; set; }
         public string CurrentLastNameString { get; set; }
@@ -70,11 +63,6 @@ namespace FJ.Client.ResultRegister
 
             CurrentTeamString = string.Empty;
             TeamStrings = new ObservableCollection<string>();
-
-            FromHourOptions = CommonConstants.S_Hours;
-            FromMinuteOptions = CommonConstants.S_Minutes;
-            ToHourOptions = CommonConstants.S_Hours;
-            ToMinuteOptions = CommonConstants.S_Minutes;
 
             CurrentFirstNameString = string.Empty;
             CurrentLastNameString = string.Empty;

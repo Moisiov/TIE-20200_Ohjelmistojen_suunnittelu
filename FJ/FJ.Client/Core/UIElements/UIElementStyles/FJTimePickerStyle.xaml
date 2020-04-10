@@ -1,0 +1,104 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:common="clr-namespace:FJ.Client.Core.UIElements"
+        xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <Style Selector="common|FJTimePicker">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}"/>
+        <Setter Property="BorderThickness" Value="{DynamicResource ThemeBorderThickness}"/>
+        <Setter Property="Padding" Value="4"/>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBox Name="PART_TimePickerTextBox"
+                                 TextWrapping="NoWrap"
+                                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                 FontFamily="{TemplateBinding FontFamily}"
+                                 FontSize="{TemplateBinding FontSize}"
+                                 FontStyle="{TemplateBinding FontStyle}"
+                                 Background="{TemplateBinding Background}" 
+                                 BorderBrush="{TemplateBinding BorderBrush}" 
+                                 BorderThickness="{TemplateBinding BorderThickness}" 
+                                 Padding="{TemplateBinding Padding}"
+                                 Watermark="{TemplateBinding Watermark}"
+                                 Width="{TemplateBinding Width}" MinWidth="{TemplateBinding MinWidth}"
+                                 Height="{TemplateBinding Height}" MinHeight="{TemplateBinding MinHeight}"
+                                 ClipToBounds="True"
+                                 DataValidationErrors.Errors="{TemplateBinding (DataValidationErrors.Errors)}"/>
+                        <Popup Name="PART_TimePickerContentPopup"
+                               IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+                               MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                               MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                               PlacementTarget="{TemplateBinding}"
+                               StaysOpen="False">
+                            <Border BorderBrush="{DynamicResource ThemeBorderMidBrush}"
+                                    BorderThickness="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ScrollViewer Grid.Column="0">
+                                        <ListBox Name="PART_HourItemsControl"
+                                                 Items="{TemplateBinding HourItems}">
+                                            <ListBox.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <StackPanel Orientation="Vertical"
+                                                                    Margin="2,0,0,0"
+                                                                    HorizontalAlignment="Left"
+                                                                    VerticalAlignment="Center"/>
+                                                    </ItemsPanelTemplate>
+                                            </ListBox.ItemsPanel>
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding}" Margin="4"/>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </ScrollViewer>
+                                    <ScrollViewer Grid.Column="1">
+                                        <ListBox Name="PART_MinuteItemsControl"
+                                                 Items="{TemplateBinding MinuteItems}">
+                                            <ListBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Vertical"
+                                                                Margin="2,0,0,0"
+                                                                HorizontalAlignment="Left"
+                                                                VerticalAlignment="Center"/>
+                                                </ItemsPanelTemplate>
+                                            </ListBox.ItemsPanel>
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding}" Margin="4"/>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                </Border>
+              </ControlTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="common|FJTimePicker:pointerover /template/ Border#border">
+        <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderHighBrush}"/>
+    </Style>
+    <Style Selector="common|FJTimePicker:disabled /template/ Border#border">
+        <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
+    </Style>
+</Styles>
