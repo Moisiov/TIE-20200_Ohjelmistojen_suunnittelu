@@ -46,6 +46,8 @@ namespace FJ.Desktop.Debug
                     
             TODO Remove if extension is proved to be worthy.
             */
+
+            container.RegisterInstance<IFilterImplementationProvider>(new FilterImplementationProvider());
         }
 
         private static void ServicesExternalRegistrations(IUnityContainer container)
