@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using FJ.Client.Athlete;
 using FJ.Client.Core;
 using FJ.DomainObjects.Enums;
+using FJ.DomainObjects.Filters.Core;
 using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.DomainObjects.FinlandiaHiihto.Enums;
+using FJ.DomainObjects.FinlandiaHiihto.Filters;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
 using FJ.Utils;
 using FJ.Utils.FinlandiaUtils;
@@ -21,6 +23,7 @@ namespace FJ.Client.ResultRegister
         private ResultRegisterModel m_model;
 
         public ReactiveCommand<Unit, Unit> TestCommand { get; }
+        public ReactiveCommand<Unit, Unit> FilterTestCommand { get; }
         public ObservableCollection<ResultRegisterItemModel> Results { get; set; }  // TODO: Bind from model with attribute?
 
         public ObservableCollection<int> CompetitionYears { get; set; }
@@ -48,6 +51,7 @@ namespace FJ.Client.ResultRegister
         {
             m_model = new ResultRegisterModel(latestFinlandiaResultsService);
 
+            FilterTestCommand = ReactiveCommand.CreateFromTask(FilterTestCall);
             TestCommand = ReactiveCommand.CreateFromTask(TestCall);
             Results = new ObservableCollection<ResultRegisterItemModel>();
 
@@ -74,6 +78,27 @@ namespace FJ.Client.ResultRegister
 
             CurrentYearOfBirthString = string.Empty;
             YearsOfBirth = new ObservableCollection<string>();
+        }
+
+        public async Task FilterTestCall()
+        {
+            using (Navigator.ShowLoadingScreen())
+            {
+                var yearsFilter = new FinlandiaCompetitionYearsFilter(2019.ToMany());
+                var timeFilter = new FinlandiaResultTimeRangeFilter(null, new TimeSpan(2, 0, 0));
+                var homeCitiesFilter = new FinlandiaHomeCitiesFilter(new[] { "Hämeenlinna", "Vantaa" });
+                var resultGeneralFilter = new FinlandiaPositionRangeGeneralFilter(null, 10);
+                
+                var filterCollection = new FilterCollection(
+                    yearsFilter,
+                    timeFilter,
+                    homeCitiesFilter,
+                    resultGeneralFilter);
+                
+                var res = await m_model.GetFinlandiaResultsAsync(filterCollection);
+                Results = new ObservableCollection<ResultRegisterItemModel>(res);
+                RaisePropertyChanged(nameof(Results));
+            }
         }
 
         public async Task TestCall()

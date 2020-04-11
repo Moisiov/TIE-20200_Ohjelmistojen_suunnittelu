@@ -2,7 +2,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FJ.DomainObjects.Filters.Core;
 using FJ.DomainObjects.FinlandiaHiihto.Enums;
+using FJ.DomainObjects.FinlandiaHiihto.Filters;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
 using FJ.Utils.FinlandiaUtils;
 
@@ -40,5 +42,19 @@ namespace FJ.Client.ResultRegister
 
             return res;
         }
+ 
+        public async Task<IEnumerable<ResultRegisterItemModel>> GetFinlandiaResultsAsync(FilterCollection filters)
+        {
+            // TODO some hard-coded limitations at this point of development
+            var collection = await m_latestFinlandiaResultsService.GetFinlandiaResultsAsync(filters);
+            return collection.Results
+                .OrderBy(x => x.PositionGeneral)
+                .Take(100)
+                .Select(x => (ResultRegisterItemModel)x);
+        }
     }
+    
+    #region Filters
+    // TODO
+    #endregion
 }

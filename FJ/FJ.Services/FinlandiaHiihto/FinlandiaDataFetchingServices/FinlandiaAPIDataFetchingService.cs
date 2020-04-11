@@ -5,18 +5,24 @@ using System.Threading.Tasks;
 using FinlandiaHiihtoAPI;
 using FJ.DomainObjects;
 using FJ.DomainObjects.Enums;
+using FJ.DomainObjects.Filters;
+using FJ.DomainObjects.Filters.Core;
 using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.DomainObjects.FinlandiaHiihto.Enums;
+using FJ.Services.CoreServices;
 
 namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
 {
     public class FinlandiaAPIDataFetchingService : IDataFetchingService
     {
+        private const int c_searchCountLimit = 1000;
         private readonly IFinlandiaHiihtoAPI m_api;
+        private readonly IFilterImplementationProvider m_filterImplementationProvider;
 
-        public FinlandiaAPIDataFetchingService(IFinlandiaHiihtoAPI api)
+        public FinlandiaAPIDataFetchingService(IFinlandiaHiihtoAPI api, IFilterImplementationProvider filterImplementationProvider)
         {
             m_api = api;
+            m_filterImplementationProvider = filterImplementationProvider;
         }
 
         public async Task<FinlandiaHiihtoResultsCollection> GetFinlandiaHiihtoResultsAsync(FinlandiaHiihtoSearchArgs args)
@@ -30,12 +36,24 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
             return new FinlandiaHiihtoResultsCollection(ParseRawResult(raw));
         }
 
-        /*
-        private static IEnumerable<FinlandiaHiihtoAPISearchArgs> ParseArguments(FinlandiaHiihtoSearchArgs args)
+        public async Task<FinlandiaHiihtoResultsCollection> GetFinlandiaHiihtoResultsAsync(FilterCollection filters)
         {
-            TODO
+            var searchTasks = new FilterSearchComposer<FinlandiaHiihtoAPISearchArgs>()
+                .ApplyFilters(filters, m_filterImplementationProvider)
+                .Searches
+                .Select(x => m_api.GetData(x))
+                .ToArray();
+
+            if (searchTasks.Length > c_searchCountLimit)
+            {
+                throw new Exception("Too wide args"); // TODO dunno if good
+            }
+
+            var searchResultRows = await Task.WhenAll(searchTasks);
+            return new FinlandiaHiihtoResultsCollection(ParseRawResult(
+                searchResultRows.SelectMany(x => x)
+                    .ApplyFilters(filters, m_filterImplementationProvider)));
         }
-        */
 
         private static IEnumerable<FinlandiaHiihtoSingleResult> ParseRawResult(IEnumerable<FinlandiaHiihtoAPISearchResultRow> rawData)
         {

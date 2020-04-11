@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using FJ.DomainObjects.Filters.Core;
 using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
 using FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices;
@@ -37,6 +38,11 @@ namespace FJ.Services.FinlandiaHiihto
 
                 return await m_dataFetchingService.GetFinlandiaHiihtoResultsAsync(args);
             }
+        }
+
+        public async Task<FinlandiaHiihtoResultsCollection> GetFinlandiaResultsAsync(FilterCollection filters)
+        {
+            return await m_dataFetchingService.GetFinlandiaHiihtoResultsAsync(filters);
         }
     }
 }
