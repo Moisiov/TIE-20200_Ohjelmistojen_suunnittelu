@@ -27,7 +27,7 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
                 Year = args.CompetitionYears.First()
             });
             
-            return new FinlandiaHiihtoResultsCollection(args, ParseRawResult(raw));
+            return new FinlandiaHiihtoResultsCollection(ParseRawResult(raw));
         }
 
         /*

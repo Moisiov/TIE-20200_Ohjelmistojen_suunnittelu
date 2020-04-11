@@ -6,14 +6,14 @@ namespace FJ.DomainObjects.FinlandiaHiihto
 {
     public class FinlandiaHiihtoResultsCollection
     {
-        public FinlandiaHiihtoSearchArgs AppliedArgs { get; set; }
+        public int SearchesExecuted { get; set; }
         public IEnumerable<FinlandiaHiihtoSingleResult> Results { get; set; }
+        public int ResultsCount => Results?.Count() ?? 0;
 
         public bool HasAnyResults => Results?.Any() == true;
 
-        public FinlandiaHiihtoResultsCollection(FinlandiaHiihtoSearchArgs args, IEnumerable<FinlandiaHiihtoSingleResult> results)
+        public FinlandiaHiihtoResultsCollection(IEnumerable<FinlandiaHiihtoSingleResult> results)
         {
-            AppliedArgs = args;
             Results = results ?? new FinlandiaHiihtoSingleResult[] { };
         }
     }

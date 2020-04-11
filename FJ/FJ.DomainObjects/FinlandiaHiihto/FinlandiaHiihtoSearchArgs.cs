@@ -8,8 +8,7 @@ namespace FJ.DomainObjects.FinlandiaHiihto
     public class FinlandiaHiihtoSearchArgs
     {
         public IEnumerable<int> CompetitionYears { get; set; }
-        public IEnumerable<FinlandiaSkiingStyle> Styles { get; set; }
-        public IEnumerable<FinlandiaSkiingDistance> Distances { get; set; }
+        public IEnumerable<FinlandiaHiihtoCompetitionClass> CompetitionClasses { get; set; }
 
         public TimeSpan MinResult { get; set; }
         public TimeSpan MaxResult { get; set; }

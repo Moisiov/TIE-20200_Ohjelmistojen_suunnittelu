@@ -27,8 +27,7 @@ namespace FJ.NUnitTests.FinlandiaTests
             m_actualFetcherMock = new Mock<IDataFetchingService>();
             m_actualFetcherMock.Setup(m_mockedFunc)
                 .ReturnsAsync(() =>
-                    new FinlandiaHiihtoResultsCollection(
-                        new FinlandiaHiihtoSearchArgs(), FinlandiaHiihtoSingleResultDummyDataProvider.Create().ToMany()));
+                    new FinlandiaHiihtoResultsCollection(FinlandiaHiihtoSingleResultDummyDataProvider.Create().ToMany()));
             
             m_testDecorator = new SimpleDataFetcherCacheDecorator(m_actualFetcherMock.Object, cache);
         }
