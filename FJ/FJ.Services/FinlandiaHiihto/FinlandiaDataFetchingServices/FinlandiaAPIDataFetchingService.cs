@@ -39,7 +39,6 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
 
         private static IEnumerable<FinlandiaHiihtoSingleResult> ParseRawResult(IEnumerable<FinlandiaHiihtoAPISearchResultRow> rawData)
         {
-            // TODO apilta jotain järkevämpää ulos
             var res = new List<FinlandiaHiihtoSingleResult>();
             foreach (var result in rawData)
             {

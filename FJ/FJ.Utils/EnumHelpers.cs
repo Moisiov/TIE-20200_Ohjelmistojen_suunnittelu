@@ -6,9 +6,10 @@ namespace FJ.Utils
 {
     public static class EnumHelpers
     {
-        public static IEnumerable<T> GetEnumValues<T>()
+        public static IEnumerable<TEnum> GetEnumValues<TEnum>()
+            where TEnum : struct, IConvertible
         {
-            return Enum.GetValues(typeof(T)).Cast<T>();
+            return Enum.GetValues(typeof(TEnum)).Cast<TEnum>();
         }
     }
 }

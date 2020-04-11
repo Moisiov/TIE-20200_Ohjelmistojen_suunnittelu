@@ -1,6 +1,8 @@
 ﻿using System;
+using FJ.DomainObjects.FinlandiaHiihto;
+using FJ.Utils.FinlandiaUtils;
 
-﻿namespace FJ.Client.ResultRegister
+namespace FJ.Client.ResultRegister
 {
     public class ResultRegisterItemModel
     {
@@ -24,5 +26,20 @@
         // For passing accurate name info from ResultRegister to AthleteCard
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        public static explicit operator ResultRegisterItemModel(FinlandiaHiihtoSingleResult res)
+        {
+            return new ResultRegisterItemModel
+            {
+                Name = res.Athlete.FullName,
+                Position = res.PositionGeneral,
+                StyleAndDistance = FinlandiaHelpers.GetDistanceAndStyleShortString(
+                    res.CompetitionClass.Distance, res.CompetitionClass.Style),
+                ResultTime = res.Result.ToString(@"hh\:mm\:ss\.ff"),
+                FirstName = res.Athlete.FirstName,
+                LastName = res.Athlete.LastName,
+                Year = res.CompetitionInfo.Year
+            };
+        }
     }
 }

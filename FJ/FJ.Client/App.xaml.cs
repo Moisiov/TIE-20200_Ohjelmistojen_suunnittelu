@@ -44,7 +44,7 @@ namespace FJ.Client
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            CustomUIRegistrations.AutoRegisterViewsforNavigation(containerRegistry);
+            CustomUIRegistrations.AutoRegisterViewsForNavigation(containerRegistry);
         }
 
         protected override void ConfigureViewModelLocator()

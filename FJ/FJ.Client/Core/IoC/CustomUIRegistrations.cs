@@ -11,7 +11,7 @@ namespace FJ.Client.Core.IoC
         /// Automatically registers all views derived from UserControl for navigation
         /// </summary>
         /// <param name="containerRegistry">Container registry to register views</param>
-        public static void AutoRegisterViewsforNavigation(IContainerRegistry containerRegistry)
+        public static void AutoRegisterViewsForNavigation(IContainerRegistry containerRegistry)
         {
             var views = ReflectionHelpers.GetClasses<UserControl>(t => t.Name.EndsWith("View"));
             foreach (var view in views)

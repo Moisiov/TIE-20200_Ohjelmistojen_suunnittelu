@@ -19,6 +19,7 @@ namespace FJ.NUnitTests
         }
 
         public static TEnum GetRandomEnumValue<TEnum>(int? seed = null)
+            where TEnum : struct, IConvertible
         {
             var rand = seed.HasValue ? new Random(seed.Value) : new Random();
             var values = EnumHelpers.GetEnumValues<TEnum>().ToArray();
