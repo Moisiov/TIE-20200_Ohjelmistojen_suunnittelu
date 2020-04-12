@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FJ.Client.Athlete;
 using FJ.Client.CompetitionOccasion;
 using FJ.Client.Core;
+using FJ.DomainObjects;
 using FJ.DomainObjects.Enums;
 using FJ.DomainObjects.Filters.Core;
 using FJ.DomainObjects.FinlandiaHiihto;
@@ -36,6 +37,7 @@ namespace FJ.Client.ResultRegister
         public ObservableCollection<string> TeamStrings { get; set; }  // TODO Not binded atm
         
         public TimeSpan? TimeSelection { get; set; }
+        public TimeRange TimeRangeSelection { get; set; }
 
         public string CurrentFirstNameString { get; set; }
         public string CurrentLastNameString { get; set; }
@@ -134,6 +136,7 @@ namespace FJ.Client.ResultRegister
 
         public void NavigationToAthleteCardCommand()
         {
+            var asd = TimeRangeSelection;
             var args = new AthleteCardArgs
             {
                 AthleteFirstName = Results.FirstOrDefault()?.FirstName ?? "Rocky",

@@ -19,6 +19,9 @@ using FJ.Utils;
 
 namespace FJ.Client.Core.UIElements
 {
+    /// <summary>
+    /// Time picker with hard coded time format of hh:mm
+    /// </summary>
     public class FJTimePicker : TemplatedControl
     {
         static FJTimePicker()

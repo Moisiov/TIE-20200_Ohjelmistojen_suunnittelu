@@ -12,6 +12,7 @@
     <UserControl.Styles>
         <Styles>
             <Style Selector="TextBlock.FilterCaption">
+                <Setter Property="Margin" Value="0,0,16,0" />
                 <Setter Property="FontSize" Value="{DynamicResource FontSizeNormal}" />
                 <Setter Property="FontWeight" Value="DemiBold" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
@@ -103,6 +104,17 @@
                     <TextBlock Classes="FilterCaption" Text="Etunimi" />
                     <TextBox Classes="FilterBox" Text="{Binding CurrentFirstNameString}" Watermark="Etunimi" >
                     </TextBox>
+                </StackPanel>
+                
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Classes="FilterCaption" Text="TESTI" />
+                    <common:FJTimeRangePicker
+                        Classes="FilterBox"
+                        MinWidth="216"
+                        SeparatorBackground="{DynamicResource Main1}"
+                        SelectedTimeRange="{Binding TimeRangeSelection}"
+                        StartWatermark="Aika vähintään"
+                        EndWatermark="Aika enintään"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical">
