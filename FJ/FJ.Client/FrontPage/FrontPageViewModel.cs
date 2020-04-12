@@ -18,7 +18,12 @@ namespace FJ.Client.FrontPage
 
         public void NavigateToResultRegister()
         {
-            Navigator.DoNavigateTo<ResultRegisterView>();
+            var args = new ResultRegisterArgs
+            {
+                CompetitionYears = new[] { 2019 },
+                HomeCities = new[] { "Tampere" }
+            };
+            Navigator.DoNavigateTo<ResultRegisterView>(args);
         }
 
         public void NavigateToCompetitionGeneral()

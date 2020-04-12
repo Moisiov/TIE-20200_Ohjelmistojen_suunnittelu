@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using FJ.Client.Core.Events;
 using FJ.Client.Core.Services;
 using Prism.Events;
@@ -10,11 +11,11 @@ using ReactiveUI;
 
 namespace FJ.Client.Core
 {
-    public class ViewModelBase : ViewModelBase<EmptyNavigationArgs>
+    public abstract class ViewModelBase : ViewModelBase<EmptyNavigationArgs>
     {
     }
 
-    public class ViewModelBase<TArgument> : ReactiveObject, IRegionMemberLifetime, IJournalAware, INavigationAware
+    public abstract class ViewModelBase<TArgument> : ReactiveObject, IRegionMemberLifetime, IJournalAware, INavigationAware
         where TArgument : NavigationArgsBase<TArgument>, new()
     {
         protected IEventAggregator EventAggregator { get; private set; }
@@ -26,7 +27,11 @@ namespace FJ.Client.Core
             EventAggregator = ea;
             Navigator = navigator;
 
-            EventAggregator.GetEvent<ContentRegionRefreshRequestedEvent>().Subscribe(DoRefresh);
+            EventAggregator.GetEvent<ContentRegionRefreshRequestedEvent>()
+                .Subscribe(async e => await DoRefreshAsync(e));
+
+            EventAggregator.GetEvent<ContentRegionNavigationEvent>()
+                .Subscribe(async e => await DoPopulateAsync());
         }
 
         public TArgument Argument { get; set; }
@@ -75,19 +80,29 @@ namespace FJ.Client.Core
         {
         }
 
-        public void DoRefresh(ContentRegionRefreshRequestedEventArgs eventArgs)
+        /// <summary>
+        /// Override this method if you need to use Argument on async populating
+        /// </summary>
+        /// <returns>Task</returns>
+        public virtual async Task DoPopulateAsync()
+        {
+            await Task.CompletedTask;
+        }
+
+        public async Task DoRefreshAsync(ContentRegionRefreshRequestedEventArgs eventArgs)
         {
             if (eventArgs.TargetViewModelName != GetType().Name)
             {
+                await Task.CompletedTask;
                 return;
             }
 
-            DoRefreshInternal();
+            await DoRefreshInternalAsync();
         }
 
-        // TODO: Prism event aggregator does not support for async subscriptions. This might be a problem.
-        protected virtual void DoRefreshInternal()
+        protected virtual async Task DoRefreshInternalAsync()
         {
+            await Task.CompletedTask;
         }
 
         protected bool SetAndRaise<T>(ref T field, T value, [CallerMemberName] string caller = "")

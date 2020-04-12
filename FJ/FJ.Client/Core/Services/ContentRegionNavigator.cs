@@ -60,7 +60,7 @@ namespace FJ.Client.Core.Services
 
         public string GetCurrentViewName()
         {
-            return m_regionManager.Regions[Regions.ContentRegion].ActiveViews.FirstOrDefault().GetType().Name;
+            return m_regionManager.Regions[Regions.ContentRegion].ActiveViews.FirstOrDefault()?.GetType().Name;
         }
 
         public string GetCurrentViewModelName()

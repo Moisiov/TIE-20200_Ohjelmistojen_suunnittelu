@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using FJ.Client.Core;
 using FJ.Utils;
 
@@ -47,12 +48,13 @@ namespace FJ.Client.Athlete
             RaisePropertyChanged(nameof(Participations));
         }
 
-        protected override void DoRefreshInternal()
+        protected override async Task DoRefreshInternalAsync()
         {
             AthleteFirstName = null;
             AthleteLastName = null;
             Participations = new ObservableCollection<AthleteParticipationItemModel>();
             RaisePropertyChanged(nameof(Participations));
+            await Task.CompletedTask;
         }
     }
 }

@@ -18,7 +18,7 @@ using ReactiveUI;
 namespace FJ.Client.ResultRegister
 {
     // TODO Disgusting. Filters + filterCollection needed. Wraps ugly as well: Force line ending in xaml before name filters.
-    public class ResultRegisterViewModel : ViewModelBase
+    public class ResultRegisterViewModel : ViewModelBase<ResultRegisterArgs>
     {
         private ResultRegisterModel m_model;
 
@@ -80,6 +80,26 @@ namespace FJ.Client.ResultRegister
             YearsOfBirth = new ObservableCollection<string>();
         }
 
+        public override async Task DoPopulateAsync()
+        {
+            if (!Argument.CompetitionYears.Any() || !Argument.HomeCities.Any())
+            {
+                await Task.CompletedTask;
+                return;
+            }
+            
+            // TODO proof-of-concept, real one would accept values from Argument to filters
+            using (Navigator.ShowLoadingScreen())
+            {
+                var homeCitiesFilter = new FinlandiaHomeCitiesFilter(Argument.HomeCities);
+                var competitionYearsFilter = new FinlandiaCompetitionYearsFilter(Argument.CompetitionYears);
+                var filterCollection = new FilterCollection(homeCitiesFilter, competitionYearsFilter);
+                var res = await m_model.GetFinlandiaResultsAsync(filterCollection);
+                Results = new ObservableCollection<ResultRegisterItemModel>(res);
+                RaisePropertyChanged(nameof(Results));
+            }
+        }
+
         public async Task FilterTestCall()
         {
             using (Navigator.ShowLoadingScreen())
@@ -122,11 +142,12 @@ namespace FJ.Client.ResultRegister
             Navigator.DoNavigateTo<AthleteCardView>(args);
         }
 
-        protected override void DoRefreshInternal()
+        protected override async Task DoRefreshInternalAsync()
         {
             // TODO Remove filter selections
             Results = new ObservableCollection<ResultRegisterItemModel>();
             RaisePropertyChanged(nameof(Results));
+            await Task.CompletedTask;
         }
     }
 }
