@@ -16,13 +16,14 @@
     <AvaloniaResource Include="Assets\**" />
     <Folder Include="Core\UIElements\UIElementStyles" />
     <Folder Include="Athlete\" />
-    <Folder Include="Competition\" />
+    <Folder Include="CompetitionGeneral\" />
     <Folder Include="ControlPanel\" />
     <Folder Include="FrontPage\" />
     <Folder Include="ResultRegister\" />
     <Folder Include="Team\" />
     <Folder Include="TopBar\" />
     <Folder Include="MainWindow\" />
+    <Folder Include="CompetitionOccasion\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.9.3" />

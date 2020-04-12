@@ -27,6 +27,17 @@ namespace FJ.DomainObjects.FinlandiaHiihto.Filters
         {
         }
     }
+
+    public class FinlandiaFullNameFilter : StringFilterBase<FinlandiaFullNameFilter>
+    {
+        public override string ShortName => "Full name";
+        public override string Description => "Full name of the athlete in Finlandia";
+
+        public FinlandiaFullNameFilter(string fullName)
+            : base(fullName)
+        {
+        }
+    }
     
     public class FinlandiaYearsOfBirthFilter : GroupFilterBase<int, FinlandiaYearsOfBirthFilter>
     {

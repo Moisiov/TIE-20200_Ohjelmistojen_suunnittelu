@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace FJ.Client.Competition
+namespace FJ.Client.CompetitionGeneral
 {
     public class CompetitionGeneralView : UserControl
     {

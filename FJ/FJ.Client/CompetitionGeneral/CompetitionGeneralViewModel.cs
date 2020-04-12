@@ -1,7 +1,7 @@
 ﻿using System;
 using FJ.Client.Core;
 
-namespace FJ.Client.Competition
+namespace FJ.Client.CompetitionGeneral
 {
     public class CompetitionGeneralViewModel : ViewModelBase
     {

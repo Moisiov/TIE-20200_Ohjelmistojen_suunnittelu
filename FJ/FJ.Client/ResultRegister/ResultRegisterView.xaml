@@ -174,10 +174,14 @@
                         Foreground="Blue"
                         Command="{Binding TestCommand}"
                         Content="TESTIKUTSU" />
-                <Button Height="40" Width="120" Margin="2"
+                <Button Height="40" Width="280" Margin="2"
                         Foreground="Blue"
-                        Command="{Binding NavigationCommand}"
-                        Content="NAVIGOI KORTILLE" />
+                        Command="{Binding NavigationToAthleteCardCommand}"
+                        Content="NAVIGOI VALITUN URHEILIJAN KORTILLE" />
+                <Button Height="40" Width="280" Margin="2"
+                        Foreground="Blue"
+                        Command="{Binding NavigationToCompetitionOccasionCommand}"
+                        Content="NAVIGOI VALITUN KILPAILUTAPAHTUMAN SIVULLE" />
             </StackPanel>
         </DockPanel>
 

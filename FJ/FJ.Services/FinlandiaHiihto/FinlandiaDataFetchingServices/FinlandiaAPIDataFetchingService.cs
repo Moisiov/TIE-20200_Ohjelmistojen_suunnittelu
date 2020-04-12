@@ -10,6 +10,7 @@ using FJ.DomainObjects.Filters.Core;
 using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.DomainObjects.FinlandiaHiihto.Enums;
 using FJ.Services.CoreServices;
+using FJ.Utils;
 
 namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
 {
@@ -69,12 +70,15 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
                     "N" => Gender.Woman,
                     _ => Gender.Unknown
                 };
+                var competitionClass = FinlandiaHiihtoCompetitionClass.Create(dist, style);
 
                 res.Add(new FinlandiaHiihtoSingleResult
                 {
                     CompetitionInfo = new Competition
                     {
-                        Year = result.Year
+                        Year = result.Year,
+                        Name = (int)competitionClass.Distance + "km " + 
+                               competitionClass.Style.GetDescription()
                     },
                     CompetitionClass = FinlandiaHiihtoCompetitionClass.Create(dist, style),
                     Result = result.Result,
@@ -88,7 +92,7 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
                         PersonGender = gender,
                         City = result.HomeTown,
                         Nationality = result.Nationality,
-                        YearOfBirth = result.BornYear,
+                        YearOfBirth = result.BornYear
                     },
 
                     Team = result.Team

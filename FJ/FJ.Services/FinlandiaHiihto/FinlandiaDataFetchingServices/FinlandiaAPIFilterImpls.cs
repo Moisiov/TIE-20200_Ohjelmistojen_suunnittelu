@@ -32,6 +32,16 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
         }
     }
 
+    public class FinlandiaFullNameFilterImp : FinlandiaFullNameFilter.ReduceSearchResultsExpressionImplementation
+    {
+        protected override LambdaExpression GetExpression(FinlandiaFullNameFilter filter, Type parameterType)
+        {
+            Expression<Func<FinlandiaHiihtoAPISearchResultRow, bool>> expr =
+                r => filter.Value == r.FullName;
+            return expr;
+        }
+    }
+
     public class FinlandiaResultTimeRangeFilterImpl
         : FinlandiaResultTimeRangeFilter.ReduceSearchResultsExpressionImplementation
     {

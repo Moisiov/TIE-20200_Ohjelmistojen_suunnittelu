@@ -1,6 +1,6 @@
 ﻿using System;
 
-﻿namespace FJ.Client.Competition
+﻿namespace FJ.Client.CompetitionGeneral
 {
     public class CompetitionGeneralModel
     {

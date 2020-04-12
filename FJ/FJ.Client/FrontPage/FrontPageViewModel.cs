@@ -1,6 +1,6 @@
 ﻿using System;
-﻿using FJ.Client.Athlete;
-using FJ.Client.Competition;
+using FJ.Client.Athlete;
+using FJ.Client.CompetitionOccasion;
 using FJ.Client.Core;
 using FJ.Client.ResultRegister;
 using FJ.Client.Team;
@@ -26,9 +26,9 @@ namespace FJ.Client.FrontPage
             Navigator.DoNavigateTo<ResultRegisterView>(args);
         }
 
-        public void NavigateToCompetitionGeneral()
+        public void NavigateToCompetitionOccasion()
         {
-            Navigator.DoNavigateTo<CompetitionGeneralView>();
+            Navigator.DoNavigateTo<CompetitionOccasionView>();
         }
 
         public void NavigateToAthleteCard()

@@ -1,60 +1,127 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using FJ.Client.Core;
+using FJ.Client.ResultRegister;
+using FJ.DomainObjects;
+using FJ.DomainObjects.Enums;
+using FJ.ServiceInterfaces.FinlandiaHiihto;
 using FJ.Utils;
+using SkiaSharp;
 
 namespace FJ.Client.Athlete
 {
     public class AthleteCardViewModel : ViewModelBase<AthleteCardArgs>
     {
         private AthleteCardModel m_model;
-
-        public ObservableCollection<AthleteParticipationItemModel> Participations { get; set; }
-
-        private string m_athleteFirstName;
-        public string AthleteFirstName
+        
+        private ObservableCollection<AthleteParticipationItemModel> m_participationList;
+        public ObservableCollection<AthleteParticipationItemModel> ParticipationList
         {
-            get => m_athleteFirstName;
-            set => SetAndRaise(ref m_athleteFirstName, value);
+            get => m_participationList;
+            set => SetAndRaise(ref m_participationList, value);
         }
 
-        private string m_athleteLastName;
-        public string AthleteLastName
+        private Person m_athletePersonalInfo;
+        public Person AthletePersonalInfo
         {
-            get => m_athleteLastName;
-            set => SetAndRaise(ref m_athleteLastName, value);
+            get => m_athletePersonalInfo;
+            set => SetAndRaise(ref m_athletePersonalInfo, value);
+        }
+        
+        private bool m_progressChartIsActive;
+        public bool ProgressChartIsActive
+        {
+            get => m_progressChartIsActive;
+            set => SetAndRaise(ref m_progressChartIsActive, value);
+        }
+        
+        private bool m_progressionChartUseTime;
+        public bool ProgressionChartUseTime
+        {
+            get => m_progressionChartUseTime;
+            set
+            {
+                SetAndRaise(ref m_progressionChartUseTime, value);
+                if (ProgressChartIsActive && value)
+                {
+                    ProgressionChartPopulate();   
+                }
+            }
         }
 
-        public AthleteCardViewModel()
+        private bool m_progressionChartUsePosition;
+        public bool ProgressionChartUsePosition
         {
-            m_model = new AthleteCardModel();
+            get => m_progressionChartUsePosition;
+            set
+            {
+                SetAndRaise(ref m_progressionChartUsePosition, value);
+                if (ProgressChartIsActive && value)
+                {
+                    ProgressionChartPopulate();   
+                }
+            }
         }
 
-        public override void DoPopulate()
+        public AthleteCardViewModel(IAthleteResultsService athleteResultsService)
         {
-            base.DoPopulate();
-            AthleteFirstName = Argument.AthleteFirstName ?? string.Empty;
-            AthleteLastName = Argument.AthleteLastName ?? string.Empty;
+            m_model = new AthleteCardModel(athleteResultsService);
+            ProgressChartIsActive = false;
+        }
 
-            if (AthleteFirstName.IsNullOrEmpty())
+        public override async Task DoPopulateAsync()
+        {
+            await base.DoPopulateAsync();
+            var athleteFirstName = Argument.AthleteFirstName ?? string.Empty;
+            var athleteLastName = Argument.AthleteLastName ?? string.Empty;
+
+            if (athleteFirstName.IsNullOrEmpty())
             {
                 return;
             }
 
-            var res = m_model.GetAthleteParticipationData(AthleteFirstName, AthleteLastName);
-            Participations = new ObservableCollection<AthleteParticipationItemModel>(res);
-            RaisePropertyChanged(nameof(Participations));
+            await m_model.GetAthleteData(athleteFirstName, athleteLastName);
+            
+            var participationItemModels = m_model.AthletesResultRows.Results
+                .Select(x => new AthleteParticipationItemModel { ResultRows = x });
+            
+            ParticipationList = new ObservableCollection<AthleteParticipationItemModel>(participationItemModels);
+            AthletePersonalInfo = m_model.Athlete;
         }
 
         protected override async Task DoRefreshInternalAsync()
         {
-            AthleteFirstName = null;
-            AthleteLastName = null;
-            Participations = new ObservableCollection<AthleteParticipationItemModel>();
-            RaisePropertyChanged(nameof(Participations));
+            AthletePersonalInfo = null;
+            ParticipationList = null;
+            ProgressionChartDeactivation();
             await Task.CompletedTask;
+        }
+        
+        public void ProgressionChartActivation()
+        {
+            ProgressChartIsActive = true;
+            ProgressionChartUseTime = true;
+            ProgressionChartUsePosition = false;
+        }
+        
+        public void ProgressionChartDeactivation()
+        {
+            ProgressChartIsActive = false;
+            ProgressionChartUseTime = false;
+            ProgressionChartUsePosition = false;
+        }
+
+        private void ProgressionChartPopulate()
+        {
+        }
+
+        public void NavigateToResultRegister()
+        {
+            // TODO: Hae valitut AthleteParticipationItemModelit ja mäppää niistä argsit ResultRegisterille (filter collection).
+            Navigator.DoNavigateTo<ResultRegisterView>();
         }
     }
 }

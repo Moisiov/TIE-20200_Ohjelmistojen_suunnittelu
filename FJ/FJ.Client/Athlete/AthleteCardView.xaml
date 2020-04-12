@@ -9,64 +9,28 @@
 
     <UserControl.Styles>
             <Style Selector="TextBlock.ResultRowElement">
-                <Setter Property="Margin" Value="4" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
                 <Setter Property="FontSize" Value="{DynamicResource FontSizeExtraLarge}" />
                 <Setter Property="FontWeight" Value="ExtraBold" />
                 <Setter Property="Foreground" Value="{DynamicResource Dark1}" />
             </Style>
+        <Style Selector="Button.CompetitionActionButton">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Foreground" Value="{DynamicResource Lightest1}" />
+            <Setter Property="Background" Value="{DynamicResource Darkest1}" />
+            <Setter Property="FontSize" Value="{DynamicResource FontSizeNormal}" />
+        </Style>
     </UserControl.Styles>
-    <StackPanel Orientation="Vertical">
-
-        <Border CornerRadius="6"
-                Background="{DynamicResource Lightest1}"
-                BorderBrush="{DynamicResource Light1}"
-                BorderThickness="2"
-                Margin="24,15,24,0">
-            <StackPanel Orientation="Vertical">
-                <Grid> 
-                    <Grid.ColumnDefinitions >
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions >
-                        <RowDefinition Height="*" />
-                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Grid.Column="0">
-                        <TextBlock FontSize="{DynamicResource FontSizeLarge}"
-                                   Margin="20"
-                                   Foreground="{DynamicResource Dark1}"
-                                   HorizontalAlignment="Center"
-                                   Text="Etunimi"/>
-                        <TextBox Margin="20,0,20,0"
-                                 MinHeight="40"
-                                 Watermark="Etunimi"
-                                 Text="{Binding AthleteFirstName, Mode=OneWay}"
-                                 FontSize="{DynamicResource FontSizeLarge}"
-                                 VerticalAlignment="Center"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="0" Grid.Column="1">
-                        <TextBlock FontSize="{DynamicResource FontSizeLarge}"
-                                   Margin="20"
-                                   Foreground="{DynamicResource Dark1}"
-                                   HorizontalAlignment="Center"
-                                   Text="Sukunimi"/>
-                        <TextBox Margin="20,0,20,0"
-                                 MinHeight="40"
-                                 Watermark="Sukunimi"
-                                 Text="{Binding AthleteLastName, Mode=OneWay}"
-                                 FontSize="{DynamicResource FontSizeLarge}"
-                                 VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Grid>
-                <Button Height="65" Width="280" Margin="15"
-                            Foreground="{DynamicResource Lightest1}"
-                            Background="{DynamicResource Darkest1}"
-                            Content="Hae Urheilijaa"
-                            FontSize="{DynamicResource FontSizeLarge}"/>
-            </StackPanel>
-        </Border>
-
-        <Grid Margin="25"> 
+    
+    <Grid >
+        <Grid.RowDefinitions >
+            <RowDefinition Height="*" />
+            
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="25, 25, 10, 25"> 
             <Grid.ColumnDefinitions >
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -100,16 +64,28 @@
 
                      <StackPanel Orientation="Horizontal" Margin="0, 5">
                         <TextBlock FontWeight="Bold" Text="Etunimi:" />
-                        <TextBlock Text="{Binding AthleteFirstName}" />
+                        <TextBlock Text="{Binding AthletePersonalInfo.FirstName}" />
                       </StackPanel>
                      <StackPanel Orientation="Horizontal" Margin="0, 5">
                         <TextBlock FontWeight="Bold" Text="Sukunimi:" />
-                        <TextBlock Text="{Binding AthleteLastName}" />
+                        <TextBlock Text="{Binding AthletePersonalInfo.LastName}" />
                       </StackPanel>
                      <StackPanel Orientation="Horizontal" Margin="0, 5">
+                         <TextBlock FontWeight="Bold" Text="Sukupuoli:" />
+                         <TextBlock Text="{Binding AthletePersonalInfo.PersonGender}" />
+                     </StackPanel>
+                     <StackPanel Orientation="Horizontal" Margin="0, 5">
                         <TextBlock FontWeight="Bold" Text="Syntymävuosi:" />
-                        <TextBlock Text="{Binding AthleteFirstName}" />
-                      </StackPanel>
+                        <TextBlock Text="{Binding AthletePersonalInfo.YearOfBirth}" />
+                     </StackPanel>
+                     <StackPanel Orientation="Horizontal" Margin="0, 5">
+                         <TextBlock FontWeight="Bold" Text="Kansallisuus:" />
+                         <TextBlock Text="{Binding AthletePersonalInfo.Nationality}" />
+                     </StackPanel>
+                     <StackPanel Orientation="Horizontal" Margin="0, 5">
+                         <TextBlock FontWeight="Bold" Text="Kotikaupunki:" />
+                         <TextBlock Text="{Binding AthletePersonalInfo.City}" />
+                     </StackPanel>
 
                  </StackPanel>
             
@@ -123,65 +99,104 @@
                     BorderBrush="{DynamicResource Light1}"
                     BorderThickness="2"
                     Margin="15, 0, 0, 0">
-            <StackPanel HorizontalAlignment="Center"
-                        VerticalAlignment="Top"
-                        TextBlock.Foreground="{DynamicResource Dark1}">
+                <Grid TextBlock.Foreground="{DynamicResource Dark1}">
+                    <Grid.RowDefinitions >
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="6*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
-                <TextBlock 
-                        FontSize="40"
-                        FontWeight="Bold"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Margin="0, 5"
-                        Text="Urheilijan kilpailut" />
+                    <TextBlock 
+                            Grid.Row="0"
+                            FontSize="40"
+                            FontWeight="Bold"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="0, 5"
+                            Text="Urheilijan kilpailut" />
 
-                <ScrollViewer Margin="0,0,1,0" >
-                <ItemsControl Items="{Binding Participations}" >
+                    <ScrollViewer Margin="0,0,1,0"  Grid.Row="1">
+                        <ItemsControl Items="{Binding ParticipationList}" >
 
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical" Margin="2,0,0,0"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical" Margin="2,0,0,0"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
 
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="{DynamicResource Darkest1}" BorderThickness="1">
-                            <StackPanel Orientation="Vertical">
-                                <Grid Background="{DynamicResource Lightest1}" Margin="0,0,0,0" >
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <Border Grid.Column="0" Grid.Row="0" BorderBrush="Gray" BorderThickness="0">
-                                        <CheckBox Margin="4" Background="White" IsChecked="{Binding IsSelected}" />
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="{DynamicResource Darkest1}" BorderThickness="1">
+                                    <StackPanel Orientation="Vertical">
+                                        <Grid Background="{DynamicResource Lightest1}" Margin="0,0,0,0" >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Border Grid.Column="0" Grid.Row="0" BorderBrush="Gray" BorderThickness="0">
+                                                <CheckBox Margin="4" Background="White" IsChecked="{Binding IsSelected}" />
+                                            </Border>
+                                            <Border Grid.Column="1" Grid.Row="0" BorderBrush="Gray" BorderThickness="1,0,0,0">
+                                                <TextBlock Classes="ResultRowElement" 
+                                                           Text="{Binding ResultRows.CompetitionInfo.Year}"    />
+                                            </Border>
+                                            <Border Grid.Column="2" Grid.Row="0" BorderBrush="Gray" BorderThickness="1,0,0,0">
+                                                <TextBlock Classes="ResultRowElement" 
+                                                           Text="{Binding ResultRows.CompetitionInfo.Name}" />
+                                            </Border>
+                                        </Grid>
+                                    
+                                    </StackPanel>
                                     </Border>
-                                    <Border Grid.Column="1" Grid.Row="0" BorderBrush="Gray" BorderThickness="1,0,0,0">
-                                        <TextBlock Classes="ResultRowElement" Text="{Binding Year}"    />
-                                    </Border>
-                                    <Border Grid.Column="2" Grid.Row="0" BorderBrush="Gray" BorderThickness="1,0,0,0">
-                                        <TextBlock Classes="ResultRowElement" Text="{Binding StyleAndDistance}" />
-                                    </Border>
-                                </Grid>
-                            
-                            </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-
-                </ItemsControl>
-                </ScrollViewer>
-                <Button Height="65" Width="280" Margin="15"
-                            Foreground="{DynamicResource Lightest1}"
-                            Background="{DynamicResource Darkest1}"
-                            Content="Tarkastele valittuja kilpailuja"
-                            FontSize="{DynamicResource FontSizeLarge}"/>
-            </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                    <Grid Margin="0,5,0,5" Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="300" />
+                        </Grid.RowDefinitions> 
+                        <Grid.ColumnDefinitions >
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="0,0,2,0">
+                            <Button Classes="CompetitionActionButton"
+                                    Content="Tarkastele valittuja tulosrekisterissä."
+                                    Command="{Binding NavigateToResultRegister}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="2,0,0,0">
+                            <Button Classes="CompetitionActionButton"
+                                    Content="Visualisoi valittujen aikakehitys." 
+                                    Command="{Binding ProgressionChartActivation}"/>
+                        </StackPanel>    
+                    </Grid>
+                </Grid>
             </Border>
         </Grid>
-    </StackPanel>
+        
+        <Grid Grid.Row="0" Margin="75, 0, 75, 0" ZIndex="2" IsVisible="{Binding ProgressChartIsActive}" MaxHeight="520" Background="white">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="400" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions> 
+            <TextBlock  Grid.Row="0" FontSize="{DynamicResource FontSizeExtraLarge}" FontWeight="Bold" Text="Urheilijan Kehitys" 
+                        HorizontalAlignment="Center" Margin="0, 5, 0, 0"/>
+            <StackPanel Background="white" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <RadioButton Margin="5, 0, 2, 0" Background="White" IsChecked="{Binding ProgressionChartUseTime}" />
+                <TextBlock Margin="0, 3, 0, 0" FontSize="{DynamicResource FontSizeNoemal}" Text="Visualisoi aika" />
+                <RadioButton Margin="40, 0, 2, 0" Background="White" IsChecked="{Binding ProgressionChartUsePosition}" />
+                <TextBlock Margin="0, 3, 0, 0" FontSize="{DynamicResource FontSizeNormal}" Text="Visualisoi sijoitukset" />
+            </StackPanel>
+            <Button Grid.Row="3" Margin="0, 20, 0, 0" Content="Sulje" Background="Red" FontSize="{DynamicResource FontSizeLarge}" 
+                    Height="44" Foreground="white" Command="{Binding ProgressionChartDeactivation}"/>
+        </Grid>
+    </Grid>
+    
 </UserControl>

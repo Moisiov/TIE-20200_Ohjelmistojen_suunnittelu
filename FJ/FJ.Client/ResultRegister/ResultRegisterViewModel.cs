@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
 using FJ.Client.Athlete;
+using FJ.Client.CompetitionOccasion;
 using FJ.Client.Core;
 using FJ.DomainObjects.Enums;
 using FJ.DomainObjects.Filters.Core;
@@ -131,7 +132,7 @@ namespace FJ.Client.ResultRegister
             }
         }
 
-        public void NavigationCommand()
+        public void NavigationToAthleteCardCommand()
         {
             var args = new AthleteCardArgs
             {
@@ -140,6 +141,16 @@ namespace FJ.Client.ResultRegister
             };
 
             Navigator.DoNavigateTo<AthleteCardView>(args);
+        }
+        
+        public void NavigationToCompetitionOccasionCommand()
+        {
+            var args = new CompetitionOccasionArgs()
+            {
+                Year = Results.FirstOrDefault()?.Year ?? 2019,
+            };
+
+            Navigator.DoNavigateTo<CompetitionOccasionView>(args);
         }
 
         protected override async Task DoRefreshInternalAsync()
