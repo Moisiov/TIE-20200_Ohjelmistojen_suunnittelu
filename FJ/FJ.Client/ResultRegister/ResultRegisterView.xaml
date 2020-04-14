@@ -108,6 +108,14 @@
                 
                 <StackPanel Orientation="Vertical">
                     <TextBlock Classes="FilterCaption" Text="TESTI" />
+                    <common:FJPopupTextBox Classes="FilterBox"
+                                           Watermark="Jotain itemeitä"
+                                           SelectedItems="{Binding SelectedStrings}"
+                                           SuffixOnMany="testiä"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Classes="FilterCaption" Text="TESTI" />
                     <common:FJTimeRangePicker
                         Classes="FilterBox"
                         MinWidth="216"

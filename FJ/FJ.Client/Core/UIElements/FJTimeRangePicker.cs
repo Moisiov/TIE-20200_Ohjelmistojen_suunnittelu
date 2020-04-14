@@ -95,6 +95,8 @@ namespace FJ.Client.Core.UIElements
                 .Subscribe(time => TimeRangeSelectionChanged());
             m_endTimeChangedSub = m_endTimePicker.GetObservable(FJTimePicker.SelectedTimeProperty)
                 .Subscribe(time => TimeRangeSelectionChanged());
+            
+            base.OnTemplateApplied(e);
         }
 
         private void TimeRangeSelectionChanged()

@@ -38,6 +38,7 @@ namespace FJ.Client.ResultRegister
         
         public TimeSpan? TimeSelection { get; set; }
         public TimeRange TimeRangeSelection { get; set; }
+        public ObservableCollection<string> SelectedStrings { get; set; }
 
         public string CurrentFirstNameString { get; set; }
         public string CurrentLastNameString { get; set; }
@@ -81,11 +82,17 @@ namespace FJ.Client.ResultRegister
 
             CurrentYearOfBirthString = string.Empty;
             YearsOfBirth = new ObservableCollection<string>();
+
+            SelectedStrings = new ObservableCollection<string>
+            {
+                "Testi1",
+                "Testi2"
+            };
         }
 
         public override async Task DoPopulateAsync()
         {
-            if (!Argument.CompetitionYears.Any() || !Argument.HomeCities.Any())
+            if (!Argument.CompetitionYears?.Any() == true || !Argument.HomeCities?.Any() == true)
             {
                 await Task.CompletedTask;
                 return;
@@ -136,7 +143,11 @@ namespace FJ.Client.ResultRegister
 
         public void NavigationToAthleteCardCommand()
         {
+            // TODO debug purposes
             var asd = TimeRangeSelection;
+            var qwe = SelectedStrings.ToList();
+            // end
+            
             var args = new AthleteCardArgs
             {
                 AthleteFirstName = Results.FirstOrDefault()?.FirstName ?? "Rocky",

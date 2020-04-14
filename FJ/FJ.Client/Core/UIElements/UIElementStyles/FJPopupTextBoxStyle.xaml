@@ -1,0 +1,113 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:common="clr-namespace:FJ.Client.Core.UIElements"
+        xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <Style Selector="common|FJPopupTextBox">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}"/>
+        <Setter Property="Padding" Value="4"/>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBox Name="PART_PTBTextBox"
+                                 Grid.Column="0" Grid.Row="0"
+                                 TextWrapping="NoWrap"
+                                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                 VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                 FontFamily="{TemplateBinding FontFamily}"
+                                 FontSize="{TemplateBinding FontSize}"
+                                 FontStyle="{TemplateBinding FontStyle}"
+                                 Background="{TemplateBinding Background}" 
+                                 BorderBrush="{TemplateBinding BorderBrush}" 
+                                 BorderThickness="{TemplateBinding BorderThickness}" 
+                                 Padding="{TemplateBinding Padding}"
+                                 Watermark="{TemplateBinding Watermark}"
+                                 Width="{TemplateBinding Width}" MinWidth="{TemplateBinding MinWidth}"
+                                 Height="{TemplateBinding Height}" MinHeight="{TemplateBinding MinHeight}"
+                                 ClipToBounds="True"/>
+                        <Popup Name="PART_PTBPopup"
+                               Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"
+                               IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+                               MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                               MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                               PlacementTarget="{TemplateBinding}"
+                               StaysOpen="True">
+                            <Border BorderBrush="{DynamicResource ThemeBorderMidBrush}"
+                                    BorderThickness="1">
+                                <ScrollViewer>
+                                    <ListBox Name="PART_PTBListBox"
+                                             Items="{TemplateBinding SelectedItems}">
+                                        <ListBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Vertical"
+                                                                HorizontalAlignment="Stretch"
+                                                                VerticalAlignment="Center"/>
+                                                </ItemsPanelTemplate>
+                                        </ListBox.ItemsPanel>
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Vertical">
+                                                    <DockPanel>
+                                                        <TextBlock Text="{Binding}"
+                                                                   DockPanel.Dock="Left"
+                                                                   Margin="4"
+                                                                   HorizontalAlignment="Left"
+                                                                   VerticalAlignment="Center"/>
+                                                        <ToggleButton Name="PART_DeleteItemToggle"
+                                                                      DockPanel.Dock="Right"
+                                                                      HorizontalAlignment="Right"
+                                                                      VerticalAlignment="Center"
+                                                                      BorderThickness="0"
+                                                                      Background="Transparent"
+                                                                      Foreground="Black"
+                                                                      ClickMode="Release"
+                                                                      Focusable="False">
+                                                            <DrawingPresenter>
+                                                                <DrawingPresenter.Drawing>
+                                                                    <DrawingGroup>
+                                                                        <GeometryDrawing Brush="#00FFFFFF"
+                                                                                         Geometry="M16,16L0,16 0,0 16,0Z"/>
+                                                                        <GeometryDrawing Brush="#FFF6F6F6"
+                                                                                         Geometry="M8.0001,5.1721L3.4571,0.6291 0.629099999999999,3.4571 5.1721,8.0001 0.629099999999999,12.5431 3.4571,15.3711 8.0001,10.8281 12.5431,15.3711 15.3711,12.5431 10.8281,8.0001 15.3711,3.4571 12.5431,0.6291Z"/>
+                                                                        <GeometryDrawing Brush="#FFA1260D"
+                                                                                         Geometry="M9.4141,8L13.9571,12.543 12.5431,13.957 8.0001,9.414 3.4571,13.957 2.0431,12.543 6.5861,8 2.0431,3.457 3.4571,2.043 8.0001,6.586 12.5431,2.043 13.9571,3.457Z"/>
+                                                                    </DrawingGroup>
+                                                                </DrawingPresenter.Drawing>
+                                                            </DrawingPresenter>
+                                                        </ToggleButton>
+                                                    </DockPanel>
+                                                    <Separator BorderThickness="1"
+                                                               BorderBrush="{DynamicResource ThemeBorderLowBrush}"
+                                                               ClipToBounds="True"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </ScrollViewer>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="common|FJPopupTextBox:pointerover /template/ Border#border">
+        <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderHighBrush}"/>
+    </Style>
+    <Style Selector="common|FJPopupTextBox:disabled /template/ Border#border">
+        <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
+    </Style>
+</Styles>

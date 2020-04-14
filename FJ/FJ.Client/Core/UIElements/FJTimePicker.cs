@@ -6,7 +6,6 @@ using System.Text;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
-using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
 using Avalonia.Input;
@@ -117,17 +116,6 @@ namespace FJ.Client.Core.UIElements
         }
         public static readonly StyledProperty<string> WatermarkProperty =
             TextBox.WatermarkProperty.AddOwner<FJTimePicker>();
-        
-        /// <summary>
-        /// Gets or sets the virtualization mode for the items.
-        /// </summary>
-        public ItemVirtualizationMode VirtualizationMode
-        {
-            get => GetValue(VirtualizationModeProperty);
-            set => SetValue(VirtualizationModeProperty, value);
-        }
-        public static readonly StyledProperty<ItemVirtualizationMode> VirtualizationModeProperty =
-            ItemsPresenter.VirtualizationModeProperty.AddOwner<FJTimePicker>();
 
         private TimeSpan? m_selectedTime;
         
