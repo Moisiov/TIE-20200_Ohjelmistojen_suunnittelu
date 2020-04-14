@@ -72,9 +72,9 @@ namespace FJ.Client.CompetitionOccasion
             m_model = new CompetitionOccasionModel();
         }
         
-        public override void DoPopulate()
+        public override async Task DoPopulateAsync()
         {
-            base.DoPopulate();
+            await base.DoPopulateAsync();
             OccasionYear = Argument.Year ?? 2019;
 
             m_model.GetOccasionData(OccasionYear);

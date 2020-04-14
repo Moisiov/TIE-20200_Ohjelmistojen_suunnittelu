@@ -48,6 +48,9 @@ namespace FJ.Client.Core.Services
         private readonly IEventAggregator m_eventAggregator;
         private readonly IRegionManager m_regionManager;
 
+        private IContentRegionNavigator.NavigationMode
+            m_navigationMode = IContentRegionNavigator.NavigationMode.Unknown;
+
         public bool CanNavigateBack => GetContentRegionNavigationJournal().CanGoBack;
         public bool CanNavigateForward => GetContentRegionNavigationJournal().CanGoForward;
 
@@ -70,11 +73,13 @@ namespace FJ.Client.Core.Services
 
         public void DoNavigateBack()
         {
+            m_navigationMode = IContentRegionNavigator.NavigationMode.Back;
             GetContentRegionNavigationJournal().GoBack();
         }
 
         public void DoNavigateForward()
         {
+            m_navigationMode = IContentRegionNavigator.NavigationMode.Forward;
             GetContentRegionNavigationJournal().GoForward();
         }
 
@@ -91,6 +96,7 @@ namespace FJ.Client.Core.Services
 
         public void DoNavigateTo(string targetViewName, object navArgs)
         {
+            m_navigationMode = IContentRegionNavigator.NavigationMode.New;
             m_regionManager.NavigateContentTo(targetViewName, navArgs);
         }
 
@@ -102,7 +108,14 @@ namespace FJ.Client.Core.Services
 
         protected virtual void OnContentRegionNavigation(object s, RegionNavigationEventArgs e)
         {
-            m_eventAggregator.GetEvent<ContentRegionNavigationEvent>().Publish(e);
+            var eventArgs = new ContentRegionNavigationEventArgs
+            {
+                EventArgs = e,
+                NavigationMode = m_navigationMode
+            };
+                
+            m_eventAggregator.GetEvent<ContentRegionNavigationEvent>().Publish(eventArgs);
+            m_navigationMode = IContentRegionNavigator.NavigationMode.Unknown;
         }
 
         private IRegionNavigationJournal GetContentRegionNavigationJournal()

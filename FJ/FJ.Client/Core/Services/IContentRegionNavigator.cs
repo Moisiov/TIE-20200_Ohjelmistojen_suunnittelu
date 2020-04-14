@@ -15,6 +15,15 @@ namespace FJ.Client.Core.Services
     /// </summary>
     public interface IContentRegionNavigator
     {
+        public enum NavigationMode
+        {
+            Unknown,
+            New,
+            Back,
+            Forward,
+            Refresh
+        }
+        
         /// <summary>
         /// Is there any views under currently shown view in Content-region's
         /// navigation stack

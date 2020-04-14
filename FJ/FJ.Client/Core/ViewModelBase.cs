@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using FJ.Client.Core.Events;
 using FJ.Client.Core.Services;
+using FJ.Utils;
 using Prism.Events;
 using Prism.Regions;
 using ReactiveUI;
@@ -31,7 +32,7 @@ namespace FJ.Client.Core
                 .Subscribe(async e => await DoRefreshAsync(e));
 
             EventAggregator.GetEvent<ContentRegionNavigationEvent>()
-                .Subscribe(async e => await DoPopulateAsync());
+                .Subscribe(async e => await OnContentRegionNavigation(e));
         }
 
         public TArgument Argument { get; set; }
@@ -68,16 +69,20 @@ namespace FJ.Client.Core
             {
                 Argument = new TArgument();
             }
-
-            DoPopulate();
         }
         #endregion
 
-        /// <summary>
-        /// Override this method if you need to use Argument on populating
-        /// </summary>
-        public virtual void DoPopulate()
+        private async Task OnContentRegionNavigation(ContentRegionNavigationEventArgs e)
         {
+            if (e.NavigationMode.IsIn(
+                IContentRegionNavigator.NavigationMode.Back,
+                IContentRegionNavigator.NavigationMode.Forward))
+            {
+                await Task.CompletedTask;
+                return;
+            }
+
+            await DoPopulateAsync();
         }
 
         /// <summary>

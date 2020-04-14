@@ -39,18 +39,34 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
 
         public async Task<FinlandiaHiihtoResultsCollection> GetFinlandiaHiihtoResultsAsync(FilterCollection filters)
         {
-            var searchTasks = new FilterSearchComposer<FinlandiaHiihtoAPISearchArgs>()
+            var searches = new FilterSearchComposer<FinlandiaHiihtoAPISearchArgs>()
                 .ApplyFilters(filters, m_filterImplementationProvider)
-                .Searches
-                .Select(x => m_api.GetData(x))
-                .ToArray();
+                .Searches;
+            var searchTasks = searches.Select(x => m_api.GetData(x)).ToList();
 
-            if (searchTasks.Length > c_searchCountLimit)
+            if (searches.Count > c_searchCountLimit)
             {
                 throw new Exception("Too wide args"); // TODO dunno if good
             }
-
-            var searchResultRows = await Task.WhenAll(searchTasks);
+            
+            var searchResultRows = await Task
+                .WhenAll(searches.Select(x => m_api.GetData(x)));
+            
+            /* TODO Jätän tähän toistaiseksi, jos tulee vielä ongelmia.
+               TODO Muuten toimis optimointina, mutta filtteröinti on liian raskas erikseen
+            var results = new List<FinlandiaHiihtoSingleResult>();
+            while (searchTasks.Count > 0)
+            {
+                var searchTask = await Task.WhenAny(searchTasks);
+                searchTasks.Remove(searchTask);
+                var completedSearch = await searchTask;
+                results.AddRange(ParseRawResult(
+                    completedSearch.ApplyFilters(filters, m_filterImplementationProvider)));
+            }
+            
+            return new FinlandiaHiihtoResultsCollection(results);
+            */
+            
             return new FinlandiaHiihtoResultsCollection(ParseRawResult(
                 searchResultRows.SelectMany(x => x)
                     .ApplyFilters(filters, m_filterImplementationProvider)));
