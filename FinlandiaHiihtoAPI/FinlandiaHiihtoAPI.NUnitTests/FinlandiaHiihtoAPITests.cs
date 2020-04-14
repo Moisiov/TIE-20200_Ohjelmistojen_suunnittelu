@@ -95,5 +95,36 @@ namespace FinlandiaHiihtoAPI.NUnitTests
             var ex = Assert.ThrowsAsync<TooMuchResultsExceptions>(async () => await m_api.GetData(args));
             Assert.AreEqual("Too many results to show.", ex.Message);
         }
+        
+        [Test]
+        public async Task TestWideningSearch()
+        {
+            var args = new List<FinlandiaHiihtoAPISearchArgs>();
+            args.Add(new FinlandiaHiihtoAPISearchArgs
+            {
+                Year = 2019,
+                CompetitorHomeTown = "Hämeenlinna"
+            });
+            args.Add(new FinlandiaHiihtoAPISearchArgs
+            {
+                Year = 2019,
+                CompetitorHomeTown = "Vantaa"
+            });
+
+            var searchTasks = args.Select(x => m_api.GetData(x)).ToList();
+
+            var searchResults = await Task.WhenAll(searchTasks);
+
+            Assert.AreEqual(55, searchResults.First().Count());
+            Assert.AreEqual(129, searchResults.Last().Count());
+            
+            var last = new FinlandiaHiihtoAPISearchArgs
+            {
+                Year = 2019,
+            };
+            var res3 = await m_api.GetData(last);
+            
+            Assert.AreEqual(3981, res3.Count());
+        }
     }
 }

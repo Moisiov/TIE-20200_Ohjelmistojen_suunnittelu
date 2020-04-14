@@ -14,11 +14,11 @@ namespace FinlandiaHiihtoAPI
         {
             if (m_requestBaseForm != null)
             {
-                return m_requestBaseForm;
+                return new Dictionary<string, string>(m_requestBaseForm);
             }
 
             m_requestBaseForm = await m_scraper.GetRequestBaseData();
-            return m_requestBaseForm;
+            return new Dictionary<string, string>(m_requestBaseForm);
         }
         
         public async Task<IEnumerable<FinlandiaHiihtoAPISearchResultRow>> GetData(FinlandiaHiihtoAPISearchArgs args)
