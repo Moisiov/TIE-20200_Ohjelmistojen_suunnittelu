@@ -74,9 +74,10 @@ namespace FJ.Client.Core
 
         private async Task OnContentRegionNavigation(ContentRegionNavigationEventArgs e)
         {
-            if (e.NavigationMode.IsIn(
-                IContentRegionNavigator.NavigationMode.Back,
-                IContentRegionNavigator.NavigationMode.Forward))
+            if (e.TargetViewModelName != GetType().Name
+                || e.NavigationMode.IsIn(
+                    IContentRegionNavigator.NavigationMode.Back,
+                    IContentRegionNavigator.NavigationMode.Forward))
             {
                 await Task.CompletedTask;
                 return;

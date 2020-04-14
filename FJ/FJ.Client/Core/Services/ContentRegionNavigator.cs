@@ -111,6 +111,8 @@ namespace FJ.Client.Core.Services
             var eventArgs = new ContentRegionNavigationEventArgs
             {
                 EventArgs = e,
+                TargetViewName = GetCurrentViewName(),
+                TargetViewModelName = GetCurrentViewModelName(),
                 NavigationMode = m_navigationMode
             };
                 

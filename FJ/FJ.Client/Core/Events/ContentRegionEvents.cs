@@ -8,6 +8,8 @@ namespace FJ.Client.Core.Events
     public class ContentRegionNavigationEventArgs
     {
         public RegionNavigationEventArgs EventArgs { get; set; }
+        public string TargetViewName { get; set; }
+        public string TargetViewModelName { get; set; }
         public IContentRegionNavigator.NavigationMode NavigationMode { get; set; }
     }
     
