@@ -13,7 +13,7 @@ namespace FJ.Client.Athlete
         private readonly IAthleteResultsService m_athleteResultsService;
         
         public FinlandiaHiihtoResultsCollection AthletesResultRows { get; private set; }
-        public Person Athlete => AthletesResultRows.Results.First().Athlete;
+        public Person Athlete => AthletesResultRows.Results.FirstOrDefault()?.Athlete;
         
         public AthleteCardModel(IAthleteResultsService athleteResultsService)
         {

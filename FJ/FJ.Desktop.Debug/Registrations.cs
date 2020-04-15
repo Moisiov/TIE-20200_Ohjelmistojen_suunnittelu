@@ -61,7 +61,7 @@ namespace FJ.Desktop.Debug
         private static void ServiceInterfacesRegistrations(IUnityContainer container)
         {
             container.RegisterType<ILatestFinlandiaResultsService, LatestFinlandiaResultsService>();
-            container.RegisterType<IAthleteResultsService, AthleteResultsTestDataService>();
+            container.RegisterType<IAthleteResultsService, AthleteResultsDataService>();
             container.RegisterType<ICompetitionOccasionDataService, CompetitionOccasionDataService>();
         }
     }

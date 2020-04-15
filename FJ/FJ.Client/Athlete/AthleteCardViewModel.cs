@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using FJ.Client.Core;
 using FJ.Client.ResultRegister;
 using FJ.DomainObjects;
-using FJ.DomainObjects.Enums;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
 using FJ.Utils;
-using SkiaSharp;
 
 namespace FJ.Client.Athlete
 {
@@ -74,22 +71,25 @@ namespace FJ.Client.Athlete
 
         public override async Task DoPopulateAsync()
         {
-            await base.DoPopulateAsync();
-            var athleteFirstName = Argument.AthleteFirstName ?? string.Empty;
-            var athleteLastName = Argument.AthleteLastName ?? string.Empty;
-
-            if (athleteFirstName.IsNullOrEmpty())
+            using (Navigator.ShowLoadingScreen())
             {
-                return;
-            }
+                await base.DoPopulateAsync();
+                var athleteFirstName = Argument.AthleteFirstName ?? string.Empty;
+                var athleteLastName = Argument.AthleteLastName ?? string.Empty;
 
-            await m_model.GetAthleteData(athleteFirstName, athleteLastName);
+                if (athleteFirstName.IsNullOrEmpty())
+                {
+                    return;
+                }
+
+                await m_model.GetAthleteData(athleteFirstName, athleteLastName);
             
-            var participationItemModels = m_model.AthletesResultRows.Results
-                .Select(x => new AthleteParticipationItemModel { ResultRows = x });
+                var participationItemModels = m_model.AthletesResultRows.Results
+                    .Select(x => new AthleteParticipationItemModel { ResultRows = x });
             
-            ParticipationList = new ObservableCollection<AthleteParticipationItemModel>(participationItemModels);
-            AthletePersonalInfo = m_model.Athlete;
+                ParticipationList = new ObservableCollection<AthleteParticipationItemModel>(participationItemModels);
+                AthletePersonalInfo = m_model.Athlete;   
+            }
         }
 
         protected override async Task DoRefreshInternalAsync()

@@ -2,11 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using FinlandiaHiihtoAPI;
 using FJ.DomainObjects.Filters;
-using FJ.DomainObjects.Filters.CommonFilters;
-using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.DomainObjects.FinlandiaHiihto.Filters;
 
 namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
@@ -31,13 +28,33 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
             return expr;
         }
     }
-
+    
     public class FinlandiaFullNameFilterImp : FinlandiaFullNameFilter.ReduceSearchResultsExpressionImplementation
     {
         protected override LambdaExpression GetExpression(FinlandiaFullNameFilter filter, Type parameterType)
         {
             Expression<Func<FinlandiaHiihtoAPISearchResultRow, bool>> expr =
                 r => filter.Value == r.FullName;
+            return expr;
+        }
+    }
+
+    public class FinlandiaFirstNamesFilterImp : FinlandiaFirstNamesFilter.ExpandSearchArgsExpressionImplementation
+    {
+        protected override LambdaExpression GetExpression(FinlandiaFirstNamesFilter filter, Type parameterType)
+        {
+            Expression<Action<FilterSearchComposer<FinlandiaHiihtoAPISearchArgs>>> expr =
+                c => c.EscalateBy(nameof(FinlandiaHiihtoAPISearchArgs.FirstName), filter.SearchStringsList);
+            return expr;
+        }
+    }
+    
+    public class FinlandiaLastNamesFilterImp : FinlandiaLastNamesFilter.ExpandSearchArgsExpressionImplementation
+    {
+        protected override LambdaExpression GetExpression(FinlandiaLastNamesFilter filter, Type parameterType)
+        {
+            Expression<Action<FilterSearchComposer<FinlandiaHiihtoAPISearchArgs>>> expr =
+                c => c.EscalateBy(nameof(FinlandiaHiihtoAPISearchArgs.LastName), filter.SearchStringsList);
             return expr;
         }
     }

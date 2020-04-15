@@ -148,10 +148,11 @@ namespace FJ.Client.ResultRegister
             var qwe = SelectedStrings.ToList();
             // end
             
+            var selected = Results.FirstOrDefault(x => x.IsSelected);
             var args = new AthleteCardArgs
             {
-                AthleteFirstName = Results.FirstOrDefault()?.FirstName ?? "Rocky",
-                AthleteLastName = Results.FirstOrDefault()?.LastName ?? "Balboa"
+                AthleteFirstName = selected?.FirstName ?? "Rocky",
+                AthleteLastName = selected?.LastName ?? "Balboa"
             };
 
             Navigator.DoNavigateTo<AthleteCardView>(args);
