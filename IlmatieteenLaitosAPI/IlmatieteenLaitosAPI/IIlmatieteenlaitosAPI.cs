@@ -18,6 +18,7 @@ namespace IlmatieteenLaitosAPI
         /// <summary>
         /// Get hourly weather of day.
         /// </summary>
+        /// <param name="location">Observation location</param>
         /// <param name="year"></param>
         /// <param name="month"></param>
         /// <param name="date"></param>
@@ -27,6 +28,7 @@ namespace IlmatieteenLaitosAPI
         /// <summary>
         /// Get hourly weather of day.
         /// </summary>
+        /// /// <param name="location">Observation location</param>
         /// <param name="dateTime">Only date matters. Time is not taken into account.</param>
         /// <returns>Collection of WeatherModels</returns>
         Task<WeatherCollection> GetHourlyWeatherOfDay(string location, DateTime dateTime);
@@ -42,6 +44,7 @@ namespace IlmatieteenLaitosAPI
         /// <summary>
         /// Get weather of given day.
         /// </summary>
+        /// <param name="location">Observation location</param>
         /// <param name="year"></param>
         /// <param name="month"></param>
         /// <param name="date"></param>
@@ -50,6 +53,7 @@ namespace IlmatieteenLaitosAPI
         /// <summary>
         /// Get weather of given day.
         /// </summary>
+        /// <param name="location">Observation location</param>
         /// <param name="dateTime">Only date matters. Time is not taken into account.</param>
         Task<WeatherModel> GetWeatherOfDay(string location, DateTime dateTime);
     }

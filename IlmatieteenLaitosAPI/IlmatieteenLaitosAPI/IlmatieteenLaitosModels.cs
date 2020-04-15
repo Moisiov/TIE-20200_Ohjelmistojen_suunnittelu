@@ -9,7 +9,7 @@ namespace IlmatieteenLaitosAPI
         public DateTime ObservationEndTime { get; set; }
         public string Location { get; set; }
         public double? AirTemperatureAvg { get; set; }
-        public double? AirTemperaturMax { get; set; }
+        public double? AirTemperatureMax { get; set; }
         public double? AirTemperatureMin { get; set; }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace IlmatieteenLaitosAPI
         /// <summary>
         /// Weather code is used to describe weather.
         /// </summary>
-        /// <see cref="https://www.ilmatieteenlaitos.fi/latauspalvelun-pikaohje"/>
+        /// <see href="https://www.ilmatieteenlaitos.fi/latauspalvelun-pikaohje"/>
         public double? MostSignificantWeatherCode { get; set; }
     }
 
@@ -71,7 +71,7 @@ namespace IlmatieteenLaitosAPI
         public string Service { get; set; }
         public string Version { get; set; }
         public string Request { get; set; }
-        public string StoredqueryId { get; set; }
+        public string StoredQueryId { get; set; }
         public Dictionary<string, string> SearchParameters { get; set; }
     }
 }
