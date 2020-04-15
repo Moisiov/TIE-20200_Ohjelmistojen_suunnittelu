@@ -26,5 +26,8 @@
     <Reference Include="FinlandiaHiihtoAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\APIs\FinlandiaHiihtoAPI\FinlandiaHiihtoAPI.dll</HintPath>
     </Reference>
+    <Reference Include="IlmatieteenLaitosAPI">
+      <HintPath>..\APIs\IlmatieteenLaitosAPI\IlmatieteenLaitosAPI.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
