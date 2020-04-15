@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Avalonia;
 using Avalonia.Collections;
@@ -8,6 +9,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Generators;
 using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
+using Avalonia.Data.Converters;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
@@ -17,32 +19,33 @@ using Avalonia.VisualTree;
 
 namespace FJ.Client.Core.UIElements
 {
-    public class FJPopupTextBox : TemplatedControl
+    public class FJMultiSelectComboBox : TemplatedControl
     {
-        static FJPopupTextBox()
+        static FJMultiSelectComboBox()
         {
-            FocusableProperty.OverrideDefaultValue<FJPopupTextBox>(true);
-            IsDropDownOpenProperty.Changed.AddClassHandler<FJPopupTextBox>(
+            FocusableProperty.OverrideDefaultValue<FJMultiSelectComboBox>(true);
+            IsDropDownOpenProperty.Changed.AddClassHandler<FJMultiSelectComboBox>(
                 (x, e) => x.OnIsDropDownOpenChanged(e));
 
-            PointerPressedEvent.AddClassHandler<FJPopupTextBox>(
+            PointerPressedEvent.AddClassHandler<FJMultiSelectComboBox>(
                 (x, e) => x.OnPointerPressed(e), RoutingStrategies.Tunnel);
         }
 
-        private const string c_textBoxName = "PART_PTBTextBox";
-        private const string c_popupName = "PART_PTBPopup";
-        private const string c_listBoxName = "PART_PTBListBox";
-        private const string c_deleteItemToggleName = "PART_DeleteItemToggle";
+        private const string c_textBoxName = "PART_MCBTextBox";
+        private const string c_popupName = "PART_MCBPopup";
+        private const string c_toggleButtonName = "PART_MCBDropDownToggle";
+        private const string c_listBoxName = "PART_MCBListBox";
+        private const string c_selectItemCheckBoxName = "PART_ItemCheckBox";
 
         private TextBox m_textBox;
         private Popup m_popup;
+        private ToggleButton m_toggleButton;
         private ListBox m_listBox;
 
         private IDisposable m_subsOnOpen;
-        private IDisposable m_listBoxItemsChangedSub;
+        private readonly List<IDisposable> m_checkBoxToggledSubs = new List<IDisposable>();
 
-        private List<string> m_selectedItemsCopy;
-        private readonly HashSet<ToggleButton> m_toggleButtons = new HashSet<ToggleButton>();
+        private readonly HashSet<CheckBox> m_checkBoxes = new HashSet<CheckBox>();
         
         #region DependencyProperties
         
@@ -56,8 +59,8 @@ namespace FJ.Client.Core.UIElements
             get => m_isDropDownOpen;
             set => SetAndRaise(IsDropDownOpenProperty, ref m_isDropDownOpen, value);
         }
-        public static readonly DirectProperty<FJPopupTextBox, bool> IsDropDownOpenProperty =
-            AvaloniaProperty.RegisterDirect<FJPopupTextBox, bool>(
+        public static readonly DirectProperty<FJMultiSelectComboBox, bool> IsDropDownOpenProperty =
+            AvaloniaProperty.RegisterDirect<FJMultiSelectComboBox, bool>(
                 nameof(IsDropDownOpen),
                 o => o.IsDropDownOpen,
                 (o, v) => o.IsDropDownOpen = v);
@@ -71,11 +74,11 @@ namespace FJ.Client.Core.UIElements
             set => SetValue(MaxDropDownHeightProperty, value);
         }
         public static readonly StyledProperty<double> MaxDropDownHeightProperty =
-            AvaloniaProperty.Register<FJPopupTextBox, double>(nameof(MaxDropDownHeight), 200);
+            AvaloniaProperty.Register<FJMultiSelectComboBox, double>(nameof(MaxDropDownHeight), 200);
         
         /// <summary>
         /// Gets or set the watermark text that is displayed by the
-        /// <see cref="T:FJ.Client.Core.UIElements.FJPopupTextBox"/> when empty.
+        /// <see cref="T:FJ.Client.Core.UIElements.FJMultiSelectComboBox"/> when empty.
         /// </summary>
         public string Watermark
         {
@@ -83,7 +86,7 @@ namespace FJ.Client.Core.UIElements
             set => SetValue(WatermarkProperty, value);
         }
         public static readonly StyledProperty<string> WatermarkProperty =
-            TextBox.WatermarkProperty.AddOwner<FJPopupTextBox>();
+            TextBox.WatermarkProperty.AddOwner<FJMultiSelectComboBox>();
 
         private IList m_selectedItems = new AvaloniaList<object>();
         
@@ -95,12 +98,46 @@ namespace FJ.Client.Core.UIElements
             get => m_selectedItems ??= new AvaloniaList<object>();
             set => m_selectedItems = value ?? new AvaloniaList<object>();
         }
-        public static readonly DirectProperty<FJPopupTextBox, IList> SelectedItemsProperty =
-            AvaloniaProperty.RegisterDirect<FJPopupTextBox, IList>(
+        public static readonly DirectProperty<FJMultiSelectComboBox, IList> SelectedItemsProperty =
+            AvaloniaProperty.RegisterDirect<FJMultiSelectComboBox, IList>(
                 nameof(SelectedItems),
                 o => o.SelectedItems,
                 (o, v) => o.SelectedItems = v);
+        
+        private IList m_items = new AvaloniaList<object>();
 
+        /// <summary>
+        /// Gets or sets all selectable items
+        /// </summary>
+        public IList Items
+        {
+            get => m_items ??= new AvaloniaList<object>();
+            set => m_items = value ?? new AvaloniaList<object>();
+        }
+
+        public static readonly DirectProperty<FJMultiSelectComboBox, IList> ItemsProperty =
+            AvaloniaProperty.RegisterDirect<FJMultiSelectComboBox, IList>(
+                nameof(Items),
+                o => o.Items,
+                (o, v) => o.Items = v);
+
+        private IValueConverter m_valueConverter = new DefaultValueConverter();
+        
+        /// <summary>
+        /// Gets or set the <see cref="Avalonia.Data.Converters.IValueConverter"/> used with drop down items
+        /// </summary>
+        public IValueConverter ValueConverter
+        {
+            get => m_valueConverter;
+            set => m_valueConverter = value ?? m_valueConverter;
+        }
+
+        public static readonly DirectProperty<FJMultiSelectComboBox, IValueConverter> ValueConverterProperty =
+            AvaloniaProperty.RegisterDirect<FJMultiSelectComboBox, IValueConverter>(
+                nameof(ValueConverter),
+                o => o.ValueConverter,
+                (o, v) => o.ValueConverter = v);
+        
         /// <summary>
         /// Gets or sets text box suffix in case of multiple selections on lost focus
         /// </summary>
@@ -110,7 +147,7 @@ namespace FJ.Client.Core.UIElements
             set => SetValue(SuffixOnManyProperty, value);
         }
         public static readonly StyledProperty<string> SuffixOnManyProperty =
-            AvaloniaProperty.Register<FJPopupTextBox, string>(nameof(SuffixOnMany), "kpl");
+            AvaloniaProperty.Register<FJMultiSelectComboBox, string>(nameof(SuffixOnMany), "kpl");
 
         #endregion
         
@@ -118,12 +155,10 @@ namespace FJ.Client.Core.UIElements
         {
             if (m_textBox != null)
             {
-                m_textBox.KeyDown -= TextBox_KeyDown;
                 m_textBox.GotFocus -= TextBox_GotFocus;
             }
             
             m_textBox = e.NameScope.Find<TextBox>(c_textBoxName);
-            m_textBox.KeyDown += TextBox_KeyDown;
             m_textBox.GotFocus += TextBox_GotFocus;
 
             if (m_popup != null)
@@ -136,16 +171,26 @@ namespace FJ.Client.Core.UIElements
             m_popup.Opened += PopupOpened;
             m_popup.Closed += PopupClosed;
 
+            if (m_toggleButton != null)
+            {
+                m_toggleButton.Click -= ToggleButton_Clicked;
+            }
+
+            m_toggleButton = e.NameScope.Find<ToggleButton>(c_toggleButtonName);
+            m_toggleButton.Click += ToggleButton_Clicked;
+
             if (m_listBox != null)
             {
+                m_checkBoxToggledSubs.ForEach(x => x?.Dispose());
+                m_checkBoxToggledSubs.Clear();
+                
+                m_listBox.Resources.Remove(ValueConverter);
                 m_listBox.ItemContainerGenerator.Materialized -= OnItemContainerMaterialized;
-                m_listBoxItemsChangedSub?.Dispose();
             }
             
             m_listBox = e.NameScope.Find<ListBox>(c_listBoxName);
+            m_listBox.Resources.Add(nameof(ValueConverter), ValueConverter);  // This is a sign of incompetency
             m_listBox.ItemContainerGenerator.Materialized += OnItemContainerMaterialized;
-            m_listBoxItemsChangedSub = m_listBox.GetObservable(ItemsControl.ItemCountProperty)
-                .Subscribe(item => ListBox_ItemsChanged());
 
             SetTextBoxText();
             
@@ -160,7 +205,6 @@ namespace FJ.Client.Core.UIElements
                 return;
             }
             
-            m_textBox.Text = string.Empty;
             m_textBox.Focus();
         }
 
@@ -179,67 +223,59 @@ namespace FJ.Client.Core.UIElements
                 return;
             }
 
+            // TODO TextBox's IsPointerOver behaves weird sometimes, this is a workaround for that
+            if (m_textBox.IsPointerOver && !m_listBox.IsPointerOver)
+            {
+                IsDropDownOpen = !IsDropDownOpen;
+                e.Handled = true;
+                return;
+            }
+
             // Eat list box pointer press if not deleting
             if (!m_listBox.IsPointerOver)
             {
                 return;
             }
 
-            // Handle item deleting manually
-            var targetToggle = m_toggleButtons.FirstOrDefault(x => x.IsPointerOver);
-            if (targetToggle != null)
+            // Handle item selecting or deselecting manually
+            var targetCheckBox = m_checkBoxes.FirstOrDefault(x => x.IsPointerOver);
+            if (targetCheckBox != null)
             {
-                targetToggle.IsChecked = true;
+                targetCheckBox.IsChecked = targetCheckBox.IsChecked.HasValue
+                    ? !targetCheckBox.IsChecked
+                    : false;
             }
             
             e.Handled = true;
         }
-        
-        private void DeleteItem(object sender, IContentControl item)
+
+        private void CheckBoxToggledHandler(CheckBox checkBox, IContentControl item)
         {
-            if (!IsDropDownOpen 
-                || !item.IsArrangeValid
-                || !(sender is ToggleButton toggle))
+            if (!IsDropDownOpen || !item.IsArrangeValid)
             {
                 return;
             }
 
-            m_toggleButtons.Remove(toggle);
-            SelectedItems.Remove(item.Content);
-        }
-        
-        private void TextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Handled)
+            if (checkBox.IsChecked == true && !SelectedItems.Contains(item.Content))
             {
-                return;
+                SelectedItems.Add(item.Content);
+            }
+            else
+            {
+                SelectedItems.Remove(item.Content);
             }
             
-            e.Handled = ProcessTextBoxKey(e);
+            SetTextBoxText();
         }
         
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            IsDropDownOpen = true;
+            IsDropDownOpen = !IsDropDownOpen;
         }
 
-        private bool ProcessTextBoxKey(KeyEventArgs e)
+        private void ToggleButton_Clicked(object sender, RoutedEventArgs e)
         {
-            if (e.Key != Key.Enter || string.IsNullOrEmpty(m_textBox?.Text))
-            {
-                return false;
-            }
-
-            var text = m_textBox.Text;
-            m_textBox.Text = string.Empty;
-            if (m_selectedItemsCopy.Contains(m_textBox.Text.ToLower()))
-            {
-                return true;
-            }
-
-            SelectedItems.Add(text);
-
-            return true;
+            IsDropDownOpen = !IsDropDownOpen;
         }
         
         private void OnIsDropDownOpenChanged(AvaloniaPropertyChangedEventArgs e)
@@ -247,7 +283,7 @@ namespace FJ.Client.Core.UIElements
             var oldValue = (bool)e.OldValue;
             var value = (bool)e.NewValue;
 
-            if (m_popup?.Child == null || value == oldValue)
+            if (value == oldValue || m_popup == null)
             {
                 return;
             }
@@ -278,6 +314,7 @@ namespace FJ.Client.Core.UIElements
         {
             m_subsOnOpen?.Dispose();
             m_subsOnOpen = null;
+            IsDropDownOpen = false;
 
             if (Focusable && IsEffectivelyEnabled && IsVisible)
             {
@@ -293,10 +330,10 @@ namespace FJ.Client.Core.UIElements
             }
 
             ((IContentPresenterHost)latestItem).LogicalChildren.PropertyChanged +=
-                (s, ev) => FindAndSubscribeToLatestToggle(s, latestItem);
+                (s, ev) => FindAndSubscribeToLatestCheckBox(s, latestItem);
         }
 
-        private void FindAndSubscribeToLatestToggle(object sender, ListBoxItem relatedListBoxItem)
+        private void FindAndSubscribeToLatestCheckBox(object sender, ListBoxItem relatedListBoxItem)
         {
             if (!(sender is AvaloniaList<ILogical> l))
             {
@@ -310,33 +347,26 @@ namespace FJ.Client.Core.UIElements
 
             foreach (var child in children)
             {
-                if (!(child is ToggleButton toggle) || toggle.Name != c_deleteItemToggleName)
+                if (!(child is CheckBox checkBox) || checkBox.Name != c_selectItemCheckBoxName)
                 {
                     continue;
                 }
 
-                toggle.Checked += (o, args) => DeleteItem(o, relatedListBoxItem);
-                m_toggleButtons.Add(toggle);
-            }
-        }
-
-        private void ListBox_ItemsChanged()
-        {
-            m_selectedItemsCopy = new List<string>();
-            foreach (var item in m_listBox.Items)
-            {
-                if (!(item is string stringItem))
+                if (SelectedItems.Contains(relatedListBoxItem.Content))
                 {
-                    continue;
+                    checkBox.IsChecked = true;
                 }
-                
-                m_selectedItemsCopy.Add(stringItem.ToLower());
+
+                var checkBoxCheckedSub = checkBox.GetObservable(ToggleButton.IsCheckedProperty)
+                    .Subscribe(newValue => CheckBoxToggledHandler(checkBox, relatedListBoxItem));
+                m_checkBoxToggledSubs.Add(checkBoxCheckedSub);
+                m_checkBoxes.Add(checkBox);
             }
         }
 
         private void SetTextBoxText()
         {
-            if (m_isDropDownOpen || m_selectedItems == null)
+            if (m_selectedItems == null)
             {
                 m_textBox.Text = string.Empty;
                 return;
@@ -345,7 +375,9 @@ namespace FJ.Client.Core.UIElements
             m_textBox.Text = m_selectedItems.Count switch
             {
                 0 => string.Empty,
-                1 => m_selectedItems[0].ToString(),
+                1 => m_valueConverter
+                        .Convert(m_selectedItems[0], typeof(string), null, CultureInfo.CurrentCulture)
+                        .ToString(),
                 _ => $"{SelectedItems.Count.ToString()} {SuffixOnMany}"
             };
         }

@@ -33,7 +33,7 @@
         </Styles>
     </UserControl.Styles>
 
-    <Grid Margin="2">
+    <Grid Margin="2" Focusable="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
@@ -128,6 +128,16 @@
                 <StackPanel Orientation="Vertical">
                     <TextBlock Classes="FilterCaption" Text="Sukunimi" />
                     <TextBox Classes="FilterBox" Text="{Binding CurrentLastNameString}" Watermark="Sukunimi" />
+                </StackPanel>
+                
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Classes="FilterCaption" Text="MULTITESTI" />
+                    <common:FJMultiSelectComboBox Classes="FilterBox"
+                                                  Watermark="Monia valintoja"
+                                                  SelectedItems="{Binding SelectedTest}"
+                                                  Items="{Binding MultiSelects}"
+                                                  ValueConverter="{StaticResource FinlandiaCCToStringConverter}"
+                                                  SuffixOnMany="valintaa"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical">

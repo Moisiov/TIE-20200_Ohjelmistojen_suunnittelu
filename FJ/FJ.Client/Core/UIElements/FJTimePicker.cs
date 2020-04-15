@@ -433,7 +433,6 @@ namespace FJ.Client.Core.UIElements
         
         private void PopupClosed(object sender, EventArgs e)
         {
-            // TODO: Do not close popup when text box is clicked?
             m_subsOnOpen?.Dispose();
             m_subsOnOpen = null;
 

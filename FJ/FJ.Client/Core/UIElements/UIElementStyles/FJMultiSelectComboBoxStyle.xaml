@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:common="clr-namespace:FJ.Client.Core.UIElements"
         xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <Style Selector="common|FJPopupTextBox">
+    <Style Selector="common|FJMultiSelectComboBox">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}"/>
         <Setter Property="Padding" Value="4"/>
@@ -22,9 +22,10 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <TextBox Name="PART_PTBTextBox"
+                        <TextBox Name="PART_MCBTextBox"
                                  Grid.Column="0" Grid.Row="0"
                                  TextWrapping="NoWrap"
+                                 CaretBrush="Transparent"
                                  HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                                  VerticalAlignment="{TemplateBinding VerticalAlignment}"
                                  FontFamily="{TemplateBinding FontFamily}"
@@ -37,18 +38,34 @@
                                  Watermark="{TemplateBinding Watermark}"
                                  Width="{TemplateBinding Width}" MinWidth="{TemplateBinding MinWidth}"
                                  Height="{TemplateBinding Height}" MinHeight="{TemplateBinding MinHeight}"
-                                 ClipToBounds="True"/>
-                        <Popup Name="PART_PTBPopup"
+                                 ClipToBounds="True"
+                                 IsReadOnly="True"/>
+                        <ToggleButton Name="PART_MCBDropDownToggle"
+                                      Grid.Column="1"
+                                      BorderThickness="0"
+                                      Background="Transparent"
+                                      ClickMode="Press"
+                                      Focusable="False"
+                                      IsChecked="{TemplateBinding IsDropDownOpen, Mode=OneWay}">
+                            <Path Fill="{DynamicResource ThemeForegroundBrush}"
+                                  Width="8"
+                                  Height="4"
+                                  Stretch="Uniform"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Data="F1 M 301.14,-189.041L 311.57,-189.041L 306.355,-182.942L 301.14,-189.041 Z"/>
+                        </ToggleButton>
+                        <Popup Name="PART_MCBPopup"
                                Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0"
                                MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
                                MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                PlacementTarget="{TemplateBinding}"
-                               StaysOpen="True">
+                               StaysOpen="False">
                             <Border BorderBrush="{DynamicResource ThemeBorderMidBrush}"
                                     BorderThickness="1">
                                 <ScrollViewer>
-                                    <ListBox Name="PART_PTBListBox"
-                                             Items="{TemplateBinding SelectedItems}">
+                                    <ListBox Name="PART_MCBListBox"
+                                             Items="{TemplateBinding Items}">
                                         <ListBox.ItemsPanel>
                                                 <ItemsPanelTemplate>
                                                     <StackPanel Orientation="Vertical"
@@ -60,33 +77,21 @@
                                             <DataTemplate>
                                                 <StackPanel Orientation="Vertical">
                                                     <DockPanel>
-                                                        <TextBlock Text="{Binding}"
+                                                        <TextBlock Text="{Binding, Converter={StaticResource ValueConverter}}"
                                                                    DockPanel.Dock="Left"
                                                                    Margin="4"
                                                                    HorizontalAlignment="Left"
                                                                    VerticalAlignment="Center"/>
-                                                        <ToggleButton Name="PART_DeleteItemToggle"
-                                                                      DockPanel.Dock="Right"
-                                                                      HorizontalAlignment="Right"
-                                                                      VerticalAlignment="Center"
-                                                                      BorderThickness="0"
-                                                                      Background="Transparent"
-                                                                      Foreground="Black"
-                                                                      ClickMode="Release"
-                                                                      Focusable="False">
-                                                            <DrawingPresenter>
-                                                                <DrawingPresenter.Drawing>
-                                                                    <DrawingGroup>
-                                                                        <GeometryDrawing Brush="#00FFFFFF"
-                                                                                         Geometry="M16,16L0,16 0,0 16,0Z"/>
-                                                                        <GeometryDrawing Brush="#FFF6F6F6"
-                                                                                         Geometry="M8.0001,5.1721L3.4571,0.6291 0.629099999999999,3.4571 5.1721,8.0001 0.629099999999999,12.5431 3.4571,15.3711 8.0001,10.8281 12.5431,15.3711 15.3711,12.5431 10.8281,8.0001 15.3711,3.4571 12.5431,0.6291Z"/>
-                                                                        <GeometryDrawing Brush="#FFA1260D"
-                                                                                         Geometry="M9.4141,8L13.9571,12.543 12.5431,13.957 8.0001,9.414 3.4571,13.957 2.0431,12.543 6.5861,8 2.0431,3.457 3.4571,2.043 8.0001,6.586 12.5431,2.043 13.9571,3.457Z"/>
-                                                                    </DrawingGroup>
-                                                                </DrawingPresenter.Drawing>
-                                                            </DrawingPresenter>
-                                                        </ToggleButton>
+                                                        <CheckBox Name="PART_ItemCheckBox"
+                                                                  DockPanel.Dock="Right"
+                                                                  HorizontalAlignment="Right"
+                                                                  VerticalAlignment="Center"
+                                                                  BorderThickness="1"
+                                                                  BorderBrush="{DynamicResource ThemeBorderLowBrush}"
+                                                                  Background="{TemplateBinding Background}"
+                                                                  Foreground="Black"
+                                                                  ClickMode="Release"
+                                                                  Focusable="True" />
                                                     </DockPanel>
                                                     <Separator BorderThickness="1"
                                                                BorderBrush="{DynamicResource ThemeBorderLowBrush}"
@@ -103,10 +108,10 @@
             </ControlTemplate>
         </Setter>
     </Style>
-    <Style Selector="common|FJPopupTextBox:pointerover /template/ Border#border">
+    <Style Selector="common|FJMultiSelectComboBox:pointerover /template/ Border#border">
         <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderHighBrush}"/>
     </Style>
-    <Style Selector="common|FJPopupTextBox:disabled /template/ Border#border">
+    <Style Selector="common|FJMultiSelectComboBox:disabled /template/ Border#border">
         <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
     </Style>
 </Styles>

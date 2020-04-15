@@ -39,6 +39,8 @@ namespace FJ.Client.ResultRegister
         public TimeSpan? TimeSelection { get; set; }
         public TimeRange TimeRangeSelection { get; set; }
         public ObservableCollection<string> SelectedStrings { get; set; }
+        public ObservableCollection<FinlandiaHiihtoCompetitionClass> MultiSelects { get; set; }
+        public ObservableCollection<FinlandiaHiihtoCompetitionClass> SelectedTest { get; set; }
 
         public string CurrentFirstNameString { get; set; }
         public string CurrentLastNameString { get; set; }
@@ -88,6 +90,10 @@ namespace FJ.Client.ResultRegister
                 "Testi1",
                 "Testi2"
             };
+
+            MultiSelects = new ObservableCollection<FinlandiaHiihtoCompetitionClass>(
+                FinlandiaHiihtoCompetitionClasses.FinlandiaCompetitionClasses);
+            SelectedTest = new ObservableCollection<FinlandiaHiihtoCompetitionClass>();
         }
 
         public override async Task DoPopulateAsync()
@@ -146,6 +152,7 @@ namespace FJ.Client.ResultRegister
             // TODO debug purposes
             var asd = TimeRangeSelection;
             var qwe = SelectedStrings.ToList();
+            var asdda = SelectedTest.Select(x => x.AsString()).ToList();
             // end
             
             var selected = Results.FirstOrDefault(x => x.IsSelected);

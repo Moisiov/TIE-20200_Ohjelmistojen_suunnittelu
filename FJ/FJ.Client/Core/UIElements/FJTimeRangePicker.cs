@@ -30,6 +30,7 @@ namespace FJ.Client.Core.UIElements
         private IDisposable m_endTimeChangedSub;
         
         #region DependencyProperties
+        
         /// <summary>
         /// Gets or set the watermark text that is displayed by the start
         /// <see cref="T:FJ.Client.Core.UIElements.FJTimePicker"/> when empty.
@@ -81,6 +82,7 @@ namespace FJ.Client.Core.UIElements
                 (o, v) => o.SelectedTimeRange = v,
                 defaultBindingMode: BindingMode.OneWayToSource,
                 enableDataValidation: true);
+        
         #endregion
 
         protected override void OnTemplateApplied(TemplateAppliedEventArgs e)

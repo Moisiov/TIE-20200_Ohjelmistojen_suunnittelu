@@ -10,6 +10,7 @@
         <StyleInclude Source="/Core/UIElements/UIElementStyles/FJTimePickerStyle.xaml" />
         <StyleInclude Source="/Core/UIElements/UIElementStyles/FJTimeRangePickerStyle.xaml" />
         <StyleInclude Source="/Core/UIElements/UIElementStyles/FJPopupTextBoxStyle.xaml" />
+        <StyleInclude Source="/Core/UIElements/UIElementStyles/FJMultiSelectComboBoxStyle.xaml" />
 
         <Styles>
             <!-- Image rotating animation -->
