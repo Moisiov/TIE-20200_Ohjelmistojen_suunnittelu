@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using FJ.Client.Core;
 using FJ.Client.ResultRegister;
+using FJ.ServiceInterfaces.FinlandiaHiihto;
 
 namespace FJ.Client.CompetitionOccasion
 {
@@ -10,12 +13,7 @@ namespace FJ.Client.CompetitionOccasion
     {
         private CompetitionOccasionModel m_model;
 
-        private List<CompetitionRowItemModel> m_competitionList;
-        public List<CompetitionRowItemModel> CompetitionList
-        {
-            get => m_competitionList;
-            set => SetAndRaise(ref m_competitionList, value);
-        }
+        public ObservableCollection<CompetitionRowItemModel> CompetitionList { get; set; }
         
         private int? m_occasionYear;
         public int? OccasionYear
@@ -53,12 +51,7 @@ namespace FJ.Client.CompetitionOccasion
             set => SetAndRaise(ref m_nationalityDistributionChartIsActive, value);
         }
         
-        private List<Top10TeamItemModel> m_top10TeamsList;
-        public List<Top10TeamItemModel> Top10TeamsList
-        {
-            get => m_top10TeamsList;
-            set => SetAndRaise(ref m_top10TeamsList, value);
-        }
+        public ObservableCollection<Top10TeamItemModel> Top10TeamsList { get; set; }
         
         private bool m_top10TeamsIsActive;
         public bool Top10TeamsIsActive
@@ -67,30 +60,45 @@ namespace FJ.Client.CompetitionOccasion
             set => SetAndRaise(ref m_top10TeamsIsActive, value);
         }
         
-        public CompetitionOccasionViewModel()
+        public CompetitionOccasionViewModel(ICompetitionOccasionDataService competitionOccasionDataService)
         {
-            m_model = new CompetitionOccasionModel();
+            m_model = new CompetitionOccasionModel(competitionOccasionDataService);
         }
         
         public override async Task DoPopulateAsync()
         {
-            await base.DoPopulateAsync();
-            OccasionYear = Argument.Year ?? 2019;
+            using (Navigator.ShowLoadingScreen())
+            {
+                await base.DoPopulateAsync();
+                OccasionYear = Argument.Year;
 
-            m_model.GetOccasionData(OccasionYear);
-            TotalParticipants = m_model.TotalParticipants;
-            TotalCompetitions = m_model.TotalCompetitions;
-            CompetitionList = m_model.CompetitionList;
+                if (OccasionYear == null)
+                {
+                    return;
+                }
+
+                var year = (int)OccasionYear;
+                await m_model.GetOccasionData(year);
+                TotalParticipants = m_model.TotalParticipants;
+                TotalCompetitions = m_model.TotalCompetitions;
+                CompetitionList = new ObservableCollection<CompetitionRowItemModel>(m_model.CompetitionList);
+                
+                RaisePropertiesChanged();
+            }
         }
 
         protected override async Task DoRefreshInternalAsync()
         {
+            await base.DoRefreshInternalAsync();
+            
             OccasionYear = null;
             TotalParticipants = null;
+            TotalCompetitions = null;
             CompetitionList = null;
             NationalityDistributionChartIsActive = false;
             Top10TeamsIsActive = false;
-            await Task.CompletedTask;
+            
+            RaisePropertiesChanged();
         }
         
         public void NavigateToResultRegisterWithOccasion()
@@ -102,7 +110,6 @@ namespace FJ.Client.CompetitionOccasion
         public void NavigateToResultRegisterWithCompetition(string competitionType)
         {
             // TODO Anna Year+competitionType navigaatioargumenttina.
-            Console.WriteLine(competitionType);
             Navigator.DoNavigateTo<ResultRegisterView>();
         }
 
@@ -116,11 +123,13 @@ namespace FJ.Client.CompetitionOccasion
             NationalityDistributionChartIsActive = false;
         }
         
-        public void Top10TeamsActivation(List<Top10TeamItemModel> top10TeamsList)
+        public void Top10TeamsActivation(IEnumerable<Top10TeamItemModel> top10TeamsList)
         {
-            // TODO Muuta parametri listaksi ja lisää saatu lista UI DataTemplaattiin.
-            Top10TeamsList = top10TeamsList;
+            Top10TeamsList = new ObservableCollection<Top10TeamItemModel>(top10TeamsList);
             Top10TeamsIsActive = true;
+            
+            RaisePropertyChanged(nameof(Top10TeamsList));
+            RaisePropertyChanged(nameof(Top10TeamsIsActive));
         }
         public void Top10TeamsDeActivation()
         {

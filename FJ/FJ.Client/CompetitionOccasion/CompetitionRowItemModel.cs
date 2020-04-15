@@ -10,20 +10,20 @@ namespace FJ.Client.CompetitionOccasion
         public int TotalParticipants { get; set; }
         public CompetitorSummaryItemModel FirstPlaceCompetitor { get; set; }
         public CompetitorSummaryItemModel LastPlaceCompetitor { get; set; }
-        public List<Top10TeamItemModel> Top10Teams { get; set; }
+        public IEnumerable<Top10TeamItemModel> Top10Teams { get; set; }
     }
 
     public class CompetitorSummaryItemModel
     {
         public Person Competitor { get; set; }
-        public TimeSpan Result { get; set; }
-        public double AverageSpeed { get; set; }
+        public string Result { get; set; }
+        public string AverageSpeed { get; set; }
     }
     
     public class Top10TeamItemModel
     {
         public int Position { get; set; }
         public string Name { get; set; }
-        public TimeSpan Result { get; set; }
+        public string Result { get; set; }
     }
 }

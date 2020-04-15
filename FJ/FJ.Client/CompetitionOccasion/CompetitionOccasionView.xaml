@@ -47,8 +47,8 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center">
                         <TextBlock Text="Vuoden "/>
-                        <TextBlock Text="{Binding OccasionYear} "/>
-                        <TextBlock Text="kilpailutapahtuman yhteenveto" />
+                        <TextBlock Text="{Binding OccasionYear}"/>
+                        <TextBlock Text=" kilpailutapahtuman yhteenveto" />
                     </StackPanel>
                     
 
@@ -164,7 +164,8 @@
                                                         <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0, 5">
                                                             <TextBlock Text="Nimi: " />
                                                             <TextBlock Text="{Binding 
-                                                                FirstPlaceCompetitor.Competitor.FirstName} " />
+                                                                FirstPlaceCompetitor.Competitor.FirstName}" />
+                                                            <TextBlock Text=" " />
                                                             <TextBlock Text="{Binding 
                                                                 FirstPlaceCompetitor.Competitor.LastName}" />
                                                         </StackPanel>
@@ -199,16 +200,21 @@
                                                             <ColumnDefinition Width="*" />
                                                         </Grid.ColumnDefinitions>
                                                         <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0, 5">
-                                                            <TextBlock Text="Nimi:" />
-                                                            <TextBlock Text="Mikki Hiiri" />
+                                                            <TextBlock Text="Nimi: " />
+                                                            <TextBlock Text="{Binding 
+                                                                LastPlaceCompetitor.Competitor.FirstName}" />
+                                                            <TextBlock Text=" " />
+                                                            <TextBlock Text="{Binding 
+                                                                LastPlaceCompetitor.Competitor.LastName}" />
                                                         </StackPanel>
                                                         <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0, 5">
-                                                            <TextBlock Text="Aika:" />
-                                                            <TextBlock Text="05:34:37" />
+                                                            <TextBlock Text="Aika: " />
+                                                            <TextBlock Text="{Binding LastPlaceCompetitor.Result}"/>
                                                         </StackPanel>
                                                         <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0, 5">
-                                                            <TextBlock Text="Keskinopeus:" />
-                                                            <TextBlock Text="10km/h" />
+                                                            <TextBlock Text="Nopeus: " />
+                                                            <TextBlock Text="{Binding LastPlaceCompetitor.AverageSpeed}"/>
+                                                            <TextBlock Text="km/h"/>
                                                         </StackPanel>
                                                     </Grid>
                                                 </StackPanel>

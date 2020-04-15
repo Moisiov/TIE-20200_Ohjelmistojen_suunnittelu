@@ -2,10 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FJ.DomainObjects;
 using FJ.DomainObjects.Filters.Core;
 using FJ.DomainObjects.FinlandiaHiihto;
-using FJ.DomainObjects.FinlandiaHiihto.Enums;
+using FJ.DomainObjects.FinlandiaHiihto.Filters;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
 using FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices;
 using FJ.Utils;
@@ -27,10 +26,16 @@ namespace FJ.Services.FinlandiaHiihto
         
         public async Task<FinlandiaHiihtoResultsCollection> GetCompetitionOccasionResultsAsync(int year)
         {
+            if (m_year == year && m_resultsCollection != null)
+            {
+                return m_resultsCollection;
+            }
+            
             m_year = year;
             
-            // TODO Actual filter args.
-            var filters = new FilterCollection();
+            // Set year as search filter to fetch all the data about the competition occasion.
+            var yearFilter = new FinlandiaCompetitionYearsFilter(m_year.ToMany());
+            var filters = new FilterCollection(yearFilter);
             m_resultsCollection = await m_dataFetchingService.GetFinlandiaHiihtoResultsAsync(filters);
             
             return m_resultsCollection;
@@ -44,6 +49,7 @@ namespace FJ.Services.FinlandiaHiihto
                 m_year = year;
             }
 
+            // Create individual result collection for each competition and order collections by athletes position.
             m_orderedCompetitionLists = m_resultsCollection.Results
                 .GroupBy(x => x.CompetitionInfo.Name)
                 .Select(x
@@ -62,6 +68,7 @@ namespace FJ.Services.FinlandiaHiihto
                 m_year = year;
             }
 
+            // Create result collection for each competition's team results.
             var res = m_orderedCompetitionLists
                 .Select(competition 
                     => new FinlandiaHiihtoResultsCollection(competition.Results
@@ -69,29 +76,37 @@ namespace FJ.Services.FinlandiaHiihto
                 .Where(x => x.Key != null && x.Count() >= 4)
                 .SelectMany(x =>
                 {
-                    var teamAthletesOrdered = x.OrderBy(y => y.Result);
+                    var teamAthletesOrdered = x.OrderBy(y => y.Result).ToList();
                     var competitionClass = x.First().CompetitionClass;
                     var competitionInfo = x.First().CompetitionInfo;
                     var teamsList = new List<FinlandiaHiihtoSingleResult>();
-                    for (var i = 0; i < teamAthletesOrdered.Count(); i += 4)
+                    
+                    // If team has more than 4 athletes create multiple teams by taking sets of 4 athletes.
+                    // Top 4 athletes form team number 1, next 4 form team number 2 and so on.
+                    for (var i = 0; i < teamAthletesOrdered.Count; i += 4)
                     {
-                        var teamMemebers = teamAthletesOrdered.Skip(i).Take(4);
-                        if (teamMemebers.Count() < 4)
+                        var teamMembers = teamAthletesOrdered.Skip(i).Take(4).ToList();
+                        
+                        // If less than 4 athletes left, no more teams can be formed.
+                        if (teamMembers.Count < 4)
                         {
                             continue;
                         }
+                        
+                        // Create new result row by calculating athletes' result times together. 
                         teamsList.Add(new FinlandiaHiihtoSingleResult
                         {
-                            Team = x.Key + " " + ((i / 4) + 1),
-                            Result = new TimeSpan(teamMemebers.Sum(r => r.Result.Ticks)),
+                            Team = $"{x.Key} {((i / 4) + 1).ToString()}",
+                            Result = new TimeSpan(teamMembers.Sum(r => r.Result.Ticks)),
                             CompetitionClass = competitionClass,
                             CompetitionInfo = competitionInfo
                         });
                     }
+                    
                     return teamsList;
                 })
                 .ToList()
-                .OrderBy(x => x.PositionGeneral)));
+                .OrderBy(x => x.Result)));
             
             return await Task.FromResult(res);
         }
