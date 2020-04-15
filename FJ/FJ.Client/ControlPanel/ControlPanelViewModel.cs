@@ -1,7 +1,12 @@
 ﻿using System;
+using FJ.Client.Athlete;
+using FJ.Client.CompetitionGeneral;
 using FJ.Client.Core;
 using FJ.Client.Core.Common;
 using FJ.Client.Core.Services;
+using FJ.Client.FrontPage;
+using FJ.Client.ResultRegister;
+using FJ.Client.Team;
 
 namespace FJ.Client.ControlPanel
 {
@@ -30,6 +35,31 @@ namespace FJ.Client.ControlPanel
         {
             m_controlPanelRegionController.Minimize();
             RaisePropertyChanged(nameof(IsExpanded));
+        }
+
+        public void NavigateToFrontPage()
+        {
+            Navigator.DoNavigateTo<FrontPageView>();
+        }
+
+        public void NavigateToResultRegister()
+        {
+            Navigator.DoNavigateTo<ResultRegisterView>();
+        }
+
+        public void NavigateToCompetitionGeneral()
+        {
+            Navigator.DoNavigateTo<CompetitionGeneralView>();
+        }
+
+        public void NavigateToAthleteCard()
+        {
+            Navigator.DoNavigateTo<AthleteCardView>();
+        }
+
+        public void NavigateToTeamCard()
+        {
+            Navigator.DoNavigateTo<TeamCardView>();
         }
     }
 }

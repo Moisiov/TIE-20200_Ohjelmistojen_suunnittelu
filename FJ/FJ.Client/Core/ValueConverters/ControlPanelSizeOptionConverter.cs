@@ -15,7 +15,7 @@ namespace FJ.Client.Core.ValueConverters
                 return sizeOption switch
                 {
                     ControlPanelSizeOption.Expanded => new GridLength(double.Parse(parameter.ToString(), culture), GridUnitType.Star),
-                    ControlPanelSizeOption.Minimized => new GridLength(double.Parse(parameter.ToString(), culture) / 5, GridUnitType.Star),
+                    ControlPanelSizeOption.Minimized => new GridLength(70.0, GridUnitType.Pixel),
                     _ => throw new NotImplementedException(),
                 };
             }
