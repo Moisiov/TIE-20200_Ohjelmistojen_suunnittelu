@@ -58,7 +58,7 @@ namespace FinlandiaHiihtoAPI.NUnitTests
             var res1 = await m_testDecorator.GetData(args1);
             var res2 = await m_testDecorator.GetData(args2);
 
-            Assert.AreEqual( 3177, res1.Count());
+            Assert.AreEqual(3177, res1.Count());
             Assert.AreEqual(90, res2.Count());
             Assert.AreNotEqual(res1.First(), res2.First());
         }

@@ -39,7 +39,6 @@ namespace FinlandiaHiihtoAPI.Cache
             }
             value = FilterBroaderResultsWithArgs(key, value);
             return true;
-
         }
         
         private bool TryGetSerializingArgsRecursively(FinlandiaHiihtoAPISearchArgs key, 

@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using FinlandiaHiihtoAPI.Cache;
 using Moq;
 using NUnit.Framework;
-using FinlandiaHiihtoAPI.Cache;
 
 namespace FinlandiaHiihtoAPI.NUnitTests
 {
