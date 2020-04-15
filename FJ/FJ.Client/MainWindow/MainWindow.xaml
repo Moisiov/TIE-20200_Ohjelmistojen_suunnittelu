@@ -16,6 +16,15 @@
             <Style />
         </Styles>
     </Window.Styles>
+    
+    <Window.KeyBindings>
+        <KeyBinding Command="{Binding HotKeyDoNavigateBack}" Gesture="CTRL+A" />
+        <KeyBinding Command="{Binding HotKeyDoNavigateForward}" Gesture="CTRL+D" />
+        <KeyBinding Command="{Binding HotKeyDoRefresh}" Gesture="F5" />
+        <KeyBinding Command="{Binding HotKeyDoRefresh}" Gesture="CTRL+R" />
+        <KeyBinding Command="{Binding HotKeyDoClosePanel}" Gesture="CTRL+W" />
+        <KeyBinding Command="{Binding HotKeyDoCloseApplication}" CommandParameter="" Gesture="CTRL+Q" />
+    </Window.KeyBindings>
 
     <!-- Region-based contents -->
     <Grid x:Name="LayoutRoot">

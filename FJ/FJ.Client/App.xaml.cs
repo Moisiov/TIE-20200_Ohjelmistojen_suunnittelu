@@ -4,6 +4,7 @@ using FJ.Client.ControlPanel;
 using FJ.Client.Core.IoC;
 using FJ.Client.Core.Services;
 using FJ.Client.FrontPage;
+using FJ.Client.MainWindow;
 using FJ.Client.TopBar;
 using Prism.Ioc;
 using Prism.Mvvm;
@@ -15,6 +16,7 @@ namespace FJ.Client
 {
     public class App : PrismApplication
     {
+        private MainWindowViewModel m_mwViewModel;
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
@@ -25,6 +27,7 @@ namespace FJ.Client
         {
             base.OnFrameworkInitializationCompleted();
 
+            m_mwViewModel?.OnFrameworkInitializationCompleted();
             SetupStartupViews();
         }
 
@@ -39,7 +42,10 @@ namespace FJ.Client
 
         protected override IAvaloniaObject CreateShell()
         {
-            return Container.Resolve<MainWindow.MainWindow>();
+            var mw = Container.Resolve<MainWindow.MainWindow>();
+            m_mwViewModel = mw.DataContext as MainWindowViewModel;
+            
+            return mw;
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

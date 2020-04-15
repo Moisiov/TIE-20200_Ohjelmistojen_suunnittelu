@@ -15,6 +15,9 @@ namespace FJ.Client.Core.Services
     /// </summary>
     public interface IContentRegionNavigator
     {
+        /// <summary>
+        /// Navigation mode included in navigation events for targets to decide e.g. if there is a need for repopulating
+        /// </summary>
         public enum NavigationMode
         {
             Unknown,
@@ -87,6 +90,11 @@ namespace FJ.Client.Core.Services
         /// Argument that will be passed to the navigation target</param>
         void DoNavigateTo<TView>(object navArgs = null)
             where TView : UserControl;
+
+        /// <summary>
+        /// Clears the navigation stack
+        /// </summary>
+        void DoClearNavigationStack();
 
         /// <summary>
         /// Sets the loading screen visibility in Content-region

@@ -33,10 +33,12 @@ namespace FJ.Client.TopBar
         public TopBarViewModel(IEventAggregator ea)
         {
             m_model = new TopBarModel();
+            
+            // Subscriptions here as this view is navigated on startup
+            ea.GetEvent<ContentRegionNavigationEvent>().Subscribe(e => UpdateNavigationButtons());
+            ea.GetEvent<ContentRegionNavigationStackClearedEvent>().Subscribe(UpdateNavigationButtons);
 
-            ea.GetEvent<ContentRegionNavigationEvent>().Subscribe((e) => UpdateNavigationButtons());
-
-            TopBarHeaderText = "TESTITEKSTI, JOKA ON KOVIN PITKÄ LUONTEELTAAN";
+            TopBarHeaderText = "KOMITEA";
         }
 
         public void DoNavigateContentBack()

@@ -50,7 +50,7 @@ namespace FJ.Client.Core.Services
 
         private IContentRegionNavigator.NavigationMode
             m_navigationMode = IContentRegionNavigator.NavigationMode.Unknown;
-
+        
         public bool CanNavigateBack => GetContentRegionNavigationJournal().CanGoBack;
         public bool CanNavigateForward => GetContentRegionNavigationJournal().CanGoForward;
 
@@ -106,6 +106,22 @@ namespace FJ.Client.Core.Services
             DoNavigateTo(typeof(TView).Name, navArgs);
         }
 
+        public void DoClearNavigationStack()
+        {
+            GetContentRegionNavigationJournal().Clear();
+            m_eventAggregator.GetEvent<ContentRegionNavigationStackClearedEvent>().Publish();
+        }
+
+        public void SetLoadingScreen(bool doShowLoadingScreen)
+        {
+            m_eventAggregator.GetEvent<ContentRegionLoadingScreenEvent>().Publish(doShowLoadingScreen);
+        }
+
+        public IDisposableLoadingScreen ShowLoadingScreen()
+        {
+            return new DisposableLoadingScreen(SetLoadingScreen);
+        }
+
         protected virtual void OnContentRegionNavigation(object s, RegionNavigationEventArgs e)
         {
             var eventArgs = new ContentRegionNavigationEventArgs
@@ -123,16 +139,6 @@ namespace FJ.Client.Core.Services
         private IRegionNavigationJournal GetContentRegionNavigationJournal()
         {
             return m_regionManager.Regions[Regions.ContentRegion].NavigationService.Journal;
-        }
-
-        public void SetLoadingScreen(bool doShowLoadingScreen)
-        {
-            m_eventAggregator.GetEvent<ContentRegionLoadingScreenEvent>().Publish(doShowLoadingScreen);
-        }
-
-        public IDisposableLoadingScreen ShowLoadingScreen()
-        {
-            return new DisposableLoadingScreen(SetLoadingScreen);
         }
     }
 }
