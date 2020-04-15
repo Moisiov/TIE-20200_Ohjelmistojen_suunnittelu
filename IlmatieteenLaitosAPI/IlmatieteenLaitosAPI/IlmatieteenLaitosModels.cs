@@ -33,24 +33,24 @@ namespace IlmatieteenLaitosAPI
         public double? WindSpeedMax { get; set; }
 
         /// <summary>
-        /// Wind gust maximum, 3 second average (m/s).
+        /// Average wind direction (deg).
         /// </summary>
-        public double? WindGustSpeedMax { get; set; }
+        public double? WindDirection { get; set; }
 
         /// <summary>
-        /// Rain accumulated (mm).
+        /// Rain amount accumulated (mm).
         /// </summary>
-        public double? RainAccumulated { get; set; }
+        public double? Precipitation { get; set; }
 
         /// <summary>
-        /// Rain intensity maximum (mm).
+        /// Rain amount intensity maximum (mm/h).
         /// </summary>
-        public double? RainIntensityMaximum { get; set; }
+        public double? PrecipitationIntensityMaximum { get; set; }
 
         /// <summary>
-        /// Air pressure (hPa).
+        /// Average air pressure (hPa).
         /// </summary>
-        public double? AirPressure { get; set; }
+        public double? AirPressureAvg { get; set; }
 
         /// <summary>
         /// Weather code is used to describe weather.

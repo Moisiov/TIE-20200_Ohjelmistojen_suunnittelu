@@ -117,12 +117,12 @@ namespace IlmatieteenLaitosAPI
                         AirTemperatureMin = doubles[2],
                         AirHumidityAvg = doubles[3],
                         WindSpeedAvg = doubles[4],
-                        WindSpeedMin = doubles[5],
-                        WindSpeedMax = doubles[6],
-                        WindGustSpeedMax = doubles[7],
-                        RainAccumulated = doubles[8],
-                        RainIntensityMaximum = doubles[9],
-                        AirPressure = doubles[10],
+                        WindSpeedMax = doubles[5],
+                        WindSpeedMin = doubles[6],
+                        WindDirection = doubles[7],
+                        Precipitation = doubles[8],
+                        PrecipitationIntensityMaximum = doubles[9],
+                        AirPressureAvg = doubles[10],
                         MostSignificantWeatherCode = doubles[11]
                     });
 

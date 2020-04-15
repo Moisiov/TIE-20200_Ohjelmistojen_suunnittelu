@@ -21,10 +21,10 @@ namespace IlmatieteenLaitosAPI
                 WindSpeedAvg = weatherModels.Average(w => w.WindSpeedAvg),
                 WindSpeedMin = weatherModels.Min(w => w.WindSpeedMin),
                 WindSpeedMax = weatherModels.Max(w => w.WindSpeedMax),
-                WindGustSpeedMax = weatherModels.Max(w => w.WindGustSpeedMax),
-                RainAccumulated = weatherModels.Sum(w => w.RainAccumulated),
-                RainIntensityMaximum = weatherModels.Max(w => w.RainIntensityMaximum),
-                AirPressure = weatherModels.Average(w => w.AirPressure),
+                WindDirection = weatherModels.Average(w => w.WindDirection),
+                Precipitation = weatherModels.Sum(w => w.Precipitation),
+                PrecipitationIntensityMaximum = weatherModels.Max(w => w.PrecipitationIntensityMaximum),
+                AirPressureAvg = weatherModels.Average(w => w.AirPressureAvg),
                 MostSignificantWeatherCode = weatherModels
                     .GroupBy(w => w.MostSignificantWeatherCode)
                     .OrderByDescending(grp => grp.Count())
