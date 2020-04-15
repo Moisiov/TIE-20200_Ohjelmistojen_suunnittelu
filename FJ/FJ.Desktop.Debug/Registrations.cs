@@ -6,6 +6,7 @@ using FJ.Services.CoreServices;
 using FJ.Services.FinlandiaHiihto;
 using FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices;
 using FJ.Utils;
+using IlmatieteenLaitosAPI;
 using Unity;
 using Unity.Lifetime;
 
@@ -54,6 +55,7 @@ namespace FJ.Desktop.Debug
         {
             // APIs are treated as externals
             container.RegisterInstance<IFinlandiaHiihtoAPI>(new FinlandiaHiihtoAPI.FinlandiaHiihtoAPI());
+            container.RegisterInstance<IIlmatieteenLaitosAPI>(new IlmatieteenLaitosAPI.IlmatieteenLaitosAPI());
         }
 
         private static void ServiceInterfacesRegistrations(IUnityContainer container)
