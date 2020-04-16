@@ -28,12 +28,12 @@ namespace FinlandiaHiihtoAPI
                 args.Year.ToString().EmptyToNull(),
                 args.FirstName,
                 args.LastName,
-                args.CompetitionType,
-                args.AgeGroup,
+                args.CompetitionType.GetRequestValue(),
+                args.AgeGroup.GetRequestValue(),
                 args.CompetitorHomeTown,
                 args.Team,
-                args.Gender,
-                args.Nationality
+                args.Gender.GetRequestValue(),
+                args.Nationality.GetRequestValue()
             };
             
             return await m_scraper.FetchData(await RequestBaseForm(), searchConstraints);

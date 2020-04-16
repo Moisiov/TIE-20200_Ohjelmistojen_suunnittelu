@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using FinlandiaHiihtoAPI.Cache;
+using FinlandiaHiihtoAPI.Enums;
 using Moq;
 using NUnit.Framework;
 
@@ -79,7 +80,7 @@ namespace FinlandiaHiihtoAPI.NUnitTests
             var args2 = new FinlandiaHiihtoAPISearchArgs
             {
                 Year = 2010,
-                CompetitionType = "V42"
+                CompetitionType = FinlandiaCompetitionType.V42
             };
 
             await m_testDecorator.GetData(args1);
@@ -94,12 +95,12 @@ namespace FinlandiaHiihtoAPI.NUnitTests
             var args1 = new FinlandiaHiihtoAPISearchArgs
             {
                 Year = 2010,
-                CompetitionType = "P50"
+                CompetitionType = FinlandiaCompetitionType.P50
             };
             var args2 = new FinlandiaHiihtoAPISearchArgs
             {
                 Year = 2010,
-                CompetitionType = "V20"
+                CompetitionType = FinlandiaCompetitionType.V20
             };
 
             await m_testDecorator.GetData(args1);
@@ -114,23 +115,24 @@ namespace FinlandiaHiihtoAPI.NUnitTests
             var args1 = new FinlandiaHiihtoAPISearchArgs
             {
                 Year = 2010,
-                CompetitionType = "P50"
+                CompetitionType = FinlandiaCompetitionType.P50
             };
             var args2 = new FinlandiaHiihtoAPISearchArgs
             {
                 Year = 2010,
-                CompetitionType = "P50",
-                Gender = "M",
+                CompetitionType = FinlandiaCompetitionType.P50,
+                Gender = FinlandiaGender.Male,
                 FirstName = "Janne",
                 CompetitorHomeTown = "Espoo"
             };
+            
             await m_testDecorator.GetData(args1);
             await m_testDecorator.GetData(args2);
             
             m_actualFetcherMock.Verify(m_mockedFunc, Times.Exactly(1));
             Assert.AreEqual(2010, args2.Year);
-            Assert.AreEqual("P50", args2.CompetitionType);
-            Assert.AreEqual("M", args2.Gender);
+            Assert.AreEqual(FinlandiaCompetitionType.P50, args2.CompetitionType);
+            Assert.AreEqual(FinlandiaGender.Male, args2.Gender);
             Assert.AreEqual("Janne", args2.FirstName);
             Assert.AreEqual("Espoo", args2.CompetitorHomeTown);
         }
@@ -141,29 +143,30 @@ namespace FinlandiaHiihtoAPI.NUnitTests
             var args1 = new FinlandiaHiihtoAPISearchArgs
             {
                 Year = 2010,
-                CompetitionType = "P50"
+                CompetitionType = FinlandiaCompetitionType.P50
             };
             var args2 = new FinlandiaHiihtoAPISearchArgs
             {
                 Year = 2010,
-                CompetitionType = "P50",
-                Gender = "M",
+                CompetitionType = FinlandiaCompetitionType.P50,
+                Gender = FinlandiaGender.Male,
             };
             var args3 = new FinlandiaHiihtoAPISearchArgs
             {
                 Year = 2010,
-                CompetitionType = "P50",
-                Gender = "M",
+                CompetitionType = FinlandiaCompetitionType.P50,
+                Gender = FinlandiaGender.Male,
                 FirstName = "Janne"
             };
             var args4 = new FinlandiaHiihtoAPISearchArgs
             {
                 Year = 2010,
-                CompetitionType = "P50",
-                Gender = "M",
+                CompetitionType = FinlandiaCompetitionType.P50,
+                Gender = FinlandiaGender.Male,
                 FirstName = "Janne",
                 CompetitorHomeTown = "Espoo"
             };
+            
             await m_testDecorator.GetData(args1);
             await m_testDecorator.GetData(args2);
             await m_testDecorator.GetData(args3);
@@ -178,7 +181,7 @@ namespace FinlandiaHiihtoAPI.NUnitTests
             var args1 = new FinlandiaHiihtoAPISearchArgs
             {
                 Year = 2010,
-                CompetitionType = "P50"
+                CompetitionType = FinlandiaCompetitionType.P50
             };
             var args2 = new FinlandiaHiihtoAPISearchArgs
             {
@@ -188,7 +191,7 @@ namespace FinlandiaHiihtoAPI.NUnitTests
             var args3 = new FinlandiaHiihtoAPISearchArgs
             {
                 Year = 2010,
-                CompetitionType = "P50",
+                CompetitionType = FinlandiaCompetitionType.P50,
                 FirstName = "Janne"
             };
             

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FinlandiaHiihtoAPI;
+using FinlandiaHiihtoAPI.Enums;
 using FJ.DomainObjects;
 using FJ.DomainObjects.Enums;
 using FJ.DomainObjects.Filters;
@@ -42,7 +43,8 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
             var searches = new FilterSearchComposer<FinlandiaHiihtoAPISearchArgs>()
                 .ApplyFilters(filters, m_filterImplementationProvider)
                 .Searches;
-            var searchTasks = searches.Select(x => m_api.GetData(x)).ToList();
+            
+            // var searchTasks = searches.Select(x => m_api.GetData(x)).ToList();
 
             if (searches.Count > c_searchCountLimit)
             {
@@ -82,8 +84,8 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
                 var dist = (FinlandiaSkiingDistance)int.Parse(styleDistString.Substring(1));
                 var gender = result.Gender switch
                 {
-                    "M" => Gender.Man,
-                    "N" => Gender.Woman,
+                    FinlandiaGender.Male => Gender.Man,
+                    FinlandiaGender.Female => Gender.Woman,
                     _ => Gender.Unknown
                 };
                 var competitionClass = FinlandiaHiihtoCompetitionClass.Create(dist, style);
@@ -107,7 +109,9 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
                         LastName = result.FullName.Split()[0],
                         PersonGender = gender,
                         City = result.HomeTown,
-                        Nationality = result.Nationality,
+                        Nationality = result.Nationality != null 
+                            ? Enum.GetName(typeof(FinlandiaNationality), result.Nationality)
+                            : null,
                         YearOfBirth = result.BornYear
                     },
 

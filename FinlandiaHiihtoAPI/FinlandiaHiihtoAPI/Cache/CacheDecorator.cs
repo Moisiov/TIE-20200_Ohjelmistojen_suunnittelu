@@ -24,6 +24,7 @@ namespace FinlandiaHiihtoAPI.Cache
 
             var res = await m_api.GetData(args);
             m_cacheProvider.SetSerializingKey(args, res);
+            
             return res;
         }
     }

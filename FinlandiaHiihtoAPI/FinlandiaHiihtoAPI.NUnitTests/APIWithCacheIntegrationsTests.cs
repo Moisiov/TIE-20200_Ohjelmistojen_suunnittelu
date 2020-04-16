@@ -1,7 +1,9 @@
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using FinlandiaHiihtoAPI.Cache;
+using FinlandiaHiihtoAPI.Enums;
 using NUnit.Framework;
 // TODO Logging
 
@@ -33,11 +35,11 @@ namespace FinlandiaHiihtoAPI.NUnitTests
                 Year = 2010
             };
 
-            var res1 = await m_testDecorator.GetData(args1);
-            var res2 = await m_testDecorator.GetData(args2);
+            var res1 = (await m_testDecorator.GetData(args1)).ToList();
+            var res2 = (await m_testDecorator.GetData(args2)).ToList();
 
-            Assert.AreEqual(5384, res1.Count());
-            Assert.AreEqual(5384, res2.Count());
+            Assert.AreEqual(5384, res1.Count);
+            Assert.AreEqual(5384, res2.Count);
             Assert.AreEqual(res1.First(), res2.First());
         }
         
@@ -47,19 +49,19 @@ namespace FinlandiaHiihtoAPI.NUnitTests
             var args1 = new FinlandiaHiihtoAPISearchArgs
             {
                 Year = 2010,
-                CompetitionType = "P50"
+                CompetitionType = FinlandiaCompetitionType.P50
             };
             var args2 = new FinlandiaHiihtoAPISearchArgs
             {
                 Year = 2010,
-                CompetitionType = "V20"
+                CompetitionType = FinlandiaCompetitionType.V20
             };
 
-            var res1 = await m_testDecorator.GetData(args1);
-            var res2 = await m_testDecorator.GetData(args2);
+            var res1 = (await m_testDecorator.GetData(args1)).ToList();
+            var res2 = (await m_testDecorator.GetData(args2)).ToList();
 
-            Assert.AreEqual(3177, res1.Count());
-            Assert.AreEqual(90, res2.Count());
+            Assert.AreEqual(3177, res1.Count);
+            Assert.AreEqual(90, res2.Count);
             Assert.AreNotEqual(res1.First(), res2.First());
         }
         
@@ -69,26 +71,26 @@ namespace FinlandiaHiihtoAPI.NUnitTests
             var args1 = new FinlandiaHiihtoAPISearchArgs
             {
                 Year = 2010,
-                CompetitionType = "P50"
+                CompetitionType = FinlandiaCompetitionType.P50
             };
             var args2 = new FinlandiaHiihtoAPISearchArgs
             {
                 Year = 2010,
-                CompetitionType = "P50",
-                Gender = "M",
+                CompetitionType = FinlandiaCompetitionType.P50,
+                Gender = FinlandiaGender.Male,
             };
             var args3 = new FinlandiaHiihtoAPISearchArgs
             {
                 Year = 2010,
-                CompetitionType = "P50",
-                Gender = "M",
+                CompetitionType = FinlandiaCompetitionType.P50,
+                Gender = FinlandiaGender.Male,
                 FirstName = "Janne"
             };
             var args4 = new FinlandiaHiihtoAPISearchArgs
             {
                 Year = 2010,
-                CompetitionType = "P50",
-                Gender = "M",
+                CompetitionType = FinlandiaCompetitionType.P50,
+                Gender = FinlandiaGender.Male,
                 FirstName = "Janne",
                 CompetitorHomeTown = "Espoo"
             };
@@ -96,22 +98,22 @@ namespace FinlandiaHiihtoAPI.NUnitTests
             var startTime = DateTime.Now;
             var res1 = await m_testDecorator.GetData(args1);
             var endTime = DateTime.Now;
-            Console.WriteLine("Get data 1 (ms): " + ((TimeSpan)(endTime - startTime)).TotalMilliseconds);
+            Debug.WriteLine($"Get data 1 (ms): {(endTime - startTime).TotalMilliseconds}");
             
             startTime = DateTime.Now;
             var res2 = await m_testDecorator.GetData(args2);
             endTime = DateTime.Now;
-            Console.WriteLine("Get data 2 (ms): " + ((TimeSpan)(endTime - startTime)).TotalMilliseconds);
+            Debug.WriteLine($"Get data 2 (ms): {(endTime - startTime).TotalMilliseconds}");
             
             startTime = DateTime.Now;
             var res3 = await m_testDecorator.GetData(args3);
             endTime = DateTime.Now;
-            Console.WriteLine("Get data 3 (ms): " + ((TimeSpan)(endTime - startTime)).TotalMilliseconds);
+            Debug.WriteLine($"Get data 3 (ms): {(endTime - startTime).TotalMilliseconds}");
             
             startTime = DateTime.Now;
             var res4 = await m_testDecorator.GetData(args4);
             endTime = DateTime.Now;
-            Console.WriteLine("Get data 4 (ms): " + ((TimeSpan)(endTime - startTime)).TotalMilliseconds);
+            Debug.WriteLine($"Get data 4 (ms): {(endTime - startTime).TotalMilliseconds}");
             
             Assert.AreEqual(3177, res1.Count());
             Assert.AreEqual(2852, res2.Count());

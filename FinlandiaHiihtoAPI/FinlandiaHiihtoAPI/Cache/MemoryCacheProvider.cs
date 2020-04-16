@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
-using FinlandiaHiihtoAPI.Utils;
-
+using FinlandiaHiihtoAPI.Enums;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 
@@ -89,7 +86,8 @@ namespace FinlandiaHiihtoAPI.Cache
             
                 (args.Year == null || x.Year == args.Year) && 
                 CheckNameFilter(x.FullName, args.FirstName, args.LastName)
-                && (args.CompetitionType == null || x.StyleAndDistance == args.CompetitionType)
+                && (args.CompetitionType == null
+                    || x.StyleAndDistance == Enum.GetName(typeof(FinlandiaCompetitionType), args.CompetitionType))
                 && (args.AgeGroup == null || CheckAgeGroupFilter(x.BornYear, x.Year, args.AgeGroup))
                 && (args.CompetitorHomeTown == null || x.HomeTown.Contains(args.CompetitorHomeTown))
                 && (args.Team == null || x.Team.Contains(args.Team))
@@ -113,22 +111,22 @@ namespace FinlandiaHiihtoAPI.Cache
                    (lastName == null || lastFromFullName.Contains(lastName));
         }
         
-        private static bool CheckAgeGroupFilter(int? bornYear, int competitionYear, string ageGroup)
+        private static bool CheckAgeGroupFilter(int? bornYear, int competitionYear, FinlandiaAgeGroup? ageGroup)
         {
             var age = competitionYear - bornYear;
             return ageGroup switch
             {
-                "alle35" => age < 35,
-                "35" => age >= 35 && age < 40,
-                "40" => age >= 40 && age < 45,
-                "45" => age >= 45 && age < 50,
-                "50" => age >= 50 && age < 55,
-                "55" => age >= 55 && age < 60,
-                "60" => age >= 60 && age < 65,
-                "65" => age >= 65 && age < 70,
-                "70" => age >= 70 && age < 75,
-                "75" => age >= 75 && age < 80,
-                "yli80" => age >= 80,
+                FinlandiaAgeGroup.LessThan35 => age < 35,
+                FinlandiaAgeGroup.ThirtyFive => age >= 35 && age < 40,
+                FinlandiaAgeGroup.Forty => age >= 40 && age < 45,
+                FinlandiaAgeGroup.FortyFive => age >= 45 && age < 50,
+                FinlandiaAgeGroup.Fifty => age >= 50 && age < 55,
+                FinlandiaAgeGroup.FiftyFive => age >= 55 && age < 60,
+                FinlandiaAgeGroup.Sixty => age >= 60 && age < 65,
+                FinlandiaAgeGroup.SixtyFive => age >= 65 && age < 70,
+                FinlandiaAgeGroup.Seventy => age >= 70 && age < 75,
+                FinlandiaAgeGroup.SeventyFive => age >= 75 && age < 80,
+                FinlandiaAgeGroup.OverEighty => age >= 80,
                 _ => false
             };
         }
