@@ -96,7 +96,7 @@ namespace FJ.Client.ResultRegister
             SelectedTest = new ObservableCollection<FinlandiaHiihtoCompetitionClass>();
         }
 
-        public override async Task DoPopulateAsync()
+        protected override async Task OnDoPopulateAsync()
         {
             if (!Argument.CompetitionYears?.Any() == true || !Argument.HomeCities?.Any() == true)
             {
@@ -175,7 +175,7 @@ namespace FJ.Client.ResultRegister
             Navigator.DoNavigateTo<CompetitionOccasionView>(args);
         }
 
-        protected override async Task DoRefreshInternalAsync()
+        protected override Task DoRefreshInternalAsync()
         {
             // TODO Remove filter selections
             Results = new ObservableCollection<ResultRegisterItemModel>();

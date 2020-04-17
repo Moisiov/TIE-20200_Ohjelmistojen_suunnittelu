@@ -69,7 +69,7 @@ namespace FJ.Client.Athlete
             ProgressChartIsActive = false;
         }
 
-        public override async Task DoPopulateAsync()
+        protected override async Task DoPopulateAsync()
         {
             using (Navigator.ShowLoadingScreen())
             {

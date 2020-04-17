@@ -65,7 +65,7 @@ namespace FJ.Client.CompetitionOccasion
             m_model = new CompetitionOccasionModel(competitionOccasionDataService);
         }
         
-        public override async Task DoPopulateAsync()
+        protected override async Task DoPopulateAsync()
         {
             using (Navigator.ShowLoadingScreen())
             {

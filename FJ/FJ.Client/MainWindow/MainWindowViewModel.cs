@@ -1,8 +1,7 @@
 ﻿using System;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Input;
-using Avalonia.Interactivity;
+using FJ.Client.Core;
 using FJ.Client.Core.Common;
 using FJ.Client.Core.Events;
 using FJ.Client.Core.Services;
@@ -12,7 +11,7 @@ using ReactiveUI;
 namespace FJ.Client.MainWindow
 {
     // NOTE: Not deriving from ViewModelBase as a workaround for region instantiating
-    public class MainWindowViewModel : ReactiveObject
+    public class MainWindowViewModel : FJNotificationObject
     {
         private readonly Lazy<IContentRegionNavigator> m_lazyNavigator;
         private IContentRegionNavigator Navigator => m_lazyNavigator.Value;
@@ -22,22 +21,14 @@ namespace FJ.Client.MainWindow
         public ControlPanelSizeOption ControlPanelSize
         {
             get => m_controlPanelSize;
-            set
-            {
-                m_controlPanelSize = value;
-                ((IReactiveObject)this).RaisePropertyChanged(nameof(ControlPanelSize));
-            }
+            set => SetAndRaise(ref m_controlPanelSize, value);
         }
 
         private bool m_showContentRegionLoadingScreen;
         public bool ShowContentRegionLoadingScreen
         {
             get => m_showContentRegionLoadingScreen;
-            set
-            {
-                m_showContentRegionLoadingScreen = value;
-                ((IReactiveObject)this).RaisePropertyChanged(nameof(ShowContentRegionLoadingScreen));
-            }
+            set => SetAndRaise(ref m_showContentRegionLoadingScreen, value);
         }
 
         public MainWindowViewModel(IEventAggregator ea, Lazy<IContentRegionNavigator> navigator)

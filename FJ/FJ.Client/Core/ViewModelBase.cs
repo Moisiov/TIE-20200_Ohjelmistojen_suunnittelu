@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using FJ.Client.Core.Events;
 using FJ.Client.Core.Services;
 using FJ.Utils;
 using Prism.Events;
 using Prism.Regions;
-using ReactiveUI;
 
 namespace FJ.Client.Core
 {
@@ -16,7 +12,7 @@ namespace FJ.Client.Core
     {
     }
 
-    public abstract class ViewModelBase<TArgument> : ReactiveObject, IRegionMemberLifetime, IJournalAware, INavigationAware
+    public abstract class ViewModelBase<TArgument> : FJNotificationObject, IRegionMemberLifetime, IJournalAware, INavigationAware
         where TArgument : NavigationArgsBase<TArgument>, new()
     {
         protected IEventAggregator EventAggregator { get; private set; }
@@ -90,12 +86,12 @@ namespace FJ.Client.Core
         /// Override this method if you need to use Argument on async populating
         /// </summary>
         /// <returns>Task</returns>
-        public virtual async Task DoPopulateAsync()
+        protected virtual async Task DoPopulateAsync()
         {
             await Task.CompletedTask;
         }
 
-        public async Task DoRefreshAsync(ContentRegionRefreshRequestedEventArgs eventArgs)
+        private async Task DoRefreshAsync(ContentRegionRefreshRequestedEventArgs eventArgs)
         {
             if (eventArgs.TargetViewModelName != GetType().Name)
             {
@@ -109,35 +105,6 @@ namespace FJ.Client.Core
         protected virtual async Task DoRefreshInternalAsync()
         {
             await Task.CompletedTask;
-        }
-
-        protected bool SetAndRaise<T>(ref T field, T value, [CallerMemberName] string caller = "")
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value))
-            {
-                return false;
-            }
-
-            field = value;
-            RaisePropertyChanged(caller);
-
-            return true;
-        }
-
-        protected void RaisePropertyChanged(string propertyName)
-        {
-            ((IReactiveObject)this).RaisePropertyChanged(propertyName);
-        }
-
-        protected void RaisePropertyChanged<T>(Expression<Func<T>> propertyExpression)
-        {
-            var expression = (MemberExpression)propertyExpression.Body;
-            RaisePropertyChanged(expression.Member.Name);
-        }
-
-        protected void RaisePropertiesChanged()
-        {
-            RaisePropertyChanged(null);
         }
     }
 }
