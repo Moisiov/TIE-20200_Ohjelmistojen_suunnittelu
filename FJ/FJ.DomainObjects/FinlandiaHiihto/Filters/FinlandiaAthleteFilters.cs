@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FJ.DomainObjects.Enums;
+using FJ.DomainObjects.Filters.CommonFilters;
 using FJ.DomainObjects.Filters.Core;
 
 namespace FJ.DomainObjects.FinlandiaHiihto.Filters
@@ -35,6 +37,16 @@ namespace FJ.DomainObjects.FinlandiaHiihto.Filters
 
         public FinlandiaFullNameFilter(string fullName)
             : base(fullName)
+        {
+        }
+    }
+
+    public class FinlandiaGenderFilter : EnumFilterBase<Gender, FinlandiaGenderFilter>
+    {
+        public override string ShortName => "Finlandia athlete's gender";
+        
+        public FinlandiaGenderFilter(IEnumerable<Gender> genders)
+            : base(genders)
         {
         }
     }

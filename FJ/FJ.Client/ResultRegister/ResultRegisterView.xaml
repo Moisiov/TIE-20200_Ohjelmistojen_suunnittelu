@@ -71,14 +71,11 @@
                 
                 <StackPanel Orientation="Vertical">
                     <TextBlock Classes="FilterCaption" Text="Sukupuoli" />
-                    <filters:FJFilterEnumComboBox Classes="FilterBox"
-                                                  FilterModel="{Binding RegisterModel.FinlandiaGenderFilter}" >
-                        <filters:FJFilterEnumComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding, Converter={StaticResource EnumToDescriptionConverter}}" />
-                            </DataTemplate>
-                        </filters:FJFilterEnumComboBox.ItemTemplate>
-                    </filters:FJFilterEnumComboBox>
+                    <filters:FJFilterEnumMultiComboBox Classes="FilterBox"
+                                                       ValueConverter="{StaticResource EnumToDescriptionConverter}"
+                                                       FilterModel="{Binding RegisterModel.FinlandiaGenderFilter}"
+                                                       Watermark="Ei suodatusta"
+                                                       SuffixOnMany="sukupuolta"/>
                 </StackPanel>
                 
                 <StackPanel Orientation="Vertical">

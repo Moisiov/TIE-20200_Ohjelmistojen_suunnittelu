@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using FinlandiaHiihtoAPI;
@@ -64,44 +65,51 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
             var res = new List<FinlandiaHiihtoSingleResult>();
             foreach (var result in rawData)
             {
-                var styleDistString = result.StyleAndDistance;
-                var style = styleDistString[0] == 'P' ? FinlandiaSkiingStyle.Classic : FinlandiaSkiingStyle.Skate;
-                var dist = (FinlandiaSkiingDistance)int.Parse(styleDistString.Substring(1));
-                var gender = result.Gender switch
+                try
                 {
-                    FinlandiaGender.Male => Gender.Man,
-                    FinlandiaGender.Female => Gender.Woman,
-                    _ => Gender.Unknown
-                };
-                var competitionClass = FinlandiaHiihtoCompetitionClass.Create(dist, style);
+                    var styleDistString = result.StyleAndDistance;
+                    var style = styleDistString[0] == 'P' ? FinlandiaSkiingStyle.Classic : FinlandiaSkiingStyle.Skate;
+                    var dist = (FinlandiaSkiingDistance) int.Parse(styleDistString.Substring(1));
+                    var gender = result.Gender switch
+                    {
+                        FinlandiaGender.Male => Gender.Man,
+                        FinlandiaGender.Female => Gender.Woman,
+                        _ => Gender.Unknown
+                    };
+                    var competitionClass = FinlandiaHiihtoCompetitionClass.Create(dist, style);
 
-                res.Add(new FinlandiaHiihtoSingleResult
+                    res.Add(new FinlandiaHiihtoSingleResult
+                    {
+                        CompetitionInfo = new Competition
+                        {
+                            Year = result.Year,
+                            Name = (int) competitionClass.Distance + "km " +
+                                   competitionClass.Style.GetDescription()
+                        },
+                        CompetitionClass = FinlandiaHiihtoCompetitionClass.Create(dist, style),
+                        Result = result.Result,
+                        PositionGeneral = result.Position,
+                        PositionMen = result.PositionMen,
+                        PositionWomen = result.PositionWomen,
+                        Athlete = new Person
+                        {
+                            FirstName = string.Join(" ", result.FullName.Split().Skip(1).ToArray()),
+                            LastName = result.FullName.Split()[0],
+                            PersonGender = gender,
+                            City = result.HomeTown,
+                            Nationality = result.Nationality != null
+                                ? Enum.GetName(typeof(FinlandiaNationality), result.Nationality)
+                                : null,
+                            YearOfBirth = result.BornYear
+                        },
+
+                        Team = result.Team
+                    });
+                }
+                catch (Exception e)
                 {
-                    CompetitionInfo = new Competition
-                    {
-                        Year = result.Year,
-                        Name = (int)competitionClass.Distance + "km " + 
-                               competitionClass.Style.GetDescription()
-                    },
-                    CompetitionClass = FinlandiaHiihtoCompetitionClass.Create(dist, style),
-                    Result = result.Result,
-                    PositionGeneral = result.Position,
-                    PositionMen = result.PositionMen,
-                    PositionWomen = result.PositionWomen,
-                    Athlete = new Person
-                    {
-                        FirstName = string.Join(" ", result.FullName.Split().Skip(1).ToArray()),
-                        LastName = result.FullName.Split()[0],
-                        PersonGender = gender,
-                        City = result.HomeTown,
-                        Nationality = result.Nationality != null 
-                            ? Enum.GetName(typeof(FinlandiaNationality), result.Nationality)
-                            : null,
-                        YearOfBirth = result.BornYear
-                    },
-
-                    Team = result.Team
-                });
+                    Debug.WriteLine(e);
+                }
             }
 
             return res;

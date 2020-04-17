@@ -1,5 +1,4 @@
 ﻿using System;
-﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FJ.Client.Core;
@@ -21,7 +20,7 @@ namespace FJ.Client.ResultRegister
         
         public FilterModel_FinlandiaFirstNames FinlandiaFirstNamesFilter  { get; set; }
         public FilterModel_FinlandiaLastNames FinlandiaLastNamesFilter  { get; set; }
-        public FilterModel_FinlandiaGender FinlandiaGenderFilter  { get; set; }
+        public FilterModel_FinlandiaGenders FinlandiaGenderFilter  { get; set; }
         public FilterModel_FinlandiaHomeCities FinlandiaHomeCitiesFilter  { get; set; }
         public FilterModel_FinlandiaYearsOfBirth FinlandiaYearsOfBirthFilter  { get; set; }
         
@@ -69,10 +68,10 @@ namespace FJ.Client.ResultRegister
         }
     }
     
-    public class FilterModel_FinlandiaGender : FJFilterModel_NullableEnumComboBox<Gender, GenderFilter>
+    public class FilterModel_FinlandiaGenders : FJFilterModel_MultiEnumComboBox<Gender, FinlandiaGenderFilter>
     {
-        public FilterModel_FinlandiaGender()
-            : base(gender => gender.HasValue ? new GenderFilter(new[] { gender.Value }) : null)
+        public FilterModel_FinlandiaGenders()
+            : base(genders => new FinlandiaGenderFilter(genders))
         {
         }
     }
@@ -125,7 +124,7 @@ namespace FJ.Client.ResultRegister
                     .Select(s => 
                     {
                         var isParseable = int.TryParse(s, out var year);
-                        return new {isParseable, year};
+                        return new { isParseable, year };
                     })
                     .Where(p => p.isParseable)
                     .Select(p => p.year)))

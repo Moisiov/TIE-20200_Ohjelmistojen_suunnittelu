@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using FinlandiaHiihtoAPI;
 using FinlandiaHiihtoAPI.Enums;
+using FJ.DomainObjects.Enums;
 using FJ.DomainObjects.Filters;
 using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.DomainObjects.FinlandiaHiihto.Enums;
@@ -61,6 +62,20 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
         }
     }
 
+    public class FinlandiaGenderFilterImpl : FinlandiaGenderFilter.ExpandSearchArgsExpressionImplementation
+    {
+        protected override LambdaExpression GetExpression(FinlandiaGenderFilter filter, Type parameterType)
+        {
+            Expression<Action<FilterSearchComposer<FinlandiaHiihtoAPISearchArgs>>> expr =
+                c => c.EscalateBy(nameof(FinlandiaHiihtoAPISearchArgs.Gender),
+                    filter.EnumValues
+                        .Select(x => (Gender)(int)x)
+                        .Where(x => x != Gender.Unknown)
+                        .Select(x => x == Gender.Man ? FinlandiaGender.Male : FinlandiaGender.Female));
+            return expr;
+        }
+    }
+
     public class FinlandiaResultTimeRangeFilterImpl
         : FinlandiaResultTimeRangeFilter.ReduceSearchResultsExpressionImplementation
     {
@@ -82,7 +97,7 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
             return expr;
         }
     }
-    
+
     public class FinlandiaPositionRangeMenFilterFilterImpl
         : FinlandiaPositionRangeMenFilter.ReduceSearchResultsExpressionImplementation
     {

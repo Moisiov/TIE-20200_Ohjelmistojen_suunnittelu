@@ -18,7 +18,7 @@ namespace FJ.DomainObjects.Filters.Core
 
         protected EnumFilterBase(IEnumerable<TEnum> values)
         {
-            EnumValues = values.ToHashSet();
+            EnumValues = values?.ToHashSet() ?? new HashSet<TEnum>();
             IntValues = EnumValues.Select(x => x.ToInt32(CultureInfo.CurrentCulture)).ToHashSet();
         }
 
