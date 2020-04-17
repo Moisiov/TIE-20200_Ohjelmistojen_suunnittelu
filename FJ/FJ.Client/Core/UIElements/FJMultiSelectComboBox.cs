@@ -9,6 +9,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Generators;
 using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
+using Avalonia.Data;
 using Avalonia.Data.Converters;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -95,7 +96,7 @@ namespace FJ.Client.Core.UIElements
         /// </summary>
         public IList SelectedItems
         {
-            get => m_selectedItems ??= new AvaloniaList<object>();
+            get => m_selectedItems;
             set => m_selectedItems = value ?? new AvaloniaList<object>();
         }
         public static readonly DirectProperty<FJMultiSelectComboBox, IList> SelectedItemsProperty =
@@ -104,22 +105,23 @@ namespace FJ.Client.Core.UIElements
                 o => o.SelectedItems,
                 (o, v) => o.SelectedItems = v);
         
-        private IList m_items = new AvaloniaList<object>();
+        private IEnumerable m_items = new AvaloniaList<object>();
 
         /// <summary>
         /// Gets or sets all selectable items
         /// </summary>
-        public IList Items
+        public IEnumerable Items
         {
-            get => m_items ??= new AvaloniaList<object>();
-            set => m_items = value ?? new AvaloniaList<object>();
+            get => m_items;
+            set => SetAndRaise(ItemsProperty, ref m_items, value);
         }
 
-        public static readonly DirectProperty<FJMultiSelectComboBox, IList> ItemsProperty =
-            AvaloniaProperty.RegisterDirect<FJMultiSelectComboBox, IList>(
+        public static readonly DirectProperty<FJMultiSelectComboBox, IEnumerable> ItemsProperty =
+            AvaloniaProperty.RegisterDirect<FJMultiSelectComboBox, IEnumerable>(
                 nameof(Items),
                 o => o.Items,
-                (o, v) => o.Items = v);
+                (o, v) => o.Items = v,
+                defaultBindingMode: BindingMode.TwoWay);
 
         private IValueConverter m_valueConverter = new DefaultValueConverter();
         
@@ -265,6 +267,7 @@ namespace FJ.Client.Core.UIElements
                 SelectedItems.Remove(item.Content);
             }
             
+            RaisePropertyChanged(SelectedItemsProperty, m_selectedItems, m_selectedItems);
             SetTextBoxText();
         }
         
