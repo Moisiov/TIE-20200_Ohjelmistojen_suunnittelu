@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -146,9 +147,23 @@ namespace FinlandiaHiihtoAPI
             {
                 var cellValues = row.Descendants("td").Select(x => x.InnerText).ToList();
                 // No results in table
-                if (cellValues.Count == 1) { continue; }
+                if (cellValues.Count == 1)
+                {
+                    continue;
+                }
+
+                FinlandiaHiihtoAPISearchResultRow rowData;
+                try
+                {
+                    rowData = new FinlandiaHiihtoAPISearchResultRow(cellValues);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                    cellValues.ForEach(r => Debug.WriteLine(r));
+                    continue;
+                }
                 
-                var rowData = new FinlandiaHiihtoAPISearchResultRow(cellValues);
                 parsedData.Add(rowData);
             }
 
