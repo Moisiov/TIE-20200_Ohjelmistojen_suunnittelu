@@ -5,6 +5,7 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:valueConverters="clr-namespace:FJ.Client.Core.ValueConverters"
              xmlns:common="clr-namespace:FJ.Client.Core.UIElements"
+             xmlns:filters="clr-namespace:FJ.Client.Core.UIElements.Filters.FilterItems"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="FJ.Client.ResultRegister.ResultRegisterView">
@@ -50,104 +51,96 @@
                 <valueConverters:FinlandiaHiihtoCompetitionClassToStringConverter x:Key="FinlandiaCCToStringConverter" />
                 <valueConverters:EnumToDescriptionConverter x:Key="EnumToDescriptionConverter" />
             </StackPanel.Resources>
-
+            
             <WrapPanel Orientation="Horizontal">
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Classes="FilterCaption" Text="Kilpailun vuosi" />
-                    <ComboBox Classes="FilterBox" Items="{Binding CompetitionYears}" />
-                </StackPanel>
-
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Classes="FilterCaption" Text="Matka" />
-                    <ComboBox Classes="FilterBox" Items="{Binding CompetitionClasses}" >
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding, Converter={StaticResource FinlandiaCCToStringConverter}}" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                </StackPanel>
-
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Classes="FilterCaption" Text="Sukupuoli" />
-                    <ComboBox Classes="FilterBox" Items="{Binding Genders}" >
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding, Converter={StaticResource EnumToDescriptionConverter}}" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                </StackPanel>
-
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Classes="FilterCaption" Text="Ikäsarja" />
-                    <ComboBox Classes="FilterBox" Items="{Binding AgeGroups}" >
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding, Converter={StaticResource EnumToDescriptionConverter}}" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                </StackPanel>
-
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Classes="FilterCaption" Text="Joukkue" />
-                    <TextBox Classes="FilterBox" Text="{Binding CurrentTeamString}" Watermark="Joukkue" />
-                </StackPanel>
-
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Classes="FilterCaption" Text="Aika"/>
-                    <common:FJTimePicker Classes="FilterBox" SelectedTime="{Binding TimeSelection}" Watermark="Loppuaika" />
-                </StackPanel>
-
-                <StackPanel Orientation="Vertical">
                     <TextBlock Classes="FilterCaption" Text="Etunimi" />
-                    <TextBox Classes="FilterBox" Text="{Binding CurrentFirstNameString}" Watermark="Etunimi" >
-                    </TextBox>
+                    <filters:FJFilterMultiTextBox Classes="FilterBox"
+                                                  FilterModel="{Binding RegisterModel.FinlandiaFirstNamesFilter}"
+                                                  Watermark="Ei suodatusta"
+                                                  SuffixOnMany="etunimeä"/>
                 </StackPanel>
                 
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Classes="FilterCaption" Text="TESTI" />
-                    <common:FJPopupTextBox Classes="FilterBox"
-                                           Watermark="Jotain itemeitä"
-                                           SelectedItems="{Binding SelectedStrings}"
-                                           SuffixOnMany="testiä"/>
-                </StackPanel>
-                
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Classes="FilterCaption" Text="TESTI" />
-                    <common:FJTimeRangePicker
-                        Classes="FilterBox"
-                        MinWidth="216"
-                        SeparatorBackground="{DynamicResource Main1}"
-                        SelectedTimeRange="{Binding TimeRangeSelection}"
-                        StartWatermark="Aika vähintään"
-                        EndWatermark="Aika enintään"/>
-                </StackPanel>
-
                 <StackPanel Orientation="Vertical">
                     <TextBlock Classes="FilterCaption" Text="Sukunimi" />
-                    <TextBox Classes="FilterBox" Text="{Binding CurrentLastNameString}" Watermark="Sukunimi" />
+                    <filters:FJFilterMultiTextBox Classes="FilterBox"
+                                                  FilterModel="{Binding RegisterModel.FinlandiaLastNamesFilter}"
+                                                  Watermark="Ei suodatusta"
+                                                  SuffixOnMany="sukunimeä"/>
                 </StackPanel>
                 
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Classes="FilterCaption" Text="MULTITESTI" />
-                    <common:FJMultiSelectComboBox Classes="FilterBox"
-                                                  Watermark="Monia valintoja"
-                                                  SelectedItems="{Binding SelectedTest}"
-                                                  Items="{Binding MultiSelects}"
-                                                  ValueConverter="{StaticResource FinlandiaCCToStringConverter}"
-                                                  SuffixOnMany="valintaa"/>
+                    <TextBlock Classes="FilterCaption" Text="Sukupuoli" />
+                    <filters:FJFilterEnumComboBox Classes="FilterBox"
+                                                  FilterModel="{Binding RegisterModel.FinlandiaGenderFilter}" >
+                        <filters:FJFilterEnumComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding, Converter={StaticResource EnumToDescriptionConverter}}" />
+                            </DataTemplate>
+                        </filters:FJFilterEnumComboBox.ItemTemplate>
+                    </filters:FJFilterEnumComboBox>
                 </StackPanel>
-
+                
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Classes="FilterCaption" Text="Kaupunki" />
-                    <TextBox Classes="FilterBox" Text="{Binding CurrentMunicipalityString}" Watermark="Kaupunki" />
+                    <TextBlock Classes="FilterCaption" Text="Kotikaupunki" />
+                    <filters:FJFilterMultiTextBox Classes="FilterBox"
+                                                  FilterModel="{Binding RegisterModel.FinlandiaHomeCitiesFilter}"
+                                                  Watermark="Ei suodatusta"
+                                                  SuffixOnMany="kotikaupunkia"/>
                 </StackPanel>
-
+                
                 <StackPanel Orientation="Vertical">
                     <TextBlock Classes="FilterCaption" Text="Syntymävuosi" />
-                    <TextBox Classes="FilterBox" Text="{Binding CurrentYearOfBirthString}" Watermark="Syntymävuosi" />
+                    <filters:FJFilterMultiTextBox Classes="FilterBox"
+                                                  FilterModel="{Binding RegisterModel.FinlandiaYearsOfBirthFilter}"
+                                                  Watermark="Ei suodatusta"
+                                                  SuffixOnMany="syntymävuotta"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Classes="FilterCaption" Text="Kilpailun vuosi" />
+                    <filters:FJFilterMultiComboBox Classes="FilterBox"
+                                                   FilterModel="{Binding RegisterModel.CompetitionYearsFilter}"
+                                                   Items="{Binding CompetitionYears}"
+                                                   Watermark="Ei suodatusta"
+                                                   SuffixOnMany="vuotta"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Classes="FilterCaption" Text="Matka" />
+                    <filters:FJFilterMultiComboBox Classes="FilterBox"
+                                                   FilterModel="{Binding RegisterModel.CompetitionClassesFilter}"
+                                                   Items="{Binding FinlandiaCompetitionClassItems}"
+                                                   ValueConverter="{StaticResource FinlandiaCCToStringConverter}"
+                                                   Watermark="Ei suodatusta"
+                                                   SuffixOnMany="matkaa"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Classes="FilterCaption" Text="Ikäsarja" />
+                    <filters:FJFilterEnumMultiComboBox Classes="FilterBox"
+                                                       FilterModel="{Binding RegisterModel.FinlandiaAgeGroupsFilter}"
+                                                       ValueConverter="{StaticResource EnumToDescriptionConverter}"
+                                                       Watermark="Ei suodatusta"
+                                                       SuffixOnMany="sarjaa"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Classes="FilterCaption" Text="Joukkue" />
+                    <filters:FJFilterMultiTextBox Classes="FilterBox"
+                                                  FilterModel="{Binding RegisterModel.FinlandiaTeamsFilter}"
+                                                  Watermark="Ei suodatusta"
+                                                  SuffixOnMany="joukkuetta"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Classes="FilterCaption" Text="Loppuaika" />
+                    <filters:FJFilterTimeRange Classes="FilterBox"
+                                               FilterModel="{Binding RegisterModel.FinlandiaResultTimeRangeFilter}"
+                                               MinWidth="216"
+                                               SeparatorBackground="{DynamicResource Main1}"
+                                               StartWatermark="Aika vähintään"
+                                               EndWatermark="Aika enintään"/>
                 </StackPanel>
             </WrapPanel>
 
@@ -156,7 +149,7 @@
 
         <!-- Result items -->
         <ScrollViewer Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="0,0,1,0" >
-            <ItemsControl Items="{Binding Results}" >
+            <ItemsControl Items="{Binding RegisterModel.AllItems}" >
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Vertical" Margin="2,0,0,0"/>
@@ -196,14 +189,6 @@
         <DockPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Margin="0,0,0,10" LastChildFill="False" ClipToBounds="True" >
             <Separator DockPanel.Dock="Top" Margin="0,0,0,2" Height="2" BorderThickness="2" Background="{DynamicResource Darkest1}" />
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" >
-                <Button Height="40" Width="120" Margin="2"
-                        Foreground="Blue"
-                        Command="{Binding FilterTestCommand}"
-                        Content="Filtteritesti" />
-                <Button Height="40" Width="120" Margin="2"
-                        Foreground="Blue"
-                        Command="{Binding TestCommand}"
-                        Content="TESTIKUTSU" />
                 <Button Height="40" Width="280" Margin="2"
                         Foreground="Blue"
                         Command="{Binding NavigationToAthleteCardCommand}"
@@ -212,6 +197,11 @@
                         Foreground="Blue"
                         Command="{Binding NavigationToCompetitionOccasionCommand}"
                         Content="NAVIGOI VALITUN KILPAILUTAPAHTUMAN SIVULLE" />
+                <Button Height="40" Width="120" Margin="2"
+                        Foreground="Blue"
+                        IsEnabled="{Binding RegisterModel.EnableSearch}"
+                        Command="{Binding ExecuteSearchCommand}"
+                        Content="HAE" />
             </StackPanel>
         </DockPanel>
 

@@ -1,99 +1,35 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive;
 using System.Threading.Tasks;
 using FJ.Client.Athlete;
 using FJ.Client.CompetitionOccasion;
-using FJ.Client.Core;
-using FJ.DomainObjects;
-using FJ.DomainObjects.Enums;
-using FJ.DomainObjects.Filters.Core;
+using FJ.Client.Core.Register;
 using FJ.DomainObjects.FinlandiaHiihto;
-using FJ.DomainObjects.FinlandiaHiihto.Enums;
-using FJ.DomainObjects.FinlandiaHiihto.Filters;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
-using FJ.Utils;
 using FJ.Utils.FinlandiaUtils;
-using ReactiveUI;
 
 namespace FJ.Client.ResultRegister
 {
-    // TODO Disgusting. Filters + filterCollection needed. Wraps ugly as well: Force line ending in xaml before name filters.
-    public class ResultRegisterViewModel : ViewModelBase<ResultRegisterArgs>
+    public class ResultRegisterViewModel : RegisterViewModelBase<ResultRegisterModel, ResultRegisterArgs>
     {
-        private ResultRegisterModel m_model;
-
-        public ReactiveCommand<Unit, Unit> TestCommand { get; }
-        public ReactiveCommand<Unit, Unit> FilterTestCommand { get; }
-        public ObservableCollection<ResultRegisterItemModel> Results { get; set; }  // TODO: Bind from model with attribute?
-
-        public ObservableCollection<int> CompetitionYears { get; set; }
-        public ObservableCollection<FinlandiaHiihtoCompetitionClass> CompetitionClasses { get; set; }
-        public ObservableCollection<Gender> Genders { get; set; }
-        public ObservableCollection<FinlandiaSkiingAgeGroup> AgeGroups { get; set; }
-
-        public string CurrentTeamString { get; set; }
-        public ObservableCollection<string> TeamStrings { get; set; }  // TODO Not binded atm
+        #region FJFilterMultiComboBox selectable items
         
-        public TimeSpan? TimeSelection { get; set; }
-        public TimeRange TimeRangeSelection { get; set; }
-        public ObservableCollection<string> SelectedStrings { get; set; }
-        public ObservableCollection<FinlandiaHiihtoCompetitionClass> MultiSelects { get; set; }
-        public ObservableCollection<FinlandiaHiihtoCompetitionClass> SelectedTest { get; set; }
-
-        public string CurrentFirstNameString { get; set; }
-        public string CurrentLastNameString { get; set; }
-        public ObservableCollection<string> FirstNames { get; set; } // TODO Not binded atm
-        public ObservableCollection<string> LastNames { get; set; } // TODO Not binded atm
-
-        public string CurrentMunicipalityString { get; set; }
-        public ObservableCollection<string> Municipalities { get; set; }  // TODO Not binded atm
-
-        public string CurrentYearOfBirthString { get; set; }
-        public ObservableCollection<string> YearsOfBirth { get; set; }  // TODO Not binded atm
+        public ObservableCollection<int> CompetitionYears { get; }
+        public ObservableCollection<FinlandiaHiihtoCompetitionClass> FinlandiaCompetitionClassItems { get; }
+        
+        #endregion
 
         public ResultRegisterViewModel(ILatestFinlandiaResultsService latestFinlandiaResultsService)
         {
-            m_model = new ResultRegisterModel(latestFinlandiaResultsService);
-
-            FilterTestCommand = ReactiveCommand.CreateFromTask(FilterTestCall);
-            TestCommand = ReactiveCommand.CreateFromTask(TestCall);
-            Results = new ObservableCollection<ResultRegisterItemModel>();
+            RegisterModel = new ResultRegisterModel(latestFinlandiaResultsService);
 
             CompetitionYears = new ObservableCollection<int>(Enumerable.Range(
                 FinlandiaConstants.C_FirstFinlandiaSkiingYear,
-                DateTime.Today.Year - FinlandiaConstants.C_FirstFinlandiaSkiingYear));
-            CompetitionClasses = new ObservableCollection<FinlandiaHiihtoCompetitionClass>(
+                DateTime.Today.Year - FinlandiaConstants.C_FirstFinlandiaSkiingYear + 1));
+            FinlandiaCompetitionClassItems = new ObservableCollection<FinlandiaHiihtoCompetitionClass>(
                 FinlandiaHiihtoCompetitionClasses.FinlandiaCompetitionClasses);
-            Genders = new ObservableCollection<Gender>(
-                EnumHelpers.GetEnumValues<Gender>());
-            AgeGroups = new ObservableCollection<FinlandiaSkiingAgeGroup>(
-                EnumHelpers.GetEnumValues<FinlandiaSkiingAgeGroup>());
-
-            CurrentTeamString = string.Empty;
-            TeamStrings = new ObservableCollection<string>();
-
-            CurrentFirstNameString = string.Empty;
-            CurrentLastNameString = string.Empty;
-            FirstNames = new ObservableCollection<string>();
-            LastNames = new ObservableCollection<string>();
-
-            CurrentMunicipalityString = string.Empty;
-            Municipalities = new ObservableCollection<string>();
-
-            CurrentYearOfBirthString = string.Empty;
-            YearsOfBirth = new ObservableCollection<string>();
-
-            SelectedStrings = new ObservableCollection<string>
-            {
-                "Testi1",
-                "Testi2"
-            };
-
-            MultiSelects = new ObservableCollection<FinlandiaHiihtoCompetitionClass>(
-                FinlandiaHiihtoCompetitionClasses.FinlandiaCompetitionClasses);
-            SelectedTest = new ObservableCollection<FinlandiaHiihtoCompetitionClass>();
         }
 
         protected override async Task OnDoPopulateAsync()
@@ -107,69 +43,21 @@ namespace FJ.Client.ResultRegister
             // TODO proof-of-concept, real one would accept values from Argument to filters
             using (Navigator.ShowLoadingScreen())
             {
-                var homeCitiesFilter = new FinlandiaHomeCitiesFilter(Argument.HomeCities);
-                var competitionYearsFilter = new FinlandiaCompetitionYearsFilter(Argument.CompetitionYears);
-                var filterCollection = new FilterCollection(homeCitiesFilter, competitionYearsFilter);
-                var res = await m_model.GetFinlandiaResultsAsync(filterCollection);
-                Results = new ObservableCollection<ResultRegisterItemModel>(res);
-                RaisePropertyChanged(nameof(Results));
-            }
-        }
-
-        public async Task FilterTestCall()
-        {
-            using (Navigator.ShowLoadingScreen())
-            {
-                var yearsFilter = new FinlandiaCompetitionYearsFilter(2019.ToMany());
-                var timeFilter = new FinlandiaResultTimeRangeFilter(null, new TimeSpan(2, 0, 0));
-                var homeCitiesFilter = new FinlandiaHomeCitiesFilter(new[] { "Hämeenlinna", "Vantaa" });
-                var resultGeneralFilter = new FinlandiaPositionRangeGeneralFilter(null, 10);
-                
-                var filterCollection = new FilterCollection(
-                    yearsFilter,
-                    timeFilter,
-                    homeCitiesFilter,
-                    resultGeneralFilter);
-                
-                var res = await m_model.GetFinlandiaResultsAsync(filterCollection);
-                Results = new ObservableCollection<ResultRegisterItemModel>(res);
-                RaisePropertyChanged(nameof(Results));
-            }
-        }
-
-        public async Task TestCall()
-        {
-            using (Navigator.ShowLoadingScreen())
-            {
-                var res = await m_model.GetLatestFinlandiaResultsAsync();
-                Results = new ObservableCollection<ResultRegisterItemModel>(res);
-                RaisePropertyChanged(nameof(Results));
+                await ExecuteSearchAsync();
             }
         }
 
         public void NavigationToAthleteCardCommand()
         {
-            // TODO debug purposes
-            var asd = TimeRangeSelection;
-            var qwe = SelectedStrings.ToList();
-            var asdda = SelectedTest.Select(x => x.AsString()).ToList();
-            // end
-            
-            var selected = Results.FirstOrDefault(x => x.IsSelected);
-            var args = new AthleteCardArgs
-            {
-                AthleteFirstName = selected?.FirstName ?? "Rocky",
-                AthleteLastName = selected?.LastName ?? "Balboa"
-            };
-
+            var args = RegisterModel.AllItems.FirstOrDefault(x => x.IsSelected)?.GetNavigationArgs();
             Navigator.DoNavigateTo<AthleteCardView>(args);
         }
         
         public void NavigationToCompetitionOccasionCommand()
         {
-            var args = new CompetitionOccasionArgs()
+            var args = new CompetitionOccasionArgs
             {
-                Year = Results.FirstOrDefault()?.Year ?? 2019,
+                Year = RegisterModel.AllItems.FirstOrDefault()?.Year ?? 2019,
             };
 
             Navigator.DoNavigateTo<CompetitionOccasionView>(args);
@@ -177,10 +65,11 @@ namespace FJ.Client.ResultRegister
 
         protected override Task DoRefreshInternalAsync()
         {
-            // TODO Remove filter selections
-            Results = new ObservableCollection<ResultRegisterItemModel>();
-            RaisePropertyChanged(nameof(Results));
-            await Task.CompletedTask;
+            RegisterModel.AllItems = new List<ResultRegisterItemModel>();
+            RegisterModel.DoClearFilters();
+            RaisePropertyChanged(nameof(RegisterModel.AllItems));
+            
+            return Task.CompletedTask;
         }
     }
 }

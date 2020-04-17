@@ -1,13 +1,14 @@
 ﻿using System;
+using FJ.Client.Athlete;
+using FJ.Client.Core.Register;
+using FJ.Client.Core.UIElements.Filters;
 using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.Utils.FinlandiaUtils;
 
 namespace FJ.Client.ResultRegister
 {
-    public class ResultRegisterItemModel
+    public class ResultRegisterItemModel : RegisterItemModelBase<AthleteCardArgs>
     {
-        public bool IsSelected { get; set; }
-
         public string Name { get; set; }
         public int Position { get; set; }
         public string StyleAndDistance { get; set; }
@@ -26,6 +27,15 @@ namespace FJ.Client.ResultRegister
         // For passing accurate name info from ResultRegister to AthleteCard
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        public override AthleteCardArgs GetNavigationArgs()
+        {
+            return new AthleteCardArgs
+            {
+                AthleteFirstName = FirstName ?? "Rocky",
+                AthleteLastName = LastName ?? "Balboa"
+            };
+        }
 
         public static explicit operator ResultRegisterItemModel(FinlandiaHiihtoSingleResult res)
         {
