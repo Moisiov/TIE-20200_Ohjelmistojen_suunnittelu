@@ -92,7 +92,7 @@ namespace FJ.Client.Core.UIElements
         /// </summary>
         public IList SelectedItems
         {
-            get => m_selectedItems ??= new AvaloniaList<object>();
+            get => m_selectedItems;
             set => m_selectedItems = value ?? new AvaloniaList<object>();
         }
         public static readonly DirectProperty<FJPopupTextBox, IList> SelectedItemsProperty =
@@ -182,6 +182,7 @@ namespace FJ.Client.Core.UIElements
             // Eat list box pointer press if not deleting
             if (!m_listBox.IsPointerOver)
             {
+                IsDropDownOpen = false;
                 return;
             }
 
@@ -232,7 +233,7 @@ namespace FJ.Client.Core.UIElements
 
             var text = m_textBox.Text;
             m_textBox.Text = string.Empty;
-            if (m_selectedItemsCopy.Contains(m_textBox.Text.ToLower()))
+            if (m_selectedItemsCopy.Contains(text.ToLower()))
             {
                 return true;
             }
@@ -332,6 +333,8 @@ namespace FJ.Client.Core.UIElements
                 
                 m_selectedItemsCopy.Add(stringItem.ToLower());
             }
+            
+            RaisePropertyChanged(SelectedItemsProperty, m_selectedItems, m_selectedItems);
         }
 
         private void SetTextBoxText()
