@@ -17,6 +17,11 @@ namespace FJ.DomainObjects.Filters.Core
         {
         }
 
+        protected TimeFilterBase(TimeRange range)
+            : base(range.Start ?? TimeSpan.MinValue, range.End ?? TimeSpan.MaxValue)
+        {
+        }
+
         public TimeRange GetTimeRange()
         {
             return new TimeRange
