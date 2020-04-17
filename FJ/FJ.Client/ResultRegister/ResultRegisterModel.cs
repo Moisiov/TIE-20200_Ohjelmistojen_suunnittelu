@@ -2,6 +2,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FJ.Client.Core;
 using FJ.Client.Core.Register;
 using FJ.Client.Core.UIElements.Filters.FilterModels;
 using FJ.DomainObjects.Enums;
@@ -43,7 +44,7 @@ namespace FJ.Client.ResultRegister
                 .OrderBy(x => x.PositionGeneral)
                 .Take(100)
                 .Select(x => (ResultRegisterItemModel)x)
-                .ToList();
+                .ToListItemWrapper();
             
             RaisePropertyChanged(() => AllItems);
         }

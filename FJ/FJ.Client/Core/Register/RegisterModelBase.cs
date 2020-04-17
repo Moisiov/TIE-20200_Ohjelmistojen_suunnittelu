@@ -109,6 +109,7 @@ namespace FJ.Client.Core.Register
     public abstract class RegisterModelBase<TRegisterItem> : RegisterModelBase
         where TRegisterItem : RegisterItemModelBase
     {
-        public List<TRegisterItem> AllItems { get; set; } = new List<TRegisterItem>();
+        public ListItemLimitWrapper<TRegisterItem> AllItems { get; protected set; }
+            = new ListItemLimitWrapper<TRegisterItem>();
     }
 }
