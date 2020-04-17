@@ -27,7 +27,7 @@ namespace FJ.DomainObjects.FinlandiaHiihto.Filters
         {
         }
     }
-
+    
     public class FinlandiaFullNameFilter : StringFilterBase<FinlandiaFullNameFilter>
     {
         public override string ShortName => "Full name";
