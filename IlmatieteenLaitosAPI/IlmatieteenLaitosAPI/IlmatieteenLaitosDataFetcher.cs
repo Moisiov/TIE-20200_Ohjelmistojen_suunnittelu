@@ -29,24 +29,33 @@ namespace IlmatieteenLaitosAPI
 
         public async Task<IEnumerable<WeatherModel>> FetchWeather(string location, DateTime startTime, DateTime endTime)
         {
-            var startTimeRounded = new DateTime(startTime.Year, startTime.Month, startTime.Day, startTime.Hour, 0, 0, startTime.Kind);
-            var endTimeRounded = new DateTime(endTime.Year, endTime.Month, endTime.Day, endTime.Hour, 0, 0, endTime.Kind);
-
-            m_request.Parameters.SearchParameters = new Dictionary<string, string>
+            try
             {
-                { "place",  location },
-                { "starttime", startTimeRounded.ToUniversalTime().ToString(m_request.DateTimeFormat) },
-                { "endtime", endTimeRounded.ToUniversalTime().ToString(m_request.DateTimeFormat) }
-            };
+                var startTimeRounded = new DateTime(startTime.Year, startTime.Month, startTime.Day, startTime.Hour, 0, 0, startTime.Kind);
+                var endTimeRounded = new DateTime(endTime.Year, endTime.Month, endTime.Day, endTime.Hour, 0, 0, endTime.Kind);
 
-            var response = await GetRequest();
+                m_request.Parameters.SearchParameters = new Dictionary<string, string>
+                {
+                    { "place",  location },
+                    { "starttime", startTimeRounded.ToUniversalTime().ToString(m_request.DateTimeFormat) },
+                    { "endtime", endTimeRounded.ToUniversalTime().ToString(m_request.DateTimeFormat) }
+                };
 
-            XNamespace ns = "http://www.opengis.net/gml/3.2";
-            var dataBlock = response.Descendants(ns + "doubleOrNilReasonTupleList").FirstOrDefault()?.Value;
+                var response = await GetRequest();
 
-            var result = ParseDataBlock(dataBlock, startTimeRounded, location);
+                XNamespace ns = "http://www.opengis.net/gml/3.2";
+                var dataBlock = response.Descendants(ns + "doubleOrNilReasonTupleList").FirstOrDefault()?.Value;
 
-            return result;
+                var result = ParseDataBlock(dataBlock, startTimeRounded, location);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("IlmatieteenLaitosAPI: " + e.Message);
+            }
+
+            return Enumerable.Empty<WeatherModel>();
         }
 
         private async Task<XDocument> GetRequest()
@@ -74,7 +83,7 @@ namespace IlmatieteenLaitosAPI
             catch (Exception e)
             {
 #if DEBUG
-                Console.WriteLine(e.Message);
+                Console.WriteLine("IlmatieteenLaitosAPI: " + e.Message);
 #endif
             }
 
@@ -132,7 +141,7 @@ namespace IlmatieteenLaitosAPI
             catch (Exception e)
             {
 #if DEBUG
-                Console.WriteLine(e.Message);
+                Console.WriteLine("IlmatieteenLaitosAPI: " + e.Message);
 #endif
             }
 
