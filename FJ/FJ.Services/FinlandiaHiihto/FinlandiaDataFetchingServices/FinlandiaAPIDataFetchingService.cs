@@ -54,21 +54,6 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
             var searchResultRows = await Task
                 .WhenAll(searches.Select(x => m_api.GetData(x)));
             
-            /* TODO Jätän tähän toistaiseksi, jos tulee vielä ongelmia.
-               TODO Muuten toimis optimointina, mutta filtteröinti on liian raskas erikseen
-            var results = new List<FinlandiaHiihtoSingleResult>();
-            while (searchTasks.Count > 0)
-            {
-                var searchTask = await Task.WhenAny(searchTasks);
-                searchTasks.Remove(searchTask);
-                var completedSearch = await searchTask;
-                results.AddRange(ParseRawResult(
-                    completedSearch.ApplyFilters(filters, m_filterImplementationProvider)));
-            }
-            
-            return new FinlandiaHiihtoResultsCollection(results);
-            */
-            
             return new FinlandiaHiihtoResultsCollection(ParseRawResult(
                 searchResultRows.SelectMany(x => x)
                     .ApplyFilters(filters, m_filterImplementationProvider)));

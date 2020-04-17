@@ -143,6 +143,13 @@
                                                EndWatermark="Aika enintään"/>
                 </StackPanel>
             </WrapPanel>
+            
+            <DockPanel>
+                <Button DockPanel.Dock="Right"
+                        Classes="FilterBox"
+                        Command="{Binding RegisterModel.DoClearFilters}"
+                        Content="Tyhjennä filtterit"/>
+            </DockPanel>
 
             <Separator Margin="0,2,0,0" Height="2" BorderThickness="2" Background="{DynamicResource Darkest1}" />
         </StackPanel>

@@ -14,7 +14,7 @@ namespace FJ.Client.ResultRegister
 {
     public class ResultRegisterViewModel : RegisterViewModelBase<ResultRegisterModel, ResultRegisterArgs>
     {
-        #region FJFilterMultiComboBox selectable items
+        #region Limited selectable items
         
         public ObservableCollection<int> CompetitionYears { get; }
         public ObservableCollection<FinlandiaHiihtoCompetitionClass> FinlandiaCompetitionClassItems { get; }
@@ -27,24 +27,14 @@ namespace FJ.Client.ResultRegister
 
             CompetitionYears = new ObservableCollection<int>(Enumerable.Range(
                 FinlandiaConstants.C_FirstFinlandiaSkiingYear,
-                DateTime.Today.Year - FinlandiaConstants.C_FirstFinlandiaSkiingYear + 1));
+                DateTime.Today.Year - FinlandiaConstants.C_FirstFinlandiaSkiingYear + 1).Reverse());
             FinlandiaCompetitionClassItems = new ObservableCollection<FinlandiaHiihtoCompetitionClass>(
                 FinlandiaHiihtoCompetitionClasses.FinlandiaCompetitionClasses);
         }
 
-        protected override async Task OnDoPopulateAsync()
+        protected override Task OnDoPopulateAsync()
         {
-            if (!Argument.CompetitionYears?.Any() == true || !Argument.HomeCities?.Any() == true)
-            {
-                await Task.CompletedTask;
-                return;
-            }
-            
-            // TODO proof-of-concept, real one would accept values from Argument to filters
-            using (Navigator.ShowLoadingScreen())
-            {
-                await ExecuteSearchAsync();
-            }
+            return Task.CompletedTask;
         }
 
         public void NavigationToAthleteCardCommand()
@@ -65,9 +55,10 @@ namespace FJ.Client.ResultRegister
 
         protected override Task DoRefreshInternalAsync()
         {
-            RegisterModel.AllItems = new List<ResultRegisterItemModel>();
+            RegisterModel.AllItems.Clear();
             RegisterModel.DoClearFilters();
-            RaisePropertyChanged(nameof(RegisterModel.AllItems));
+            
+            RaisePropertiesChanged();
             
             return Task.CompletedTask;
         }

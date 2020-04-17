@@ -60,6 +60,8 @@ namespace FJ.Client.Core.Register
             
             OnFilterChanged();
             AfterFiltersCleared();
+            
+            RaisePropertiesChanged();
         }
 
         protected abstract Task DoExecuteSearchInternalAsync(FilterCollection activeFilters);

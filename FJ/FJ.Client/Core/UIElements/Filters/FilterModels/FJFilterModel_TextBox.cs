@@ -43,4 +43,25 @@ namespace FJ.Client.Core.UIElements.Filters.FilterModels
             return Value?.Any() ?? false ? m_createFilterFunc(Value) : null;
         }
     }
+
+    public abstract class FJFilterModel_MultiTextBox_Parseable<TItem, TFilter> : RegisterIEnumerableFilterBase<string>
+        where TFilter : GroupFilterBase<TItem, TFilter>
+    {
+        private readonly Func<IEnumerable<string>, TFilter> m_createFilterFunc;
+
+        public override void ClearFilters()
+        {
+            Value = new string[] { };
+        }
+
+        protected FJFilterModel_MultiTextBox_Parseable(Func<IEnumerable<string>, TFilter> createFilterFunc)
+        {
+            m_createFilterFunc = createFilterFunc;
+        }
+        
+        protected override FilterBase DoGetActiveFilter()
+        {
+            return Value?.Any() ?? false ? m_createFilterFunc(Value) : null;
+        }
+    }
 }

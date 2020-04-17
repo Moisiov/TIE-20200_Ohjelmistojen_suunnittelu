@@ -117,10 +117,17 @@ namespace FJ.Client.ResultRegister
         }
     }
     
-    public class FilterModel_FinlandiaYearsOfBirth : FJFilterModel_MultiComboBox<int, FinlandiaYearsOfBirthFilter>
+    public class FilterModel_FinlandiaYearsOfBirth : FJFilterModel_MultiTextBox_Parseable<int, FinlandiaYearsOfBirthFilter>
     {
         public FilterModel_FinlandiaYearsOfBirth()
-            : base(years => new FinlandiaYearsOfBirthFilter(years))
+            : base(yearStrings => new FinlandiaYearsOfBirthFilter(yearStrings
+                    .Select(s => 
+                    {
+                        var isParseable = int.TryParse(s, out var year);
+                        return new {isParseable, year};
+                    })
+                    .Where(p => p.isParseable)
+                    .Select(p => p.year)))
         {
         }
     }
