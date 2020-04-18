@@ -100,75 +100,8 @@ namespace FJ.Services.Weather.WeatherDataFetchingServices
                 AirTemperature = wm.AirTemperature,
                 WindSpeed = wm.WindSpeedAvg,
                 Precipitation = wm.Precipitation,
-                MostSignificantWeatherDescription = wm.MostSignificantWeatherCode.ToWeatherDescription()
+                MostSignificantWeatherDescription = wm.WeatherDescription
             };
-        }
-
-        private static string ToWeatherDescription(this double? d)
-        {
-            // TODO
-            return d?.ToString() ?? string.Empty;
         }
     }
 }
-
-/*
-00 Ei merkittäviä sääilmiöitä (minkään alla olevan WaWa-koodin ehdot eivät täyty)
-04 Auerta, savua tai ilmassa leijuvaa pölyä ja näkyvyys vähintään 1 km
-05 Auerta, savua tai ilmassa leijuvaa pölyä ja näkyvyys alle 1 km
-10 Utua
-
-Koodeja 20-25 käytetään, kun on ollut sadetta tai sumua edellisen tunnin aikana mutta ei enää havaintohetkellä.
-
-20 Sumua
-21 Sadetta (olomuoto on määrittelemätön)
-22 Tihkusadetta (ei jäätävää) tai lumijyväsiä
-23 Vesisadetta (ei jäätävää)
-24 Lumisadetta
-25 Jäätävää vesisadetta tai jäätävää tihkua
-
-Seuraavia koodeja käytetään, kun sadetta tai sumua on havaittu havaintohetkellä.
-
-30 – SUMUA
-31 Sumua tai jääsumua erillisinä hattaroina
-32 Sumua tai jääsumua, joka on ohentunut edellisen tunnin aikana
-33 Sumua tai jääsumua, jonka tiheydessä ei ole tapahtunut merkittäviä muutoksia edellisen tunnin aikana
-34 Sumua tai jääsumua, joka on muodostunut tai tullut sakeammaksi edellisen tunnin aikana
-40 SADETTA (olomuoto on määrittelemätön)
-41 Heikkoa tai kohtalaista sadetta (olomuoto on määrittelemätön)
-42 Kovaa sadetta (olomuoto on määrittelemätön)
-50 TIHKUSADETTA (heikkoa, ei jäätävää)
-51 Heikkoa tihkua, joka ei ole jäätävää
-52 Kohtalaista tihkua, joka ei ole jäätävää
-53 Kovaa tihkua, joka ei ole jäätävää
-54 Jäätävää heikkoa tihkua
-55 Jäätävää kohtalaista tihkua
-56 Jäätävää kovaa tihkua
-60 VESISADETTA (heikkoa, ei jäätävää)
-61 Heikkoa vesisadetta, joka ei ole jäätävää
-62 Kohtalaista vesisadetta, joka ei ole jäätävää
-63 Kovaa vesisadetta, joka ei ole jäätävää
-64 Jäätävää heikkoa vesisadetta
-65 Jäätävää kohtalaista vesisadetta
-66 Jäätävää kovaa vesisadetta
-67 Heikkoa lumensekaista vesisadetta tai tihkua (räntää)
-68 Kohtalaista tai kovaa lumensekaista vesisadetta tai tihkua (räntää)
-70 LUMISADETTA
-71 Heikkoa lumisadetta
-72 Kohtalaista lumisadetta
-73 Tiheää lumisadetta
-74 Heikkoa jääjyvässadetta
-75 Kohtalaista jääjyväsadetta
-76 Kovaa jääjyväsadetta
-77 Lumijyväsiä
-78 Jääkiteitä
-80 KUUROJA TAI AJOITTAISTA SADETTA (heikkoja)
-81 Heikkoja vesikuuroja
-82 Kohtalaisia vesikuuroja
-83 Kovia vesikuuroja
-84 Ankaria vesikuuroja (>32 mm/h)
-85 Heikkoja lumikuuroja
-86 Kohtalaisia lumikuuroja
-87 Kovia lumikuuroja
-89 Raekuuroja mahdollisesti yhdessä vesi- tai räntäsateen kanssa
-*/

@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace Testproj
 {
-    class Program
+    internal static class Program
     {
-        static async Task Main(string[] args)
+        internal static async Task Main(string[] args)
         {
             IIlmatieteenLaitosAPI api = new IlmatieteenLaitosAPI.IlmatieteenLaitosAPI();
 
-            DateTime start = DateTime.Now.AddYears(-8);
-            DateTime end = start.AddHours(2);
+            var start = DateTime.Now.AddYears(-1);
+            var end = start.AddHours(2);
             var loc = "Lahti";
             var result = await api.GetHourlyWeather(loc, start, end);
             var result2 = await api.GetHourlyWeatherOfDay(loc, start.Year, start.Month, start.Day);

@@ -6,7 +6,7 @@ namespace IlmatieteenLaitosAPI
 {
     public static class HelperMethods
     {
-        private static Dictionary<int, string> m_weatherCodeDescriptions = new Dictionary<int, string>()
+        private static readonly Dictionary<int, string> s_weatherCodeDescriptions = new Dictionary<int, string>
         {
             { 00, "Ei merkittäviä sääilmiöitä." },
             { 04, "Auerta, savua tai ilmassa leijuvaa pölyä ja näkyvyys vähintään 1 km." },
@@ -64,14 +64,14 @@ namespace IlmatieteenLaitosAPI
 
         public static string GetWeatherDescription(double? weatherCode)
         {
-            var description = string.Empty;
-
-            if (weatherCode != null)
+            if (weatherCode == null || !int.TryParse(weatherCode.ToString(), out var intWeatherCode))
             {
-                description = m_weatherCodeDescriptions.ContainsKey(Convert.ToInt32(weatherCode)) ? m_weatherCodeDescriptions[Convert.ToInt32(weatherCode)] : string.Empty;
+                return string.Empty;
             }
 
-            return description;
+            s_weatherCodeDescriptions.TryGetValue(intWeatherCode, out var desc);
+
+            return desc ?? string.Empty;
         }
 
         public static WeatherModel CalculateTimeSpanWeather(IEnumerable<WeatherModel> data)
@@ -96,8 +96,8 @@ namespace IlmatieteenLaitosAPI
                     Precipitation = weatherModels.Sum(w => w.Precipitation),
                     PrecipitationIntensityMaximum = weatherModels.Max(w => w.PrecipitationIntensityMaximum),
                     AirPressureAvg = weatherModels.Average(w => w.AirPressureAvg),
-                    MostSignificantWeatherCode = weatherModels
-                        .GroupBy(w => w.MostSignificantWeatherCode)
+                    WeatherDescription = weatherModels
+                        .GroupBy(w => w.WeatherDescription)
                         .OrderByDescending(grp => grp.Count())
                         .Select(grp => grp.Key)
                         .FirstOrDefault()
@@ -107,7 +107,9 @@ namespace IlmatieteenLaitosAPI
             }
             catch (Exception e)
             {
+#if DEBUG
                 Console.WriteLine("IlmatieteenLaitosAPI: " + e.Message);
+#endif
             }
 
             return null;

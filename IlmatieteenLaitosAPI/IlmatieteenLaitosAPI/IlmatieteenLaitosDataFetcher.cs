@@ -64,7 +64,9 @@ namespace IlmatieteenLaitosAPI
             }
             catch (Exception e)
             {
+#if DEBUG
                 Console.WriteLine("IlmatieteenLaitosAPI: " + e.Message);
+#endif
             }
 
             return Enumerable.Empty<WeatherModel>();
@@ -146,7 +148,7 @@ namespace IlmatieteenLaitosAPI
                             Precipitation = doubles[8],
                             PrecipitationIntensityMaximum = doubles[9],
                             AirPressureAvg = doubles[10],
-                            MostSignificantWeatherCode = HelperMethods.GetWeatherDescription(doubles[11])
+                            WeatherDescription = HelperMethods.GetWeatherDescription(doubles[11])
                         });
                     }
                     else
@@ -167,7 +169,7 @@ namespace IlmatieteenLaitosAPI
                             Precipitation = null,
                             PrecipitationIntensityMaximum = null,
                             AirPressureAvg = null,
-                            MostSignificantWeatherCode = HelperMethods.GetWeatherDescription(doubles[12])
+                            WeatherDescription = HelperMethods.GetWeatherDescription(doubles[12])
                         });
                     }
 
