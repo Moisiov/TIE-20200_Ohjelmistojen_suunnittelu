@@ -137,7 +137,7 @@ namespace FJ.Client.ControlPanel
         {
             var weatherData = await m_weatherService.GetCurrentWeatherAsync(c_hardCodedLocation);
             m_currentTemperature = weatherData.AirTemperature.HasValue
-                ? $"{weatherData.AirTemperature.Value.ToString("0.0", CultureInfo.InvariantCulture)}°C"
+                ? $"{weatherData.AirTemperature.Value.ToString("0.0", CultureInfo.InvariantCulture)} °C"
                 : string.Empty;
             
             RaisePropertyChanged(nameof(CurrentTemperatureString));

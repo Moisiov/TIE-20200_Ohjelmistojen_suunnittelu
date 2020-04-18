@@ -82,6 +82,12 @@ namespace FJ.Services.Weather.WeatherDataFetchingServices
             return new WeatherSearchResult(results);
         }
 
+        public async Task<WeatherInfo> GetWeatherAvgAsync(string location, DateTime startTime, DateTime endTime)
+        {
+            var res = await m_api.GetWeather(location, startTime, endTime);
+            return res.ToWeatherInfo();
+        }
+
         public async Task<WeatherInfo> GetCurrentWeatherAsync(string location)
         {
             var res = await m_api.GetWeatherNow(location);

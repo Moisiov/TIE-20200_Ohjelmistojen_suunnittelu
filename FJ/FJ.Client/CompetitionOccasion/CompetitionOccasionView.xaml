@@ -58,20 +58,36 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         
-                        <Grid Grid.Row="0" TextBlock.FontSize="{DynamicResource FontSizeLarge}">
+                        <Grid Grid.Row="0" TextBlock.FontSize="{DynamicResource FontSizeLarge}" HorizontalAlignment="Stretch">
                             <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             
-                            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0, 5">
+                            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0">
                                 <TextBlock FontWeight="Bold" Text="Osallistujia: " />
                                 <TextBlock Text="{Binding TotalParticipants}" />
                             </StackPanel>
                             
-                            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0, 5">
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0">
                                 <TextBlock FontWeight="Bold" Text="Kilpailuja: " />
                                 <TextBlock Text="{Binding TotalCompetitions}" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0" IsVisible="{Binding TemperatureIsBisible}">
+                                <TextBlock FontWeight="Bold" Text="Lämpötila: " />
+                                <TextBlock Text="{Binding TemperatureText}" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="3" Orientation="Horizontal" Margin="0" IsVisible="{Binding WindSpeedIsVisible}" >
+                                <TextBlock FontWeight="Bold" Text="Tuulen nopeus: " />
+                                <TextBlock Text="{Binding WindSpeedText}" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="4" Orientation="Horizontal" Margin="0" IsVisible="{Binding WeatherDescriptionIsVisible}" >
+                                <TextBlock FontWeight="Bold" Text="Sää: " />
+                                <TextBlock Text="{Binding WeatherDescription}" />
                             </StackPanel>
                         </Grid>
                         
