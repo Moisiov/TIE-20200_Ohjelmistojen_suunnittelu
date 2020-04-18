@@ -9,7 +9,6 @@ using FJ.Utils;
 using IlmatieteenLaitosAPI;
 using PlotterService;
 using Unity;
-using Unity.Lifetime;
 
 namespace FJ.Desktop.Debug
 {
@@ -32,23 +31,11 @@ namespace FJ.Desktop.Debug
 
         private static void ServicesInternalRegistrations(IUnityContainer container)
         {
-            // TODO not sure if this should be registered as instance, even though it efficient
             container.RegisterInstance<ICacheProvider>(new MemoryCacheProvider());
             
             container.RegisterSingleton<IDataFetchingService, FinlandiaAPIDataFetchingService>();
-            container.DecorateSingleton<IDataFetchingService, SimpleDataFetcherCacheDecorator>();
-            
-            /*
-            Leaving this here for now as this alternative might be a safer choice. -Olli
-            https://stackoverflow.com/a/36101994
-            
-            container.RegisterSingleton<IDataFetchingService, FinlandiaAPISimpleCacheDecorator>(
-                new InjectionConstructor(
-                    new ResolvedParameter<FinlandiaAPIDataFetchingService>(),
-                    new ResolvedParameter<ICacheProvider>()));
-                    
-            TODO Remove if extension is proved to be worthy.
-            */
+            container.Decorate<IDataFetchingService, SimpleDataFetcherCacheDecorator>();
+            container.Decorate<IDataFetchingService, SimpleDataFetcherDebugLoggerDecorator>();
 
             container.RegisterInstance<IFilterImplementationProvider>(new FilterImplementationProvider());
         }

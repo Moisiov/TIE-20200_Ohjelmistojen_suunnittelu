@@ -13,7 +13,7 @@ namespace FJ.NUnitTests
     /// </summary>
     public abstract class TestFixtureBase
     {
-        protected readonly IUnityContainer Container;
+        protected IUnityContainer Container { get; set; }
         protected LifetimeResetter Resetter { get; set; }
 
         protected TestFixtureBase()
@@ -23,7 +23,7 @@ namespace FJ.NUnitTests
         }
 
         [SetUp]
-        public void OnTestSetup()
+        public virtual void OnTestSetup()
         {
             Resetter.Reset();
         }
@@ -39,12 +39,6 @@ namespace FJ.NUnitTests
             Container.RegisterFactory<T>(
                 c => CreateMockInstance(onCreatedCallbackFactory),
                 new ResettableLifetimeManager(Resetter));
-        }
-
-        protected void RegisterResettableDecorator<TInterface, TDecorator>(params InjectionMember[] injectionMembers)
-            where TDecorator : class, TInterface
-        {
-            Container.Decorate<TInterface, TDecorator>(new ResettableLifetimeManager(Resetter));
         }
 
         private static T CreateMockInstance<T>(Func<Action<Mock<T>>> onCreatedCallbackFactory)
