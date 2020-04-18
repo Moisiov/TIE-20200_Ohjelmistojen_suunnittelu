@@ -4,12 +4,92 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="FJ.Client.CompetitionGeneral.CompetitionGeneralView">
-    <Grid>
-        <TextBlock Foreground="White"
-                   FontSize="40"
-                   FontWeight="Bold"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Text="Kilpailutietojen näkymä" />
+     
+    <Grid Margin="10">
+        <Grid.RowDefinitions >
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="7*" />
+        </Grid.RowDefinitions>
+        
+        
+        <Border Grid.Row="0"
+                CornerRadius="6"
+                Background="{DynamicResource Lightest1}"
+                BorderBrush="{DynamicResource Light1}"
+                BorderThickness="2"
+                Margin="0,0,10,0">
+            <Grid VerticalAlignment="Center">
+                <Grid.RowDefinitions >
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <StackPanel Grid.Row="0" 
+                            Orientation="Horizontal" 
+                            TextBlock.FontSize="{DynamicResource FontSizeExtraLarge}"
+                            TextBlock.FontWeight="Bold"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                    <TextBlock Text="{Binding CompetitionInfo.Year}"/>
+                    <TextBlock Text=" "/>
+                    <TextBlock Text="{Binding CompetitionInfo.Name}" />
+                </StackPanel>
+                
+
+                <Grid Grid.Row="1">
+                    <StackPanel Grid.Row="0" 
+                                Orientation="Horizontal" 
+                                TextBlock.FontSize="{DynamicResource FontSizeExtraLarge}"
+                                TextBlock.FontWeight="Bold"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                        <TextBlock Text="Osallistujia: "/>
+                        <TextBlock Text="{Binding CompetitionParticipants}" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+        
+        <ScrollViewer Grid.Row="1"  Margin="0,0,1,0">
+            <StackPanel Orientation="Vertical">
+            <ItemsControl Items="{Binding CompetitionResults.Data}" >
+                 <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" Margin="2,0,0,0"/>
+                    </ItemsPanelTemplate>
+                 </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <Grid Background="{DynamicResource Lightest1}" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="3*" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Classes="ResultRowElement" Grid.Column="0" Grid.Row="0" Text="{Binding PositionGeneral}"/>
+                                <TextBlock Classes="ResultRowElement" Grid.Column="1" Grid.Row="0" Text="{Binding Athlete.FullName}"/>
+                                <TextBlock Classes="ResultRowElement" Grid.Column="2" Grid.Row="0" Text="{Binding ResultString}"/>
+                                <TextBlock Classes="ResultRowElement" Grid.Column="3" Grid.Row="0" Text="{Binding Team}"/>
+                            </Grid>
+                            <Separator Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="1" BorderThickness="2" BorderBrush="{DynamicResource Light1}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+                
+            <Button 
+                IsVisible="{Binding Competition1Results.MoreDataLeft}"
+                Content="Näytä lisää" 
+                Height="50"
+                FontSize="{DynamicResource FontSizeLarge}"
+                Command="{Binding Competition1Results.GetMoreData}"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>
