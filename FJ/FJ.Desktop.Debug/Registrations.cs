@@ -7,6 +7,7 @@ using FJ.Services.FinlandiaHiihto;
 using FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices;
 using FJ.Utils;
 using IlmatieteenLaitosAPI;
+using PlotterService;
 using Unity;
 using Unity.Lifetime;
 
@@ -26,6 +27,7 @@ namespace FJ.Desktop.Debug
         {
             container.RegisterSingleton<IContentRegionNavigator, ContentRegionNavigator>();
             container.RegisterSingleton<IControlPanelRegionController, ControlPanelRegionController>();
+            container.RegisterInstance<IPlotService>(new PlotService());
         }
 
         private static void ServicesInternalRegistrations(IUnityContainer container)

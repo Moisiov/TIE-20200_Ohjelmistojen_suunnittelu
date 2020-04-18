@@ -37,4 +37,9 @@
     <ProjectReference Include="..\FJ.ServiceInterfaces\FJ.ServiceInterfaces.csproj" />
     <ProjectReference Include="..\FJ.Utils\FJ.Utils.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="PlotterService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\APIs\Plotter\PlotterService.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

@@ -7,11 +7,14 @@ using FJ.Client.ResultRegister;
 using FJ.DomainObjects;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
 using FJ.Utils;
+using PlotterService;
 
 namespace FJ.Client.Athlete
 {
     public class AthleteCardViewModel : ViewModelBase<AthleteCardArgs>
     {
+        private IPlotService m_plotService;
+        
         private AthleteCardModel m_model;
         
         private ObservableCollection<AthleteParticipationItemModel> m_participationList;
@@ -28,45 +31,38 @@ namespace FJ.Client.Athlete
             set => SetAndRaise(ref m_athletePersonalInfo, value);
         }
         
-        private bool m_progressChartIsActive;
-        public bool ProgressChartIsActive
+        private bool m_plotOptionsIsActiveIsActive;
+        public bool PlotOptionsIsActive
         {
-            get => m_progressChartIsActive;
-            set => SetAndRaise(ref m_progressChartIsActive, value);
+            get => m_plotOptionsIsActiveIsActive;
+            set => SetAndRaise(ref m_plotOptionsIsActiveIsActive, value);
         }
         
-        private bool m_progressionChartUseTime;
-        public bool ProgressionChartUseTime
+        private bool m_progressionChartUseLineChart;
+        public bool ProgressionChartUseLineChart
         {
-            get => m_progressionChartUseTime;
+            get => m_progressionChartUseLineChart;
             set
             {
-                SetAndRaise(ref m_progressionChartUseTime, value);
-                if (ProgressChartIsActive && value)
-                {
-                    ProgressionChartPopulate();   
-                }
+                SetAndRaise(ref m_progressionChartUseLineChart, value);
             }
         }
 
-        private bool m_progressionChartUsePosition;
-        public bool ProgressionChartUsePosition
+        private bool m_progressionChartUseBarChart;
+        public bool ProgressionChartUseBarChart
         {
-            get => m_progressionChartUsePosition;
+            get => m_progressionChartUseBarChart;
             set
             {
-                SetAndRaise(ref m_progressionChartUsePosition, value);
-                if (ProgressChartIsActive && value)
-                {
-                    ProgressionChartPopulate();   
-                }
+                SetAndRaise(ref m_progressionChartUseBarChart, value);
             }
         }
 
-        public AthleteCardViewModel(IAthleteResultsService athleteResultsService)
+        public AthleteCardViewModel(IAthleteResultsService athleteResultsService, IPlotService plotService)
         {
+            m_plotService = plotService;
             m_model = new AthleteCardModel(athleteResultsService);
-            ProgressChartIsActive = false;
+            PlotOptionsIsActive = false;
         }
 
         protected override async Task DoPopulateAsync()
@@ -85,7 +81,8 @@ namespace FJ.Client.Athlete
                 await m_model.GetAthleteData(athleteFirstName, athleteLastName);
             
                 var participationItemModels = m_model.AthletesResultRows.Results
-                    .Select(x => new AthleteParticipationItemModel { ResultRows = x });
+                        .OrderByDescending(x => x.CompetitionInfo.Year)
+                        .Select(x => new AthleteParticipationItemModel { ResultRows = x });
             
                 ParticipationList = new ObservableCollection<AthleteParticipationItemModel>(participationItemModels);
                 AthletePersonalInfo = m_model.Athlete;   
@@ -100,22 +97,38 @@ namespace FJ.Client.Athlete
             await Task.CompletedTask;
         }
         
-        public void ProgressionChartActivation()
+        public void PlotOptionsActivation()
         {
-            ProgressChartIsActive = true;
-            ProgressionChartUseTime = true;
-            ProgressionChartUsePosition = false;
+            PlotOptionsIsActive = true;
+            ProgressionChartUseLineChart = true;
+            ProgressionChartUseBarChart = false;
         }
         
         public void ProgressionChartDeactivation()
         {
-            ProgressChartIsActive = false;
-            ProgressionChartUseTime = false;
-            ProgressionChartUsePosition = false;
+            PlotOptionsIsActive = false;
+            ProgressionChartUseLineChart = false;
+            ProgressionChartUseBarChart = false;
         }
 
         private void ProgressionChartPopulate()
         {
+            var data = ParticipationList
+                .Where(x => x.IsSelected)
+                .Select(x => new PlotDataPoint
+                {
+                    Label = $"{x.ResultRows.CompetitionInfo.Year} {x.ResultRows.CompetitionInfo.Name}", 
+                    Value = x.ResultRows.Result
+                });
+            if (ProgressionChartUseLineChart)
+            {
+                m_plotService.GetPlot(data, PlotType.TimeSpanLinePlot, "Urheilijan tuloskehitys");
+            }
+            
+            else                                                              
+            {                                                                                              
+                m_plotService.GetPlot(data, PlotType.TimeSpanBarPlot, "Urheilijan tuloskehitys");         
+            }                                                                                              
         }
 
         public void NavigateToResultRegister()
