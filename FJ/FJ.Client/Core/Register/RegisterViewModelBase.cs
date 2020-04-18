@@ -67,7 +67,7 @@ namespace FJ.Client.Core.Register
                     await RegisterModel.DoExecuteSearchAsync();
                     await OnAfterActivatingAsync();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     RegisterModel.DoClearItems();
                     Navigator.ShowErrorMessage(e.Message);

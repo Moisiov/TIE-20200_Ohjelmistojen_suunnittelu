@@ -103,8 +103,8 @@ namespace FJ.Client.CompetitionComparison
                 try 
                 {
                     await CompetitionComparisonModel.GetCompetitionComparisonData(
-                        (int) Competition1Year, Competition1Class,
-                        (int) Competition2Year, Competition2Class);
+                        (int)Competition1Year, Competition1Class,
+                        (int)Competition2Year, Competition2Class);
 
                     Competition1Results = new ListItemLimitWrapper<FinlandiaHiihtoSingleResult>(
                         CompetitionComparisonModel.Competition1ResultsCollection.Results);

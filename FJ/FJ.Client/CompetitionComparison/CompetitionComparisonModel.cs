@@ -66,8 +66,10 @@ namespace FJ.Client.CompetitionComparison
             }
             
             m_yearsFilter = new FinlandiaCompetitionYearsFilter(new int[] { comp1Year, comp2Year }.Distinct());
-            m_competitionClassesFilter = new FinlandiaCompetitionClassesFilter(
-                new[] { comp1Type, comp2Type }.Distinct());
+            var compList = comp1Type.Equals(comp2Type) 
+                ? new[] { comp1Type } 
+                : new[] { comp1Type, comp2Type };
+            m_competitionClassesFilter = new FinlandiaCompetitionClassesFilter(compList);
             filters.Add(m_yearsFilter);
             filters.Add(m_competitionClassesFilter);
 

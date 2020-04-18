@@ -273,7 +273,7 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Classes="ResultRowElement" Grid.Column="0" Grid.Row="0" Text="{Binding PositionGeneral}"/>
                                 <TextBlock Classes="ResultRowElement" Grid.Column="1" Grid.Row="0" Text="{Binding Athlete.FullName}"/>
-                                <TextBlock Classes="ResultRowElement" Grid.Column="2" Grid.Row="0" Text="{Binding Result}"/>
+                                <TextBlock Classes="ResultRowElement" Grid.Column="2" Grid.Row="0" Text="{Binding ResultString}"/>
                                 <TextBlock Classes="ResultRowElement" Grid.Column="3" Grid.Row="0" Text="{Binding Team}"/>
                             </Grid>
                             <Separator Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="1" BorderThickness="2" BorderBrush="{DynamicResource Light1}" />
