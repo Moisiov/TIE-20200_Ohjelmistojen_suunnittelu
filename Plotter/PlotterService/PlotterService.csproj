@@ -11,13 +11,9 @@
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.9.3" />
     <PackageReference Include="JetBrains.Annotations" Version="11.0.0" />
+    <PackageReference Include="OxyPlot.Avalonia-alpha-2020-04-15" Version="1.0.0" />
     <PackageReference Include="OxyPlot.Core" Version="2.0.0" />
     <PackageReference Include="Serilog.Sinks.Trace" Version="2.1.0" />
     <PackageReference Include="Avalonia.Desktop" Version="0.9.3" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="OxyPlot.Avalonia, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\Dep\OxyPlot.Avalonia\bin\Debug\netstandard2.0\OxyPlot.Avalonia.dll</HintPath>
-    </Reference>
   </ItemGroup>
 </Project>
