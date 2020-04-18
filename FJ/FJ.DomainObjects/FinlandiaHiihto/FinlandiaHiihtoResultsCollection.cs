@@ -12,6 +12,11 @@ namespace FJ.DomainObjects.FinlandiaHiihto
 
         public bool HasAnyResults => Results?.Any() == true;
 
+        public FinlandiaHiihtoResultsCollection()
+            : this(null)
+        {
+        }
+        
         public FinlandiaHiihtoResultsCollection(IEnumerable<FinlandiaHiihtoSingleResult> results)
         {
             Results = results ?? new FinlandiaHiihtoSingleResult[] { };

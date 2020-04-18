@@ -152,4 +152,6 @@ namespace $NAMESPACE$
 }
 </s:String>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Finlandia/@EntryIndexedValue">True</s:Boolean>
-	<s:Boolean x:Key="/Default/UserDictionary/Words/=Hiihto/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Hiihto/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Ilmatieteen/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Laitos/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

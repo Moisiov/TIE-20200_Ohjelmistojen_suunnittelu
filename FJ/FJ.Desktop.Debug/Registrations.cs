@@ -2,9 +2,12 @@
 using FinlandiaHiihtoAPI;
 using FJ.Client.Core.Services;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
+using FJ.ServiceInterfaces.Weather;
 using FJ.Services.CoreServices;
 using FJ.Services.FinlandiaHiihto;
 using FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices;
+using FJ.Services.Weather;
+using FJ.Services.Weather.WeatherDataFetchingServices;
 using FJ.Utils;
 using IlmatieteenLaitosAPI;
 using PlotterService;
@@ -36,6 +39,8 @@ namespace FJ.Desktop.Debug
             container.RegisterSingleton<IDataFetchingService, FinlandiaAPIDataFetchingService>();
             container.Decorate<IDataFetchingService, SimpleDataFetcherCacheDecorator>();
             container.Decorate<IDataFetchingService, SimpleDataFetcherDebugLoggerDecorator>();
+            
+            container.RegisterSingleton<IWeatherDataFetchingService, IlmatieteenLaitosAPIDataFetchingService>();
 
             container.RegisterInstance<IFilterImplementationProvider>(new FilterImplementationProvider());
         }
@@ -53,6 +58,7 @@ namespace FJ.Desktop.Debug
             container.RegisterType<IAthleteResultsService, AthleteResultsDataService>();
             container.RegisterType<ICompetitionOccasionDataService, CompetitionOccasionDataService>();
             container.RegisterType<ICompetitionComparisonDataService, CompetitionComparisonDataService>();
+            container.RegisterType<IWeatherService, WeatherService>();
         }
     }
 }

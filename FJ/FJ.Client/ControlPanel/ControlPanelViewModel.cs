@@ -11,51 +11,80 @@ using FJ.Client.Core.Services;
 using FJ.Client.FrontPage;
 using FJ.Client.ResultRegister;
 using FJ.Client.Team;
-using IlmatieteenLaitosAPI;
+using FJ.ServiceInterfaces.Weather;
 using ReactiveUI;
 
 namespace FJ.Client.ControlPanel
 {
     public class ControlPanelViewModel : ViewModelBase
     {
+        private const string c_shortTimeFormatString = "HH':'mm";
+        private const string c_longTimeFormatString = "HH':'mm':'ss";
+        
         private readonly IControlPanelRegionController m_controlPanelRegionController;
-        private readonly IIlmatieteenLaitosAPI m_ilmatieteenLaitosAPI;
+        private readonly IWeatherService m_weatherService;
 
         public bool IsExpanded => m_controlPanelRegionController.CurrentControlPanelSizeOption == ControlPanelSizeOption.Expanded;
 
         public ReactiveCommand<Unit, Unit> GetWeatherCommand { get; }
-        public string CurrentTime { get; set; }
-        public string CurrentTemperature { get; set; }
+
+        private string m_currentTimeText;
+        public string CurrentTime
+        {
+            get => m_currentTimeText;
+            set => SetAndRaise(ref m_currentTimeText, value);
+        }
+        
+        private string m_currentTemperature;
+        public string CurrentTemperature
+        {
+            get => m_currentTemperature;
+            set => SetAndRaise(ref m_currentTemperature, value);
+        }
+        
         public string CurrentWindSpeed { get; set; }
 
-        private readonly ControlPanelModel m_model;
+        private IDisposable m_updateWeatherSub;
+        private ControlPanelModel m_model;
 
-        public ControlPanelViewModel(IControlPanelRegionController controPanelRegionController)
+        private string m_timeFormatString = c_longTimeFormatString;
+
+        public ControlPanelViewModel(IControlPanelRegionController controlPanelRegionController, IWeatherService weatherService)
         {
-            m_controlPanelRegionController = controPanelRegionController;
-
-            m_ilmatieteenLaitosAPI = new IlmatieteenLaitosAPI.IlmatieteenLaitosAPI();
-            GetWeatherCommand = ReactiveCommand.CreateFromTask(GetCurrentWeather);
-            GetWeatherCommand.Execute().Subscribe();
-            DispatcherTimer weatherTimer = new DispatcherTimer(TimeSpan.FromMinutes(10), DispatcherPriority.Normal, OnWeatherTimerTick);
-            weatherTimer.Start();
-
-            RefreshTimeText();
-            DispatcherTimer clockTimer = new DispatcherTimer(TimeSpan.FromSeconds(1), DispatcherPriority.Normal, OnClockTimerTick);
-            clockTimer.Start();
+            m_controlPanelRegionController = controlPanelRegionController;
+            m_weatherService = weatherService;
 
             m_model = new ControlPanelModel();
+            
+            GetWeatherCommand = ReactiveCommand.CreateFromTask(GetCurrentWeather);
+            var weatherTimer = new DispatcherTimer(
+                TimeSpan.FromMinutes(10),
+                DispatcherPriority.Normal,
+                (o, e) => OnWeatherTimerTick());
+            weatherTimer.Start();
+
+            var clockTimer = new DispatcherTimer(
+                TimeSpan.FromSeconds(1),
+                DispatcherPriority.Normal,
+                (o, e) => RefreshTimeText());
+            clockTimer.Start();
         }
 
         public void DoExpand()
         {
             m_controlPanelRegionController.Expand();
+            m_timeFormatString = c_longTimeFormatString;
+            RefreshTimeText();
+            
             RaisePropertyChanged(nameof(IsExpanded));
         }
 
         public void DoMinimize()
         {
             m_controlPanelRegionController.Minimize();
+            m_timeFormatString = c_shortTimeFormatString;
+            RefreshTimeText();
+            
             RaisePropertyChanged(nameof(IsExpanded));
         }
 
@@ -84,27 +113,23 @@ namespace FJ.Client.ControlPanel
             Navigator.DoNavigateTo<TeamCardView>();
         }
 
-        private void OnWeatherTimerTick(object sender, EventArgs e)
+        private void OnWeatherTimerTick()
         {
-            GetWeatherCommand.Execute().Subscribe();
-        }
-
-        private void OnClockTimerTick(object sender, EventArgs e)
-        {
-            RefreshTimeText();
+            m_updateWeatherSub?.Dispose();
+            m_updateWeatherSub = GetWeatherCommand.Execute().Subscribe();
         }
 
         private void RefreshTimeText()
         {
-            CurrentTime = DateTime.Now.ToString("HH':'mm");
-            RaisePropertyChanged(nameof(CurrentTime));
+            CurrentTime = DateTime.Now.ToString(m_timeFormatString);
         }
 
         private async Task GetCurrentWeather()
         {
-            var weatherData = await m_ilmatieteenLaitosAPI.GetWeatherNow("Lahti");
-            CurrentTemperature = weatherData.AirTemperature.HasValue ? weatherData.AirTemperature.Value.ToString("0.0", CultureInfo.InvariantCulture) + " °C" : "";
-            RaisePropertyChanged(nameof(CurrentTemperature));
+            var weatherData = await m_weatherService.GetCurrentWeatherAsync("Lahti");
+            CurrentTemperature = weatherData.AirTemperature.HasValue
+                ? weatherData.AirTemperature.Value.ToString("0.0", CultureInfo.InvariantCulture) + " °C"
+                : string.Empty;
         }
     }
 }
