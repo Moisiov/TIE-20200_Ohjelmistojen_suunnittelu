@@ -10,7 +10,7 @@ namespace FJ.Services.Weather.WeatherDataFetchingServices
 {
     public class IlmatieteenLaitosAPIDataFetchingService : IWeatherDataFetchingService
     {
-        private IIlmatieteenLaitosAPI m_api;
+        private readonly IIlmatieteenLaitosAPI m_api;
 
         public IlmatieteenLaitosAPIDataFetchingService(IIlmatieteenLaitosAPI api)
         {
