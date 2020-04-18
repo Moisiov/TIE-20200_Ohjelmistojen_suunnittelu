@@ -24,9 +24,9 @@ namespace FJ.Services.Weather
             return await m_weatherDataFetchingService.GetWeatherInfosAsync(args);
         }
 
-        public Task<WeatherInfo> GetCurrentWeatherAsync(string location)
+        public async Task<WeatherInfo> GetCurrentWeatherAsync(string location)
         {
-            throw new NotImplementedException();
+            return await m_weatherDataFetchingService.GetCurrentWeatherAsync(location);
         }
     }
 }

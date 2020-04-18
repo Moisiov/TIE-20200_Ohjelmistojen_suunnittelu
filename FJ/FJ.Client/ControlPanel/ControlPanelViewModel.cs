@@ -20,6 +20,7 @@ namespace FJ.Client.ControlPanel
     {
         private const string c_shortTimeFormatString = "HH':'mm";
         private const string c_longTimeFormatString = "HH':'mm':'ss";
+        private const string c_hardCodedLocation = "Lahti";
         
         private readonly IControlPanelRegionController m_controlPanelRegionController;
         private readonly IWeatherService m_weatherService;
@@ -34,20 +35,16 @@ namespace FJ.Client.ControlPanel
             get => m_currentTimeText;
             set => SetAndRaise(ref m_currentTimeText, value);
         }
-        
+
         private string m_currentTemperature;
-        public string CurrentTemperature
-        {
-            get => m_currentTemperature;
-            set => SetAndRaise(ref m_currentTemperature, value);
-        }
+        public string CurrentTemperatureString => IsExpanded
+            ? $"{c_hardCodedLocation}: {m_currentTemperature ?? string.Empty}"
+            : m_currentTemperature ?? string.Empty;
         
         public string CurrentWindSpeed { get; set; }
 
         private IDisposable m_updateWeatherSub;
         private ControlPanelModel m_model;
-
-        private string m_timeFormatString = c_longTimeFormatString;
 
         public ControlPanelViewModel(IControlPanelRegionController controlPanelRegionController, IWeatherService weatherService)
         {
@@ -56,7 +53,10 @@ namespace FJ.Client.ControlPanel
 
             m_model = new ControlPanelModel();
             
+            RefreshTimeText();
+            
             GetWeatherCommand = ReactiveCommand.CreateFromTask(GetCurrentWeather);
+            GetWeatherCommand.Execute();
             var weatherTimer = new DispatcherTimer(
                 TimeSpan.FromMinutes(10),
                 DispatcherPriority.Normal,
@@ -73,18 +73,18 @@ namespace FJ.Client.ControlPanel
         public void DoExpand()
         {
             m_controlPanelRegionController.Expand();
-            m_timeFormatString = c_longTimeFormatString;
             RefreshTimeText();
             
+            RaisePropertyChanged(nameof(CurrentTemperatureString));
             RaisePropertyChanged(nameof(IsExpanded));
         }
 
         public void DoMinimize()
         {
             m_controlPanelRegionController.Minimize();
-            m_timeFormatString = c_shortTimeFormatString;
             RefreshTimeText();
             
+            RaisePropertyChanged(nameof(CurrentTemperatureString));
             RaisePropertyChanged(nameof(IsExpanded));
         }
 
@@ -121,15 +121,17 @@ namespace FJ.Client.ControlPanel
 
         private void RefreshTimeText()
         {
-            CurrentTime = DateTime.Now.ToString(m_timeFormatString);
+            CurrentTime = DateTime.Now.ToString(IsExpanded ? c_longTimeFormatString : c_shortTimeFormatString);
         }
 
         private async Task GetCurrentWeather()
         {
-            var weatherData = await m_weatherService.GetCurrentWeatherAsync("Lahti");
-            CurrentTemperature = weatherData.AirTemperature.HasValue
-                ? weatherData.AirTemperature.Value.ToString("0.0", CultureInfo.InvariantCulture) + " °C"
+            var weatherData = await m_weatherService.GetCurrentWeatherAsync(c_hardCodedLocation);
+            m_currentTemperature = weatherData.AirTemperature.HasValue
+                ? $"{weatherData.AirTemperature.Value.ToString("0.0", CultureInfo.InvariantCulture)}°C"
                 : string.Empty;
+            
+            RaisePropertyChanged(nameof(CurrentTemperatureString));
         }
     }
 }

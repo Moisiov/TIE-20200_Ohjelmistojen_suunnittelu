@@ -50,8 +50,8 @@
                     <Setter Property="Foreground" Value="{DynamicResource Dark1}" />
                 </Style>
             </StackPanel.Styles>
-            <TextBlock Text="{Binding CurrentTime}" HorizontalAlignment="Center" Foreground="White" Margin="0 20 0 0" />
-            <TextBlock Text="{Binding CurrentTemperature}" HorizontalAlignment="Center" Foreground="White" FontSize="20" Margin="0 0 0 20"/>
+            <TextBlock Text="{Binding CurrentTime}" HorizontalAlignment="Center" Foreground="White" Margin="0,20,0,10" />
+            <TextBlock Text="{Binding CurrentTemperatureString}" HorizontalAlignment="Center" Foreground="White" FontSize="20" Margin="0,0,0,20"/>
 
             <Button Height="70" Foreground="Blue" Command="{Binding NavigateToFrontPage}" Margin="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <Grid>
