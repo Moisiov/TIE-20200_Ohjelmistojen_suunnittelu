@@ -103,7 +103,7 @@ namespace FJ.Client.CompetitionOccasion
             set => SetAndRaise(ref m_windSpeedText, value);
         }
 
-        public bool m_windSpeedIsVisible;
+        private bool m_windSpeedIsVisible;
         public bool WindSpeedIsVisible
         {
             get => m_windSpeedIsVisible;
