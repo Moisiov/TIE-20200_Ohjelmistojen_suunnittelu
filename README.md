@@ -45,6 +45,11 @@ Ohjelman kehittämisessä viipaleina on lukuisia etuja:
 
 ***Ohjelman arkkitehtuuri ei kuitenkaan pyri ”viipalearkkitehtuuriin” sen täydessä laajuudessa.***
 
+### Data flow ###
+![picture alt](https://i.imgur.com/kzvHeZD.png)
+
+*Ohjelman data flow*
+
 ## Rajapintadokumentaatio ##
 
 ### FinlandiaHiihtoAPI ###
