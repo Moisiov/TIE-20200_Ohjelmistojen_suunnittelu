@@ -26,29 +26,66 @@
         <KeyBinding Command="{Binding HotKeyDoCloseApplication}" CommandParameter="" Gesture="CTRL+Q" />
     </Window.KeyBindings>
 
-    <!-- Region-based contents -->
-    <Grid x:Name="LayoutRoot">
-        <Grid.Resources>
-            <valueConverters:ControlPanelSizeOptionConverter x:Key="ControlPanelSizeConverter" />
-        </Grid.Resources>
-        <Grid.ColumnDefinitions>
-            <!-- 10, 40 -->
-            <ColumnDefinition Width="{Binding ControlPanelSize, Converter={StaticResource ControlPanelSizeConverter}, ConverterParameter=10}" />
-            <ColumnDefinition Width="40*" />
-        </Grid.ColumnDefinitions>
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="11*" />
         </Grid.RowDefinitions>
-        <Grid x:Name="ControlPanelContent" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" >
-            <ContentControl prism:RegionManager.RegionName="ControlPanelRegion" Background="{DynamicResource Darkest1}" />
+        
+        <!-- Region-based contents -->
+        <Grid x:Name="LayoutRoot" IsEnabled="{Binding !ShowContentRegionErrorMessage}">
+            <Grid.Resources>
+                <valueConverters:ControlPanelSizeOptionConverter x:Key="ControlPanelSizeConverter" />
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <!-- 10, 40 -->
+                <ColumnDefinition Width="{Binding ControlPanelSize, Converter={StaticResource ControlPanelSizeConverter}, ConverterParameter=10}" />
+                <ColumnDefinition Width="40*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="11*" />
+            </Grid.RowDefinitions>
+            <Grid x:Name="ControlPanelContent" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" >
+                <ContentControl prism:RegionManager.RegionName="ControlPanelRegion" Background="{DynamicResource Darkest1}" />
+            </Grid>
+            <Grid x:Name="TopBarContent" Grid.Column="1" Grid.Row="0" >
+                <ContentControl prism:RegionManager.RegionName="TopBarRegion" Background="{DynamicResource Light1}" />
+            </Grid>
+            <Grid x:Name="ContentContent" Grid.Column="1" Grid.Row="1" >
+                <ContentControl prism:RegionManager.RegionName="ContentRegion" Background="{DynamicResource Main1}" />
+                <Border Child="{DynamicResource LoadingSpinner}" Background="LightGray" Opacity="90" IsVisible="{Binding ShowContentRegionLoadingScreen}" />
+            </Grid>
         </Grid>
-        <Grid x:Name="TopBarContent" Grid.Column="1" Grid.Row="0" >
-            <ContentControl prism:RegionManager.RegionName="TopBarRegion" Background="{DynamicResource Light1}" />
-        </Grid>
-        <Grid x:Name="ContentContent" Grid.Column="1" Grid.Row="1" >
-            <ContentControl prism:RegionManager.RegionName="ContentRegion" Background="{DynamicResource Main1}" />
-            <Border Child="{DynamicResource LoadingSpinner}" Background="LightGray" Opacity="90" IsVisible="{Binding ShowContentRegionLoadingScreen}" />
-        </Grid>
+    
+        <!-- Overlay for for showing error message. Probably not the most elegant solution -->
+        <Border IsVisible="{Binding ShowContentRegionErrorMessage}" 
+                ZIndex="2"
+                CornerRadius="6"
+                Background="white"
+                BorderBrush="{DynamicResource Error1}"
+                BorderThickness="5"
+                Width ="400" Height="200" Margin="75, 0, 75, 0">
+            <Grid Width ="400" Height="200" Margin="75, 0, 75, 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions> 
+                <TextBlock Grid.Row="0"
+                           Margin="10"
+                           HorizontalAlignment="Center" 
+                           TextWrapping="Wrap"
+                           Text="{Binding ContentRegionErrorMessage}" />
+                
+                <Button Grid.Row="1" 
+                        FontSize="{DynamicResource FontSizeLarge}" 
+                        Height="35"
+                        Width="130"
+                        Margin="0, 0, 0, 7"
+                        Background="{DynamicResource Error1}" 
+                        Foreground="white" 
+                        Content="Sulje"  
+                        Command="{Binding ClearContentRegionErrorMessage}"/>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

@@ -109,5 +109,12 @@ namespace FJ.Client.Core.Services
         /// </summary>
         /// <returns><see cref="IDisposableLoadingScreen"/></returns>
         IDisposableLoadingScreen ShowLoadingScreen();
+
+        /// <summary>
+        /// Shows specified error message in a popup box.
+        /// </summary>
+        /// <param name="msg">
+        /// Error message that is shown in the popup box.</param>
+        void ShowErrorMessage(string msg);
     }
 }

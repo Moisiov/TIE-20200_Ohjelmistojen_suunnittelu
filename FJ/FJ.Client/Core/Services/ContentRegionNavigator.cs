@@ -121,6 +121,11 @@ namespace FJ.Client.Core.Services
         {
             return new DisposableLoadingScreen(SetLoadingScreen);
         }
+        
+        public void ShowErrorMessage(string msg)
+        {
+            m_eventAggregator.GetEvent<ContentRegionErrorMessage>().Publish(msg);
+        }
 
         protected virtual void OnContentRegionNavigation(object s, RegionNavigationEventArgs e)
         {

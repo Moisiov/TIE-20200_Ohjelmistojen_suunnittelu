@@ -31,6 +31,10 @@ namespace FJ.Client.Core.Events
     public class ContentRegionLoadingScreenEvent : PubSubEvent<bool>
     {
     }
+    
+    public class ContentRegionErrorMessage : PubSubEvent<string>
+    {
+    }
 
     public class ContentRegionNavigationStackClearedEvent : PubSubEvent
     {

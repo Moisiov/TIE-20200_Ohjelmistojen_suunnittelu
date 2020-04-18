@@ -30,11 +30,26 @@ namespace FJ.Client.MainWindow
             get => m_showContentRegionLoadingScreen;
             set => SetAndRaise(ref m_showContentRegionLoadingScreen, value);
         }
+        
+        private bool m_showContentRegionErrorMessage;
+        public bool ShowContentRegionErrorMessage
+        {
+            get => m_showContentRegionErrorMessage;
+            set => SetAndRaise(ref m_showContentRegionErrorMessage, value);
+        }
+        
+        private string m_contentRegionErrorMessage;
+        public string ContentRegionErrorMessage
+        {
+            get => m_contentRegionErrorMessage;
+            set => SetAndRaise(ref m_contentRegionErrorMessage, value);
+        }
 
         public MainWindowViewModel(IEventAggregator ea, Lazy<IContentRegionNavigator> navigator)
         {
             m_lazyNavigator = navigator;
             ea.GetEvent<ContentRegionLoadingScreenEvent>().Subscribe(SetContentRegionLoadingScreen);
+            ea.GetEvent<ContentRegionErrorMessage>().Subscribe(SetContentRegionErrorMessage);
             ea.GetEvent<ControlPanelRegionResizeEvent>().Subscribe(SetControlPanelSize);
 
             SetControlPanelSize(UIStartupConstants.C_InitialControlPanelSizeOption);
@@ -88,10 +103,22 @@ namespace FJ.Client.MainWindow
         {
             m_lifetime?.MainWindow.Close();
         }
+        
+        public void ClearContentRegionErrorMessage()
+        {
+            ShowContentRegionErrorMessage = false;
+            ContentRegionErrorMessage = null;
+        }
 
         private void SetContentRegionLoadingScreen(bool doShowLoadingScreen)
         {
             ShowContentRegionLoadingScreen = doShowLoadingScreen;
+        }
+        
+        private void SetContentRegionErrorMessage(string msg)
+        {
+            ShowContentRegionErrorMessage = true;
+            ContentRegionErrorMessage = msg;
         }
 
         private void SetControlPanelSize(ControlPanelSizeOption option)
