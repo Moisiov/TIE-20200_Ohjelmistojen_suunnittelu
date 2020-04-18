@@ -116,6 +116,7 @@ namespace FJ.Client.Athlete
         {
             var data = ParticipationList?
                 .Where(x => x.IsSelected)
+                .OrderBy(x => x.ResultRows.CompetitionInfo.Year)
                 .Select(x => new PlotDataPoint
                 {
                     Label = $"{x.ResultRows.CompetitionInfo.Year} {x.ResultRows.CompetitionInfo.Name}", 

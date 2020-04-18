@@ -213,7 +213,6 @@
                         Content="Sulje"  
                         Command="{Binding ProgressionChartDeactivation}"/>
             </Grid>
-
         </Grid>
     </Grid>
     
