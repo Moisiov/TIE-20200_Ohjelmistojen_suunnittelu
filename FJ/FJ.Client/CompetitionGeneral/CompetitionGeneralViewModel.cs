@@ -35,7 +35,7 @@ namespace FJ.Client.CompetitionGeneral
                     return;
                 }
 
-                await PoPulateView((int) CompetitionYear, CompetitionClass);
+                await PoPulateView((int)CompetitionYear, CompetitionClass);
             }
         }
         
@@ -55,7 +55,7 @@ namespace FJ.Client.CompetitionGeneral
         {
             try
             {
-                await m_competitionGeneralModel.GetCompetitionGeneralData((int)year, competitionClass);
+                await m_competitionGeneralModel.GetCompetitionGeneralData(year, competitionClass);
                     
                 CompetitionInfo = m_competitionGeneralModel.CompetitionInfo;
                 CompetitionParticipants = m_competitionGeneralModel.CompetitionParticipants;

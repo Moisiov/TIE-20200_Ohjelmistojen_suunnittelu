@@ -100,7 +100,14 @@ namespace FJ.Client.ControlPanel
 
         public void NavigateToCompetitionGeneral()
         {
-            Navigator.DoNavigateTo<CompetitionGeneralView>();
+            var args = new CompetitionGeneralArgs
+            {
+                CompetitionYear = 2019,
+                CompetitionClass = FinlandiaHiihtoCompetitionClass.Create(
+                    FinlandiaSkiingDistance.Fifty,
+                    FinlandiaSkiingStyle.Classic)
+            };
+            Navigator.DoNavigateTo<CompetitionGeneralView>(args);
         }
 
         public void NavigateToAthleteCard()

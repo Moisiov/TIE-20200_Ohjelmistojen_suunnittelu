@@ -2,6 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="FJ.Client.CompetitionGeneral.CompetitionGeneralView">
      
@@ -39,7 +41,7 @@
                 <Grid Grid.Row="1">
                     <StackPanel Grid.Row="0" 
                                 Orientation="Horizontal" 
-                                TextBlock.FontSize="{DynamicResource FontSizeExtraLarge}"
+                                TextBlock.FontSize="{DynamicResource FontSizeLarge}"
                                 TextBlock.FontWeight="Bold"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center">
@@ -50,7 +52,7 @@
             </Grid>
         </Border>
         
-        <ScrollViewer Grid.Row="1"  Margin="0,0,1,0">
+        <ScrollViewer Grid.Row="1"  Margin="0,15,1,0">
             <StackPanel Orientation="Vertical">
             <ItemsControl Items="{Binding CompetitionResults.Data}" >
                  <ItemsControl.ItemsPanel>
@@ -84,11 +86,11 @@
             </ItemsControl>
                 
             <Button 
-                IsVisible="{Binding Competition1Results.MoreDataLeft}"
+                IsVisible="{Binding CompetitionResults.MoreDataLeft}"
                 Content="Näytä lisää" 
                 Height="50"
                 FontSize="{DynamicResource FontSizeLarge}"
-                Command="{Binding Competition1Results.GetMoreData}"/>
+                Command="{Binding CompetitionResults.GetMoreData}"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>
