@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FinlandiaHiihtoAPI.Enums;
 using FinlandiaHiihtoAPI.Exceptions;
 using FJ.DomainObjects.Filters.Core;
 using FJ.DomainObjects.FinlandiaHiihto;
@@ -51,6 +52,22 @@ namespace FJ.Services.FinlandiaHiihto
             }
             
             return m_resultsCollection;
+        }
+        
+        public async Task<IEnumerable<(string Nationality, int TotalCount)>> 
+            GetCompetitionOccasionNationalityDistributionAsync(int year)
+        {
+            if (m_resultsCollection == null || year != m_year)
+            {
+                await GetCompetitionOccasionResultsAsync(year);
+                m_year = year;
+            }
+
+            // Set year as search filter to fetch all the data about the competition occasion.
+           return m_resultsCollection.Results
+                .GroupBy(x => x.Athlete.Nationality)
+                .Where(x => x.Key != null)
+                .Select(x => (Nationality: x.Key, TotalCount: x.Count()));
         }
         
         public async Task<IEnumerable<FinlandiaHiihtoResultsCollection>> GetOrderedCompetitionListsAsync(int year)

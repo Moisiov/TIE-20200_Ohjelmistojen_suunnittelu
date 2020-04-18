@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using FJ.Client.Core;
 using FJ.Client.ResultRegister;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
+using PlotterService;
 
 namespace FJ.Client.CompetitionOccasion
 {
     public class CompetitionOccasionViewModel : ViewModelBase<CompetitionOccasionArgs>
     {
+        private readonly IPlotService m_plotService;
+        
         private CompetitionOccasionModel m_model;
 
         public ObservableCollection<CompetitionRowItemModel> CompetitionList { get; set; }
@@ -35,22 +38,35 @@ namespace FJ.Client.CompetitionOccasion
             get => m_totalCompetitions;
             set => SetAndRaise(ref m_totalCompetitions, value);
         }
-
-        // TODO Janne
-        // private Chart m_nationalityDistributionChart;
-        // public Chart NationalityDistributionChart
-        // {
-        //     get => m_nationalityDistributionChart;
-        //     set => SetAndRaise(ref m_nationalityDistributionChart, value);
-        // }
-
-        private bool m_nationalityDistributionChartIsActive;
-        public bool NationalityDistributionChartIsActive
+        
+        private IEnumerable<(string Nationality, int TotalCount)> m_nationalityDistribution;
+        public IEnumerable<(string Nationality, int TotalCount)> NationalityDistribution
         {
-            get => m_nationalityDistributionChartIsActive;
-            set => SetAndRaise(ref m_nationalityDistributionChartIsActive, value);
+            get => m_nationalityDistribution;
+            set => SetAndRaise(ref m_nationalityDistribution, value);
+        }
+
+        private bool m_nationalityDistributionChartOptionIsActive;
+        public bool NationalityDistributionChartOptionIsActive
+        {
+            get => m_nationalityDistributionChartOptionIsActive;
+            set => SetAndRaise(ref m_nationalityDistributionChartOptionIsActive, value);
         }
         
+        private bool m_nationalityDistributionChartUseBarChart;
+        public bool NationalityDistributionChartUseBarChart
+        {
+            get => m_nationalityDistributionChartUseBarChart;
+            set => SetAndRaise(ref m_nationalityDistributionChartUseBarChart, value);
+        }
+        
+        private bool m_nationalityDistributionChartUsePieChart;
+        public bool NationalityDistributionChartUsePieChart
+        {
+            get => m_nationalityDistributionChartUsePieChart;
+            set => SetAndRaise(ref m_nationalityDistributionChartUsePieChart, value);
+        }
+
         public ObservableCollection<Top10TeamItemModel> Top10TeamsList { get; set; }
         
         private bool m_top10TeamsIsActive;
@@ -60,9 +76,12 @@ namespace FJ.Client.CompetitionOccasion
             set => SetAndRaise(ref m_top10TeamsIsActive, value);
         }
         
-        public CompetitionOccasionViewModel(ICompetitionOccasionDataService competitionOccasionDataService)
+        public CompetitionOccasionViewModel(
+            ICompetitionOccasionDataService competitionOccasionDataService, 
+            IPlotService plotService)
         {
             m_model = new CompetitionOccasionModel(competitionOccasionDataService);
+            m_plotService = plotService;
         }
         
         protected override async Task DoPopulateAsync()
@@ -83,6 +102,7 @@ namespace FJ.Client.CompetitionOccasion
                     await m_model.GetOccasionData(year);
                     TotalParticipants = m_model.TotalParticipants;
                     TotalCompetitions = m_model.TotalCompetitions;
+                    NationalityDistribution = m_model.NationalityDistribution;
                     CompetitionList = new ObservableCollection<CompetitionRowItemModel>(m_model.CompetitionList);
 
                     RaisePropertiesChanged();
@@ -103,7 +123,9 @@ namespace FJ.Client.CompetitionOccasion
             TotalParticipants = null;
             TotalCompetitions = null;
             CompetitionList = null;
-            NationalityDistributionChartIsActive = false;
+            NationalityDistributionChartOptionIsActive = false;
+            NationalityDistributionChartUseBarChart = false;
+            NationalityDistributionChartUsePieChart = false;
             Top10TeamsIsActive = false;
             
             RaisePropertiesChanged();
@@ -121,14 +143,37 @@ namespace FJ.Client.CompetitionOccasion
             Navigator.DoNavigateTo<ResultRegisterView>();
         }
 
-        public void NationalityDistributionChartActivation()
+        public void NationalityDistributionChartOptionActivation()
         {
-            // TODO Lisää modelilta saatava kansallisuus distribuutio chartin entryihin.
-            NationalityDistributionChartIsActive = true;
+            NationalityDistributionChartOptionIsActive = true;
         }
         public void NationalityDistributionChartDeActivation()
         {
-            NationalityDistributionChartIsActive = false;
+            NationalityDistributionChartOptionIsActive = false;
+        }
+        
+        public void NationalityDistributionChartOpen()
+        {
+            var data = NationalityDistribution?
+                .OrderByDescending(x => x.TotalCount)
+                .Select(x => new PlotDataPoint
+                {
+                    Label = x.Nationality, 
+                    Value = x.TotalCount
+                });
+
+            if (data == null)
+            {
+                return;
+            }
+            else if (NationalityDistributionChartUseBarChart)
+            {
+                m_plotService.GetPlot(data, PlotType.BarPlot, $"Kansalaisuusjakauma {OccasionYear}");
+            }
+            else                                                              
+            {                                                                                              
+                m_plotService.GetPlot(data, PlotType.PiePlot, $"Kansalaisuusjakauma {OccasionYear}");         
+            }                                                                                              
         }
         
         public void Top10TeamsActivation(IEnumerable<Top10TeamItemModel> top10TeamsList)

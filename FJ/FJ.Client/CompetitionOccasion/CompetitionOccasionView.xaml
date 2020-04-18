@@ -87,7 +87,7 @@
                                         Content="Vuoden tulokset tulosrekisterissä."/>
                             </StackPanel>
                             <StackPanel Grid.Column="1" Margin="2,0,0,0">
-                                <Button Command="{Binding NationalityDistributionChartActivation}"  
+                                <Button Command="{Binding NationalityDistributionChartOptionActivation}"  
                                         Content="Näytä urheilijajakauma maittain."/>
                             </StackPanel>
                         </Grid>
@@ -251,36 +251,52 @@
         </Grid>
         
         <Grid Grid.Row="0" 
+              Width ="300" 
+              Height="140" 
               Margin="75, 0, 75, 0" 
               ZIndex="2" 
-              IsVisible="{Binding NationalityDistributionChartIsActive}" 
-              MaxHeight="520" 
+              IsVisible="{Binding NationalityDistributionChartOptionIsActive}" 
               Background="white">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="400" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions> 
-            
-            <TextBlock 
-                Grid.Row="0" 
-                FontSize="{DynamicResource FontSizeExtraLarge}" 
-                FontWeight="Bold" 
-                Text="Urheilijoiden jakauman maittain." 
-                HorizontalAlignment="Center" 
-                Margin="0, 5, 0, 0"/>
-            
-            <!-- <microcharts:MicrochartControl Margin="0, -15, 0, 0" Grid.Row="2" Chart="{Binding ProgressionChart}"/> -->
-            
-            <Button Grid.Row="2" 
-                    Margin="0, 20, 0, 0" 
-                    Content="Sulje" 
-                    Background="Red" 
-                    FontSize="{DynamicResource FontSizeLarge}" 
-                    Height="44" 
-                    Foreground="white" 
-                    Command="{Binding NationalityDistributionChartDeActivation}"/>
+            <StackPanel Background="white" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                <RadioButton Margin="5, 0, 2, 0" 
+                             Background="White" 
+                             IsChecked="{Binding NationalityDistributionChartUseBarChart}" />
+                <TextBlock Margin="0, 3, 0, 0" FontSize="{DynamicResource FontSizeNoemal}" Text="Käytä histograamia" />
+                <RadioButton Margin="20, 0, 2, 0" 
+                             Background="White" 
+                             IsChecked="{Binding NationalityDistributionChartUsePieChart}" />
+                <TextBlock Margin="0, 3, 0, 0" FontSize="{DynamicResource FontSizeNormal}" Text="Käytä piiraskuvaajaa" />
+            </StackPanel>
+            <Grid Grid.Row="1" Margin="0, 20, 0, 0">
+                <Grid.RowDefinitions >
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <Button Grid.Row="0" 
+                        Background="{DynamicResource Dark1}" 
+                        FontSize="{DynamicResource FontSizeLarge}" 
+                        Height="44"
+                        Width="150"
+                        Foreground="white"
+                        Content="Avaa visualisointi" 
+                        Command="{Binding NationalityDistributionChartOpen}"/>
+                <Button Grid.Row="1" 
+                        Background="Red" 
+                        FontSize="{DynamicResource FontSizeLarge}" 
+                        Height="44"
+                        Width="150" 
+                        Foreground="white" 
+                        Content="Sulje"  
+                        Command="{Binding NationalityDistributionChartDeActivation}"/>
+            </Grid>
+
         </Grid>
+        
         
         <Grid Grid.Row="0" 
               Margin="75, 0, 75, 0" 

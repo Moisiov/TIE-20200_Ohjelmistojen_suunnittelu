@@ -14,6 +14,8 @@ namespace FJ.Client.CompetitionOccasion
         public List<CompetitionRowItemModel> CompetitionList { get; private set; }
         public int TotalParticipants { get; private set; }
         public int TotalCompetitions { get; private set; }
+        
+        public IEnumerable<(string Nationality, int TotalCount)> NationalityDistribution { get; private set; }
 
         public CompetitionOccasionModel(ICompetitionOccasionDataService competitionOccasionDataService)
         {
@@ -27,6 +29,10 @@ namespace FJ.Client.CompetitionOccasion
                 await m_competitionOccasionDataService.GetCompetitionOccasionResultsAsync(year);
             TotalParticipants = GetUniqueParticipantsAmount(allResultRows.Results);
             
+            // Get nationality distribution data.
+            NationalityDistribution = 
+                await m_competitionOccasionDataService.GetCompetitionOccasionNationalityDistributionAsync(year);
+
             // Get result collections for each individual competition that were held during the occasion.
             var resultRowsByCompetition = 
                 (await m_competitionOccasionDataService.GetOrderedCompetitionListsAsync(year)).ToList();
