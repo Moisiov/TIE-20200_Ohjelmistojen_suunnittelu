@@ -56,7 +56,7 @@ namespace IlmatieteenLaitosAPI
         /// Weather code is used to describe weather.
         /// </summary>
         /// <see href="https://www.ilmatieteenlaitos.fi/latauspalvelun-pikaohje"/>
-        public double? MostSignificantWeatherCode { get; set; }
+        public string MostSignificantWeatherCode { get; set; }
     }
 
     public class APIRequestModel

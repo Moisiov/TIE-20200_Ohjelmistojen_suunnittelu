@@ -146,7 +146,7 @@ namespace IlmatieteenLaitosAPI
                             Precipitation = doubles[8],
                             PrecipitationIntensityMaximum = doubles[9],
                             AirPressureAvg = doubles[10],
-                            MostSignificantWeatherCode = doubles[11]
+                            MostSignificantWeatherCode = HelperMethods.GetWeatherDescription(doubles[11])
                         });
                     }
                     else
@@ -167,7 +167,7 @@ namespace IlmatieteenLaitosAPI
                             Precipitation = null,
                             PrecipitationIntensityMaximum = null,
                             AirPressureAvg = null,
-                            MostSignificantWeatherCode = doubles[12]
+                            MostSignificantWeatherCode = HelperMethods.GetWeatherDescription(doubles[12])
                         });
                     }
 
