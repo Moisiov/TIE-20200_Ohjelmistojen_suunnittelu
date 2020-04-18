@@ -65,6 +65,7 @@ namespace FJ.Desktop.Debug
             container.RegisterType<IFinlandiaResultsService, FinlandiaResultsService>();
             container.RegisterType<IAthleteResultsService, AthleteResultsDataService>();
             container.RegisterType<ICompetitionOccasionDataService, CompetitionOccasionDataService>();
+            container.RegisterType<ICompetitionComparisonDataService, CompetitionComparisonDataService>();
         }
     }
 }

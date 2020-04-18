@@ -30,5 +30,8 @@
     <Reference Include="IlmatieteenLaitosAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\APIs\IlmatieteenLaitosAPI\IlmatieteenLaitosAPI.dll</HintPath>
     </Reference>
+    <Reference Include="PlotterService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\Plotter\PlotterService\bin\Debug\netcoreapp3.0\PlotterService.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

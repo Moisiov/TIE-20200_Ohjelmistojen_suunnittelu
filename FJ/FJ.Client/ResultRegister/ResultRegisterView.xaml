@@ -177,9 +177,9 @@
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
                                     <CheckBox Grid.Column="0" Grid.Row="0" Margin="4" Background="White" IsChecked="{Binding IsSelected}"   />
-                                    <TextBlock Classes="ResultRowElement" Grid.Column="1" Grid.Row="0" Text="{Binding StyleAndDistance}"    />
+                                    <TextBlock Classes="ResultRowElement" Grid.Column="1" Grid.Row="0" Text="{Binding StyleAndDistanceString}"    />
                                     <TextBlock Classes="ResultRowElement" Grid.Column="2" Grid.Row="0" Text="{Binding Position}"            />
-                                    <TextBlock Classes="ResultRowElement" Grid.Column="3" Grid.Row="0" Text="{Binding Name}"                />
+                                    <TextBlock Classes="ResultRowElement" Grid.Column="3" Grid.Row="0" Text="{Binding FullName}"                />
                                     <TextBlock Classes="ResultRowElement" Grid.Column="4" Grid.Row="0" Text="{Binding ResultTime}"          />
                                     <TextBlock Classes="ResultRowElement" Grid.Column="5" Grid.Row="0" Text="{Binding Year}"                />
                                 </Grid>
@@ -203,11 +203,15 @@
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" >
                 <Button Height="40" Width="280" Margin="2"
                         Foreground="Blue"
-                        Command="{Binding NavigationToAthleteCardCommand}"
+                        Command="{Binding NavigateToAthleteCardCommand}"
                         Content="NAVIGOI VALITUN URHEILIJAN KORTILLE" />
-                <Button Height="40" Width="280" Margin="2"
+                <Button Height="40" Width="250" Margin="2"
                         Foreground="Blue"
-                        Command="{Binding NavigationToCompetitionOccasionCommand}"
+                        Command="{Binding NavigateToCompetitionComparisonCommand}"
+                        Content="VERTAILE KAHTA VALITTUA KILPAILUA" />
+                <Button Height="40" Width="310" Margin="2"
+                        Foreground="Blue"
+                        Command="{Binding NavigateToCompetitionOccasionCommand}"
                         Content="NAVIGOI VALITUN KILPAILUTAPAHTUMAN SIVULLE" />
                 <Button Height="40" Width="120" Margin="2"
                         Foreground="Blue"

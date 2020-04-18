@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using FJ.Client.Athlete;
+using FJ.Client.CompetitionComparison;
 using FJ.Client.CompetitionOccasion;
 using FJ.Client.Core.Register;
 using FJ.DomainObjects.FinlandiaHiihto;
@@ -37,13 +38,13 @@ namespace FJ.Client.ResultRegister
             return Task.CompletedTask;
         }
 
-        public void NavigationToAthleteCardCommand()
+        public void NavigateToAthleteCardCommand()
         {
             var args = RegisterModel.AllItems.FirstOrDefault(x => x.IsSelected)?.GetNavigationArgs();
             Navigator.DoNavigateTo<AthleteCardView>(args);
         }
         
-        public void NavigationToCompetitionOccasionCommand()
+        public void NavigateToCompetitionOccasionCommand()
         {
             var args = new CompetitionOccasionArgs
             {
@@ -51,6 +52,28 @@ namespace FJ.Client.ResultRegister
             };
 
             Navigator.DoNavigateTo<CompetitionOccasionView>(args);
+        }
+
+        public void NavigateToCompetitionComparisonCommand()
+        {
+            var selected = 
+                RegisterModel.AllItems.Where(x => x.IsSelected).ToList();
+            if (selected.Count != 2
+                || (selected.First().Year == selected.Last().Year
+                    && selected.First().CompetitionClass.Equals(selected.Last().CompetitionClass)))
+            {
+                return;
+            }
+            
+            var args = new CompetitionComparisonArgs
+            {
+                Competition1Year = selected.First().Year,
+                Competition2Year = selected.Last().Year,
+                Competition1Class = selected.First().CompetitionClass,
+                Competition2Class = selected.Last().CompetitionClass,
+            };
+
+            Navigator.DoNavigateTo<CompetitionComparisonView>(args);
         }
 
         protected override Task DoRefreshInternalAsync()

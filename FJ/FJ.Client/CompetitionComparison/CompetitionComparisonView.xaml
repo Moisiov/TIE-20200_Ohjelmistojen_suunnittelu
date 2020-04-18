@@ -1,0 +1,293 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:valueConverters="clr-namespace:FJ.Client.Core.ValueConverters"
+             xmlns:uiElements="clr-namespace:FJ.Client.Core.UIElements"
+             xmlns:filterItems="clr-namespace:FJ.Client.Core.UIElements.Filters.FilterItems"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="FJ.Client.CompetitionComparison.CompetitionComparisonView">
+    
+    <UserControl.Styles>
+        <Styles>
+            <Style Selector="TextBlock.FilterCaption">
+                <Setter Property="Margin" Value="0,0,16,0" />
+                <Setter Property="FontSize" Value="{DynamicResource FontSizeNormal}" />
+                <Setter Property="FontWeight" Value="DemiBold" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                
+            </Style>
+            <Style Selector=":is(TemplatedControl).FilterBox">
+                <Setter Property="Margin" Value="2,2,16,2" />
+                <Setter Property="MinWidth" Value="108" />
+                <Setter Property="MinHeight" Value="24" />
+                <Setter Property="Background" Value="white" />
+            </Style>
+            <Style Selector="TextBlock.ResultRowElement">
+                <Setter Property="Margin" Value="4" />
+                <Setter Property="FontSize" Value="{DynamicResource FontSizeNormal}" />
+                <Setter Property="FontWeight" Value="ExtraBold" />
+                <Setter Property="Foreground" Value="{DynamicResource Dark1}" />
+            </Style>
+        </Styles>
+    </UserControl.Styles>
+    
+    <Grid Margin="10">
+        <Grid.RowDefinitions >
+            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="7*" />
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        
+        <Border Grid.Column="0"
+                Grid.Row="0"
+                CornerRadius="6"
+                Background="{DynamicResource Lightest1}"
+                BorderBrush="{DynamicResource Light1}"
+                BorderThickness="2"
+                Margin="0,0,10,0">
+            <Grid VerticalAlignment="Center">
+                <Grid.RowDefinitions >
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <StackPanel Grid.Row="0" 
+                            Orientation="Horizontal" 
+                            TextBlock.FontSize="{DynamicResource FontSizeExtraLarge}"
+                            TextBlock.FontWeight="Bold"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Competition1Info.Year}"/>
+                    <TextBlock Text=" "/>
+                    <TextBlock Text="{Binding Competition1Info.Name}" />
+                </StackPanel>
+                
+
+                <Grid Grid.Row="1">
+                    <StackPanel Grid.Row="0" 
+                                Orientation="Horizontal" 
+                                TextBlock.FontSize="{DynamicResource FontSizeExtraLarge}"
+                                TextBlock.FontWeight="Bold"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                        <TextBlock Text="Osallistujia: "/>
+                        <TextBlock Text="{Binding Competition1Participants}" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+            
+        <Border Grid.Column="1" 
+                Grid.Row="0"
+                CornerRadius="6"
+                Background="{DynamicResource Lightest1}"
+                BorderBrush="{DynamicResource Light1}"
+                BorderThickness="2"
+                Margin="10,0,0,0">
+            <Grid VerticalAlignment="Center">
+                <Grid.RowDefinitions >
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <StackPanel Grid.Row="0" 
+                            Orientation="Horizontal" 
+                            TextBlock.FontSize="{DynamicResource FontSizeExtraLarge}"
+                            TextBlock.FontWeight="Bold"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Competition2Info.Year}"/>
+                    <TextBlock Text=" "/>
+                    <TextBlock Text="{Binding Competition2Info.Name}" />
+                </StackPanel>
+                
+
+                <Grid Grid.Row="1">
+                    <StackPanel Grid.Row="0" 
+                                Orientation="Horizontal" 
+                                TextBlock.FontSize="{DynamicResource FontSizeExtraLarge}"
+                                TextBlock.FontWeight="Bold"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                        <TextBlock Text="Osallistujia: "/>
+                        <TextBlock Text="{Binding Competition2Participants}" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+        
+        <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" 
+                CornerRadius="6"
+                Background="{DynamicResource Lightest1}"
+                BorderBrush="{DynamicResource Light1}"
+                BorderThickness="2"
+                HorizontalAlignment="Center" 
+                Margin="0,10,0,5" >
+            <StackPanel Orientation="Vertical">
+                <StackPanel.Resources>
+                    <valueConverters:EnumToDescriptionConverter x:Key="EnumToDescriptionConverter" />
+                </StackPanel.Resources>
+                <WrapPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Classes="FilterCaption" Text="Etunimi" />
+                        <filterItems:FJFilterMultiTextBox Classes="FilterBox"
+                                                      FilterModel="{Binding CompetitionComparisonModel.FinlandiaFirstNamesFilter}"
+                                                      Watermark="Ei suodatusta"
+                                                      SuffixOnMany="etunimeä"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Classes="FilterCaption" Text="Sukunimi" />
+                        <filterItems:FJFilterMultiTextBox Classes="FilterBox"
+                                                      FilterModel="{Binding CompetitionComparisonModel.FinlandiaLastNamesFilter}"
+                                                      Watermark="Ei suodatusta"
+                                                      SuffixOnMany="sukunimeä"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Classes="FilterCaption" Text="Sukupuoli" />
+                        <filterItems:FJFilterEnumMultiComboBox Classes="FilterBox"
+                                                           ValueConverter="{StaticResource EnumToDescriptionConverter}"
+                                                           FilterModel="{Binding CompetitionComparisonModel.FinlandiaGenderFilter}"
+                                                           Watermark="Ei suodatusta"
+                                                           SuffixOnMany="sukupuolta"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Classes="FilterCaption" Text="Kotikaupunki" />
+                        <filterItems:FJFilterMultiTextBox Classes="FilterBox"
+                                                      FilterModel="{Binding CompetitionComparisonModel.FinlandiaHomeCitiesFilter}"
+                                                      Watermark="Ei suodatusta"
+                                                      SuffixOnMany="kotikaupunkia"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Classes="FilterCaption" Text="Ikäsarja" />
+                        <filterItems:FJFilterEnumMultiComboBox Classes="FilterBox"
+                                                           FilterModel="{Binding CompetitionComparisonModel.FinlandiaAgeGroupsFilter}"
+                                                           ValueConverter="{StaticResource EnumToDescriptionConverter}"
+                                                           Watermark="Ei suodatusta"
+                                                           SuffixOnMany="sarjaa"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Classes="FilterCaption" Text="Joukkue" />
+                        <filterItems:FJFilterMultiTextBox Classes="FilterBox"
+                                                      FilterModel="{Binding CompetitionComparisonModel.FinlandiaTeamsFilter}"
+                                                      Watermark="Ei suodatusta"
+                                                      SuffixOnMany="joukkuetta"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Classes="FilterCaption" Text="Loppuaika" />
+                        <filterItems:FJFilterTimeRange Classes="FilterBox"
+                                                   FilterModel="{Binding CompetitionComparisonModel.FinlandiaResultTimeRangeFilter}"
+                                                   MinWidth="216"
+                                                   SeparatorBackground="{DynamicResource Main1}"
+                                                   StartWatermark="Aika vähintään"
+                                                   EndWatermark="Aika enintään"/>
+                    </StackPanel>
+                </WrapPanel>
+                <Button Height="40"
+                        Width="250"
+                        Background="{DynamicResource Darkest1}"
+                        Foreground="white"
+                        FontSize="{DynamicResource FontSizeNormal}"
+                        Content="Suodata tuloslistauksia"
+                        IsEnabled="{Binding CompetitionComparisonModel.EnableSearch}"
+                        Command="{Binding FilterResults}"/>
+            </StackPanel>
+        </Border>
+        
+        <ScrollViewer Grid.Column="0" Grid.Row="2"  Margin="0,0,1,0">
+            <StackPanel Orientation="Vertical">
+            <ItemsControl Items="{Binding Competition1Results.Data}" >
+                 <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" Margin="2,0,0,0"/>
+                    </ItemsPanelTemplate>
+                 </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <Grid Background="{DynamicResource Lightest1}" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="3*" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Classes="ResultRowElement" Grid.Column="0" Grid.Row="0" Text="{Binding PositionGeneral}"/>
+                                <TextBlock Classes="ResultRowElement" Grid.Column="1" Grid.Row="0" Text="{Binding Athlete.FullName}"/>
+                                <TextBlock Classes="ResultRowElement" Grid.Column="2" Grid.Row="0" Text="{Binding ResultString}"/>
+                                <TextBlock Classes="ResultRowElement" Grid.Column="3" Grid.Row="0" Text="{Binding Team}"/>
+                            </Grid>
+                            <Separator Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="1" BorderThickness="2" BorderBrush="{DynamicResource Light1}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Button 
+                IsVisible="{Binding Competition1Results.MoreDataLeft}"
+                Content="Näytä lisää" 
+                Height="50"
+                FontSize="{DynamicResource FontSizeLarge}"
+                Command="{Binding Competition1Results.GetMoreData}"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <ScrollViewer Grid.Column="1" Grid.Row="2"  Margin="0,0,1,0">
+            <StackPanel Orientation="Vertical">
+            <ItemsControl Items="{Binding Competition2Results.Data}" >
+                 <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" Margin="2,0,0,0"/>
+                    </ItemsPanelTemplate>
+                 </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <Grid Background="{DynamicResource Lightest1}" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="3*" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Classes="ResultRowElement" Grid.Column="0" Grid.Row="0" Text="{Binding PositionGeneral}"/>
+                                <TextBlock Classes="ResultRowElement" Grid.Column="1" Grid.Row="0" Text="{Binding Athlete.FullName}"/>
+                                <TextBlock Classes="ResultRowElement" Grid.Column="2" Grid.Row="0" Text="{Binding Result}"/>
+                                <TextBlock Classes="ResultRowElement" Grid.Column="3" Grid.Row="0" Text="{Binding Team}"/>
+                            </Grid>
+                            <Separator Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="1" BorderThickness="2" BorderBrush="{DynamicResource Light1}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Button 
+                IsVisible="{Binding Competition2Results.MoreDataLeft}"
+                Content="Näytä lisää" 
+                Height="50"
+                FontSize="{DynamicResource FontSizeLarge}"
+                Command="{Binding Competition2Results.GetMoreData}"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

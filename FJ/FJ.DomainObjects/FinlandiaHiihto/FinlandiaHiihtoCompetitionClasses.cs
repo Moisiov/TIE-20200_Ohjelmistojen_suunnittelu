@@ -19,6 +19,20 @@ namespace FJ.DomainObjects.FinlandiaHiihto
                 AdditionalDescription = description
             };
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is FinlandiaHiihtoCompetitionClass other
+                   && other.Distance == Distance 
+                   && other.Style == Style 
+                   && other.AdditionalDescription == AdditionalDescription;
+        }
+
+        public override int GetHashCode()
+        {
+            // ReSharper disable once BaseObjectGetHashCodeCallInGetHashCode
+            return base.GetHashCode();
+        }
     }
 
     public static class FinlandiaHiihtoCompetitionClasses

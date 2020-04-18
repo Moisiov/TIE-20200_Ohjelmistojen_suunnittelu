@@ -12,5 +12,7 @@ namespace FJ.DomainObjects.FinlandiaHiihto
         public Competition CompetitionInfo { get; set; }
         public Person Athlete { get; set; }
         public string Team { get; set; }
+
+        public string ResultString => Result.ToString(@"hh\:mm\:ss\.ff");
     }
 }

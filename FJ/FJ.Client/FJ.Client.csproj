@@ -24,6 +24,9 @@
     <Folder Include="TopBar\" />
     <Folder Include="MainWindow\" />
     <Folder Include="CompetitionOccasion\" />
+    <Compile Update="CompetitionComparison\CompetitionComparisonView.xaml.cs">
+      <DependentUpon>CompetitionComparisonView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.9.3" />

@@ -9,24 +9,17 @@ namespace FJ.Client.ResultRegister
 {
     public class ResultRegisterItemModel : RegisterItemModelBase<AthleteCardArgs>
     {
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public int Position { get; set; }
-        public string StyleAndDistance { get; set; }
+        public FinlandiaHiihtoCompetitionClass CompetitionClass { get; set; }
         public int Year { get; set; }
         public string ResultTime { get; set; }
 
-        // TODO Not binded yet
-        public string Gender { get; set; }
-        public string City { get; set; }
-        public string Nationality { get; set; }
-        public string YearOfBirthString { get; set; }
-        public string Team { get; set; }
-        public string PositionMenString { get; set; }
-        public string PositionWomenString { get; set; }
+        public string FullName => $"{FirstName} {LastName}";
 
-        // For passing accurate name info from ResultRegister to AthleteCard
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string StyleAndDistanceString => FinlandiaHelpers.GetDistanceAndStyleShortString(
+            CompetitionClass.Distance, CompetitionClass.Style);
 
         public override AthleteCardArgs GetNavigationArgs()
         {
@@ -41,13 +34,11 @@ namespace FJ.Client.ResultRegister
         {
             return new ResultRegisterItemModel
             {
-                Name = res.Athlete.FullName,
-                Position = res.PositionGeneral,
-                StyleAndDistance = FinlandiaHelpers.GetDistanceAndStyleShortString(
-                    res.CompetitionClass.Distance, res.CompetitionClass.Style),
-                ResultTime = res.Result.ToString(@"hh\:mm\:ss\.ff"),
                 FirstName = res.Athlete.FirstName,
                 LastName = res.Athlete.LastName,
+                Position = res.PositionGeneral,
+                CompetitionClass = res.CompetitionClass,
+                ResultTime = res.ResultString,
                 Year = res.CompetitionInfo.Year
             };
         }

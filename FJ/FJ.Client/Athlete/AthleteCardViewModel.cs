@@ -13,10 +13,10 @@ namespace FJ.Client.Athlete
 {
     public class AthleteCardViewModel : ViewModelBase<AthleteCardArgs>
     {
-        private IPlotService m_plotService;
-        
+        private readonly IPlotService m_plotService;
+    
         private AthleteCardModel m_model;
-        
+
         private ObservableCollection<AthleteParticipationItemModel> m_participationList;
         public ObservableCollection<AthleteParticipationItemModel> ParticipationList
         {
@@ -42,22 +42,15 @@ namespace FJ.Client.Athlete
         public bool ProgressionChartUseLineChart
         {
             get => m_progressionChartUseLineChart;
-            set
-            {
-                SetAndRaise(ref m_progressionChartUseLineChart, value);
-            }
+            set => SetAndRaise(ref m_progressionChartUseLineChart, value);
         }
 
         private bool m_progressionChartUseBarChart;
         public bool ProgressionChartUseBarChart
         {
             get => m_progressionChartUseBarChart;
-            set
-            {
-                SetAndRaise(ref m_progressionChartUseBarChart, value);
-            }
+            set => SetAndRaise(ref m_progressionChartUseBarChart, value);
         }
-
         public AthleteCardViewModel(IAthleteResultsService athleteResultsService, IPlotService plotService)
         {
             m_plotService = plotService;
@@ -85,7 +78,7 @@ namespace FJ.Client.Athlete
                         .Select(x => new AthleteParticipationItemModel { ResultRows = x });
             
                 ParticipationList = new ObservableCollection<AthleteParticipationItemModel>(participationItemModels);
-                AthletePersonalInfo = m_model.Athlete;   
+                AthletePersonalInfo = m_model.Athlete;
             }
         }
 
