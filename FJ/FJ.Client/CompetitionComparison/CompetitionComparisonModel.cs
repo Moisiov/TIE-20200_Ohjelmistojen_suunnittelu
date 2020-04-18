@@ -19,7 +19,7 @@ namespace FJ.Client.CompetitionComparison
     {
         private readonly List<RegisterFilterModelBase> m_filterModels;
         
-        private readonly ICompetitionComparisonDataService m_competitionComparisonDataService;
+        private readonly ICompetitionDataService m_competitionDataService;
         
         private FinlandiaCompetitionYearsFilter m_yearsFilter;
 
@@ -47,14 +47,14 @@ namespace FJ.Client.CompetitionComparison
             set => SetAndRaise(ref m_enableSearch, value);
         }
         
-        public CompetitionComparisonModel(ICompetitionComparisonDataService competitionComparisonDataService)
+        public CompetitionComparisonModel(ICompetitionDataService competitionDataService)
         {
-            m_competitionComparisonDataService = competitionComparisonDataService;
+            m_competitionDataService = competitionDataService;
             m_filterModels = new List<RegisterFilterModelBase>();
             SetFilterModels();
         }
 
-        public async Task GetCompetitionComparisonData(
+        public async Task GetCompetitionData(
             int comp1Year, FinlandiaHiihtoCompetitionClass comp1Type, 
             int comp2Year, FinlandiaHiihtoCompetitionClass comp2Type,
             bool updateInfoAndParticipants = false)
@@ -74,7 +74,7 @@ namespace FJ.Client.CompetitionComparison
             filters.Add(m_competitionClassesFilter);
 
             var resultRows = 
-                await m_competitionComparisonDataService.GetCompetitionComparisonData(filters);
+                await m_competitionDataService.GetCompetitionData(filters);
 
             var comp1ResultRows = resultRows.Results
                 .Where(x 

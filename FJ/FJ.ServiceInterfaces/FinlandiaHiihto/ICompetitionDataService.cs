@@ -5,8 +5,8 @@ using FJ.DomainObjects.FinlandiaHiihto;
 
 namespace FJ.ServiceInterfaces.FinlandiaHiihto
 {
-    public interface ICompetitionComparisonDataService
+    public interface ICompetitionDataService
     {
-        Task<FinlandiaHiihtoResultsCollection> GetCompetitionComparisonData(FilterCollection filters);
+        Task<FinlandiaHiihtoResultsCollection> GetCompetitionData(FilterCollection filters);
     }
 }

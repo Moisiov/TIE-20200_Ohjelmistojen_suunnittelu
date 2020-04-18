@@ -23,9 +23,9 @@ namespace FJ.Client.CompetitionComparison
         public int? Competition1Participants { get; set; }
         public int? Competition2Participants { get; set; }
 
-        public CompetitionComparisonViewModel(ICompetitionComparisonDataService competitionOccasionDataService)
+        public CompetitionComparisonViewModel(ICompetitionDataService competitionDataService)
         {
-            CompetitionComparisonModel = new CompetitionComparisonModel(competitionOccasionDataService);
+            CompetitionComparisonModel = new CompetitionComparisonModel(competitionDataService);
         }
         
         protected override async Task DoPopulateAsync()
@@ -48,7 +48,7 @@ namespace FJ.Client.CompetitionComparison
 
                 try
                 {
-                    await CompetitionComparisonModel.GetCompetitionComparisonData(
+                    await CompetitionComparisonModel.GetCompetitionData(
                         (int)Competition1Year, Competition1Class,
                         (int)Competition2Year, Competition2Class,
                         true);
@@ -102,7 +102,7 @@ namespace FJ.Client.CompetitionComparison
             {
                 try 
                 {
-                    await CompetitionComparisonModel.GetCompetitionComparisonData(
+                    await CompetitionComparisonModel.GetCompetitionData(
                         (int)Competition1Year, Competition1Class,
                         (int)Competition2Year, Competition2Class);
 
