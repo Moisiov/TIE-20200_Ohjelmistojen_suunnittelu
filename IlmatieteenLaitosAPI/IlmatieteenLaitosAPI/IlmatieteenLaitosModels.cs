@@ -8,7 +8,7 @@ namespace IlmatieteenLaitosAPI
         public DateTime ObservationStartTime { get; set; }
         public DateTime ObservationEndTime { get; set; }
         public string Location { get; set; }
-        public double? AirTemperatureAvg { get; set; }
+        public double? AirTemperature { get; set; }
         public double? AirTemperatureMax { get; set; }
         public double? AirTemperatureMin { get; set; }
 

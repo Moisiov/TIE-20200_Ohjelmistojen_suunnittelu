@@ -17,7 +17,7 @@ namespace IlmatieteenLaitosAPI
                     ObservationStartTime = weatherModels.Min(w => w.ObservationStartTime),
                     ObservationEndTime = weatherModels.Max(w => w.ObservationEndTime),
                     Location = weatherModels.Select(w => w.Location).FirstOrDefault(),
-                    AirTemperatureAvg = weatherModels.Average(w => w.AirTemperatureAvg),
+                    AirTemperature = weatherModels.Average(w => w.AirTemperature),
                     AirTemperatureMax = weatherModels.Max(w => w.AirTemperatureMax),
                     AirTemperatureMin = weatherModels.Min(w => w.AirTemperatureMin),
                     AirHumidityAvg = weatherModels.Average(w => w.AirHumidityAvg),

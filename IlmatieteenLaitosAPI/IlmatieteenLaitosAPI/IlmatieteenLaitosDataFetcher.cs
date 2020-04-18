@@ -20,33 +20,45 @@ namespace IlmatieteenLaitosAPI
             {
                 Service = "WFS",
                 Version = "2.0.0",
-                Request = "getFeature",
-                StoredQueryId = "fmi::observations::weather::hourly::multipointcoverage"
+                Request = "getFeature"
             }
         };
 
         private static readonly HttpClient s_httpClient = new HttpClient();
 
-        public async Task<IEnumerable<WeatherModel>> FetchWeather(string location, DateTime startTime, DateTime endTime)
+        public async Task<IEnumerable<WeatherModel>> FetchWeather(string location, DateTime start, DateTime end, bool hourly = true)
         {
             try
             {
-                var startTimeRounded = new DateTime(startTime.Year, startTime.Month, startTime.Day, startTime.Hour, 0, 0, startTime.Kind);
-                var endTimeRounded = new DateTime(endTime.Year, endTime.Month, endTime.Day, endTime.Hour, 0, 0, endTime.Kind);
+                var startTime = hourly ? new DateTime(start.Year, start.Month, start.Day, start.Hour, 0, 0, start.Kind) : start;
+                var endTime = hourly ? new DateTime(end.Year, end.Month, end.Day, end.Hour, 0, 0, end.Kind) : end;
 
-                m_request.Parameters.SearchParameters = new Dictionary<string, string>
+                m_request.Parameters.StoredQueryId = hourly ? "fmi::observations::weather::hourly::multipointcoverage" : "fmi::observations::weather::multipointcoverage";
+
+                if (hourly)
                 {
-                    { "place",  location },
-                    { "starttime", startTimeRounded.ToUniversalTime().ToString(m_request.DateTimeFormat) },
-                    { "endtime", endTimeRounded.ToUniversalTime().ToString(m_request.DateTimeFormat) }
-                };
+                    m_request.Parameters.SearchParameters = new Dictionary<string, string>
+                    {
+                        { "place",  location },
+                        { "starttime", startTime.ToUniversalTime().ToString(m_request.DateTimeFormat) },
+                        { "endtime", endTime.ToUniversalTime().ToString(m_request.DateTimeFormat) }
+                    };
+                }
+                else
+                {
+                    m_request.Parameters.SearchParameters = new Dictionary<string, string>
+                    {
+                        { "place",  location },
+                        { "endtime", endTime.ToUniversalTime().ToString(m_request.DateTimeFormat) }
+                    };
+                }
 
                 var response = await GetRequest();
 
                 XNamespace ns = "http://www.opengis.net/gml/3.2";
                 var dataBlock = response.Descendants(ns + "doubleOrNilReasonTupleList").FirstOrDefault()?.Value;
 
-                var result = ParseDataBlock(dataBlock, startTimeRounded, location);
+                var result = ParseDataBlock(dataBlock, startTime, location, hourly);
 
                 return result;
             }
@@ -90,7 +102,7 @@ namespace IlmatieteenLaitosAPI
             return null;
         }
 
-        private static IEnumerable<WeatherModel> ParseDataBlock(string dataBlock, DateTime startTime, string location)
+        private static IEnumerable<WeatherModel> ParseDataBlock(string dataBlock, DateTime startTime, string location, bool hourly)
         {
             IList<WeatherModel> weatherData = new List<WeatherModel>();
             var time = startTime;
@@ -116,24 +128,48 @@ namespace IlmatieteenLaitosAPI
                             : Convert.ToDouble(values[i], CultureInfo.InvariantCulture);
                     }
 
-                    weatherData.Add(new WeatherModel
+                    if (hourly)
                     {
-                        ObservationStartTime = time.AddHours(-1),
-                        ObservationEndTime = time,
-                        Location = location,
-                        AirTemperatureAvg = doubles[0],
-                        AirTemperatureMax = doubles[1],
-                        AirTemperatureMin = doubles[2],
-                        AirHumidityAvg = doubles[3],
-                        WindSpeedAvg = doubles[4],
-                        WindSpeedMax = doubles[5],
-                        WindSpeedMin = doubles[6],
-                        WindDirection = doubles[7],
-                        Precipitation = doubles[8],
-                        PrecipitationIntensityMaximum = doubles[9],
-                        AirPressureAvg = doubles[10],
-                        MostSignificantWeatherCode = doubles[11]
-                    });
+                        weatherData.Add(new WeatherModel
+                        {
+                            ObservationStartTime = time.AddHours(-1),
+                            ObservationEndTime = time,
+                            Location = location,
+                            AirTemperature = doubles[0],
+                            AirTemperatureMax = doubles[1],
+                            AirTemperatureMin = doubles[2],
+                            AirHumidityAvg = doubles[3],
+                            WindSpeedAvg = doubles[4],
+                            WindSpeedMax = doubles[5],
+                            WindSpeedMin = doubles[6],
+                            WindDirection = doubles[7],
+                            Precipitation = doubles[8],
+                            PrecipitationIntensityMaximum = doubles[9],
+                            AirPressureAvg = doubles[10],
+                            MostSignificantWeatherCode = doubles[11]
+                        });
+                    }
+                    else
+                    {
+                        weatherData.Add(new WeatherModel
+                        {
+                            ObservationStartTime = time,
+                            ObservationEndTime = time,
+                            Location = location,
+                            AirTemperature = doubles[0],
+                            AirTemperatureMax = null,
+                            AirTemperatureMin = null,
+                            AirHumidityAvg = doubles[4],
+                            WindSpeedAvg = doubles[1],
+                            WindSpeedMax = null,
+                            WindSpeedMin = null,
+                            WindDirection = doubles[3],
+                            Precipitation = null,
+                            PrecipitationIntensityMaximum = null,
+                            AirPressureAvg = null,
+                            MostSignificantWeatherCode = doubles[12]
+                        });
+                    }
 
                     time = time.AddHours(1);
                 }

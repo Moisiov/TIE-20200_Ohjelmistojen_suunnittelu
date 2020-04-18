@@ -59,5 +59,12 @@ namespace IlmatieteenLaitosAPI
         /// <param name="dateTime">Only date matters. Time is not taken into account.</param>
         /// <returns>A single WeatherModel object, null if nothing was found.</returns>
         Task<WeatherModel> GetWeatherOfDay(string location, DateTime dateTime);
+
+        /// <summary>
+        /// Get current weather in given location.
+        /// </summary>
+        /// <param name="location">Observation location</param>
+        /// <returns>A single WeatherModel object, null if nothing was found.</returns>
+        Task<WeatherModel> GetWeatherNow(string location);
     }
 }
