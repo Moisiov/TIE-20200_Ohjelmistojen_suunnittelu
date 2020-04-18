@@ -78,12 +78,20 @@ namespace FJ.Client.CompetitionOccasion
                 }
 
                 var year = (int)OccasionYear;
-                await m_model.GetOccasionData(year);
-                TotalParticipants = m_model.TotalParticipants;
-                TotalCompetitions = m_model.TotalCompetitions;
-                CompetitionList = new ObservableCollection<CompetitionRowItemModel>(m_model.CompetitionList);
-                
-                RaisePropertiesChanged();
+                try
+                {
+                    await m_model.GetOccasionData(year);
+                    TotalParticipants = m_model.TotalParticipants;
+                    TotalCompetitions = m_model.TotalCompetitions;
+                    CompetitionList = new ObservableCollection<CompetitionRowItemModel>(m_model.CompetitionList);
+
+                    RaisePropertiesChanged();
+                }
+                catch (Exception e)
+                {
+                    await DoRefreshInternalAsync();
+                    Navigator.ShowErrorMessage(e.Message);
+                }
             }
         }
 

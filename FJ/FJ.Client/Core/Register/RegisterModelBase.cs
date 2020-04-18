@@ -42,16 +42,7 @@ namespace FJ.Client.Core.Register
             {
                 activeFilters.Add(filterModel.GetActiveFilters().Where(f => f != null));
             }
-
-            try
-            {
-                await DoExecuteSearchInternalAsync(activeFilters);
-            }
-            catch (Exception e)
-            {
-                // TODO Näytä ok-dialogi jos haku menee reisille
-                Console.WriteLine(e);
-            }
+            await DoExecuteSearchInternalAsync(activeFilters);
         }
 
         public void DoClearFilters()
@@ -62,6 +53,10 @@ namespace FJ.Client.Core.Register
             AfterFiltersCleared();
             
             RaisePropertiesChanged();
+        }
+
+        public virtual void DoClearItems()
+        {
         }
 
         protected abstract Task DoExecuteSearchInternalAsync(FilterCollection activeFilters);
@@ -111,5 +106,10 @@ namespace FJ.Client.Core.Register
     {
         public ListItemLimitWrapper<TRegisterItem> AllItems { get; protected set; }
             = new ListItemLimitWrapper<TRegisterItem>();
+
+        public override void DoClearItems()
+        {
+            AllItems.Clear();
+        }
     }
 }

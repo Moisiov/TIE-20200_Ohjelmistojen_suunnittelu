@@ -46,20 +46,29 @@ namespace FJ.Client.CompetitionComparison
                     return;
                 }
 
-                await CompetitionComparisonModel.GetCompetitionComparisonData(
-                    (int)Competition1Year, Competition1Class,
-                    (int)Competition2Year, Competition2Class,
-                    true);
-                Competition1Info = CompetitionComparisonModel.Competition1Info;
-                Competition2Info = CompetitionComparisonModel.Competition2Info;
-                Competition1Participants = CompetitionComparisonModel.Competition1Participants;
-                Competition2Participants = CompetitionComparisonModel.Competition2Participants;
-                Competition1Results = new ListItemLimitWrapper<FinlandiaHiihtoSingleResult>(
-                    CompetitionComparisonModel.Competition1ResultsCollection.Results);
-                Competition2Results = new ListItemLimitWrapper<FinlandiaHiihtoSingleResult>(
-                    CompetitionComparisonModel.Competition2ResultsCollection.Results);
+                try
+                {
+                    await CompetitionComparisonModel.GetCompetitionComparisonData(
+                        (int)Competition1Year, Competition1Class,
+                        (int)Competition2Year, Competition2Class,
+                        true);
+                    
+                    Competition1Info = CompetitionComparisonModel.Competition1Info;
+                    Competition2Info = CompetitionComparisonModel.Competition2Info;
+                    Competition1Participants = CompetitionComparisonModel.Competition1Participants;
+                    Competition2Participants = CompetitionComparisonModel.Competition2Participants;
+                    Competition1Results = new ListItemLimitWrapper<FinlandiaHiihtoSingleResult>(
+                        CompetitionComparisonModel.Competition1ResultsCollection.Results);
+                    Competition2Results = new ListItemLimitWrapper<FinlandiaHiihtoSingleResult>(
+                        CompetitionComparisonModel.Competition2ResultsCollection.Results);
                 
-                RaisePropertiesChanged();
+                    RaisePropertiesChanged();
+                }
+                catch (Exception e)
+                {
+                    await DoRefreshInternalAsync();
+                    Navigator.ShowErrorMessage(e.Message);
+                }
             }
         }
 
@@ -91,17 +100,25 @@ namespace FJ.Client.CompetitionComparison
 
             using (Navigator.ShowLoadingScreen())
             {
-                await CompetitionComparisonModel.GetCompetitionComparisonData(
-                    (int)Competition1Year, Competition1Class,
-                    (int)Competition2Year, Competition2Class);
-                
-                Competition1Results = new ListItemLimitWrapper<FinlandiaHiihtoSingleResult>(
-                    CompetitionComparisonModel.Competition1ResultsCollection.Results);
-                Competition2Results = new ListItemLimitWrapper<FinlandiaHiihtoSingleResult>(
-                    CompetitionComparisonModel.Competition2ResultsCollection.Results);
+                try 
+                {
+                    await CompetitionComparisonModel.GetCompetitionComparisonData(
+                        (int) Competition1Year, Competition1Class,
+                        (int) Competition2Year, Competition2Class);
+
+                    Competition1Results = new ListItemLimitWrapper<FinlandiaHiihtoSingleResult>(
+                        CompetitionComparisonModel.Competition1ResultsCollection.Results);
+                    Competition2Results = new ListItemLimitWrapper<FinlandiaHiihtoSingleResult>(
+                        CompetitionComparisonModel.Competition2ResultsCollection.Results);
+                    
+                    RaisePropertiesChanged();
+                }
+                catch (Exception e)
+                {
+                    await DoRefreshInternalAsync();
+                    Navigator.ShowErrorMessage(e.Message);
+                }
             }
-            
-            RaisePropertiesChanged();
         }
 
         public void NavigateToResultRegisterWithCompetitions(string competitionType)

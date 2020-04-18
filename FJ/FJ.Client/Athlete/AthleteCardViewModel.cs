@@ -71,14 +71,22 @@ namespace FJ.Client.Athlete
                     return;
                 }
 
-                await m_model.GetAthleteData(athleteFirstName, athleteLastName);
-            
-                var participationItemModels = m_model.AthletesResultRows.Results
+                try
+                {
+                    await m_model.GetAthleteData(athleteFirstName, athleteLastName);
+
+                    var participationItemModels = m_model.AthletesResultRows.Results
                         .OrderByDescending(x => x.CompetitionInfo.Year)
                         .Select(x => new AthleteParticipationItemModel { ResultRows = x });
             
-                ParticipationList = new ObservableCollection<AthleteParticipationItemModel>(participationItemModels);
-                AthletePersonalInfo = m_model.Athlete;
+                    ParticipationList = new ObservableCollection<AthleteParticipationItemModel>(participationItemModels);
+                    AthletePersonalInfo = m_model.Athlete;
+                }
+                catch (Exception e)
+                {
+                    await DoRefreshInternalAsync();
+                    Navigator.ShowErrorMessage(e.Message);
+                }
             }
         }
 

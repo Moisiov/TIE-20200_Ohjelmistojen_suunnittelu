@@ -61,9 +61,17 @@ namespace FJ.Client.Core.Register
         {
             using (Navigator.ShowLoadingScreen())
             {
-                await OnBeforeActivatingAsync();
-                await RegisterModel.DoExecuteSearchAsync();
-                await OnAfterActivatingAsync();
+                try
+                {
+                    await OnBeforeActivatingAsync();
+                    await RegisterModel.DoExecuteSearchAsync();
+                    await OnAfterActivatingAsync();
+                }
+                catch(Exception e)
+                {
+                    RegisterModel.DoClearItems();
+                    Navigator.ShowErrorMessage(e.Message);
+                }
             }
         }
 
