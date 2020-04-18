@@ -14,6 +14,8 @@ namespace FJ.Client.ResultRegister
         public int Position { get; set; }
         public FinlandiaHiihtoCompetitionClass CompetitionClass { get; set; }
         public int Year { get; set; }
+        
+        public TimeSpan Result { get; set; }
         public string ResultTime { get; set; }
 
         public string FullName => $"{FirstName} {LastName}";
@@ -39,7 +41,8 @@ namespace FJ.Client.ResultRegister
                 Position = res.PositionGeneral,
                 CompetitionClass = res.CompetitionClass,
                 ResultTime = res.ResultString,
-                Year = res.CompetitionInfo.Year
+                Year = res.CompetitionInfo.Year,
+                Result = res.Result,
             };
         }
     }

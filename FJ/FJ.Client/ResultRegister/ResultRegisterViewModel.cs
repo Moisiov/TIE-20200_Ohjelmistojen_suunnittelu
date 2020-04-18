@@ -22,6 +22,20 @@ namespace FJ.Client.ResultRegister
         
         #endregion
 
+        private bool m_averageSpeedIsActive;
+        public bool AverageSpeedIsActive
+        {
+            get => m_averageSpeedIsActive;
+            set => SetAndRaise(ref m_averageSpeedIsActive, value);
+        }
+        
+        private string m_averageSpeed;
+        public string AverageSpeed
+        {
+            get => m_averageSpeed;
+            set => SetAndRaise(ref m_averageSpeed, value);
+        }
+        
         public ResultRegisterViewModel(IFinlandiaResultsService finlandiaResultsService)
         {
             RegisterModel = new ResultRegisterModel(finlandiaResultsService);
@@ -31,6 +45,8 @@ namespace FJ.Client.ResultRegister
                 DateTime.Today.Year - FinlandiaConstants.C_FirstFinlandiaSkiingYear + 1).Reverse());
             FinlandiaCompetitionClassItems = new ObservableCollection<FinlandiaHiihtoCompetitionClass>(
                 FinlandiaHiihtoCompetitionClasses.FinlandiaCompetitionClasses);
+            
+            AverageSpeedIsActive = false;
         }
 
         protected override Task OnDoPopulateAsync()
@@ -84,6 +100,19 @@ namespace FJ.Client.ResultRegister
             RaisePropertiesChanged();
             
             return Task.CompletedTask;
+        }
+
+        public void CalculateAverageSpeedForResults()
+        {
+            AverageSpeedIsActive = true;
+            var totalHours = RegisterModel.AllItems.Sum(x => x.Result.TotalHours);
+            var totalKilometers = RegisterModel.AllItems.Sum(x => (int)x.CompetitionClass.Distance);
+            AverageSpeed = (totalKilometers / totalHours).ToString("0.00");
+        }
+
+        public void AverageSpeedDeactivation()
+        {
+            AverageSpeedIsActive = false;
         }
     }
 }

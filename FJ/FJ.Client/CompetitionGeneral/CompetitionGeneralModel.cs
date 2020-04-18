@@ -25,7 +25,6 @@ namespace FJ.Client.CompetitionGeneral
         
         public async Task GetCompetitionGeneralData(int compYear, FinlandiaHiihtoCompetitionClass compType)
         {
-
             var yearsFilter = new FinlandiaCompetitionYearsFilter(compYear.ToMany());
             var competitionClassesFilter = new FinlandiaCompetitionClassesFilter(compType.ToMany());
             var filters = new FilterCollection(yearsFilter, competitionClassesFilter);

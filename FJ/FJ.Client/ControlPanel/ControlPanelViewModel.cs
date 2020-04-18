@@ -11,6 +11,8 @@ using FJ.Client.Core.Services;
 using FJ.Client.FrontPage;
 using FJ.Client.ResultRegister;
 using FJ.Client.Team;
+using FJ.DomainObjects.FinlandiaHiihto;
+using FJ.DomainObjects.FinlandiaHiihto.Enums;
 using FJ.ServiceInterfaces.Weather;
 using ReactiveUI;
 
