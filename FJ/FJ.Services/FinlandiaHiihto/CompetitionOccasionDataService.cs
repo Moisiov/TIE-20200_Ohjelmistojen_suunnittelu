@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FinlandiaHiihtoAPI.Exceptions;
 using FJ.DomainObjects.Filters.Core;
 using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.DomainObjects.FinlandiaHiihto.Filters;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
+using FJ.Services.CoreServices;
 using FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices;
 using FJ.Utils;
 
@@ -36,7 +38,17 @@ namespace FJ.Services.FinlandiaHiihto
             // Set year as search filter to fetch all the data about the competition occasion.
             var yearFilter = new FinlandiaCompetitionYearsFilter(m_year.ToMany());
             var filters = new FilterCollection(yearFilter);
-            m_resultsCollection = await m_dataFetchingService.GetFinlandiaHiihtoResultsAsync(filters);
+            
+            try
+            {
+                m_resultsCollection = await m_dataFetchingService.GetFinlandiaHiihtoResultsAsync(filters);
+            }
+            // If year has more than 10k results try to slice the search to smaller pieces.
+            catch (TooMuchResultsExceptions)
+            {
+                FilterUtils.SliceSearchWithName(filters);
+                m_resultsCollection = await m_dataFetchingService.GetFinlandiaHiihtoResultsAsync(filters);
+            }
             
             return m_resultsCollection;
         }

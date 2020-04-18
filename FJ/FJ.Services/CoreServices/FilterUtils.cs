@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using FJ.DomainObjects.Filters;
 using FJ.DomainObjects.Filters.Core;
 using FJ.DomainObjects.Filters.ImplementationCore;
+using FJ.DomainObjects.FinlandiaHiihto.Filters;
 using FJ.Utils;
 using Unity;
 
@@ -169,6 +170,18 @@ namespace FJ.Services.CoreServices
                 Expression.AndAlso(
                     expr1.Body,
                     Expression.Invoke(expr2, param)), param);
+        }
+
+        public static void SliceSearchWithName(FilterCollection filters)
+        {
+            // "a", "e", "i", "o", "u", "y", "ä", "ö" 
+            // "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",
+            // "T", "U", "V", "W", "X", "Y", "Z", "Å", "Ä", "Ö"
+            var nameFilter = new FinlandiaLastNamesFilter(new[]
+            {
+                "a", "e", "i", "o", "u", "y", "ä", "ö" 
+            });
+            filters.Add(nameFilter);
         }
     }
 }
