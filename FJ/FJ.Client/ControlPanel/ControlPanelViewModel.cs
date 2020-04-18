@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
-using System.Threading.Tasks;
 using System.Reactive;
+using System.Threading.Tasks;
 using Avalonia.Threading;
 using FJ.Client.Athlete;
 using FJ.Client.CompetitionGeneral;
@@ -28,7 +28,7 @@ namespace FJ.Client.ControlPanel
         public string CurrentTemperature { get; set; }
         public string CurrentWindSpeed { get; set; }
 
-        private ControlPanelModel m_model;
+        private readonly ControlPanelModel m_model;
 
         public ControlPanelViewModel(IControlPanelRegionController controPanelRegionController)
         {
