@@ -84,6 +84,7 @@ namespace FJ.Services.FinlandiaHiihto
                 .Select(x
                     => new FinlandiaHiihtoResultsCollection(x
                         .ToList()
+                        .Where(y => y.PositionGeneral > 0)
                         .OrderBy(y => y.PositionGeneral)));
             
             return await Task.FromResult(m_orderedCompetitionLists);
