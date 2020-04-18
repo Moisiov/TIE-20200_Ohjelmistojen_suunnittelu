@@ -1,0 +1,26 @@
+﻿<Window 
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:prism="http://prismlibrary.com/"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    x:Class="ConsoleApp1.MainWindow"
+    >
+    <StackPanel >
+        <Button 
+            Height="100"
+            Content="Get bar plot"
+            Command="{Binding GetBarPlot}" />
+        <Button 
+            Height="100"
+            Content="Get line plot"
+            Command="{Binding GetLinePlot}" />
+        <Button 
+            Height="100"
+            Content="Get line plot with TimeSpan strings."
+            Command="{Binding GetLinePlotTimeSpan}" />
+        <Button 
+            Height="100"
+            Content="Get pie plot"
+            Command="{Binding GetPiePlot}" />
+    </StackPanel>
+</Window>

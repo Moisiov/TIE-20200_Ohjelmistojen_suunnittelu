@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlotterService", "PlotterService\PlotterService.csproj", "{B35A45A6-86A3-4327-A5E5-9DB08D17EA73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{B157B41F-6943-48D4-815C-6BEF97185125}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B35A45A6-86A3-4327-A5E5-9DB08D17EA73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B35A45A6-86A3-4327-A5E5-9DB08D17EA73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B35A45A6-86A3-4327-A5E5-9DB08D17EA73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B35A45A6-86A3-4327-A5E5-9DB08D17EA73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B157B41F-6943-48D4-815C-6BEF97185125}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B157B41F-6943-48D4-815C-6BEF97185125}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B157B41F-6943-48D4-815C-6BEF97185125}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B157B41F-6943-48D4-815C-6BEF97185125}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
