@@ -113,18 +113,22 @@ namespace FJ.Client.Athlete
 
         private void ProgressionChartPopulate()
         {
-            var data = ParticipationList
+            var data = ParticipationList?
                 .Where(x => x.IsSelected)
                 .Select(x => new PlotDataPoint
                 {
                     Label = $"{x.ResultRows.CompetitionInfo.Year} {x.ResultRows.CompetitionInfo.Name}", 
                     Value = x.ResultRows.Result
                 });
-            if (ProgressionChartUseLineChart)
+
+            if (data == null)
+            {
+                return;
+            }
+            else if (ProgressionChartUseLineChart)
             {
                 m_plotService.GetPlot(data, PlotType.TimeSpanLinePlot, "Urheilijan tuloskehitys");
             }
-            
             else                                                              
             {                                                                                              
                 m_plotService.GetPlot(data, PlotType.TimeSpanBarPlot, "Urheilijan tuloskehitys");         
