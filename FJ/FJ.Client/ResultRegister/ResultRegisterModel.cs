@@ -16,7 +16,7 @@ namespace FJ.Client.ResultRegister
 {
     public class ResultRegisterModel : RegisterModelBase<ResultRegisterItemModel>
     {
-        private readonly ILatestFinlandiaResultsService m_latestFinlandiaResultsService;
+        private readonly IFinlandiaResultsService m_finlandiaResultsService;
         
         public FilterModel_FinlandiaFirstNames FinlandiaFirstNamesFilter  { get; set; }
         public FilterModel_FinlandiaLastNames FinlandiaLastNamesFilter  { get; set; }
@@ -30,18 +30,16 @@ namespace FJ.Client.ResultRegister
         public FilterModel_FinlandiaTeams FinlandiaTeamsFilter  { get; set; }
         public FilterModel_FinlandiaResultTimeRange FinlandiaResultTimeRangeFilter  { get; set; }
 
-        public ResultRegisterModel(ILatestFinlandiaResultsService latestFinlandiaResultsService)
+        public ResultRegisterModel(IFinlandiaResultsService finlandiaResultsService)
         {
-            m_latestFinlandiaResultsService = latestFinlandiaResultsService;
+            m_finlandiaResultsService = finlandiaResultsService;
         }
  
         protected override async Task DoExecuteSearchInternalAsync(FilterCollection filters)
         {
-            // TODO some hard-coded limitations at this point of development
-            var collection = await m_latestFinlandiaResultsService.GetFinlandiaResultsAsync(filters);
+            var collection = await m_finlandiaResultsService.GetFinlandiaResultsAsync(filters);
             AllItems = collection.Results
                 .OrderBy(x => x.PositionGeneral)
-                .Take(100)
                 .Select(x => (ResultRegisterItemModel)x)
                 .ToListItemWrapper();
             

@@ -21,9 +21,9 @@ namespace FJ.Client.ResultRegister
         
         #endregion
 
-        public ResultRegisterViewModel(ILatestFinlandiaResultsService latestFinlandiaResultsService)
+        public ResultRegisterViewModel(IFinlandiaResultsService finlandiaResultsService)
         {
-            RegisterModel = new ResultRegisterModel(latestFinlandiaResultsService);
+            RegisterModel = new ResultRegisterModel(finlandiaResultsService);
 
             CompetitionYears = new ObservableCollection<int>(Enumerable.Range(
                 FinlandiaConstants.C_FirstFinlandiaSkiingYear,

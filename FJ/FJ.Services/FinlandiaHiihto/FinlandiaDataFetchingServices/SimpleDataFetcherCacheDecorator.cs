@@ -19,23 +19,17 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
             m_cacheProvider = cacheProvider;
         }
         
-        public async Task<FinlandiaHiihtoResultsCollection> GetFinlandiaHiihtoResultsAsync(FinlandiaHiihtoSearchArgs args)
+        public async Task<FinlandiaHiihtoResultsCollection> GetFinlandiaHiihtoResultsAsync(FilterCollection filters)
         {
-            if (m_cacheProvider.TryGetSerializingKey(args, out FinlandiaHiihtoResultsCollection cachedRes))
+            if (m_cacheProvider.TryGetSerializingKey(filters, out FinlandiaHiihtoResultsCollection cachedRes))
             {
                 return cachedRes;
             }
 
-            var res = await m_dataFetchingService.GetFinlandiaHiihtoResultsAsync(args);
-            m_cacheProvider.SetSerializingKey(args, res);
+            var res = await m_dataFetchingService.GetFinlandiaHiihtoResultsAsync(filters);
+            m_cacheProvider.SetSerializingKey(filters, res);
 
             return res;
-        }
-
-        public async Task<FinlandiaHiihtoResultsCollection> GetFinlandiaHiihtoResultsAsync(FilterCollection filters)
-        {
-            // TODO
-            return await m_dataFetchingService.GetFinlandiaHiihtoResultsAsync(filters);
         }
     }
 }

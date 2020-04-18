@@ -8,6 +8,7 @@ using FJ.NUnitTests.TestData;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
 using FJ.Services.FinlandiaHiihto;
 using FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices;
+using FJ.Utils;
 using NUnit.Framework;
 
 namespace FJ.NUnitTests.FinlandiaTests.Services
@@ -21,11 +22,6 @@ namespace FJ.NUnitTests.FinlandiaTests.Services
         {
             private readonly FinlandiaHiihtoResultsCollection m_res = 
                 CompetitionOccasionDummyDataProvider.PopulateResultRows(2000);
-            
-            public Task<FinlandiaHiihtoResultsCollection> GetFinlandiaHiihtoResultsAsync(FinlandiaHiihtoSearchArgs args)
-            {
-                return Task.FromResult(m_res);
-            }
             
             public Task<FinlandiaHiihtoResultsCollection> GetFinlandiaHiihtoResultsAsync(FilterCollection filters)
             {
@@ -84,7 +80,10 @@ namespace FJ.NUnitTests.FinlandiaTests.Services
                 Assert.AreEqual("Team2 1", competition.Results.First().Team);
                 Assert.AreEqual("Team1 2", competition.Results.Last().Team);
 
-                switch (competition.Results.First().CompetitionClass.Distance)
+                var dist = competition.Results.First().CompetitionClass.Distance;
+                Assert.IsTrue(dist.IsIn(FinlandiaSkiingDistance.Thirty, FinlandiaSkiingDistance.Fifty));
+
+                switch (dist)
                 {
                     case FinlandiaSkiingDistance.Thirty:
                         Assert.AreEqual(thirtyWinningTime, competition.Results.First().Result);
@@ -95,7 +94,7 @@ namespace FJ.NUnitTests.FinlandiaTests.Services
                         Assert.AreEqual(fiftyLosingTime, competition.Results.Last().Result);
                         break;
                     default:
-                        break;
+                        throw new AssertionException(nameof(dist));
                 }
             }
         }

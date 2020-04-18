@@ -19,10 +19,7 @@ namespace FJ.Client.Core
         }
         
         public List<T> TList { get; private set; }
-        
         public int BatchSize { get; set; }
-
-
         public bool MoreDataLeft => (TList?.Count ?? 0) > (Data?.Count ?? 0);
 
         public ListItemLimitWrapper()

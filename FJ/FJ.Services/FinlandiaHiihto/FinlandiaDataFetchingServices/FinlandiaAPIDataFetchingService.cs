@@ -28,24 +28,11 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
             m_filterImplementationProvider = filterImplementationProvider;
         }
 
-        public async Task<FinlandiaHiihtoResultsCollection> GetFinlandiaHiihtoResultsAsync(FinlandiaHiihtoSearchArgs args)
-        {
-            // TODO proof of concept, ei huomioi argseja vielä kuin ensimmäisen vuoden osalta
-            var raw = await m_api.GetData(new FinlandiaHiihtoAPISearchArgs
-            {
-                Year = args.CompetitionYears.First()
-            });
-            
-            return new FinlandiaHiihtoResultsCollection(ParseRawResult(raw));
-        }
-
         public async Task<FinlandiaHiihtoResultsCollection> GetFinlandiaHiihtoResultsAsync(FilterCollection filters)
         {
             var searches = new FilterSearchComposer<FinlandiaHiihtoAPISearchArgs>()
                 .ApplyFilters(filters, m_filterImplementationProvider)
                 .Searches;
-            
-            // var searchTasks = searches.Select(x => m_api.GetData(x)).ToList();
 
             if (searches.Count > c_searchCountLimit)
             {
@@ -69,7 +56,7 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
                 {
                     var styleDistString = result.StyleAndDistance;
                     var style = styleDistString[0] == 'P' ? FinlandiaSkiingStyle.Classic : FinlandiaSkiingStyle.Skate;
-                    var dist = (FinlandiaSkiingDistance) int.Parse(styleDistString.Substring(1));
+                    var dist = (FinlandiaSkiingDistance)int.Parse(styleDistString.Substring(1));
                     var gender = result.Gender switch
                     {
                         FinlandiaGender.Male => Gender.Man,
@@ -83,7 +70,7 @@ namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
                         CompetitionInfo = new Competition
                         {
                             Year = result.Year,
-                            Name = (int) competitionClass.Distance + "km " +
+                            Name = (int)competitionClass.Distance + "km " +
                                    competitionClass.Style.GetDescription()
                         },
                         CompetitionClass = FinlandiaHiihtoCompetitionClass.Create(dist, style),
