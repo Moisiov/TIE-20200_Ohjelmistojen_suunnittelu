@@ -1,4 +1,5 @@
 ## Uutiset ##
+* **Lopullinen palautus:** Lopullinen palautus löytyy tagilla *finalReturn* (18.4.2020)
 * **Välipalautus:** Palautukseen liittyvä dokumentaatio koostuu alla sijaitsevasta suunnitteludokumentista ja [wikistä](../wikis/Home). (21.3.2020)
 * **[Wiki](../wikis/Home) on julkaistu! (14.3.2020)**
 
