@@ -26,7 +26,7 @@ namespace FJ.Client.Core.Services
             Forward,
             Refresh
         }
-        
+
         /// <summary>
         /// Is there any views under currently shown view in Content-region's
         /// navigation stack
@@ -95,6 +95,13 @@ namespace FJ.Client.Core.Services
         /// Clears the navigation stack
         /// </summary>
         void DoClearNavigationStack();
+        
+        /// <summary>
+        /// Shows specified error message in a popup box
+        /// </summary>
+        /// <param name="msg">
+        /// Error message that is shown in the popup box</param>
+        void ShowErrorMessage(string msg);
 
         /// <summary>
         /// Sets the loading screen visibility in Content-region
@@ -109,12 +116,5 @@ namespace FJ.Client.Core.Services
         /// </summary>
         /// <returns><see cref="IDisposableLoadingScreen"/></returns>
         IDisposableLoadingScreen ShowLoadingScreen();
-
-        /// <summary>
-        /// Shows specified error message in a popup box.
-        /// </summary>
-        /// <param name="msg">
-        /// Error message that is shown in the popup box.</param>
-        void ShowErrorMessage(string msg);
     }
 }

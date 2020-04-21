@@ -49,8 +49,8 @@ namespace FJ.Client.MainWindow
         {
             m_lazyNavigator = navigator;
             ea.GetEvent<ContentRegionLoadingScreenEvent>().Subscribe(SetContentRegionLoadingScreen);
-            ea.GetEvent<ContentRegionErrorMessage>().Subscribe(SetContentRegionErrorMessage);
             ea.GetEvent<ControlPanelRegionResizeEvent>().Subscribe(SetControlPanelSize);
+            ea.GetEvent<ContentRegionErrorEvent>().Subscribe(SetContentRegionErrorMessage);
 
             SetControlPanelSize(UIStartupConstants.C_InitialControlPanelSizeOption);
         }

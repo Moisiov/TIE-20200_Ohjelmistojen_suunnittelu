@@ -111,6 +111,11 @@ namespace FJ.Client.Core.Services
             GetContentRegionNavigationJournal().Clear();
             m_eventAggregator.GetEvent<ContentRegionNavigationStackClearedEvent>().Publish();
         }
+        
+        public void ShowErrorMessage(string msg)
+        {
+            m_eventAggregator.GetEvent<ContentRegionErrorEvent>().Publish(msg);
+        }
 
         public void SetLoadingScreen(bool doShowLoadingScreen)
         {
@@ -120,11 +125,6 @@ namespace FJ.Client.Core.Services
         public IDisposableLoadingScreen ShowLoadingScreen()
         {
             return new DisposableLoadingScreen(SetLoadingScreen);
-        }
-        
-        public void ShowErrorMessage(string msg)
-        {
-            m_eventAggregator.GetEvent<ContentRegionErrorMessage>().Publish(msg);
         }
 
         protected virtual void OnContentRegionNavigation(object s, RegionNavigationEventArgs e)

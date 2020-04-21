@@ -32,7 +32,7 @@ namespace FJ.Client.Core.Events
     {
     }
     
-    public class ContentRegionErrorMessage : PubSubEvent<string>
+    public class ContentRegionErrorEvent : PubSubEvent<string>
     {
     }
 
