@@ -1,7 +1,6 @@
 ﻿using System;
 using FJ.Client.Athlete;
 using FJ.Client.Core.Register;
-using FJ.Client.Core.UIElements.Filters;
 using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.Utils.FinlandiaUtils;
 
@@ -27,9 +26,14 @@ namespace FJ.Client.ResultRegister
         {
             return new AthleteCardArgs
             {
-                AthleteFirstName = FirstName ?? "Rocky",
-                AthleteLastName = LastName ?? "Balboa"
+                AthleteFirstName = FirstName,
+                AthleteLastName = LastName
             };
+        }
+
+        public override string GetNavigationTargetName()
+        {
+            return nameof(AthleteCardView);
         }
 
         public static explicit operator ResultRegisterItemModel(FinlandiaHiihtoSingleResult res)

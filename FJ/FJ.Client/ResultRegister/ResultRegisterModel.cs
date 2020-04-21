@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FJ.Client.Core;
 using FJ.Client.Core.Register;
+using FJ.Client.Core.Services;
 using FJ.Client.Core.UIElements.Filters.FilterModels;
 using FJ.DomainObjects.Enums;
 using FJ.DomainObjects.Filters.Core;
@@ -32,6 +33,18 @@ namespace FJ.Client.ResultRegister
         public ResultRegisterModel(IFinlandiaResultsService finlandiaResultsService)
         {
             m_finlandiaResultsService = finlandiaResultsService;
+        }
+
+        public override Action<INavigator> GetNavigateToCardCommand(RegisterItemModelBase item)
+        {
+            if (!(item is ResultRegisterItemModel resultRegisterItem))
+            {
+                throw new ArgumentException(nameof(item));
+            }
+
+            return navigator => navigator.DoNavigateTo(
+                resultRegisterItem.GetNavigationTargetName(),
+                resultRegisterItem.GetNavigationArgs());
         }
  
         protected override async Task DoExecuteSearchInternalAsync(FilterCollection filters)

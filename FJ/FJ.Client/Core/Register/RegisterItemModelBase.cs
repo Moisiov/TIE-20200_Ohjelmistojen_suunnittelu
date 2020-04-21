@@ -21,5 +21,6 @@ namespace FJ.Client.Core.Register
         where TCardNavigationArgs : NavigationArgsBase<TCardNavigationArgs>, new()
     {
         public abstract TCardNavigationArgs GetNavigationArgs();
+        public abstract string GetNavigationTargetName();
     }
 }

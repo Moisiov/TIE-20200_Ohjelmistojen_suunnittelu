@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reactive;
 using System.Reflection;
 using System.Threading.Tasks;
+using FJ.Client.Core.Services;
 using FJ.Client.Core.UIElements.Filters;
 using FJ.DomainObjects.Filters.Core;
 using ReactiveUI;
@@ -58,6 +59,8 @@ namespace FJ.Client.Core.Register
         public virtual void DoClearItems()
         {
         }
+        
+        public abstract Action<INavigator> GetNavigateToCardCommand(RegisterItemModelBase item);
 
         protected abstract Task DoExecuteSearchInternalAsync(FilterCollection activeFilters);
 

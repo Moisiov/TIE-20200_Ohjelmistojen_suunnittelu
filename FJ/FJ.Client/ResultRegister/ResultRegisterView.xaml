@@ -171,17 +171,35 @@
                                         <ColumnDefinition Width="5*" />
                                         <ColumnDefinition Width="2*" />
                                         <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
-                                    <CheckBox Grid.Column="0" Grid.Row="0" Margin="4" Background="White" IsChecked="{Binding IsSelected}"   />
-                                    <TextBlock Classes="ResultRowElement" Grid.Column="1" Grid.Row="0" Text="{Binding StyleAndDistanceString}"    />
-                                    <TextBlock Classes="ResultRowElement" Grid.Column="2" Grid.Row="0" Text="{Binding Position}"            />
-                                    <TextBlock Classes="ResultRowElement" Grid.Column="3" Grid.Row="0" Text="{Binding FullName}"                />
-                                    <TextBlock Classes="ResultRowElement" Grid.Column="4" Grid.Row="0" Text="{Binding ResultTime}"          />
-                                    <TextBlock Classes="ResultRowElement" Grid.Column="5" Grid.Row="0" Text="{Binding Year}"                />
+                                    <CheckBox Grid.Column="0" Grid.Row="0" Margin="4" Background="White" IsChecked="{Binding IsSelected}" />
+                                    <TextBlock Classes="ResultRowElement" Grid.Column="1" Grid.Row="0" Text="{Binding StyleAndDistanceString}" />
+                                    <TextBlock Classes="ResultRowElement" Grid.Column="2" Grid.Row="0" Text="{Binding Position}" />
+                                    <TextBlock Classes="ResultRowElement" Grid.Column="3" Grid.Row="0" Text="{Binding FullName}" />
+                                    <TextBlock Classes="ResultRowElement" Grid.Column="4" Grid.Row="0" Text="{Binding ResultTime}" />
+                                    <TextBlock Classes="ResultRowElement" Grid.Column="5" Grid.Row="0" Text="{Binding Year}" />
+                                    <Button Grid.Column="6" Grid.Row="0"
+                                            Command="{Binding DataContext.NavigateToCardCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                            CommandParameter="{Binding}"
+                                            Margin="2,0,4,0"
+                                            Height="{DynamicResource FontSizeExtraLarge}"
+                                            Foreground="{DynamicResource Dark1}"
+                                            BorderBrush="{DynamicResource Darkest1}"
+                                            BorderThickness="1">
+                                        <DrawingPresenter>
+                                            <DrawingPresenter.Drawing>
+                                                <GeometryDrawing Brush="{DynamicResource Dark1}"
+                                                                 Geometry="M 512,-277.3330078125C558.932983398438,-277.3330078125 597.3330078125,-238.932998657227 597.3330078125,-192 597.3330078125,-145.067001342773 558.932983398438,-106.666999816895 512,-106.6669921875 465.066986083984,-106.666999816895 426.6669921875,-145.067001342773 426.6669921875,-192 426.6669921875,-238.932998657227 465.066986083984,-277.3330078125 512,-277.3330078125 Z
+                                                                            M 512,-533.3330078125C558.932983398438,-533.3330078125 597.3330078125,-494.933013916016 597.3330078125,-448 597.3330078125,-401.066986083984 558.932983398438,-362.6669921875 512,-362.6669921875 465.066986083984,-362.6669921875 426.6669921875,-401.066986083984 426.6669921875,-448 426.6669921875,-494.933013916016 465.066986083984,-533.3330078125 512,-533.3330078125 Z
+	                                                                        M 512,-789.3330078125C558.932983398438,-789.3330078125 597.3330078125,-750.932983398438 597.3330078125,-704 597.3330078125,-657.067016601563 558.932983398438,-618.6669921875 512,-618.6669921875 465.066986083984,-618.6669921875 426.6669921875,-657.067016601563 426.6669921875,-704 426.6669921875,-750.932983398438 465.066986083984,-789.3330078125 512,-789.3330078125 Z" />
+                                            </DrawingPresenter.Drawing>
+                                        </DrawingPresenter>
+                                    </Button>
                                 </Grid>
                                 <Separator Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="1" BorderThickness="2" BorderBrush="{DynamicResource Light1}" />
                             </StackPanel>

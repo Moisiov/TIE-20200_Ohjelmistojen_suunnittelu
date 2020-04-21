@@ -115,6 +115,13 @@ namespace FJ.Client.ResultRegister
             return Task.CompletedTask;
         }
 
+        protected override async Task NavigateToCardInternalAsync(RegisterItemModelBase item)
+        {
+            await base.NavigateToCardInternalAsync(item);
+            
+            RegisterModel.GetNavigateToCardCommand(item).Invoke(Navigator);
+        }
+
         public void CalculateAverageSpeedForResults()
         {
             AverageSpeedIsActive = true;

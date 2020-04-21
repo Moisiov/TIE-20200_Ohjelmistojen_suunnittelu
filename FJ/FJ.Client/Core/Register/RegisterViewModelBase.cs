@@ -20,6 +20,7 @@ namespace FJ.Client.Core.Register
         
         public ReactiveCommand<Unit, Unit> ExecuteSearchCommand { get; private set; }
         public ReactiveCommand<Unit, Unit> ClearFiltersCommand { get; private set; }
+        public ReactiveCommand<RegisterItemModelBase, Unit> NavigateToCardCommand { get; private set; }
 
         protected sealed override async Task DoPopulateAsync()
         {
@@ -34,6 +35,7 @@ namespace FJ.Client.Core.Register
 
             ExecuteSearchCommand = ReactiveCommand.CreateFromTask(ExecuteSearchAsync);
             ClearFiltersCommand = ReactiveCommand.CreateFromTask(DoClearFilters);
+            NavigateToCardCommand = ReactiveCommand.CreateFromTask<RegisterItemModelBase>(NavigateToCardAsync);
             
             await OnAfterActivatingAsync();
 
@@ -83,6 +85,16 @@ namespace FJ.Client.Core.Register
         protected virtual Task OnAfterExecuteSearchAsync()
         {
             return Task.CompletedTask;
+        }
+
+        protected async Task NavigateToCardAsync(RegisterItemModelBase item)
+        {
+            await NavigateToCardInternalAsync(item);
+        }
+
+        protected virtual async Task NavigateToCardInternalAsync(RegisterItemModelBase item)
+        {
+            await Task.CompletedTask;
         }
 
         protected async Task DoClearFilters()
