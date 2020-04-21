@@ -193,7 +193,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions> 
-            <StackPanel Background="white" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Margin="4" Background="white" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
                 <RadioButton Margin="5, 0, 2, 0" Background="White" IsChecked="{Binding ProgressionChartUseLineChart}" />
                 <TextBlock Margin="0, 3, 0, 0" FontSize="{DynamicResource FontSizeNoemal}" Text="Käytä viivakuvaajaa" />
                 <RadioButton Margin="20, 0, 2, 0" Background="White" IsChecked="{Binding ProgressionChartUseBarChart}" />

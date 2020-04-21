@@ -1,26 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive;
 using System.Threading.Tasks;
-using FJ.Client.Athlete;
 using FJ.Client.CompetitionComparison;
 using FJ.Client.CompetitionOccasion;
 using FJ.Client.Core.Register;
 using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
 using FJ.Utils.FinlandiaUtils;
+using ReactiveUI;
 
 namespace FJ.Client.ResultRegister
 {
     public class ResultRegisterViewModel : RegisterViewModelBase<ResultRegisterModel, ResultRegisterArgs>
     {
         #region Limited selectable items
-        
+
         public ObservableCollection<int> CompetitionYears { get; }
         public ObservableCollection<FinlandiaHiihtoCompetitionClass> FinlandiaCompetitionClassItems { get; }
-        
+
         #endregion
+
+        public ReactiveCommand<RegisterItemModelBase, Unit> NavigateToCompetitionOccasionViewCommand { get; set; }
 
         private bool m_averageSpeedIsActive;
         public bool AverageSpeedIsActive
@@ -45,6 +47,9 @@ namespace FJ.Client.ResultRegister
                 DateTime.Today.Year - FinlandiaConstants.C_FirstFinlandiaSkiingYear).Reverse());
             FinlandiaCompetitionClassItems = new ObservableCollection<FinlandiaHiihtoCompetitionClass>(
                 FinlandiaHiihtoCompetitionClasses.FinlandiaCompetitionClasses);
+
+            NavigateToCompetitionOccasionViewCommand =
+                ReactiveCommand.CreateFromTask<RegisterItemModelBase>(DoNavigateToCompetitionOccasionViewAsync);
             
             AverageSpeedIsActive = false;
         }
@@ -65,22 +70,6 @@ namespace FJ.Client.ResultRegister
             RegisterModel.FinlandiaLastNamesFilter.AcceptValue(Argument.LastNames.ToList());
 
             await ExecuteSearchAsync();
-        }
-
-        public void NavigateToAthleteCardCommand()
-        {
-            var args = RegisterModel.AllItems.FirstOrDefault(x => x.IsSelected)?.GetNavigationArgs();
-            Navigator.DoNavigateTo<AthleteCardView>(args);
-        }
-        
-        public void NavigateToCompetitionOccasionCommand()
-        {
-            var args = new CompetitionOccasionArgs
-            {
-                Year = RegisterModel.AllItems.FirstOrDefault()?.Year ?? 2019,
-            };
-
-            Navigator.DoNavigateTo<CompetitionOccasionView>(args);
         }
 
         public void NavigateToCompetitionComparisonCommand()
@@ -120,6 +109,23 @@ namespace FJ.Client.ResultRegister
             await base.NavigateToCardInternalAsync(item);
             
             RegisterModel.GetNavigateToCardCommand(item).Invoke(Navigator);
+        }
+        
+        protected async Task DoNavigateToCompetitionOccasionViewAsync(RegisterItemModelBase item)
+        {
+            await Task.CompletedTask;
+
+            if (!(item is ResultRegisterItemModel resultRegisterItem))
+            {
+                throw new ArgumentException(nameof(item));
+            }
+            
+            var args = new CompetitionOccasionArgs
+            {
+                Year = resultRegisterItem.Year
+            };
+
+            Navigator.DoNavigateTo<CompetitionOccasionView>(args);
         }
 
         public void CalculateAverageSpeedForResults()
