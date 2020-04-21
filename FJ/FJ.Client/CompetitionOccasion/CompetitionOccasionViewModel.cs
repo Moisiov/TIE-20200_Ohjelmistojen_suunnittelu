@@ -6,8 +6,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using FJ.Client.Core;
 using FJ.Client.ResultRegister;
+using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.ServiceInterfaces.FinlandiaHiihto;
 using FJ.ServiceInterfaces.Weather;
+using FJ.Utils;
 using PlotterService;
 
 namespace FJ.Client.CompetitionOccasion
@@ -22,12 +24,18 @@ namespace FJ.Client.CompetitionOccasion
         private CompetitionOccasionModel m_model;
 
         public ObservableCollection<CompetitionRowItemModel> CompetitionList { get; set; }
+
+        public string HeaderText => $"Vuoden {OccasionYear.ToString()} kilpailutapahtuman yhteenveto";
         
         private int? m_occasionYear;
         public int? OccasionYear
         {
             get => m_occasionYear;
-            set => SetAndRaise(ref m_occasionYear, value);
+            set
+            {
+                SetAndRaise(ref m_occasionYear, value);
+                RaisePropertyChanged(nameof(HeaderText));
+            }
         }
         
         private int? m_totalParticipants;
@@ -231,14 +239,11 @@ namespace FJ.Client.CompetitionOccasion
             {
                 return;
             }
-            else if (NationalityDistributionChartUseBarChart)
-            {
-                m_plotService.GetPlot(data, PlotType.BarPlot, $"Kansalaisuusjakauma {OccasionYear}");
-            }
-            else                                                              
-            {                                                                                              
-                m_plotService.GetPlot(data, PlotType.PiePlot, $"Kansalaisuusjakauma {OccasionYear}");         
-            }                                                                                              
+
+            m_plotService.GetPlot(
+                data,
+                NationalityDistributionChartUseBarChart ? PlotType.BarPlot : PlotType.PiePlot,
+                $"Kansalaisuusjakauma {OccasionYear}");
         }
         
         public void Top10TeamsActivation(IEnumerable<Top10TeamItemModel> top10TeamsList)

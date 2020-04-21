@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:valueConverters="clr-namespace:FJ.Client.Core.ValueConverters"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="FJ.Client.CompetitionOccasion.CompetitionOccasionView">
@@ -17,356 +18,383 @@
             <Setter Property="FontSize" Value="{DynamicResource FontSizeNormal}" />
         </Style>
     </UserControl.Styles>
-    <Grid >
-        <Grid.RowDefinitions >
+    
+    <UserControl.Resources>
+        <valueConverters:NullToVisibilityConverter x:Key="NullToVisConverter"/>
+        <valueConverters:NullToVisibilityInversionConverter x:Key="NullToVisInversionConverter"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
-        <Grid Grid.Row="0" Margin="25, 25, 10, 25" TextBlock.Foreground="{DynamicResource Dark1}">
-             
-            <Grid.RowDefinitions >
-                <RowDefinition Height="Auto" />
+        <Grid IsVisible="{Binding OccasionYear, Converter={StaticResource NullToVisConverter}}">
+            <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             
-            <Border Grid.Row="0"
-                    CornerRadius="6"
-                    Background="{DynamicResource Lightest1}"
-                    BorderBrush="{DynamicResource Light1}"
-                    BorderThickness="2">
-                <Grid Margin="10">
-                    <Grid.RowDefinitions >
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    
-                    <StackPanel Grid.Row="0" 
-                                Orientation="Horizontal" 
-                                TextBlock.FontSize="{DynamicResource FontSizeExtraLarge}"
-                                TextBlock.FontWeight="Bold"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center">
-                        <TextBlock Text="Vuoden "/>
-                        <TextBlock Text="{Binding OccasionYear}"/>
-                        <TextBlock Text=" kilpailutapahtuman yhteenveto" />
-                    </StackPanel>
-                    
-
-                    <Grid Grid.Row="1">
-                        <Grid.RowDefinitions >
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        
-                        <Grid Grid.Row="0" TextBlock.FontSize="{DynamicResource FontSizeLarge}" HorizontalAlignment="Stretch">
-                            <Grid.ColumnDefinitions >
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            
-                            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0">
-                                <TextBlock FontWeight="Bold" Text="Osallistujia: " />
-                                <TextBlock Text="{Binding TotalParticipants}" />
-                            </StackPanel>
-                            
-                            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0">
-                                <TextBlock FontWeight="Bold" Text="Kilpailuja: " />
-                                <TextBlock Text="{Binding TotalCompetitions}" />
-                            </StackPanel>
-
-                            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0" IsVisible="{Binding TemperatureIsBisible}">
-                                <TextBlock FontWeight="Bold" Text="Lämpötila: " />
-                                <TextBlock Text="{Binding TemperatureText}" />
-                            </StackPanel>
-                            <StackPanel Grid.Column="3" Orientation="Horizontal" Margin="0" IsVisible="{Binding WindSpeedIsVisible}" >
-                                <TextBlock FontWeight="Bold" Text="Tuulen nopeus: " />
-                                <TextBlock Text="{Binding WindSpeedText}" />
-                            </StackPanel>
-                            <StackPanel Grid.Column="4" Orientation="Horizontal" Margin="0" IsVisible="{Binding WeatherDescriptionIsVisible}" >
-                                <TextBlock FontWeight="Bold" Text="Sää: " />
-                                <TextBlock Text="{Binding WeatherDescription}" />
-                            </StackPanel>
-                        </Grid>
-                        
-                        
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions >
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            
-                            <StackPanel Grid.Column="0" Margin="0,0,2,0">
-                                <Button Command="{Binding NavigateToResultRegisterWithOccasion}" 
-                                        Content="Vuoden tulokset tulosrekisterissä."/>
-                            </StackPanel>
-                            <StackPanel Grid.Column="1" Margin="2,0,0,0">
-                                <Button Command="{Binding NationalityDistributionChartOptionActivation}"  
-                                        Content="Näytä urheilijajakauma maittain."/>
-                            </StackPanel>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Border>
-            
-            <Grid Grid.Row="1" TextBlock.FontSize="{DynamicResource FontSizeLarge}">
+            <Grid Grid.Row="0" Margin="25, 25, 10, 25" TextBlock.Foreground="{DynamicResource Dark1}">
+                 
                 <Grid.RowDefinitions >
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 
-                <TextBlock Grid.Row="0" 
-                           FontWeight="Bold" 
-                           FontSize="{DynamicResource FontSizeExtraLarge}" 
-                           Foreground="{DynamicResource Darkest1}" 
-                           HorizontalAlignment="Center" 
-                           Margin="0, 10" 
-                           Text="Kilpailut"/>
+                <Border Grid.Row="0"
+                        CornerRadius="6"
+                        Background="{DynamicResource Lightest1}"
+                        BorderBrush="{DynamicResource Light1}"
+                        BorderThickness="2">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions >
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        
+                        <StackPanel Grid.Row="0" 
+                                    Orientation="Horizontal" 
+                                    TextBlock.FontSize="{DynamicResource FontSizeExtraLarge}"
+                                    TextBlock.FontWeight="Bold"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                            <TextBlock Text="{Binding HeaderText}" />
+                        </StackPanel>
+                        
+
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions >
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            
+                            <Grid Grid.Row="0" TextBlock.FontSize="{DynamicResource FontSizeLarge}" HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions >
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0">
+                                    <TextBlock FontWeight="Bold" Text="Osallistujia: " />
+                                    <TextBlock Text="{Binding TotalParticipants}" />
+                                </StackPanel>
+                                
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0">
+                                    <TextBlock FontWeight="Bold" Text="Kilpailuja: " />
+                                    <TextBlock Text="{Binding TotalCompetitions}" />
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0" IsVisible="{Binding TemperatureIsBisible}">
+                                    <TextBlock FontWeight="Bold" Text="Lämpötila: " />
+                                    <TextBlock Text="{Binding TemperatureText}" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="3" Orientation="Horizontal" Margin="0" IsVisible="{Binding WindSpeedIsVisible}" >
+                                    <TextBlock FontWeight="Bold" Text="Tuulen nopeus: " />
+                                    <TextBlock Text="{Binding WindSpeedText}" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="4" Orientation="Horizontal" Margin="0" IsVisible="{Binding WeatherDescriptionIsVisible}" >
+                                    <TextBlock FontWeight="Bold" Text="Sää: " />
+                                    <TextBlock Text="{Binding WeatherDescription}" />
+                                </StackPanel>
+                            </Grid>
+                            
+                            
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions >
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                
+                                <StackPanel Grid.Column="0" Margin="0,0,2,0">
+                                    <Button Command="{Binding NavigateToResultRegisterWithOccasion}"
+                                            Content="Vuoden tulokset tulosrekisterissä."/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Margin="2,0,0,0">
+                                    <Button Command="{Binding NationalityDistributionChartOptionActivation}"  
+                                            Content="Näytä urheilijajakauma maittain."/>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Border>
+                
+                <Grid Grid.Row="1" TextBlock.FontSize="{DynamicResource FontSizeLarge}">
+                    <Grid.RowDefinitions >
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Grid.Row="0" 
+                               FontWeight="Bold" 
+                               FontSize="{DynamicResource FontSizeExtraLarge}" 
+                               Foreground="{DynamicResource Darkest1}" 
+                               HorizontalAlignment="Center" 
+                               Margin="0, 10" 
+                               Text="Kilpailut"/>
+                    
+                    <ScrollViewer Grid.Row="1" Margin="0,0,1,0">
+                        <ItemsControl Items="{Binding CompetitionList}" >
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="3"
+                                            Background="{DynamicResource Lightest1}"
+                                            BorderBrush="{DynamicResource Light1}"
+                                            BorderThickness="2"
+                                            Margin="5">
+                                        <StackPanel Orientation="Vertical" Margin="10">
+                                            <TextBlock FontSize="{DynamicResource FontSizeExtraLarge}" 
+                                                       HorizontalAlignment="Center" 
+                                                       Text="{Binding CompetitionInfo.Name}" />
+                                                
+                                            <Grid >
+                                                <Grid.RowDefinitions >
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                
+                                                <StackPanel Grid.Row="0" 
+                                                            Orientation="Horizontal" 
+                                                            HorizontalAlignment="Center">
+                                                    <TextBlock FontWeight="Bold" Text="Osallistujia:" />
+                                                    <TextBlock Text="{Binding TotalParticipants}" />
+                                                </StackPanel>
+                                                
+                                                <Grid Grid.Row="1" TextBlock.Foreground="{DynamicResource Darkest1}">
+                                                    <Grid.ColumnDefinitions >
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    
+                                                    <StackPanel Grid.Column="0"
+                                                                TextBlock.FontSize="{DynamicResource FontSizeNormal}" 
+                                                                Background="{DynamicResource Light1}"
+                                                                Orientation="Vertical" 
+                                                                Margin="5, 0">
+                                                    
+                                                        <TextBlock FontWeight="Bold" 
+                                                                   FontSize="{DynamicResource FontSizeLarge}" 
+                                                                   HorizontalAlignment="Center"
+                                                                   Margin="0, 8, 0, 0"
+                                                                   Text="Voittaja"/>
+                                                        
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions >
+                                                                <ColumnDefinition Width="*" />
+                                                                <ColumnDefinition Width="*" />
+                                                                <ColumnDefinition Width="*" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0, 5">
+                                                                <TextBlock Text="Nimi: " />
+                                                                <TextBlock Text="{Binding 
+                                                                    FirstPlaceCompetitor.Competitor.FirstName}" />
+                                                                <TextBlock Text=" " />
+                                                                <TextBlock Text="{Binding 
+                                                                    FirstPlaceCompetitor.Competitor.LastName}" />
+                                                            </StackPanel>
+                                                            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0, 5">
+                                                                <TextBlock Text="Aika: " />
+                                                                <TextBlock Text="{Binding FirstPlaceCompetitor.Result}"/>
+                                                            </StackPanel>
+                                                            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0, 5">
+                                                                <TextBlock Text="Nopeus: " />
+                                                                <TextBlock Text="{Binding FirstPlaceCompetitor.AverageSpeed}"/>
+                                                                <TextBlock Text="km/h"/>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Grid.Column="1"
+                                                                TextBlock.FontSize="{DynamicResource FontSizeNormal}"
+                                                                Background="{DynamicResource Light1}"
+                                                                Orientation="Vertical" 
+                                                                Margin="5, 0">
+                                                        
+                                                        <TextBlock FontWeight="Bold" 
+                                                                   FontSize="{DynamicResource FontSizeLarge}" 
+                                                                   Margin="0, 8, 0, 0"
+                                                                   HorizontalAlignment="Center"
+                                                                   Text="Viimeinen"/>
+                                                        
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions >
+                                                                <ColumnDefinition Width="*" />
+                                                                <ColumnDefinition Width="*" />
+                                                                <ColumnDefinition Width="*" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0, 5">
+                                                                <TextBlock Text="Nimi: " />
+                                                                <TextBlock Text="{Binding 
+                                                                    LastPlaceCompetitor.Competitor.FirstName}" />
+                                                                <TextBlock Text=" " />
+                                                                <TextBlock Text="{Binding 
+                                                                    LastPlaceCompetitor.Competitor.LastName}" />
+                                                            </StackPanel>
+                                                            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0, 5">
+                                                                <TextBlock Text="Aika: " />
+                                                                <TextBlock Text="{Binding LastPlaceCompetitor.Result}"/>
+                                                            </StackPanel>
+                                                            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0, 5">
+                                                                <TextBlock Text="Nopeus: " />
+                                                                <TextBlock Text="{Binding LastPlaceCompetitor.AverageSpeed}"/>
+                                                                <TextBlock Text="km/h"/>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </StackPanel>
+                                                </Grid>
+                                                
+                                                <Grid Grid.Row="2">
+                                                    <Grid.ColumnDefinitions >
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                        
+                                                    <StackPanel Grid.Column="0">
+                                                        <Button Command = "{Binding DataContext.NavigateToResultRegisterWithCompetition,
+                                                                    RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                                CommandParameter="{Binding}"
+                                                                Content="Kilpailun tulokset tulosrekisterissä."/>
+                                                        
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Column="1">
+                                                        <Button Command = "{Binding DataContext.Top10TeamsActivation,
+                                                                    RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                                CommandParameter="{Binding Top10Teams}" 
+                                                                Content="Näytä TOP-10 joukkueet."/>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Grid>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
+            
+            <Grid Grid.Row="0" 
+                  Width ="300" 
+                  Height="140" 
+                  Margin="75, 0, 75, 0" 
+                  ZIndex="2" 
+                  IsVisible="{Binding NationalityDistributionChartOptionIsActive}" 
+                  Background="white">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions> 
+                <StackPanel Background="white" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <RadioButton Margin="5, 0, 2, 0" 
+                                 Background="White" 
+                                 IsChecked="{Binding NationalityDistributionChartUseBarChart}" />
+                    <TextBlock Margin="0, 3, 0, 0" FontSize="{DynamicResource FontSizeNormal}" Text="Käytä histogrammia" />
+                    <RadioButton Margin="20, 0, 2, 0" 
+                                 Background="White" 
+                                 IsChecked="{Binding NationalityDistributionChartUsePieChart}" />
+                    <TextBlock Margin="0, 3, 0, 0" FontSize="{DynamicResource FontSizeNormal}" Text="Käytä piiraskuvaajaa" />
+                </StackPanel>
+                <Grid Grid.Row="1" Margin="0, 20, 0, 0">
+                    <Grid.RowDefinitions >
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    
+                    <Button Grid.Row="0" 
+                            Background="{DynamicResource Dark1}" 
+                            FontSize="{DynamicResource FontSizeLarge}" 
+                            Height="44"
+                            Width="150"
+                            Foreground="white"
+                            Content="Avaa visualisointi" 
+                            Command="{Binding NationalityDistributionChartOpen}"/>
+                    <Button Grid.Row="1" 
+                            Background="Red" 
+                            FontSize="{DynamicResource FontSizeLarge}" 
+                            Height="44"
+                            Width="150" 
+                            Foreground="white" 
+                            Content="Sulje"  
+                            Command="{Binding NationalityDistributionChartDeActivation}"/>
+                </Grid>
+            </Grid>
+            
+            <Grid Grid.Row="0" 
+                  Margin="75, 0, 75, 0" 
+                  ZIndex="2" 
+                  IsVisible="{Binding Top10TeamsIsActive}" 
+                  MaxHeight="350"  
+                  Background="white">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions> 
+                
+                <StackPanel Grid.Row="0" 
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Center" 
+                            TextBlock.FontSize="{DynamicResource FontSizeExtraLarge}"
+                            Margin="0, 5, 0, 0">
+                    <TextBlock Text="Top 10-joukkueet" />
+                </StackPanel>
                 
                 <ScrollViewer Grid.Row="1" Margin="0,0,1,0">
-                    <ItemsControl Items="{Binding CompetitionList}" >
+                    <ItemsControl Items="{Binding Top10TeamsList}" >
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" Margin="2,0,0,0"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border CornerRadius="3"
-                                        Background="{DynamicResource Lightest1}"
-                                        BorderBrush="{DynamicResource Light1}"
-                                        BorderThickness="2"
-                                        Margin="5">
-                                    <StackPanel Orientation="Vertical" Margin="10">
-                                        <TextBlock FontSize="{DynamicResource FontSizeExtraLarge}" 
-                                                   HorizontalAlignment="Center" 
-                                                   Text="{Binding CompetitionInfo.Name}" />
-                                            
-                                        <Grid >
-                                            <Grid.RowDefinitions >
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
-                                            
-                                            <StackPanel Grid.Row="0" 
-                                                        Orientation="Horizontal" 
-                                                        HorizontalAlignment="Center">
-                                                <TextBlock FontWeight="Bold" Text="Osallistujia:" />
-                                                <TextBlock Text="{Binding TotalParticipants}" />
-                                            </StackPanel>
-                                            
-                                            <Grid Grid.Row="1" TextBlock.Foreground="{DynamicResource Darkest1}">
-                                                <Grid.ColumnDefinitions >
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-                                                
-                                                <StackPanel Grid.Column="0"
-                                                            TextBlock.FontSize="{DynamicResource FontSizeNormal}" 
-                                                            Background="{DynamicResource Light1}"
-                                                            Orientation="Vertical" 
-                                                            Margin="5, 0">
-                                                
-                                                    <TextBlock FontWeight="Bold" 
-                                                               FontSize="{DynamicResource FontSizeLarge}" 
-                                                               HorizontalAlignment="Center"
-                                                               Margin="0, 8, 0, 0"
-                                                               Text="Voittaja"/>
-                                                    
-                                                    <Grid>
-                                                        <Grid.ColumnDefinitions >
-                                                            <ColumnDefinition Width="*" />
-                                                            <ColumnDefinition Width="*" />
-                                                            <ColumnDefinition Width="*" />
-                                                        </Grid.ColumnDefinitions>
-                                                        <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0, 5">
-                                                            <TextBlock Text="Nimi: " />
-                                                            <TextBlock Text="{Binding 
-                                                                FirstPlaceCompetitor.Competitor.FirstName}" />
-                                                            <TextBlock Text=" " />
-                                                            <TextBlock Text="{Binding 
-                                                                FirstPlaceCompetitor.Competitor.LastName}" />
-                                                        </StackPanel>
-                                                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0, 5">
-                                                            <TextBlock Text="Aika: " />
-                                                            <TextBlock Text="{Binding FirstPlaceCompetitor.Result}"/>
-                                                        </StackPanel>
-                                                        <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0, 5">
-                                                            <TextBlock Text="Nopeus: " />
-                                                            <TextBlock Text="{Binding FirstPlaceCompetitor.AverageSpeed}"/>
-                                                            <TextBlock Text="km/h"/>
-                                                        </StackPanel>
-                                                    </Grid>
-                                                </StackPanel>
-                                                
-                                                <StackPanel Grid.Column="1"
-                                                            TextBlock.FontSize="{DynamicResource FontSizeNormal}"
-                                                            Background="{DynamicResource Light1}"
-                                                            Orientation="Vertical" 
-                                                            Margin="5, 0">
-                                                    
-                                                    <TextBlock FontWeight="Bold" 
-                                                               FontSize="{DynamicResource FontSizeLarge}" 
-                                                               Margin="0, 8, 0, 0"
-                                                               HorizontalAlignment="Center"
-                                                               Text="Viimeinen"/>
-                                                    
-                                                    <Grid>
-                                                        <Grid.ColumnDefinitions >
-                                                            <ColumnDefinition Width="*" />
-                                                            <ColumnDefinition Width="*" />
-                                                            <ColumnDefinition Width="*" />
-                                                        </Grid.ColumnDefinitions>
-                                                        <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0, 5">
-                                                            <TextBlock Text="Nimi: " />
-                                                            <TextBlock Text="{Binding 
-                                                                LastPlaceCompetitor.Competitor.FirstName}" />
-                                                            <TextBlock Text=" " />
-                                                            <TextBlock Text="{Binding 
-                                                                LastPlaceCompetitor.Competitor.LastName}" />
-                                                        </StackPanel>
-                                                        <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="0, 5">
-                                                            <TextBlock Text="Aika: " />
-                                                            <TextBlock Text="{Binding LastPlaceCompetitor.Result}"/>
-                                                        </StackPanel>
-                                                        <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0, 5">
-                                                            <TextBlock Text="Nopeus: " />
-                                                            <TextBlock Text="{Binding LastPlaceCompetitor.AverageSpeed}"/>
-                                                            <TextBlock Text="km/h"/>
-                                                        </StackPanel>
-                                                    </Grid>
-                                                </StackPanel>
-                                            </Grid>
-                                            
-                                            <Grid Grid.Row="2">
-                                                <Grid.ColumnDefinitions >
-                                                    <ColumnDefinition Width="*" />
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-                                    
-                                                <StackPanel Grid.Column="0">
-                                                    <Button Command = "{Binding DataContext.NavigateToResultRegisterWithCompetition,
-                                                                RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                            CommandParameter="{Binding CompetitionInfo.Name}"
-                                                            Content="Kilpailun tulokset tulosrekisterissä."/>
-                                                    
-                                                </StackPanel>
-                                                <StackPanel Grid.Column="1">
-                                                    <Button Command = "{Binding DataContext.Top10TeamsActivation,
-                                                                RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                            CommandParameter="{Binding Top10Teams}" 
-                                                            Content="Näytä TOP-10 joukkueet."/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Grid>
-                                    </StackPanel>
-                                </Border>
+                                <StackPanel Orientation="Horizontal" 
+                                            HorizontalAlignment="Center" 
+                                            TextBlock.FontSize="{DynamicResource FontSizeExtraLarge}">
+                                    <TextBlock Text="{Binding Position}" />
+                                    <TextBlock Text=". " />
+                                    <TextBlock Text="{Binding Name} " />
+                                    <TextBlock Text=", " />
+                                    <TextBlock Text="{Binding Result} " />
+                                </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </ScrollViewer>
-            </Grid>
-        </Grid>
-        
-        <Grid Grid.Row="0" 
-              Width ="300" 
-              Height="140" 
-              Margin="75, 0, 75, 0" 
-              ZIndex="2" 
-              IsVisible="{Binding NationalityDistributionChartOptionIsActive}" 
-              Background="white">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions> 
-            <StackPanel Background="white" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-                <RadioButton Margin="5, 0, 2, 0" 
-                             Background="White" 
-                             IsChecked="{Binding NationalityDistributionChartUseBarChart}" />
-                <TextBlock Margin="0, 3, 0, 0" FontSize="{DynamicResource FontSizeNoemal}" Text="Käytä histograamia" />
-                <RadioButton Margin="20, 0, 2, 0" 
-                             Background="White" 
-                             IsChecked="{Binding NationalityDistributionChartUsePieChart}" />
-                <TextBlock Margin="0, 3, 0, 0" FontSize="{DynamicResource FontSizeNormal}" Text="Käytä piiraskuvaajaa" />
-            </StackPanel>
-            <Grid Grid.Row="1" Margin="0, 20, 0, 0">
-                <Grid.RowDefinitions >
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
                 
-                <Button Grid.Row="0" 
-                        Background="{DynamicResource Dark1}" 
-                        FontSize="{DynamicResource FontSizeLarge}" 
-                        Height="44"
-                        Width="150"
-                        Foreground="white"
-                        Content="Avaa visualisointi" 
-                        Command="{Binding NationalityDistributionChartOpen}"/>
-                <Button Grid.Row="1" 
+                <Button Grid.Row="2" 
+                        Margin="0, 20, 0, 0" 
+                        Content="Sulje" 
                         Background="Red" 
                         FontSize="{DynamicResource FontSizeLarge}" 
-                        Height="44"
-                        Width="150" 
+                        Height="44" 
                         Foreground="white" 
-                        Content="Sulje"  
-                        Command="{Binding NationalityDistributionChartDeActivation}"/>
+                        Command="{Binding Top10TeamsDeActivation}"/>
             </Grid>
-
         </Grid>
         
-        
-        <Grid Grid.Row="0" 
-              Margin="75, 0, 75, 0" 
-              ZIndex="2" 
-              IsVisible="{Binding Top10TeamsIsActive}" 
-              MaxHeight="350"  
-              Background="white">
+        <Grid Grid.Row="1"
+              Margin="0, 30, 0, 60"
+              IsVisible="{Binding OccasionYear, Converter={StaticResource NullToVisInversionConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions> 
-            
-            <StackPanel Grid.Row="0" 
-                        Orientation="Horizontal" 
-                        HorizontalAlignment="Center" 
-                        TextBlock.FontSize="{DynamicResource FontSizeExtraLarge}"
-                        Margin="0, 5, 0, 0">
-                <TextBlock Text="Top 10-joukkueet" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Ei kilpailua valittuna!"
+                           FontWeight="Bold" 
+                           FontSize="{DynamicResource FontSizeExtraLarge}" 
+                           Foreground="{DynamicResource Lightest1}" />
+                <Button Command="{Binding NavigateToResultRegisterWithOccasion}"
+                        Content="Tulosrekisterille" />
             </StackPanel>
-            
-            <ScrollViewer Grid.Row="1" Margin="0,0,1,0">
-                <ItemsControl Items="{Binding Top10TeamsList}" >
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical" Margin="2,0,0,0"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal" 
-                                        HorizontalAlignment="Center" 
-                                        TextBlock.FontSize="{DynamicResource FontSizeExtraLarge}">
-                                <TextBlock Text="{Binding Position}" />
-                                <TextBlock Text=". " />
-                                <TextBlock Text="{Binding Name} " />
-                                <TextBlock Text=", " />
-                                <TextBlock Text="{Binding Result} " />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-            
-            <Button Grid.Row="2" 
-                    Margin="0, 20, 0, 0" 
-                    Content="Sulje" 
-                    Background="Red" 
-                    FontSize="{DynamicResource FontSizeLarge}" 
-                    Height="44" 
-                    Foreground="white" 
-                    Command="{Binding Top10TeamsDeActivation}"/>
         </Grid>
-        
     </Grid>
 </UserControl>
