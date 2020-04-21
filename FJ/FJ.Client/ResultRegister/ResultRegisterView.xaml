@@ -237,7 +237,7 @@
                 <TextBlock Margin="0, 3, 0, 0" FontSize="{DynamicResource FontSizeExtraLarge}" Text="Keskinopeus:" />
                 <TextBlock Margin="0, 3, 0, 0" 
                            FontSize="{DynamicResource FontSizeExtraLarge}" 
-                           Text="{Binding AverageSpeed}}" />
+                           Text="{Binding AverageSpeed}" />
             </StackPanel>
             <Button Grid.Row="1" 
                     Background="Red" 

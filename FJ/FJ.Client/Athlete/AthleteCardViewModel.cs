@@ -129,7 +129,7 @@ namespace FJ.Client.Athlete
             AnyItemsSelected = m_participationList.Any(x => x.IsSelected);
         }
 
-        private void ProgressionChartPopulate()
+        public void ProgressionChartPopulate()
         {
             var data = ParticipationList?
                 .Where(x => x.IsSelected)
