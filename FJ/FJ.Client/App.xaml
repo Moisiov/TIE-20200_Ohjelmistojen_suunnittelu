@@ -59,8 +59,8 @@
             Color="#CC9466" />
 
         <!-- Images and icons -->
-        <Image
-            x:Key="LoadingSpinner" Source="/Assets/spinner-solid.ico" Classes="Rotating" />
+        <Image x:Key="LoadingSpinner" Source="/Assets/spinner-solid.ico" Classes="Rotating" />
+        <Image x:Key="ThreeDotsTop" Source="/Assets/ellipsis-v-solid.ico" />
         <!-- Source="/Assets/circle-notch-solid.ico" -->
 
         <!-- Fonts -->
