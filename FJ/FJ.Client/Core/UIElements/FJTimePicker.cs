@@ -129,13 +129,12 @@ namespace FJ.Client.Core.UIElements
             set => SetAndRaise(SelectedTimeProperty, ref m_selectedTime, value);
         }
 
-        // TODO Implement support for two-way binding if needed
         public static readonly DirectProperty<FJTimePicker, TimeSpan?> SelectedTimeProperty =
             AvaloniaProperty.RegisterDirect<FJTimePicker, TimeSpan?>(
                 nameof(SelectedTime),
                 o => o.SelectedTime,
                 (o, v) => o.SelectedTime = v,
-                defaultBindingMode: BindingMode.OneWayToSource,
+                defaultBindingMode: BindingMode.TwoWay,
                 enableDataValidation: true);
         #endregion
 

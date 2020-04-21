@@ -196,6 +196,27 @@ namespace FJ.Client.Core.UIElements
             e.Handled = true;
         }
         
+        protected void SetTextBoxText()
+        {
+            if (m_textBox == null)
+            {
+                return;
+            }
+            
+            if (m_isDropDownOpen || m_selectedItems == null)
+            {
+                m_textBox.Text = string.Empty;
+                return;
+            }
+
+            m_textBox.Text = m_selectedItems.Count switch
+            {
+                0 => string.Empty,
+                1 => m_selectedItems[0].ToString(),
+                _ => $"{SelectedItems.Count.ToString()} {SuffixOnMany}"
+            };
+        }
+        
         private void DeleteItem(object sender, IContentControl item)
         {
             if (!IsDropDownOpen 
@@ -335,22 +356,6 @@ namespace FJ.Client.Core.UIElements
             }
             
             RaisePropertyChanged(SelectedItemsProperty, m_selectedItems, m_selectedItems);
-        }
-
-        private void SetTextBoxText()
-        {
-            if (m_isDropDownOpen || m_selectedItems == null)
-            {
-                m_textBox.Text = string.Empty;
-                return;
-            }
-
-            m_textBox.Text = m_selectedItems.Count switch
-            {
-                0 => string.Empty,
-                1 => m_selectedItems[0].ToString(),
-                _ => $"{SelectedItems.Count.ToString()} {SuffixOnMany}"
-            };
         }
     }
 }

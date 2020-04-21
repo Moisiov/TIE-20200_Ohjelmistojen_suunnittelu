@@ -74,13 +74,12 @@ namespace FJ.Client.Core.UIElements
             set => SetAndRaise(SelectedTimeRangeProperty, ref m_selectedTimeRange, value);
         }
         
-        // TODO Implement support for two-way binding if needed
         public static readonly DirectProperty<FJTimeRangePicker, TimeRange> SelectedTimeRangeProperty =
             AvaloniaProperty.RegisterDirect<FJTimeRangePicker, TimeRange>(
                 nameof(SelectedTimeRange),
                 o => o.SelectedTimeRange,
                 (o, v) => o.SelectedTimeRange = v,
-                defaultBindingMode: BindingMode.OneWayToSource,
+                defaultBindingMode: BindingMode.TwoWay,
                 enableDataValidation: true);
         
         #endregion
@@ -99,6 +98,17 @@ namespace FJ.Client.Core.UIElements
                 .Subscribe(time => TimeRangeSelectionChanged());
             
             base.OnTemplateApplied(e);
+        }
+
+        protected void SetTimeRangeSelection(TimeRange tr)
+        {
+            if (tr?.NotEmpty != true)
+            {
+                return;
+            }
+            
+            m_startTimePicker.SelectedTime = tr.Start;
+            m_endTimePicker.SelectedTime = tr.End;
         }
 
         private void TimeRangeSelectionChanged()

@@ -250,6 +250,29 @@ namespace FJ.Client.Core.UIElements
             
             e.Handled = true;
         }
+        
+        protected void SetTextBoxText()
+        {
+            if (m_textBox == null)
+            {
+                return;
+            }
+            
+            if (m_selectedItems == null)
+            {
+                m_textBox.Text = string.Empty;
+                return;
+            }
+
+            m_textBox.Text = m_selectedItems.Count switch
+            {
+                0 => string.Empty,
+                1 => m_valueConverter
+                    .Convert(m_selectedItems[0], typeof(string), null, CultureInfo.CurrentCulture)
+                    .ToString(),
+                _ => $"{SelectedItems.Count.ToString()} {SuffixOnMany}"
+            };
+        }
 
         private void CheckBoxToggledHandler(CheckBox checkBox, IContentControl item)
         {
@@ -365,24 +388,6 @@ namespace FJ.Client.Core.UIElements
                 m_checkBoxToggledSubs.Add(checkBoxCheckedSub);
                 m_checkBoxes.Add(checkBox);
             }
-        }
-
-        private void SetTextBoxText()
-        {
-            if (m_selectedItems == null)
-            {
-                m_textBox.Text = string.Empty;
-                return;
-            }
-
-            m_textBox.Text = m_selectedItems.Count switch
-            {
-                0 => string.Empty,
-                1 => m_valueConverter
-                        .Convert(m_selectedItems[0], typeof(string), null, CultureInfo.CurrentCulture)
-                        .ToString(),
-                _ => $"{SelectedItems.Count.ToString()} {SuffixOnMany}"
-            };
         }
     }
 }
