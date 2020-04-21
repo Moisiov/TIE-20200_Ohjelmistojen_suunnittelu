@@ -2,6 +2,8 @@ using System;
 using Avalonia;
 using Avalonia.Data;
 using Avalonia.Styling;
+using FJ.DomainObjects;
+
 // ReSharper disable InconsistentNaming
 
 namespace FJ.Client.Core.UIElements.Filters.FilterItems
@@ -13,6 +15,8 @@ namespace FJ.Client.Core.UIElements.Filters.FilterItems
             FocusableProperty.OverrideDefaultValue<FJFilterTimeRange>(true);
             SelectedTimeRangeProperty.Changed.AddClassHandler<FJFilterTimeRange>(
                 (x, e) => x.OnSelectedTimeChanged(e));
+            FilterModelProperty.Changed.AddClassHandler<FJFilterTimeRange>(
+                (x, e) => x.OnFilterModelChanged(e));
         }
 
         public Type StyleKey => typeof(FJTimeRangePicker);
@@ -39,10 +43,34 @@ namespace FJ.Client.Core.UIElements.Filters.FilterItems
                 enableDataValidation: true);
         
         #endregion
+
+        public FJFilterTimeRange()
+        {
+            if (m_filterModel != null)
+            {
+                m_filterModel.FilterChanged -= OnFilterChanged;
+            }
+        }
         
         private void OnSelectedTimeChanged(AvaloniaPropertyChangedEventArgs e)
         {
             m_filterModel.BaseValue = e.NewValue;
+        }
+        
+        private void OnFilterModelChanged(AvaloniaPropertyChangedEventArgs e)
+        {
+            if (e.OldValue is RegisterFilterModelBase oldFilter)
+            {
+                oldFilter.FilterChanged -= OnFilterChanged;
+            }
+            
+            m_filterModel.FilterChanged += OnFilterChanged;
+            OnFilterChanged();
+        }
+        
+        private void OnFilterChanged()
+        {
+            SetTimeRangeSelection(m_filterModel.BaseValue as TimeRange);
         }
     }
 }

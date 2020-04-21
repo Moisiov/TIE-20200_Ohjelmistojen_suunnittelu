@@ -14,6 +14,8 @@ namespace FJ.Client.Core.UIElements.Filters.FilterItems
             FocusableProperty.OverrideDefaultValue<FJFilterTextBox>(true);
             TextProperty.Changed.AddClassHandler<FJFilterTextBox>(
                 (x, e) => x.OnTextChanged(e));
+            FilterModelProperty.Changed.AddClassHandler<FJFilterTextBox>(
+                (x, e) => x.OnFilterModelChanged(e));
         }
         
         public Type StyleKey => typeof(TextBox);
@@ -40,9 +42,34 @@ namespace FJ.Client.Core.UIElements.Filters.FilterItems
                 enableDataValidation: true);
         
         #endregion
+
+        public FJFilterTextBox()
+        {
+            if (m_filterModel != null)
+            {
+                m_filterModel.FilterChanged -= OnFilterChanged;
+            }
+        }
+        
         private void OnTextChanged(AvaloniaPropertyChangedEventArgs e)
         {
             m_filterModel.BaseValue = e.NewValue;
+        }
+        
+        private void OnFilterModelChanged(AvaloniaPropertyChangedEventArgs e)
+        {
+            if (e.OldValue is RegisterFilterModelBase oldFilter)
+            {
+                oldFilter.FilterChanged -= OnFilterChanged;
+            }
+
+            m_filterModel.FilterChanged += OnFilterChanged;
+            OnFilterChanged();
+        }
+        
+        private void OnFilterChanged()
+        {
+            Text = m_filterModel.BaseValue.ToString();
         }
     }
 }

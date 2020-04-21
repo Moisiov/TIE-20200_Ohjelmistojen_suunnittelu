@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Avalonia;
 using Avalonia.Data;
 using Avalonia.Styling;
@@ -13,8 +14,10 @@ namespace FJ.Client.Core.UIElements.Filters.FilterItems
             FocusableProperty.OverrideDefaultValue<FJFilterMultiComboBox>(true);
             SelectedItemsProperty.Changed.AddClassHandler<FJFilterMultiComboBox>(
                 (x, e) => x.OnSelectedItemsChanged(e));
+            FilterModelProperty.Changed.AddClassHandler<FJFilterMultiComboBox>(
+                (x, e) => x.OnFilterModelChanged(e));
         }
-        
+
         public Type StyleKey => typeof(FJMultiSelectComboBox);
         
         #region DependencyProperties
@@ -40,9 +43,34 @@ namespace FJ.Client.Core.UIElements.Filters.FilterItems
         
         #endregion
 
+        public FJFilterMultiComboBox()
+        {
+            if (m_filterModel != null)
+            {
+                m_filterModel.FilterChanged -= OnFilterChanged;
+            }
+        }
+        
         private void OnSelectedItemsChanged(AvaloniaPropertyChangedEventArgs e)
         {
             m_filterModel.BaseValue = e.NewValue;
+        }
+        
+        private void OnFilterModelChanged(AvaloniaPropertyChangedEventArgs e)
+        {
+            if (e.OldValue is RegisterFilterModelBase oldFilter)
+            {
+                oldFilter.FilterChanged -= OnFilterChanged;
+            }
+            
+            m_filterModel.FilterChanged += OnFilterChanged;
+            OnFilterChanged();
+        }
+        
+        private void OnFilterChanged()
+        {
+            SelectedItems = m_filterModel.BaseValue as IList;
+            SetTextBoxText();
         }
     }
 }

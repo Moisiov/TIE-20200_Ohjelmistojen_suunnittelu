@@ -15,9 +15,9 @@ namespace FJ.Client.Core.UIElements.Filters.FilterItems
             FocusableProperty.OverrideDefaultValue<FJFilterEnumComboBox>(true);
             SelectedItemProperty.Changed.AddClassHandler<FJFilterEnumComboBox>(
                 (x, e) => x.OnSelectedItemChanged(e));
+            FilterModelProperty.Changed.AddClassHandler<FJFilterEnumComboBox>(
+                (x, e) => x.OnFilterModelChanged(e));
         }
-
-        private IDisposable m_filterChangedSub;
         
         public Type StyleKey => typeof(ComboBox);
         
@@ -46,7 +46,10 @@ namespace FJ.Client.Core.UIElements.Filters.FilterItems
 
         public FJFilterEnumComboBox()
         {
-            m_filterChangedSub = FilterModelProperty.Changed.Subscribe(OnFilterModelChanged);
+            if (m_filterModel != null)
+            {
+                m_filterModel.FilterChanged -= OnFilterChanged;
+            }
         }
 
         protected override void OnTemplateApplied(TemplateAppliedEventArgs e)
@@ -63,14 +66,14 @@ namespace FJ.Client.Core.UIElements.Filters.FilterItems
 
         private void OnFilterModelChanged(AvaloniaPropertyChangedEventArgs e)
         {
-            if (!(e.NewValue is RegisterFilterModelBase filter) ||
-                !(e.OldValue is RegisterFilterModelBase oldFilter)
-                || filter == oldFilter)
+            if (e.OldValue is RegisterFilterModelBase oldFilter)
             {
-                return;
+                oldFilter.FilterChanged -= OnFilterChanged;
             }
 
+            m_filterModel.FilterChanged += OnFilterChanged;
             UpdateItems();
+            OnFilterChanged();
         }
 
         private void UpdateItems()
@@ -83,6 +86,11 @@ namespace FJ.Client.Core.UIElements.Filters.FilterItems
             }
             
             Items = Enum.GetValues(filterValueType);
+        }
+        
+        private void OnFilterChanged()
+        {
+            SelectedItem = m_filterModel.BaseValue;
         }
     }
 }

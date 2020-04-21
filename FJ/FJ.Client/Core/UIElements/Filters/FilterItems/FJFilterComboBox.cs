@@ -14,6 +14,8 @@ namespace FJ.Client.Core.UIElements.Filters.FilterItems
             FocusableProperty.OverrideDefaultValue<FJFilterComboBox>(true);
             SelectedItemProperty.Changed.AddClassHandler<FJFilterComboBox>(
                 (x, e) => x.OnSelectedItemChanged(e));
+            FilterModelProperty.Changed.AddClassHandler<FJFilterComboBox>(
+                (x, e) => x.OnFilterModelChanged(e));
         }
         
         public Type StyleKey => typeof(ComboBox);
@@ -40,9 +42,34 @@ namespace FJ.Client.Core.UIElements.Filters.FilterItems
                 enableDataValidation: true);
         
         #endregion
+
+        public FJFilterComboBox()
+        {
+            if (m_filterModel != null)
+            {
+                m_filterModel.FilterChanged -= OnFilterChanged;
+            }
+        }
+        
         private void OnSelectedItemChanged(AvaloniaPropertyChangedEventArgs e)
         {
             m_filterModel.BaseValue = e.NewValue;
+        }
+        
+        private void OnFilterModelChanged(AvaloniaPropertyChangedEventArgs e)
+        {
+            if (e.OldValue is RegisterFilterModelBase oldFilter)
+            {
+                oldFilter.FilterChanged -= OnFilterChanged;
+            }
+
+            m_filterModel.FilterChanged += OnFilterChanged;
+            OnFilterChanged();
+        }
+
+        private void OnFilterChanged()
+        {
+            SelectedItem = m_filterModel.BaseValue;
         }
     }
 }

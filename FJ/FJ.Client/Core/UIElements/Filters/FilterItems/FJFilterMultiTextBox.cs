@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Avalonia;
 using Avalonia.Data;
 using Avalonia.Styling;
@@ -13,6 +14,8 @@ namespace FJ.Client.Core.UIElements.Filters.FilterItems
             FocusableProperty.OverrideDefaultValue<FJFilterMultiTextBox>(true);
             SelectedItemsProperty.Changed.AddClassHandler<FJFilterMultiTextBox>(
                 (x, e) => x.OnSelectedItemsChanged(e));
+            FilterModelProperty.Changed.AddClassHandler<FJFilterMultiTextBox>(
+                (x, e) => x.OnFilterModelChanged(e));
         }
         
         public Type StyleKey => typeof(FJPopupTextBox);
@@ -39,10 +42,35 @@ namespace FJ.Client.Core.UIElements.Filters.FilterItems
                 enableDataValidation: true);
         
         #endregion
+
+        public FJFilterMultiTextBox()
+        {
+            if (m_filterModel != null)
+            {
+                m_filterModel.FilterChanged -= OnFilterChanged;
+            }
+        }
         
         private void OnSelectedItemsChanged(AvaloniaPropertyChangedEventArgs e)
         {
             m_filterModel.BaseValue = e.NewValue;
+        }
+        
+        private void OnFilterModelChanged(AvaloniaPropertyChangedEventArgs e)
+        {
+            if (e.OldValue is RegisterFilterModelBase oldFilter)
+            {
+                oldFilter.FilterChanged -= OnFilterChanged;
+            }
+
+            m_filterModel.FilterChanged += OnFilterChanged;
+            OnFilterChanged();
+        }
+        
+        private void OnFilterChanged()
+        {
+            SelectedItems = m_filterModel.BaseValue as IList;
+            SetTextBoxText();
         }
     }
 }
