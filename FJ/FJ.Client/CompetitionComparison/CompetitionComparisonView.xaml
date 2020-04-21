@@ -37,7 +37,7 @@
     <Grid Margin="10">
         <Grid.RowDefinitions >
             <RowDefinition Height="*" />
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="7*" />
         </Grid.RowDefinitions>
         
@@ -192,13 +192,14 @@
                         <filterItems:FJFilterTimeRange Classes="FilterBox"
                                                    FilterModel="{Binding CompetitionComparisonModel.FinlandiaResultTimeRangeFilter}"
                                                    MinWidth="216"
-                                                   SeparatorBackground="{DynamicResource Main1}"
+                                                   SeparatorBackground="{DynamicResource Lightest1}"
                                                    StartWatermark="Aika vähintään"
                                                    EndWatermark="Aika enintään"/>
                     </StackPanel>
                 </WrapPanel>
                 <Button Height="40"
-                        Width="250"
+                        Width="160"
+                        Margin="4"
                         Background="{DynamicResource Darkest1}"
                         Foreground="white"
                         FontSize="{DynamicResource FontSizeNormal}"
