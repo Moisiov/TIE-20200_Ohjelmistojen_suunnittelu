@@ -74,7 +74,7 @@ namespace FJ.Client.Core.UIElements.Filters
     public abstract class RegisterFilterModelBase<T> : RegisterFilterModelBase
         where T : class
     {
-        public T Value
+        protected T Value
         {
             get => BaseValue as T;
             set => BaseValue = value;
@@ -84,11 +84,16 @@ namespace FJ.Client.Core.UIElements.Filters
         {
             ValueType = typeof(T);
         }
+
+        public void AcceptValue(T value)
+        {
+            Value = value;
+        }
     }
 
     public abstract class RegisterIEnumerableFilterBase<TItem> : RegisterFilterModelBase
     {
-        public IEnumerable<TItem> Value
+        protected IEnumerable<TItem> Value
         {
             get => ((IList)BaseValue)?.Cast<TItem>();
             set => BaseValue = value;
@@ -98,12 +103,17 @@ namespace FJ.Client.Core.UIElements.Filters
         {
             ValueType = typeof(TItem);
         }
+        
+        public void AcceptValue(IEnumerable<TItem> value)
+        {
+            Value = value.ToList();
+        }
     }
 
     public abstract class RegisterEnumFilterModelBase<TEnum> : RegisterFilterModelBase
         where TEnum : struct, IConvertible
     {
-        public TEnum? Value
+        protected TEnum? Value
         {
             get => BaseValue != null && Enum.TryParse<TEnum>(BaseValue.ToString(), out var result)
                 ? result
@@ -114,6 +124,11 @@ namespace FJ.Client.Core.UIElements.Filters
         protected RegisterEnumFilterModelBase()
         {
             ValueType = typeof(TEnum);
+        }
+        
+        public void AcceptValue(TEnum? value)
+        {
+            Value = value;
         }
     }
 }

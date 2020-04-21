@@ -29,7 +29,7 @@ namespace FJ.Client.Core.UIElements.Filters.FilterModels
         
         public override void ClearFilters()
         {
-            Value = new TItem[] { };
+            Value = new List<TItem>();
         }
 
         protected FJFilterModel_MultiComboBox(Func<IEnumerable<TItem>, TFilter> createFilterFunc)
