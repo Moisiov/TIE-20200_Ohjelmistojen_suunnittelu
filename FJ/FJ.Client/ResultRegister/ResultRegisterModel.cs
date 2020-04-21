@@ -5,7 +5,6 @@ using FJ.Client.Core;
 using FJ.Client.Core.Register;
 using FJ.Client.Core.UIElements.Filters.FilterModels;
 using FJ.DomainObjects.Enums;
-using FJ.DomainObjects.Filters.CommonFilters;
 using FJ.DomainObjects.Filters.Core;
 using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.DomainObjects.FinlandiaHiihto.Enums;

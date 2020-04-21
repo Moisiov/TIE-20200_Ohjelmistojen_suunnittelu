@@ -42,16 +42,29 @@ namespace FJ.Client.ResultRegister
 
             CompetitionYears = new ObservableCollection<int>(Enumerable.Range(
                 FinlandiaConstants.C_FirstFinlandiaSkiingYear,
-                DateTime.Today.Year - FinlandiaConstants.C_FirstFinlandiaSkiingYear + 1).Reverse());
+                DateTime.Today.Year - FinlandiaConstants.C_FirstFinlandiaSkiingYear).Reverse());
             FinlandiaCompetitionClassItems = new ObservableCollection<FinlandiaHiihtoCompetitionClass>(
                 FinlandiaHiihtoCompetitionClasses.FinlandiaCompetitionClasses);
             
             AverageSpeedIsActive = false;
         }
 
-        protected override Task OnDoPopulateAsync()
+        protected override async Task OnDoPopulateAsync()
         {
-            return Task.CompletedTask;
+            RegisterModel.DoClearFilters();
+
+            if (Argument.Empty)
+            {
+                await Task.CompletedTask;
+                return;
+            }
+            
+            RegisterModel.CompetitionYearsFilter.AcceptValue(Argument.CompetitionYears.ToList());
+            RegisterModel.CompetitionClassesFilter.AcceptValue(Argument.CompetitionClasses.ToList());
+            RegisterModel.FinlandiaFirstNamesFilter.AcceptValue(Argument.FirstNames.ToList());
+            RegisterModel.FinlandiaLastNamesFilter.AcceptValue(Argument.LastNames.ToList());
+
+            await ExecuteSearchAsync();
         }
 
         public void NavigateToAthleteCardCommand()
