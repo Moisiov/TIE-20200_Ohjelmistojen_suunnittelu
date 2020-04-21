@@ -30,7 +30,14 @@ namespace FJ.Client.Athlete
             get => m_athletePersonalInfo;
             set => SetAndRaise(ref m_athletePersonalInfo, value);
         }
-        
+
+        private bool m_anyItemsSelected;
+        public bool AnyItemsSelected
+        {
+            get => m_anyItemsSelected;
+            set => SetAndRaise(ref m_anyItemsSelected, value);
+        }
+
         private bool m_plotOptionsIsActiveIsActive;
         public bool PlotOptionsIsActive
         {
@@ -63,8 +70,10 @@ namespace FJ.Client.Athlete
             using (Navigator.ShowLoadingScreen())
             {
                 await base.DoPopulateAsync();
+                
                 var athleteFirstName = Argument.AthleteFirstName ?? string.Empty;
                 var athleteLastName = Argument.AthleteLastName ?? string.Empty;
+                AnyItemsSelected = false;
 
                 if (athleteFirstName.IsNullOrEmpty())
                 {
@@ -77,7 +86,10 @@ namespace FJ.Client.Athlete
 
                     var participationItemModels = m_model.AthletesResultRows.Results
                         .OrderByDescending(x => x.CompetitionInfo.Year)
-                        .Select(x => new AthleteParticipationItemModel { ResultRows = x });
+                        .Select(x => new AthleteParticipationItemModel(this)
+                        {
+                            ResultRows = x
+                        });
             
                     ParticipationList = new ObservableCollection<AthleteParticipationItemModel>(participationItemModels);
                     AthletePersonalInfo = m_model.Athlete;
@@ -112,6 +124,11 @@ namespace FJ.Client.Athlete
             ProgressionChartUseBarChart = false;
         }
 
+        public void ItemSelectionChanged()
+        {
+            AnyItemsSelected = m_participationList.Any(x => x.IsSelected);
+        }
+
         private void ProgressionChartPopulate()
         {
             var data = ParticipationList?
@@ -127,14 +144,11 @@ namespace FJ.Client.Athlete
             {
                 return;
             }
-            else if (ProgressionChartUseLineChart)
-            {
-                m_plotService.GetPlot(data, PlotType.TimeSpanLinePlot, "Urheilijan tuloskehitys");
-            }
-            else                                                              
-            {                                                                                              
-                m_plotService.GetPlot(data, PlotType.TimeSpanBarPlot, "Urheilijan tuloskehitys");         
-            }                                                                                              
+
+            m_plotService.GetPlot(
+                data,
+                ProgressionChartUseLineChart ? PlotType.TimeSpanLinePlot : PlotType.TimeSpanBarPlot,
+                "Urheilijan tuloskehitys");
         }
 
         public void NavigateToResultRegister()

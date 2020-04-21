@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:prism="http://prismlibrary.com/"
+             xmlns:valueConverters="clr-namespace:FJ.Client.Core.ValueConverters"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="FJ.Client.Athlete.AthleteCardView">
@@ -25,7 +26,10 @@
         </Style>
     </UserControl.Styles>
     
-    <Grid >
+    <Grid>
+        <Grid.Resources>
+            <valueConverters:EnumToDescriptionConverter x:Key="EnumToDescriptionConverter" />
+        </Grid.Resources>
         <Grid.RowDefinitions >
             <RowDefinition Height="*" />
             
@@ -63,27 +67,27 @@
                              Margin="15">
 
                      <StackPanel Orientation="Horizontal" Margin="0, 5">
-                        <TextBlock FontWeight="Bold" Text="Etunimi:" />
+                        <TextBlock FontWeight="Bold" Text="Etunimi: " />
                         <TextBlock Text="{Binding AthletePersonalInfo.FirstName}" />
                       </StackPanel>
                      <StackPanel Orientation="Horizontal" Margin="0, 5">
-                        <TextBlock FontWeight="Bold" Text="Sukunimi:" />
+                        <TextBlock FontWeight="Bold" Text="Sukunimi: " />
                         <TextBlock Text="{Binding AthletePersonalInfo.LastName}" />
                       </StackPanel>
                      <StackPanel Orientation="Horizontal" Margin="0, 5">
-                         <TextBlock FontWeight="Bold" Text="Sukupuoli:" />
-                         <TextBlock Text="{Binding AthletePersonalInfo.PersonGender}" />
+                         <TextBlock FontWeight="Bold" Text="Sukupuoli: " />
+                         <TextBlock Text="{Binding AthletePersonalInfo.PersonGender, Converter={StaticResource EnumToDescriptionConverter}}" />
                      </StackPanel>
                      <StackPanel Orientation="Horizontal" Margin="0, 5">
-                        <TextBlock FontWeight="Bold" Text="Syntymävuosi:" />
+                        <TextBlock FontWeight="Bold" Text="Syntymävuosi: " />
                         <TextBlock Text="{Binding AthletePersonalInfo.YearOfBirth}" />
                      </StackPanel>
                      <StackPanel Orientation="Horizontal" Margin="0, 5">
-                         <TextBlock FontWeight="Bold" Text="Kansallisuus:" />
+                         <TextBlock FontWeight="Bold" Text="Kansallisuus: " />
                          <TextBlock Text="{Binding AthletePersonalInfo.Nationality}" />
                      </StackPanel>
                      <StackPanel Orientation="Horizontal" Margin="0, 5">
-                         <TextBlock FontWeight="Bold" Text="Kotikaupunki:" />
+                         <TextBlock FontWeight="Bold" Text="Kotikaupunki: " />
                          <TextBlock Text="{Binding AthletePersonalInfo.City}" />
                      </StackPanel>
 
@@ -138,14 +142,17 @@
                                                 <RowDefinition Height="Auto" />
                                             </Grid.RowDefinitions>
                                             <Border Grid.Column="0" Grid.Row="0" BorderBrush="Gray" BorderThickness="0">
-                                                <CheckBox Margin="4" Background="White" IsChecked="{Binding IsSelected}" />
+                                                <CheckBox Margin="4" Background="White"
+                                                          IsChecked="{Binding IsSelected}" />
                                             </Border>
                                             <Border Grid.Column="1" Grid.Row="0" BorderBrush="Gray" BorderThickness="1,0,0,0">
-                                                <TextBlock Classes="ResultRowElement" 
+                                                <TextBlock Classes="ResultRowElement"
+                                                           Margin="4"
                                                            Text="{Binding ResultRows.CompetitionInfo.Year}"    />
                                             </Border>
                                             <Border Grid.Column="2" Grid.Row="0" BorderBrush="Gray" BorderThickness="1,0,0,0">
-                                                <TextBlock Classes="ResultRowElement" 
+                                                <TextBlock Classes="ResultRowElement"
+                                                           Margin="4"
                                                            Text="{Binding ResultRows.CompetitionInfo.Name}" />
                                             </Border>
                                         </Grid>
@@ -166,12 +173,14 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" Margin="0,0,2,0">
                             <Button Classes="CompetitionActionButton"
-                                    Content="Tarkastele valittuja tulosrekisterissä."
+                                    IsEnabled="{Binding AnyItemsSelected}"
+                                    Content="Tarkastele tulosrekisterissä"
                                     Command="{Binding NavigateToResultRegister}" />
                         </StackPanel>
                         <StackPanel Grid.Column="1" Margin="2,0,0,0">
                             <Button Classes="CompetitionActionButton"
-                                    Content="Visualisoi valittujen aikakehitys." 
+                                    IsEnabled="{Binding AnyItemsSelected}"
+                                    Content="Visualisoi aikakehitys" 
                                     Command="{Binding PlotOptionsActivation}"/>
                         </StackPanel>    
                     </Grid>
