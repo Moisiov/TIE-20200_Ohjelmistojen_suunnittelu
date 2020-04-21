@@ -56,6 +56,12 @@ namespace FJ.Client.TopBar
             Navigator.RequestRefresh();
         }
 
+        public void DoClosePanel()
+        {
+            Navigator.DoNavigateTo<FrontPage.FrontPageView>();
+            Navigator.DoClearNavigationStack();
+        }
+
         private void UpdateNavigationButtons()
         {
             CanNavigateContentBack = Navigator.CanNavigateBack;
