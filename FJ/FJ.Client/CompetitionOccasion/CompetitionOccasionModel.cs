@@ -47,6 +47,7 @@ namespace FJ.Client.CompetitionOccasion
             CompetitionList = resultRowsByCompetition
                 .Select(competition => new CompetitionRowItemModel
                 {
+                    CompetitionClass = competition.Results.First().CompetitionClass,
                     CompetitionInfo = competition.Results.First().CompetitionInfo,
                     TotalParticipants = GetUniqueParticipantsAmount(competition.Results),
                     FirstPlaceCompetitor = new CompetitorSummaryItemModel

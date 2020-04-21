@@ -153,8 +153,12 @@ namespace FJ.Client.Athlete
 
         public void NavigateToResultRegister()
         {
-            // TODO: Hae valitut AthleteParticipationItemModelit ja mäppää niistä argsit ResultRegisterille (filter collection).
-            Navigator.DoNavigateTo<ResultRegisterView>();
+            var selectedItems = m_participationList
+                .Where(x => x.IsSelected)
+                .Select(x => x.ResultRows);
+            var args = ResultRegisterArgs.CreateFromSingleResults(selectedItems);
+            
+            Navigator.DoNavigateTo<ResultRegisterView>(args);
         }
     }
 }

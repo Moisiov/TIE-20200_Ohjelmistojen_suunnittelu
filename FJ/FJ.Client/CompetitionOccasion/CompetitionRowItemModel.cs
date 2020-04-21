@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using FJ.DomainObjects;
+using FJ.DomainObjects.FinlandiaHiihto;
 
 namespace FJ.Client.CompetitionOccasion
 {
     public class CompetitionRowItemModel
     {
+        public FinlandiaHiihtoCompetitionClass CompetitionClass { get; set; }
         public Competition CompetitionInfo { get; set; }
         public int TotalParticipants { get; set; }
         public CompetitorSummaryItemModel FirstPlaceCompetitor { get; set; }

@@ -188,14 +188,24 @@ namespace FJ.Client.CompetitionOccasion
         
         public void NavigateToResultRegisterWithOccasion()
         {
-            // TODO Anna vuosi navigaatio argumenttina.
-            Navigator.DoNavigateTo<ResultRegisterView>();
+            var args = new ResultRegisterArgs();
+            if (OccasionYear.HasValue)
+            {
+                args.CompetitionYears = OccasionYear.Value.ToMany().ToHashSet();
+            }
+            
+            Navigator.DoNavigateTo<ResultRegisterView>(args);
         }
         
-        public void NavigateToResultRegisterWithCompetition(string competitionType)
+        public void NavigateToResultRegisterWithCompetition(CompetitionRowItemModel competitionRowItem)
         {
-            // TODO Anna Year+competitionType navigaatioargumenttina.
-            Navigator.DoNavigateTo<ResultRegisterView>();
+            var args = new ResultRegisterArgs
+            {
+                CompetitionYears = competitionRowItem.CompetitionInfo.Year.ToMany().ToHashSet(),
+                CompetitionClasses = competitionRowItem.CompetitionClass.ToMany().ToHashSet()
+            };
+            
+            Navigator.DoNavigateTo<ResultRegisterView>(args);
         }
 
         public void NationalityDistributionChartOptionActivation()

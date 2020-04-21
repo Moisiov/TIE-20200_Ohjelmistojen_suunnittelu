@@ -120,11 +120,5 @@ namespace FJ.Client.CompetitionComparison
                 }
             }
         }
-
-        public void NavigateToResultRegisterWithCompetitions(string competitionType)
-        {
-            // TODO Anna Year+competitionType navigaatioargumenttina.
-            Navigator.DoNavigateTo<ResultRegisterView>();
-        }
     }
 }
