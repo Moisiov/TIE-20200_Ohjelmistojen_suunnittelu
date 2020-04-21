@@ -13,7 +13,7 @@ namespace FJ.Client.Core.Services
     /// <summary>
     /// Handles activities in relation to whole Content-region
     /// </summary>
-    public interface IContentRegionNavigator
+    public interface IContentRegionNavigator : INavigator
     {
         /// <summary>
         /// Navigation mode included in navigation events for targets to decide e.g. if there is a need for repopulating
@@ -71,25 +71,6 @@ namespace FJ.Client.Core.Services
         /// Content-region to refresh itself
         /// </summary>
         void RequestRefresh();
-
-        /// <summary>
-        /// Navigates the Content-region to target view
-        /// </summary>
-        /// <param name="targetViewName">
-        /// Name of the view that will be navigated to</param>
-        /// <param name="navArgs">
-        /// Argument that will be passed to the navigation target</param>
-        void DoNavigateTo(string targetViewName, object navArgs = null);
-
-        /// <summary>
-        /// Navigates the Content-region to target view
-        /// </summary>
-        /// <typeparam name="TView">
-        /// Type of the view that is navigated to</typeparam>
-        /// <param name="navArgs">
-        /// Argument that will be passed to the navigation target</param>
-        void DoNavigateTo<TView>(object navArgs = null)
-            where TView : UserControl;
 
         /// <summary>
         /// Clears the navigation stack
