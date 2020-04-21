@@ -96,6 +96,12 @@ namespace FJ.Client.Core.Services
 
         public void DoNavigateTo(string targetViewName, object navArgs)
         {
+            // Don't allow navigation to view that is currently showing
+            if (targetViewName == GetCurrentViewName())
+            {
+                return;
+            }
+            
             m_navigationMode = IContentRegionNavigator.NavigationMode.New;
             m_regionManager.NavigateContentTo(targetViewName, navArgs);
         }
