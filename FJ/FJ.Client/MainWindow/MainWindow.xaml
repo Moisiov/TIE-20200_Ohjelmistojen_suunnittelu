@@ -27,15 +27,17 @@
     </Window.KeyBindings>
 
     <Grid>
+        <Grid.Resources>
+            <valueConverters:BoolInversionConverter x:Key="BoolInversionConverter" />
+            <valueConverters:ControlPanelSizeOptionConverter x:Key="ControlPanelSizeConverter" />
+            <valueConverters:NullToVisibilityConverter x:Key="NullToVisConverter" />
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
         <!-- Region-based contents -->
-        <Grid x:Name="LayoutRoot" IsEnabled="{Binding !ShowContentRegionErrorMessage}">
-            <Grid.Resources>
-                <valueConverters:ControlPanelSizeOptionConverter x:Key="ControlPanelSizeConverter" />
-            </Grid.Resources>
+        <Grid x:Name="LayoutRoot" IsEnabled="{Binding ShowContentRegionErrorMessage, Converter={StaticResource BoolInversionConverter}}">
             <Grid.ColumnDefinitions>
                 <!-- 10, 40 -->
                 <ColumnDefinition Width="{Binding ControlPanelSize, Converter={StaticResource ControlPanelSizeConverter}, ConverterParameter=10}" />
@@ -58,7 +60,7 @@
         </Grid>
     
         <!-- Overlay for for showing error message. Probably not the most elegant solution -->
-        <Border IsVisible="{Binding ShowContentRegionErrorMessage}" 
+        <Border IsVisible="{Binding ContentRegionErrorMessage, Converter={StaticResource NullToVisConverter}}" 
                 ZIndex="2"
                 CornerRadius="6"
                 Background="white"

@@ -31,13 +31,6 @@ namespace FJ.Client.MainWindow
             set => SetAndRaise(ref m_showContentRegionLoadingScreen, value);
         }
         
-        private bool m_showContentRegionErrorMessage;
-        public bool ShowContentRegionErrorMessage
-        {
-            get => m_showContentRegionErrorMessage;
-            set => SetAndRaise(ref m_showContentRegionErrorMessage, value);
-        }
-        
         private string m_contentRegionErrorMessage;
         public string ContentRegionErrorMessage
         {
@@ -106,7 +99,6 @@ namespace FJ.Client.MainWindow
         
         public void ClearContentRegionErrorMessage()
         {
-            ShowContentRegionErrorMessage = false;
             ContentRegionErrorMessage = null;
         }
 
@@ -117,7 +109,6 @@ namespace FJ.Client.MainWindow
         
         private void SetContentRegionErrorMessage(string msg)
         {
-            ShowContentRegionErrorMessage = true;
             ContentRegionErrorMessage = msg;
         }
 
