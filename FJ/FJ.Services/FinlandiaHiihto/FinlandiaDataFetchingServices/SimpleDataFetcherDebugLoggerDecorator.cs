@@ -1,7 +1,6 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Timers;
 using FJ.DomainObjects.Filters.Core;
 using FJ.DomainObjects.FinlandiaHiihto;
 using Newtonsoft.Json;

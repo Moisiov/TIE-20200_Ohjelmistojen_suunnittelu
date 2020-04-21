@@ -6,6 +6,7 @@ namespace FJ.Client.Athlete
     public class AthleteParticipationItemModel
     {
         private readonly AthleteCardViewModel m_owner;
+        
         public FinlandiaHiihtoSingleResult ResultRows { get; set; }
 
         private bool m_isSelected;
