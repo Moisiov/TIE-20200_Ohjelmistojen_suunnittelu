@@ -6,35 +6,5 @@
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="FJ.Client.FrontPage.FrontPageView">
-    <Grid Margin="2"
-          ShowGridLines="True" > <!-- DEBUG -->
-        <Grid.ColumnDefinitions >
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions >
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <TextBlock Text="1" />
-            <Button Height="80" Width="160" Foreground="Blue" Command="{Binding NavigateToResultRegister}" Content="Tulokset" />
-        </StackPanel>
-
-        <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <TextBlock Text="2" />
-            <Button Height="80" Width="160" Foreground="Blue" Command="{Binding NavigateToCompetitionOccasion}" Content="Kilpailu" />
-        </StackPanel>
-
-        <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <TextBlock Text="3" />
-            <Button Height="80" Width="160" Foreground="Blue" Command="{Binding NavigateToAthleteCard}" Content="Urheilija" />
-        </StackPanel>
-
-        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <TextBlock Text="4" />
-            <Button Height="80" Width="160" Foreground="Blue" Command="{Binding NavigateToTeamCard}" Content="Joukkue" />
-        </StackPanel>
-    </Grid>
+    <Image Source="avares://FJ.Client/Assets/juha_mieto.jpg" Stretch="UniformToFill" VerticalAlignment="Top" />
 </UserControl>
