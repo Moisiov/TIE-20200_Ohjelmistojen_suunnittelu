@@ -49,6 +49,18 @@
                     <Setter Property="FontWeight" Value="600" />
                     <Setter Property="Foreground" Value="{DynamicResource Dark1}" />
                 </Style>
+                <Style Selector="Button:pointerover > Grid > TextBlock">
+                    <Setter Property="Foreground" Value="{DynamicResource Darkest1}" />
+                </Style>
+                <Style Selector="DrawingPresenter.Darkest1">
+                    <Setter Property="IsVisible" Value="False" />
+                </Style>
+                <Style Selector="Button:pointerover DrawingPresenter.Darkest1">
+                    <Setter Property="IsVisible" Value="True" />
+                </Style>
+                <Style Selector="Button:pointerover DrawingPresenter.Dark1">
+                    <Setter Property="IsVisible" Value="False" />
+                </Style>
             </StackPanel.Styles>
             <TextBlock Text="{Binding CurrentTime}" HorizontalAlignment="Center" Foreground="White" Margin="0,20,0,10" />
             <TextBlock Text="{Binding CurrentTemperatureString}" HorizontalAlignment="Center" Foreground="White" FontSize="20" Margin="0,0,0,20"/>
@@ -62,9 +74,15 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
-                    <DrawingPresenter Grid.Column="0" HorizontalAlignment="Center">
+                    <DrawingPresenter Classes="Dark1" Grid.Column="0" HorizontalAlignment="Center">
                         <DrawingPresenter.Drawing>
                             <GeometryDrawing Brush="{DynamicResource Dark1}"
+                                             Geometry="M18.672,11H17v6c0,0.445-0.194,1-1,1h-4v-6H8v6H4c-0.806,0-1-0.555-1-1v-6H1.328c-0.598,0-0.47-0.324-0.06-0.748L9.292,2.22  C9.487,2.018,9.743,1.918,10,1.908c0.257,0.01,0.513,0.109,0.708,0.312l8.023,8.031C19.142,10.676,19.27,11,18.672,11z" />
+                        </DrawingPresenter.Drawing>
+                    </DrawingPresenter>
+                    <DrawingPresenter Classes="Darkest1" Grid.Column="0" HorizontalAlignment="Center">
+                        <DrawingPresenter.Drawing>
+                            <GeometryDrawing Brush="{DynamicResource Darkest1}"
                                              Geometry="M18.672,11H17v6c0,0.445-0.194,1-1,1h-4v-6H8v6H4c-0.806,0-1-0.555-1-1v-6H1.328c-0.598,0-0.47-0.324-0.06-0.748L9.292,2.22  C9.487,2.018,9.743,1.918,10,1.908c0.257,0.01,0.513,0.109,0.708,0.312l8.023,8.031C19.142,10.676,19.27,11,18.672,11z" />
                         </DrawingPresenter.Drawing>
                     </DrawingPresenter>
@@ -80,9 +98,15 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
-                    <DrawingPresenter Grid.Column="0" HorizontalAlignment="Center">
+                    <DrawingPresenter Classes="Dark1" Grid.Column="0" HorizontalAlignment="Center">
                         <DrawingPresenter.Drawing>
                             <GeometryDrawing Brush="{DynamicResource Dark1}"
+                                             Geometry="M12.01 13c0 .59 0 1-.59 1H4.6c-.59 0-.59-.41-.59-1 0-.59 0-1 .59-1h6.81c.59 0 .59.41.59 1h.01zM4.6 4h6.81C12 4 12 3.59 12 3c0-.59 0-1-.59-1H4.6c-.59 0-.59.41-.59 1 0 .59 0 1 .59 1zm6.81 3H4.6c-.59 0-.59.41-.59 1 0 .59 0 1 .59 1h6.81C12 9 12 8.59 12 8c0-.59 0-1-.59-1zm-9.4-6h-.72c-.3.19-.58.25-1.03.34V2h.75v2.14H.17V5h2.84v-.86h-1V1zm.392 8.12c-.129 0-.592.04-.802.07.53-.56 1.14-1.25 1.14-1.89C2.72 6.52 2.18 6 1.38 6c-.59 0-.97.2-1.38.64l.58.58c.19-.19.38-.38.64-.38.28 0 .48.16.48.52 0 .53-.77 1.2-1.7 2.06V10h3v-.88h-.598zm-.222 3.79v-.03c.44-.19.64-.47.64-.86 0-.7-.56-1.11-1.44-1.11-.48 0-.89.19-1.28.52l.55.64c.25-.2.44-.31.69-.31.27 0 .42.13.42.36 0 .27-.2.44-.86.44v.75c.83 0 .98.17.98.47 0 .25-.23.38-.58.38-.28 0-.56-.14-.81-.38l-.48.66c.3.36.77.56 1.41.56.83 0 1.53-.41 1.53-1.16 0-.5-.31-.81-.77-.94v.01z" />
+                        </DrawingPresenter.Drawing>
+                    </DrawingPresenter>
+                    <DrawingPresenter Classes="Darkest1" Grid.Column="0" HorizontalAlignment="Center">
+                        <DrawingPresenter.Drawing>
+                            <GeometryDrawing Brush="{DynamicResource Darkest1}"
                                              Geometry="M12.01 13c0 .59 0 1-.59 1H4.6c-.59 0-.59-.41-.59-1 0-.59 0-1 .59-1h6.81c.59 0 .59.41.59 1h.01zM4.6 4h6.81C12 4 12 3.59 12 3c0-.59 0-1-.59-1H4.6c-.59 0-.59.41-.59 1 0 .59 0 1 .59 1zm6.81 3H4.6c-.59 0-.59.41-.59 1 0 .59 0 1 .59 1h6.81C12 9 12 8.59 12 8c0-.59 0-1-.59-1zm-9.4-6h-.72c-.3.19-.58.25-1.03.34V2h.75v2.14H.17V5h2.84v-.86h-1V1zm.392 8.12c-.129 0-.592.04-.802.07.53-.56 1.14-1.25 1.14-1.89C2.72 6.52 2.18 6 1.38 6c-.59 0-.97.2-1.38.64l.58.58c.19-.19.38-.38.64-.38.28 0 .48.16.48.52 0 .53-.77 1.2-1.7 2.06V10h3v-.88h-.598zm-.222 3.79v-.03c.44-.19.64-.47.64-.86 0-.7-.56-1.11-1.44-1.11-.48 0-.89.19-1.28.52l.55.64c.25-.2.44-.31.69-.31.27 0 .42.13.42.36 0 .27-.2.44-.86.44v.75c.83 0 .98.17.98.47 0 .25-.23.38-.58.38-.28 0-.56-.14-.81-.38l-.48.66c.3.36.77.56 1.41.56.83 0 1.53-.41 1.53-1.16 0-.5-.31-.81-.77-.94v.01z" />
                         </DrawingPresenter.Drawing>
                     </DrawingPresenter>
@@ -98,9 +122,15 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
-                    <DrawingPresenter Grid.Column="0" HorizontalAlignment="Center">
+                    <DrawingPresenter Classes="Dark1" Grid.Column="0" HorizontalAlignment="Center">
                         <DrawingPresenter.Drawing>
                             <GeometryDrawing Brush="{DynamicResource Dark1}"
+                                             Geometry="M21,18H19V15a1,1,0,0,0-1-1H13V11.29l1.13.59a1,1,0,0,0,1.45-1.05l-.4-2.37L16.9,6.77a1,1,0,0,0,.26-1,1,1,0,0,0-.81-.68L14,4.72,12.9,2.56a1,1,0,0,0-1.8,0L10,4.72l-2.39.35a1,1,0,0,0-.81.68,1,1,0,0,0,.26,1L8.82,8.46l-.4,2.37a1,1,0,0,0,1.45,1.05L11,11.29V14H6a1,1,0,0,0-1,1v3H3a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V20H8v1a1,1,0,0,0,2,0V19a1,1,0,0,0-1-1H7V16H17v2H15a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V20h4v1a1,1,0,0,0,2,0V19A1,1,0,0,0,21,18ZM12,8.63a1,1,0,0,0-.47.12l-.8.42.15-.9a1,1,0,0,0-.29-.88l-.65-.64.9-.13a1,1,0,0,0,.76-.54l.4-.82.4.82a1,1,0,0,0,.76.54l.9.13-.65.64a1,1,0,0,0-.29.88l.15.9-.8-.42A1,1,0,0,0,12,8.63Z" />
+                        </DrawingPresenter.Drawing>
+                    </DrawingPresenter>
+                    <DrawingPresenter Classes="Darkest1" Grid.Column="0" HorizontalAlignment="Center">
+                        <DrawingPresenter.Drawing>
+                            <GeometryDrawing Brush="{DynamicResource Darkest1}"
                                              Geometry="M21,18H19V15a1,1,0,0,0-1-1H13V11.29l1.13.59a1,1,0,0,0,1.45-1.05l-.4-2.37L16.9,6.77a1,1,0,0,0,.26-1,1,1,0,0,0-.81-.68L14,4.72,12.9,2.56a1,1,0,0,0-1.8,0L10,4.72l-2.39.35a1,1,0,0,0-.81.68,1,1,0,0,0,.26,1L8.82,8.46l-.4,2.37a1,1,0,0,0,1.45,1.05L11,11.29V14H6a1,1,0,0,0-1,1v3H3a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V20H8v1a1,1,0,0,0,2,0V19a1,1,0,0,0-1-1H7V16H17v2H15a1,1,0,0,0-1,1v2a1,1,0,0,0,2,0V20h4v1a1,1,0,0,0,2,0V19A1,1,0,0,0,21,18ZM12,8.63a1,1,0,0,0-.47.12l-.8.42.15-.9a1,1,0,0,0-.29-.88l-.65-.64.9-.13a1,1,0,0,0,.76-.54l.4-.82.4.82a1,1,0,0,0,.76.54l.9.13-.65.64a1,1,0,0,0-.29.88l.15.9-.8-.42A1,1,0,0,0,12,8.63Z" />
                         </DrawingPresenter.Drawing>
                     </DrawingPresenter>
@@ -116,9 +146,15 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
-                    <DrawingPresenter Grid.Column="0" HorizontalAlignment="Center">
+                    <DrawingPresenter Classes="Dark1" Grid.Column="0" HorizontalAlignment="Center">
                         <DrawingPresenter.Drawing>
                             <GeometryDrawing Brush="{DynamicResource Dark1}"
+                                             Geometry="M256 256c52.805 0 96-43.201 96-96s-43.195-96-96-96-96 43.201-96 96 43.195 96 96 96zm0 48c-63.598 0-192 32.402-192 96v48h384v-48c0-63.598-128.402-96-192-96z" />
+                        </DrawingPresenter.Drawing>
+                    </DrawingPresenter>
+                    <DrawingPresenter Classes="Darkest1" Grid.Column="0" HorizontalAlignment="Center">
+                        <DrawingPresenter.Drawing>
+                            <GeometryDrawing Brush="{DynamicResource Darkest1}"
                                              Geometry="M256 256c52.805 0 96-43.201 96-96s-43.195-96-96-96-96 43.201-96 96 43.195 96 96 96zm0 48c-63.598 0-192 32.402-192 96v48h384v-48c0-63.598-128.402-96-192-96z" />
                         </DrawingPresenter.Drawing>
                     </DrawingPresenter>
@@ -134,9 +170,15 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
-                    <DrawingPresenter Grid.Column="0" HorizontalAlignment="Center">
+                    <DrawingPresenter Classes="Dark1" Grid.Column="0" HorizontalAlignment="Center">
                         <DrawingPresenter.Drawing>
                             <GeometryDrawing Brush="{DynamicResource Dark1}"
+                                             Geometry="M843.8 156.3C843.8 208 801.8 250 750 250C698.2 250 656.3 208 656.3 156.3C656.3 104.5 698.2 62.5 750 62.5C801.8 62.5 843.8 104.5 843.8 156.3ZM937.5 375C937.5 375 937.5 312.5 875 312.5C856.7 312.5 714.3 312.5 653.1 312.5C655.2 322.6 656.3 333 656.3 343.8C656.3 379.1 644.1 411.3 624.3 437.5H625C750 437.5 750 562.5 750 562.5V750H937.5V375ZM375 437.5H375.7C355.9 411.3 343.8 379.1 343.8 343.8C343.8 333 344.8 322.6 346.9 312.5C280.3 312.5 125 312.5 125 312.5C125 312.5 62.5 312.5 62.5 375C62.5 399.3 62.5 750 62.5 750H250V562.5C250 437.5 375 437.5 375 437.5ZM343.8 156.3C343.8 208 301.8 250 250 250C198.2 250 156.3 208 156.3 156.3C156.3 104.5 198.2 62.5 250 62.5C301.8 62.5 343.8 104.5 343.8 156.3ZM593.8 343.8C593.8 395.5 551.8 437.5 500 437.5C448.2 437.5 406.3 395.5 406.3 343.8C406.3 292 448.2 250 500 250C551.8 250 593.8 292 593.8 343.8ZM625 500C601.6 500 375 500 375 500C375 500 312.5 500 312.5 562.5C312.5 586.8 312.5 937.5 312.5 937.5H687.5V562.5C687.5 562.5 687.5 500 625 500Z" />
+                        </DrawingPresenter.Drawing>
+                    </DrawingPresenter>
+                    <DrawingPresenter Classes="Darkest1" Grid.Column="0" HorizontalAlignment="Center">
+                        <DrawingPresenter.Drawing>
+                            <GeometryDrawing Brush="{DynamicResource Darkest1}"
                                              Geometry="M843.8 156.3C843.8 208 801.8 250 750 250C698.2 250 656.3 208 656.3 156.3C656.3 104.5 698.2 62.5 750 62.5C801.8 62.5 843.8 104.5 843.8 156.3ZM937.5 375C937.5 375 937.5 312.5 875 312.5C856.7 312.5 714.3 312.5 653.1 312.5C655.2 322.6 656.3 333 656.3 343.8C656.3 379.1 644.1 411.3 624.3 437.5H625C750 437.5 750 562.5 750 562.5V750H937.5V375ZM375 437.5H375.7C355.9 411.3 343.8 379.1 343.8 343.8C343.8 333 344.8 322.6 346.9 312.5C280.3 312.5 125 312.5 125 312.5C125 312.5 62.5 312.5 62.5 375C62.5 399.3 62.5 750 62.5 750H250V562.5C250 437.5 375 437.5 375 437.5ZM343.8 156.3C343.8 208 301.8 250 250 250C198.2 250 156.3 208 156.3 156.3C156.3 104.5 198.2 62.5 250 62.5C301.8 62.5 343.8 104.5 343.8 156.3ZM593.8 343.8C593.8 395.5 551.8 437.5 500 437.5C448.2 437.5 406.3 395.5 406.3 343.8C406.3 292 448.2 250 500 250C551.8 250 593.8 292 593.8 343.8ZM625 500C601.6 500 375 500 375 500C375 500 312.5 500 312.5 562.5C312.5 586.8 312.5 937.5 312.5 937.5H687.5V562.5C687.5 562.5 687.5 500 625 500Z" />
                         </DrawingPresenter.Drawing>
                     </DrawingPresenter>
