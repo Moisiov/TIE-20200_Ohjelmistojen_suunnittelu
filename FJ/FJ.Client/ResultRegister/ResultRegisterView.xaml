@@ -180,7 +180,18 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical">
-                                <Grid Background="{DynamicResource Lightest1}" >
+                                <StackPanel.Styles>
+                                    <Style Selector="Grid">
+                                        <Setter Property="Grid.Background" Value="{DynamicResource Lightest1}" />
+                                    </Style>
+                                    <Style Selector="Grid:pointerover">
+                                        <Setter Property="Grid.Background" Value="{DynamicResource Light1}" />
+                                    </Style>
+                                    <Style Selector="Button:pointerover > TextBlock.ResultRowElement">
+                                        <Setter Property="Foreground" Value="{DynamicResource Darkest1}" />
+                                    </Style>
+                                </StackPanel.Styles>
+                                <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
@@ -197,7 +208,8 @@
                                     <CheckBox Grid.Column="0" Grid.Row="0"
                                               Margin="4"
                                               Background="White"
-                                              IsChecked="{Binding IsSelected}" />
+                                              IsChecked="{Binding IsSelected}"
+                                              VerticalAlignment="Center"/>
                                     <TextBlock Classes="ResultRowElement"
                                                Grid.Column="1" Grid.Row="0"
                                                Text="{Binding StyleAndDistanceString}" />
@@ -208,7 +220,6 @@
                                             Grid.Column="3" Grid.Row="0"
                                             Foreground="Transparent"
                                             Background="Transparent"
-                                            Height="{DynamicResource FontSizeExtraLarge}"
                                             HorizontalAlignment="Left"
                                             Margin="0"
                                             BorderThickness="0"
@@ -216,12 +227,10 @@
                                             Command="{Binding DataContext.NavigateToCardCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                             CommandParameter="{Binding}">
                                         <Button.Content>
-                                            <DockPanel HorizontalAlignment="Left">
                                                 <TextBlock DockPanel.Dock="Left"
                                                            Classes="ResultRowElement"
                                                            Text="{Binding FullName}"
                                                            Margin="0"/>
-                                            </DockPanel>
                                         </Button.Content>
                                     </Button>
                                     <TextBlock Classes="ResultRowElement" Grid.Column="4" Grid.Row="0" Text="{Binding ResultTime}" />
@@ -229,7 +238,6 @@
                                             Grid.Column="5" Grid.Row="0"
                                             Foreground="Transparent"
                                             Background="Transparent"
-                                            Height="{DynamicResource FontSizeExtraLarge}"
                                             HorizontalAlignment="Center"
                                             Margin="0"
                                             BorderThickness="0"
@@ -249,21 +257,30 @@
                                           Width="{DynamicResource FontSizeExtraLarge}"
                                           Foreground="{DynamicResource Dark1}"
                                           BorderThickness="0"
+                                          BorderBrush="Transparent"
                                           Focusable="False">
                                         <MenuItem Header="_..."
                                                   HorizontalAlignment="Left"
                                                   FontSize="{DynamicResource FontSizeLarge}"
-                                                  FontWeight="Bold">
+                                                  FontWeight="Bold"
+                                                  BorderThickness="0"
+                                                  BorderBrush="Transparent">
                                             <!-- TODO This could be done dynamically from base template -->
                                             <MenuItem Header="Navigoi kortille"
                                                       IsEnabled="True"
                                                       Command="{Binding Command, ElementName=AthleteNameButton}"
-                                                      CommandParameter="{Binding CommandParameter, ElementName=AthleteNameButton}"/>
+                                                      CommandParameter="{Binding CommandParameter, ElementName=AthleteNameButton}"
+                                                      Margin="0"
+                                                      Padding="0" 
+                                                      BorderThickness="0" />
                                             <Separator/>
                                             <MenuItem Header="Tarkastele kilpailua"
                                                       IsEnabled="True"
                                                       Command="{Binding Command, ElementName=CompetitionYearButton}"
-                                                      CommandParameter="{Binding CommandParameter, ElementName=CompetitionYearButton}"/>
+                                                      CommandParameter="{Binding CommandParameter, ElementName=CompetitionYearButton}"
+                                                      Margin="0"
+                                                      Padding="0"
+                                                      BorderThickness="0"/>
                                         </MenuItem>
                                     </Menu>
                                 </Grid>
