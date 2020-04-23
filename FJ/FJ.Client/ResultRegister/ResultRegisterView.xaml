@@ -309,7 +309,7 @@
                 <Button Height="40" Width="240" Margin="2"
                         Foreground="{DynamicResource Darkest1}"
                         Command="{Binding NavigateToCompetitionComparisonCommand}"
-                        Content="VERTAILE KAHTA VALITTUA KILPAILUA" />
+                        Content="Vertaile kahta valittua kilpailua" />
                 <Button Height="40" Width="120" Margin="2"
                         Foreground="{DynamicResource Darkest1}"
                         IsEnabled="{Binding RegisterModel.EnableSearch}"

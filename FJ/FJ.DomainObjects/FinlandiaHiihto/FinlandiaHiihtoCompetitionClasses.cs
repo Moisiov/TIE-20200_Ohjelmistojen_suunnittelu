@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using FJ.DomainObjects.FinlandiaHiihto.Enums;
 
 namespace FJ.DomainObjects.FinlandiaHiihto
@@ -28,10 +29,10 @@ namespace FJ.DomainObjects.FinlandiaHiihto
                    && other.AdditionalDescription == AdditionalDescription;
         }
 
+        [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode", Justification = "Not relevant here")]
         public override int GetHashCode()
         {
-            // ReSharper disable once BaseObjectGetHashCodeCallInGetHashCode
-            return base.GetHashCode();
+            return (Distance, Style, AdditionalDescription).GetHashCode();
         }
     }
 
