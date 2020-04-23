@@ -12,6 +12,8 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
 using Avalonia.VisualTree;
+using FJ.Utils;
+
 // ReSharper disable InconsistentNaming
 // ReSharper disable MemberCanBePrivate.Global
 
@@ -216,8 +218,17 @@ namespace FJ.Client.Core.UIElements
                 _ => $"{SelectedItems.Count.ToString()} {SuffixOnMany}"
             };
         }
+
+        protected void SetSelectedItems(IEnumerable<string> newItems)
+        {
+            SelectedItems.Clear();
+            m_toggleButtons.Clear();
+
+            newItems?.ToList().ForEach(x => SelectedItems.Add(x));
+            SetTextBoxText();
+        }
         
-        private void DeleteItem(object sender, IContentControl item)
+        private void OnDeleteToggleClicked(object sender, IContentControl item)
         {
             if (!IsDropDownOpen 
                 || !item.IsArrangeValid
@@ -228,8 +239,9 @@ namespace FJ.Client.Core.UIElements
 
             m_toggleButtons.Remove(toggle);
             SelectedItems.Remove(item.Content);
+            RaiseSelectedChanged();
         }
-        
+
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Handled)
@@ -260,6 +272,7 @@ namespace FJ.Client.Core.UIElements
             }
 
             SelectedItems.Add(text);
+            RaiseSelectedChanged();
 
             return true;
         }
@@ -337,7 +350,7 @@ namespace FJ.Client.Core.UIElements
                     continue;
                 }
 
-                toggle.Checked += (o, args) => DeleteItem(o, relatedListBoxItem);
+                toggle.Checked += (o, args) => OnDeleteToggleClicked(o, relatedListBoxItem);
                 m_toggleButtons.Add(toggle);
             }
         }
@@ -355,6 +368,11 @@ namespace FJ.Client.Core.UIElements
                 m_selectedItemsCopy.Add(stringItem.ToLower());
             }
             
+            RaiseSelectedChanged();
+        }
+
+        private void RaiseSelectedChanged()
+        {
             RaisePropertyChanged(SelectedItemsProperty, m_selectedItems, m_selectedItems);
         }
     }
