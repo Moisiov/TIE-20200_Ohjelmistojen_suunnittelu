@@ -65,9 +65,9 @@ namespace FJ.Client.Core.Register
             {
                 try
                 {
-                    await OnBeforeActivatingAsync();
+                    await OnBeforeExecuteSearchAsync();
                     await RegisterModel.DoExecuteSearchAsync();
-                    await OnAfterActivatingAsync();
+                    await OnAfterExecuteSearchAsync();
                 }
                 catch (Exception e)
                 {
