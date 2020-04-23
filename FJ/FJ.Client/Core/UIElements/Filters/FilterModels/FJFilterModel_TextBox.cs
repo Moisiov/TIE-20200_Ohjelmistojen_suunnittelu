@@ -30,7 +30,7 @@ namespace FJ.Client.Core.UIElements.Filters.FilterModels
         
         public override void ClearFilters()
         {
-            Value = new string[] { };
+            Value = new List<string>();
         }
 
         protected FJFilterModel_MultiTextBox(Func<IEnumerable<string>, TFilter> createFilterFunc)
@@ -51,7 +51,7 @@ namespace FJ.Client.Core.UIElements.Filters.FilterModels
 
         public override void ClearFilters()
         {
-            Value = new string[] { };
+            Value = new List<string>();
         }
 
         protected FJFilterModel_MultiTextBox_Parseable(Func<IEnumerable<string>, TFilter> createFilterFunc)

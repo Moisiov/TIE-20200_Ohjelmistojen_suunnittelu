@@ -56,7 +56,7 @@ namespace FJ.Client.Core.UIElements.Filters.FilterModels
         
         public override void ClearFilters()
         {
-            Value = new TEnum[] { };
+            Value = new List<TEnum>();
         }
 
         protected FJFilterModel_MultiEnumComboBox(Func<IEnumerable<TEnum>, TFilter> createFilterFunc)
