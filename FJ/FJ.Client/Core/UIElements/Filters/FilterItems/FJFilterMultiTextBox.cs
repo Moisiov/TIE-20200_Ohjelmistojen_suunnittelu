@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using Avalonia;
 using Avalonia.Data;
 using Avalonia.Styling;
@@ -23,6 +24,7 @@ namespace FJ.Client.Core.UIElements.Filters.FilterItems
         #region DependencyProperties
 
         private RegisterFilterModelBase m_filterModel;
+        private bool m_suspendFilterChangedHandler;
         
         /// <summary>
         /// Filter model to be used with
@@ -53,6 +55,7 @@ namespace FJ.Client.Core.UIElements.Filters.FilterItems
         
         private void OnSelectedItemsChanged(AvaloniaPropertyChangedEventArgs e)
         {
+            m_suspendFilterChangedHandler = true;
             m_filterModel.BaseValue = e.NewValue;
         }
         
@@ -69,8 +72,24 @@ namespace FJ.Client.Core.UIElements.Filters.FilterItems
         
         private void OnFilterChanged()
         {
-            SelectedItems = m_filterModel.BaseValue as IList;
-            SetTextBoxText();
+            if (m_suspendFilterChangedHandler)
+            {
+                m_suspendFilterChangedHandler = false;
+                return;
+            }
+
+            if (m_filterModel.BaseValue == null)
+            {
+                SetSelectedItems(null);
+                return;
+            }
+            
+            if (!(m_filterModel.BaseValue is IList newItems))
+            {
+                throw new InvalidOperationException(nameof(m_filterModel.BaseValue));
+            }
+            
+            SetSelectedItems(newItems.Cast<string>());
         }
     }
 }
