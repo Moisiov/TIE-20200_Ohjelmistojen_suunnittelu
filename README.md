@@ -1,6 +1,8 @@
 ## Uutiset ##
-* **Lopullisempi palautus:** Lopullisempi, tai ainakin mukavampikäyttöinen palautus löytyy tagilla *finalReturn1.1* (21.4.2020)
-* **Lopullinen palautus:** Lopullinen palautus löytyy tagilla *finalReturn1.0* (18.4.2020)
+* **Lopulliset palautukset** – *valitse vapaasti, mutta myöhempi on todennäköisesti parempi*
+	* Tag: *finalReturn 1.2* (23.4.2020)
+	* Tag: *finalReturn1.1* (21.4.2020)
+	* Tag: *finalReturn1.0* (18.4.2020)
 * **Välipalautus:** Palautukseen liittyvä dokumentaatio koostuu alla sijaitsevasta suunnitteludokumentista ja [wikistä](../wikis/Home). (21.3.2020)
 * **[Wiki](../wikis/Home) on julkaistu! (14.3.2020)**
 
