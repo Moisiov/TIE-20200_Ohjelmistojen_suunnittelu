@@ -1,9 +1,10 @@
 ﻿using System;
+using FJ.Client.Core;
 using FJ.DomainObjects.FinlandiaHiihto;
 
 namespace FJ.Client.Athlete
 {
-    public class AthleteParticipationItemModel
+    public class AthleteParticipationItemModel : FJNotificationObject
     {
         private readonly AthleteCardViewModel m_owner;
         
@@ -15,7 +16,7 @@ namespace FJ.Client.Athlete
             get => m_isSelected;
             set
             {
-                m_isSelected = value;
+                SetAndRaise(ref m_isSelected, value);
                 m_owner.ItemSelectionChanged();
             }
         }

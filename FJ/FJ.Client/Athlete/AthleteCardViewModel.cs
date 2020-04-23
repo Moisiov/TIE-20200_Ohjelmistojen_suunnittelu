@@ -16,6 +16,7 @@ namespace FJ.Client.Athlete
         private readonly IPlotService m_plotService;
     
         private AthleteCardModel m_model;
+        private bool m_suspendItemSelectionChangedHandler;
 
         private ObservableCollection<AthleteParticipationItemModel> m_participationList;
         public ObservableCollection<AthleteParticipationItemModel> ParticipationList
@@ -36,6 +37,13 @@ namespace FJ.Client.Athlete
         {
             get => m_anyItemsSelected;
             set => SetAndRaise(ref m_anyItemsSelected, value);
+        }
+
+        private bool m_allItemsSelected;
+        public bool AllItemsSelected
+        {
+            get => m_allItemsSelected;
+            set => SetAndRaise(ref m_allItemsSelected, value);
         }
 
         private bool m_plotOptionsIsActiveIsActive;
@@ -73,6 +81,7 @@ namespace FJ.Client.Athlete
                 
                 var athleteFirstName = Argument.AthleteFirstName ?? string.Empty;
                 var athleteLastName = Argument.AthleteLastName ?? string.Empty;
+                AllItemsSelected = true;
                 AnyItemsSelected = false;
 
                 if (athleteFirstName.IsNullOrEmpty())
@@ -93,6 +102,7 @@ namespace FJ.Client.Athlete
             
                     ParticipationList = new ObservableCollection<AthleteParticipationItemModel>(participationItemModels);
                     AthletePersonalInfo = m_model.Athlete;
+                    ItemSelectionChanged();
                 }
                 catch (Exception e)
                 {
@@ -107,6 +117,7 @@ namespace FJ.Client.Athlete
             AthletePersonalInfo = null;
             ParticipationList = null;
             ProgressionChartDeactivation();
+            ItemSelectionChanged();
             await Task.CompletedTask;
         }
         
@@ -126,7 +137,27 @@ namespace FJ.Client.Athlete
 
         public void ItemSelectionChanged()
         {
-            AnyItemsSelected = m_participationList.Any(x => x.IsSelected);
+            if (m_suspendItemSelectionChangedHandler)
+            {
+                return;
+            }
+            
+            AnyItemsSelected = m_participationList?.Any(x => x.IsSelected) == true;
+            AllItemsSelected = m_participationList == null
+                               || (AnyItemsSelected
+                                   && m_participationList?.All(x => x.IsSelected) == true);
+        }
+
+        public void SetAllSelections(bool newSelectionState)
+        {
+            m_suspendItemSelectionChangedHandler = true;
+            foreach (var participationItemModel in m_participationList)
+            {
+                participationItemModel.IsSelected = newSelectionState;
+            }
+
+            m_suspendItemSelectionChangedHandler = false;
+            ItemSelectionChanged();
         }
 
         public void ProgressionChartPopulate()
