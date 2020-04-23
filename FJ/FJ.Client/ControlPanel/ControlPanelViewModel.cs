@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
 using Avalonia.Threading;
@@ -14,6 +15,7 @@ using FJ.Client.Team;
 using FJ.DomainObjects.FinlandiaHiihto;
 using FJ.DomainObjects.FinlandiaHiihto.Enums;
 using FJ.ServiceInterfaces.Weather;
+using FJ.Utils;
 using ReactiveUI;
 
 namespace FJ.Client.ControlPanel
@@ -97,7 +99,12 @@ namespace FJ.Client.ControlPanel
 
         public void NavigateToResultRegister()
         {
-            Navigator.DoNavigateTo<ResultRegisterView>();
+            var args = new ResultRegisterArgs
+            {
+                CompetitionYears = 2019.ToMany().ToHashSet()
+            };
+            
+            Navigator.DoNavigateTo<ResultRegisterView>(args);
         }
 
         public void NavigateToCompetitionGeneral()
