@@ -39,9 +39,8 @@
         <!-- Region-based contents -->
         <Grid x:Name="LayoutRoot" IsEnabled="{Binding ShowContentRegionErrorMessage, Converter={StaticResource BoolInversionConverter}}">
             <Grid.ColumnDefinitions>
-                <!-- 10, 40 -->
-                <ColumnDefinition Width="{Binding ControlPanelSize, Converter={StaticResource ControlPanelSizeConverter}, ConverterParameter=10}" />
-                <ColumnDefinition Width="40*" />
+                <ColumnDefinition Width="{Binding ControlPanelSize, Converter={StaticResource ControlPanelSizeConverter}}" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
