@@ -36,11 +36,11 @@ namespace FJ.Desktop.Debug
         {
             container.RegisterInstance<ICacheProvider>(new MemoryCacheProvider());
             
-            container.RegisterSingleton<IDataFetchingService, FinlandiaAPIDataFetchingService>();
+            container.RegisterType<IDataFetchingService, FinlandiaAPIDataFetchingService>();
             container.Decorate<IDataFetchingService, SimpleDataFetcherCacheDecorator>();
             container.Decorate<IDataFetchingService, SimpleDataFetcherDebugLoggerDecorator>();
             
-            container.RegisterSingleton<IWeatherDataFetchingService, IlmatieteenLaitosAPIDataFetchingService>();
+            container.RegisterType<IWeatherDataFetchingService, IlmatieteenLaitosAPIDataFetchingService>();
 
             container.RegisterInstance<IFilterImplementationProvider>(new FilterImplementationProvider());
         }
