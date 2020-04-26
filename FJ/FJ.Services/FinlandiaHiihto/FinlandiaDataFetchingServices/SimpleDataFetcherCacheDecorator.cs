@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using FJ.DomainObjects.Filters.Core;
 using FJ.DomainObjects.FinlandiaHiihto;
@@ -8,25 +6,24 @@ using FJ.Services.CoreServices;
 
 namespace FJ.Services.FinlandiaHiihto.FinlandiaDataFetchingServices
 {
-    public class SimpleDataFetcherCacheDecorator : IDataFetchingService
+    public class SimpleDataFetcherCacheDecorator : DataFetcherDecoratorBase
     {
-        private readonly IDataFetchingService m_dataFetchingService;
         private readonly ICacheProvider m_cacheProvider;
 
         public SimpleDataFetcherCacheDecorator(IDataFetchingService dataFetchingService, ICacheProvider cacheProvider)
+            : base(dataFetchingService)
         {
-            m_dataFetchingService = dataFetchingService;
             m_cacheProvider = cacheProvider;
         }
         
-        public async Task<FinlandiaHiihtoResultsCollection> GetFinlandiaHiihtoResultsAsync(FilterCollection filters)
+        public override async Task<FinlandiaHiihtoResultsCollection> GetFinlandiaHiihtoResultsAsync(FilterCollection filters)
         {
             if (m_cacheProvider.TryGetSerializingKey(filters, out FinlandiaHiihtoResultsCollection cachedRes))
             {
                 return cachedRes;
             }
 
-            var res = await m_dataFetchingService.GetFinlandiaHiihtoResultsAsync(filters);
+            var res = await DataFetchingService.GetFinlandiaHiihtoResultsAsync(filters);
             m_cacheProvider.SetSerializingKey(filters, res);
 
             return res;
