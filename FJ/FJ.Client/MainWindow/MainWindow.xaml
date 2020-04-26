@@ -28,16 +28,16 @@
 
     <Grid>
         <Grid.Resources>
-            <valueConverters:BoolInversionConverter x:Key="BoolInversionConverter" />
             <valueConverters:ControlPanelSizeOptionConverter x:Key="ControlPanelSizeConverter" />
             <valueConverters:NullToVisibilityConverter x:Key="NullToVisConverter" />
+            <valueConverters:NullToVisibilityInversionConverter x:Key="NullToVisInversionConverter" />
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
         <!-- Region-based contents -->
-        <Grid x:Name="LayoutRoot" IsEnabled="{Binding ShowContentRegionErrorMessage, Converter={StaticResource BoolInversionConverter}}">
+        <Grid x:Name="LayoutRoot" IsEnabled="{Binding ContentRegionErrorMessage, Converter={StaticResource NullToVisInversionConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="{Binding ControlPanelSize, Converter={StaticResource ControlPanelSizeConverter}}" />
                 <ColumnDefinition Width="*" />
@@ -62,7 +62,7 @@
         <Border IsVisible="{Binding ContentRegionErrorMessage, Converter={StaticResource NullToVisConverter}}" 
                 ZIndex="2"
                 CornerRadius="6"
-                Background="white"
+                Background="{DynamicResource Lightest1}"
                 BorderBrush="{DynamicResource Error1}"
                 BorderThickness="5"
                 Width ="400" Height="200" Margin="75, 0, 75, 0">
@@ -73,9 +73,11 @@
                 </Grid.RowDefinitions> 
                 <TextBlock Grid.Row="0"
                            Margin="10"
-                           HorizontalAlignment="Center" 
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
                            TextWrapping="Wrap"
-                           Text="{Binding ContentRegionErrorMessage}" />
+                           Text="{Binding ContentRegionErrorMessage}"
+                           FontSize="{DynamicResource FontSizeNormal}" />
                 
                 <Button Grid.Row="1" 
                         FontSize="{DynamicResource FontSizeLarge}" 
@@ -83,7 +85,7 @@
                         Width="130"
                         Margin="0, 0, 0, 7"
                         Background="{DynamicResource Error1}" 
-                        Foreground="white" 
+                        Foreground="{DynamicResource Lightest1}"
                         Content="Sulje"  
                         Command="{Binding ClearContentRegionErrorMessage}"/>
             </Grid>

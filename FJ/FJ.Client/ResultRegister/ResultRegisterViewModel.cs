@@ -70,6 +70,8 @@ namespace FJ.Client.ResultRegister
             RegisterModel.FinlandiaLastNamesFilter.AcceptValue(Argument.LastNames.ToList());
 
             await ExecuteSearchAsync();
+
+            RegisterModel.EnableSearch = false;
         }
 
         public void NavigateToCompetitionComparisonCommand()
